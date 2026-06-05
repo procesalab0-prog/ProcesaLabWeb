@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ProcesaLab — Procesos inteligentes. Empresas imparables.</title>
+<meta name="description" content="ProcesaLab ayuda a pequeñas y medianas empresas a crecer con soluciones digitales y automatización con IA. La ingeniería de procesos se encuentra con la inteligencia artificial.">
+<meta property="og:title" content="ProcesaLab — Procesos inteligentes. Empresas imparables.">
+<meta property="og:description" content="Automatización de procesos con IA y desarrollo web para PyMEs.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#F7B6C9;
+  --red:#FF4E3A;
+  --cream:#FFFBF6;
+  --ink:#111111;
+  --lav:#EDE6F2;
+  --accent:var(--red);
+  --hero-bg:var(--cream);
+  --maxw:1180px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{
+  margin:0;
+  font-family:"Instrument Sans",system-ui,sans-serif;
+  background:var(--cream);
+  color:var(--ink);
+  -webkit-font-smoothing:antialiased;
+  overflow-x:hidden;
+}
+h1,h2,h3,.display{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-0.02em;line-height:0.98;text-wrap:balance;margin:0}
+p{margin:0;text-wrap:pretty}
+a{color:inherit;text-decoration:none}
+.wrap{max-width:var(--maxw);margin:0 auto;padding:0 28px}
+.gear{display:inline-block;vertical-align:middle}
+svg{fill:currentColor}
+.gear-spin{animation:spin 18s linear infinite}
+@media (prefers-reduced-motion:reduce){.gear-spin{animation:none}}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1.5px solid transparent;transition:background .3s, border-color .3s, backdrop-filter .3s}
+.nav.solid{background:rgba(255,251,246,.86);backdrop-filter:blur(10px);border-bottom-color:var(--ink)}
+.nav-in{display:flex;align-items:center;justify-content:space-between;height:74px}
+.brand{display:flex;align-items:center;gap:11px;font-family:"Space Grotesk";font-weight:700;font-size:23px;letter-spacing:-0.03em;line-height:0.82}
+.brand .tm{font-size:9px;vertical-align:super;font-weight:600;opacity:.6}
+.nav-links{display:flex;align-items:center;gap:30px;font-weight:500;font-size:15px}
+.nav-links a.nl{position:relative}
+.nav-links a.nl::after{content:"";position:absolute;left:0;bottom:-5px;width:0;height:2px;background:var(--accent);transition:width .25s}
+.nav-links a.nl:hover::after{width:100%}
+.langtog{display:flex;border:1.5px solid var(--ink);border-radius:30px;overflow:hidden;font-family:"Space Grotesk";font-weight:600;font-size:12px}
+.langtog button{border:0;background:transparent;padding:6px 12px;cursor:pointer;font:inherit;color:var(--ink);transition:.2s}
+.langtog button.on{background:var(--ink);color:var(--cream)}
+.btn{display:inline-flex;align-items:center;gap:9px;font-family:"Space Grotesk";font-weight:600;font-size:15px;padding:13px 22px;border-radius:40px;border:1.5px solid var(--ink);cursor:pointer;transition:transform .15s, box-shadow .15s, background .2s}
+.btn-primary{background:var(--accent);color:#fff;box-shadow:4px 4px 0 var(--ink)}
+.btn-primary:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.btn-ghost{background:transparent;color:var(--ink)}
+.btn-ghost:hover{background:var(--ink);color:var(--cream)}
+.btn-dark{background:var(--ink);color:var(--cream);box-shadow:4px 4px 0 rgba(17,17,17,.25)}
+.btn-dark:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(17,17,17,.25)}
+.nav .btn{padding:10px 18px;font-size:14px}
+
+/* HERO */
+.hero{position:relative;background:var(--pink);min-height:100svh;display:flex;align-items:center;padding:120px 0 72px;overflow:hidden}
+.hero-in{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;justify-content:center}
+.logo-lockup{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--ink);line-height:.78;letter-spacing:-.045em}
+.ll-1{font-size:clamp(64px,19.5vw,290px)}
+.ll-2{font-size:clamp(64px,19.5vw,290px);display:flex;align-items:center}
+.ll-tm{font-size:.16em;font-weight:600;align-self:flex-start;margin-top:.18em;margin-left:.03em;letter-spacing:0}
+.ll-gear{width:.82em;height:.82em;display:inline-block;flex:none;margin-left:.16em}
+.ll-gear.gear-spin{animation:spin 9s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:clamp(28px,4vw,52px);max-width:1180px}
+.hero-tag{font-family:"Space Grotesk";font-weight:600;font-size:clamp(18px,2.3vw,26px);letter-spacing:-.01em;line-height:1.1;color:var(--ink);max-width:440px}
+.hero-cta{display:flex;flex-wrap:wrap;gap:14px}
+.hero-scroll{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);z-index:2;display:flex;flex-direction:column;align-items:center;gap:7px;font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:.65}
+.hero-scroll svg{animation:bob 1.8s ease-in-out infinite}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
+@media (prefers-reduced-motion:reduce){.hero-scroll svg{animation:none}}
+
+/* MARQUEE */
+.marq{background:var(--ink);color:var(--cream);overflow:hidden;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
+.marq-track{display:flex;gap:38px;white-space:nowrap;width:max-content;animation:scroll 26s linear infinite;padding:15px 0}
+.marq-track span{font-family:"Space Grotesk";font-weight:600;font-size:16px;letter-spacing:.02em;display:inline-flex;align-items:center;gap:38px}
+.marq .pip{color:var(--accent)}
+@keyframes scroll{to{transform:translateX(-50%)}}
+
+/* SECTION HEADER */
+.sec{padding:96px 0}
+.sec-head{display:flex;align-items:flex-end;justify-content:space-between;gap:24px;margin-bottom:48px;flex-wrap:wrap}
+.sec-tag{font-family:"Space Grotesk";font-weight:600;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:9px}
+.sec-tag::before{content:"";width:26px;height:2px;background:var(--accent)}
+.sec h2{font-size:clamp(34px,5vw,60px);margin-top:14px}
+.sec-head p{max-width:380px;font-size:16px;line-height:1.55;color:#5a5256}
+
+/* SERVICES */
+.svc-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+.svc{background:var(--cream);border:1.5px solid var(--ink);border-radius:22px;padding:40px;box-shadow:5px 5px 0 var(--ink);transition:transform .18s, box-shadow .18s;position:relative;overflow:hidden}
+.svc:hover{transform:translate(-3px,-3px);box-shadow:8px 8px 0 var(--ink)}
+.svc .ico{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;background:var(--accent);color:#fff;margin-bottom:24px}
+.svc h3{font-size:26px;margin-bottom:12px}
+.svc p{font-size:15.5px;line-height:1.55;color:#4a4347}
+.svc .num{position:absolute;top:24px;right:30px;font-family:"Space Grotesk";font-weight:700;font-size:18px;color:var(--pink)}
+.svc.alt{background:var(--pink)}
+.svc.alt .num{color:var(--red)}
+
+/* PROJECTS */
+#proyectos{background:var(--lav)}
+.proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:var(--cream);border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s, box-shadow .18s;box-shadow:0 0 0 var(--ink)}
+.card:hover{transform:translateY(-6px);box-shadow:7px 9px 0 var(--ink)}
+.thumb{aspect-ratio:16/10;position:relative;display:flex;align-items:center;justify-content:center;border-bottom:1.5px solid var(--ink);overflow:hidden}
+.thumb .mono{font-family:"Space Grotesk";font-weight:700;font-size:50px;letter-spacing:-.03em;z-index:2}
+.thumb .bgear{position:absolute;right:-28px;bottom:-30px;opacity:.5}
+.thumb .num{position:absolute;left:16px;top:14px;font-family:"Space Grotesk";font-weight:600;font-size:13px;z-index:2;opacity:.85}
+.t-pink{background:var(--pink);color:var(--ink)}
+.t-ink{background:var(--ink);color:var(--pink)}
+.t-red{background:var(--red);color:var(--cream)}
+.t-lav{background:var(--lav);color:var(--ink)}
+.t-cream{background:var(--cream);color:var(--red)}
+.card-body{padding:22px 22px 24px;display:flex;flex-direction:column;gap:11px;flex:1}
+.card-tag{align-self:flex-start;font-family:"Space Grotesk";font-weight:600;font-size:11px;letter-spacing:.05em;text-transform:uppercase;border:1.4px solid var(--ink);border-radius:20px;padding:4px 11px}
+.card h3{font-size:21px}
+.card-body p{font-size:14.5px;line-height:1.5;color:#5a5256;flex:1}
+.visit{display:inline-flex;align-items:center;gap:8px;font-family:"Space Grotesk";font-weight:600;font-size:14.5px;color:var(--ink);margin-top:4px}
+.visit .arr{display:inline-flex;transition:transform .2s}
+.card:hover .visit .arr{transform:translate(4px,-4px)}
+.card:hover .visit{color:var(--red)}
+
+/* CTA */
+.cta{background:var(--ink);color:var(--cream);text-align:center;position:relative;overflow:hidden}
+.cta .wrap{position:relative;z-index:2;padding:104px 28px}
+.cta h2{font-size:clamp(40px,6.4vw,80px);color:var(--cream)}
+.cta h2 .red{color:var(--accent)}
+.cta p{max-width:520px;margin:24px auto 0;font-size:18px;line-height:1.55;color:#cfc7ca}
+.cta-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:40px}
+.cta .btn-primary{box-shadow:4px 4px 0 var(--accent)}
+.cta .btn-primary:hover{box-shadow:6px 6px 0 var(--accent)}
+.cta .btn-out{background:transparent;color:var(--cream);border-color:var(--cream)}
+.cta .btn-out:hover{background:var(--cream);color:var(--ink)}
+.cta-deco{position:absolute;color:rgba(247,182,201,.13);z-index:1}
+.cd1{top:-60px;left:-50px}
+.cd2{bottom:-70px;right:-40px}
+
+/* FOOTER */
+.foot{background:var(--cream);border-top:1.5px solid var(--ink);padding:54px 0 40px}
+.foot-in{display:flex;justify-content:space-between;align-items:flex-start;gap:30px;flex-wrap:wrap}
+.foot .brand{font-size:26px}
+.foot-tag{margin-top:14px;font-size:15px;color:#5a5256;max-width:300px;line-height:1.5}
+.foot-right{text-align:right}
+.foot-right .lbl{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a8085;margin-bottom:8px}
+.foot-right a.mail{font-family:"Space Grotesk";font-weight:700;font-size:22px;color:var(--ink);border-bottom:2.5px solid var(--accent);padding-bottom:2px}
+.foot-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:46px;padding-top:22px;border-top:1.5px solid #e7ded8;font-size:13px;color:#8a8085;flex-wrap:wrap;gap:10px}
+
+@media(max-width:880px){
+  .proj-grid{grid-template-columns:1fr 1fr}
+  .svc-grid{grid-template-columns:1fr}
+  .nav-links .nl{display:none}
+}
+@media(max-width:560px){
+  .proj-grid{grid-template-columns:1fr}
+  .hero-stats{gap:26px}
+  .stat .n{font-size:32px}
+  .foot-right{text-align:left}
+}
+</style>
+</head>
+<body>
+
+<!-- reusable gear mask -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs>
+<mask id="coghole" maskContentUnits="userSpaceOnUse"><rect width="100" height="100" fill="#fff"/><circle cx="50" cy="50" r="10.5" fill="#000"/></mask>
+</defs></svg>
+
+<!-- NAV -->
+<header class="nav">
+  <div class="wrap nav-in">
+    <a href="#top" class="brand">PROCESA<br>LAB<span class="tm">™</span>
+      <span class="gear gslot" data-s="30" style="color:var(--accent)"></span>
+    </a>
+    <nav class="nav-links">
+      <a class="nl" href="#servicios" data-es="Servicios" data-en="Services">Servicios</a>
+      <a class="nl" href="#proyectos" data-es="Proyectos" data-en="Projects">Proyectos</a>
+      <div class="langtog" role="group" aria-label="Language">
+        <button id="es" class="on" onclick="setLang('es')">ES</button>
+        <button id="en" onclick="setLang('en')">EN</button>
+      </div>
+      <a class="btn btn-primary" href="#contacto" data-es="Hablemos" data-en="Let's talk">Hablemos</a>
+    </nav>
+  </div>
+</header>
+
+<main id="top">
+
+<!-- HERO -->
+<section class="hero">
+  <div class="wrap hero-in">
+    <div class="logo-lockup">
+      <div class="ll-1">PROCESA</div>
+      <div class="ll-2">LAB<span class="ll-tm">™</span><span class="ll-gear gear-spin gslot" data-s="100%" style="color:var(--red)"></span></div>
+    </div>
+    <div class="hero-foot">
+      <p class="hero-tag" data-es="Procesos inteligentes. Empresas imparables." data-en="Smart processes. Unstoppable businesses.">Procesos inteligentes. Empresas imparables.</p>
+      <div class="hero-cta">
+        <a class="btn btn-primary" href="#proyectos" data-es="Ver proyectos" data-en="See projects">Ver proyectos
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+        </a>
+        <a class="btn btn-dark" href="#contacto" data-es="Agendar consultoría" data-en="Book a consultation">Agendar consultoría</a>
+      </div>
+    </div>
+  </div>
+  <div class="hero-scroll" aria-hidden="true">
+    <span data-es="Desliza" data-en="Scroll">Desliza</span>
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M3 9l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+  </div>
+</section>
+
+<!-- MARQUEE -->
+<div class="marq" aria-hidden="true">
+  <div class="marq-track">
+    <span data-es="AUTOMATIZACIÓN CON IA" data-en="AI AUTOMATION">AUTOMATIZACIÓN CON IA</span><span class="pip">✳</span>
+    <span data-es="DESARROLLO WEB" data-en="WEB DEVELOPMENT">DESARROLLO WEB</span><span class="pip">✳</span>
+    <span data-es="MEJORA DE PROCESOS" data-en="PROCESS IMPROVEMENT">MEJORA DE PROCESOS</span><span class="pip">✳</span>
+    <span data-es="CRECIMIENTO MEDIBLE" data-en="MEASURABLE GROWTH">CRECIMIENTO MEDIBLE</span><span class="pip">✳</span>
+    <span data-es="AUTOMATIZACIÓN CON IA" data-en="AI AUTOMATION">AUTOMATIZACIÓN CON IA</span><span class="pip">✳</span>
+    <span data-es="DESARROLLO WEB" data-en="WEB DEVELOPMENT">DESARROLLO WEB</span><span class="pip">✳</span>
+    <span data-es="MEJORA DE PROCESOS" data-en="PROCESS IMPROVEMENT">MEJORA DE PROCESOS</span><span class="pip">✳</span>
+    <span data-es="CRECIMIENTO MEDIBLE" data-en="MEASURABLE GROWTH">CRECIMIENTO MEDIBLE</span><span class="pip">✳</span>
+  </div>
+</div>
+
+<!-- SERVICES -->
+<section class="sec wrap" id="servicios">
+  <div class="sec-head">
+    <div>
+      <div class="sec-tag" data-es="Qué hacemos" data-en="What we do">Qué hacemos</div>
+      <h2 data-es="Dos formas de impulsar tu negocio" data-en="Two ways to power your business">Dos formas de impulsar tu negocio</h2>
+    </div>
+    <p data-es="Combinamos ingeniería de procesos con inteligencia artificial para entregar soluciones que de verdad mueven la aguja." data-en="We combine process engineering with artificial intelligence to deliver solutions that actually move the needle.">Combinamos ingeniería de procesos con inteligencia artificial para entregar soluciones que de verdad mueven la aguja.</p>
+  </div>
+  <div class="svc-grid">
+    <div class="svc">
+      <span class="num">01</span>
+      <div class="ico">
+        <span class="gslot" data-s="28" style="color:#fff;display:block"></span>
+      </div>
+      <h3 data-es="Automatización de procesos con IA" data-en="AI process automation">Automatización de procesos con IA</h3>
+      <p data-es="Identificamos tareas repetitivas y las convertimos en flujos automáticos e inteligentes. Menos trabajo manual, menos errores, más tiempo para crecer." data-en="We spot repetitive tasks and turn them into smart, automated workflows. Less manual work, fewer errors, more time to grow.">Identificamos tareas repetitivas y las convertimos en flujos automáticos e inteligentes. Menos trabajo manual, menos errores, más tiempo para crecer.</p>
+    </div>
+    <div class="svc alt">
+      <span class="num">02</span>
+      <div class="ico">
+        <svg width="26" height="26" viewBox="0 0 24 24" fill="none"><rect x="2" y="4" width="20" height="16" rx="3" stroke="currentColor" stroke-width="2"/><path d="M2 9h20" stroke="currentColor" stroke-width="2"/><circle cx="5.5" cy="6.5" r="0.9" fill="currentColor"/><circle cx="8.5" cy="6.5" r="0.9" fill="currentColor"/></svg>
+      </div>
+      <h3 data-es="Desarrollo de sitios web y landing pages" data-en="Websites &amp; landing pages">Desarrollo de sitios web y landing pages</h3>
+      <p data-es="Diseñamos y construimos sitios rápidos, modernos y enfocados en conversión — la primera impresión digital que tu marca merece." data-en="We design and build fast, modern, conversion-focused sites — the digital first impression your brand deserves.">Diseñamos y construimos sitios rápidos, modernos y enfocados en conversión — la primera impresión digital que tu marca merece.</p>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section class="sec" id="proyectos">
+  <div class="wrap">
+    <div class="sec-head">
+      <div>
+        <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
+        <h2 data-es="Proyectos en vivo" data-en="Live projects">Proyectos en vivo</h2>
+      </div>
+      <p data-es="Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos." data-en="A selection of sites and experiences we've designed and built. Click to visit them.">Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos.</p>
+    </div>
+    <div class="proj-grid" id="projGrid"></div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta" id="contacto">
+  <span class="cta-deco cd1 gear-spin gslot" data-s="300"></span>
+  <span class="cta-deco cd2 gear-spin gslot" data-s="240" style="animation-direction:reverse"></span>
+  <div class="wrap">
+    <h2><span data-es="¿Listo para" data-en="Ready to">¿Listo para</span> <span class="red" data-es="crecer?" data-en="grow?">crecer?</span></h2>
+    <p data-es="Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos." data-en="Tell us which process you want to automate or which site you want to build. We'll reply with a clear, jargon-free plan.">Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos.</p>
+    <div class="cta-actions">
+      <a class="btn btn-primary" href="mailto:procesalab0@gmail.com">procesalab0@gmail.com</a>
+      <a class="btn btn-out" href="mailto:procesalab0@gmail.com?subject=Quiero%20automatizar%20un%20proceso" data-es="Iniciar un proyecto" data-en="Start a project">Iniciar un proyecto</a>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="foot">
+  <div class="wrap foot-in">
+    <div>
+      <div class="brand">PROCESA<br>LAB<span class="tm">™</span>
+        <span class="gear gslot" data-s="26" style="color:var(--accent)"></span>
+      </div>
+      <p class="foot-tag" data-es="Procesos inteligentes. Empresas imparables." data-en="Smart processes. Unstoppable businesses.">Procesos inteligentes. Empresas imparables.</p>
+    </div>
+    <div class="foot-right">
+      <div class="lbl" data-es="Escríbenos" data-en="Get in touch">Escríbenos</div>
+      <a class="mail" href="mailto:procesalab0@gmail.com">procesalab0@gmail.com</a>
+    </div>
+  </div>
+  <div class="wrap foot-bottom">
+    <span>© 2026 ProcesaLab</span>
+    <span data-es="IA + Procesos · Resultados reales" data-en="AI + Processes · Real results">IA + Procesos · Resultados reales</span>
+  </div>
+</footer>
+
+<script>
+const GA = [0, 45, 90, 135, 180, 225, 270, 315];
+const GSHAPES = '<circle cx="50" cy="50" r="25"/>' +
+  GA.map(a => `<rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(${a} 50 50)"/>`).join('');
+
+function gsvg(s, fill) {
+  return `<svg width="${s}" height="${s}" viewBox="0 0 100 100" style="display:block"><g mask="url(#coghole)" fill="${fill}">${GSHAPES}</g></svg>`;
+}
+
+document.querySelectorAll('.gslot').forEach(el => {
+  el.innerHTML = gsvg(el.dataset.s || 30, getComputedStyle(el).color);
+});
+
+const WM = { 't-ink': '#F7B6C9', 't-pink': '#111111', 't-red': '#FFFBF6', 't-lav': '#111111', 't-cream': '#FF4E3A' };
+
+const PROJECTS = [
+  { n: "NexTech Industries", mono: "NX", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio corporativo industrial: presencia digital sólida y profesional para una empresa de manufactura.", d_en: "Industrial corporate site: a solid, professional digital presence for a manufacturing company.", url: "https://emma35015-lgtm.github.io/NexTech-Ind./", cls: "t-ink" },
+  { n: "Padel Park", mono: "PP", tag_es: "Landing page", tag_en: "Landing page", d_es: "Landing para un programa de tarjeta de lealtad — diseñada para captar y retener clientes.", d_en: "Landing for a loyalty card program — built to capture and retain customers.", url: "https://padelparkgj.github.io/Tarjeta-de-Lealtad-PP/Landing%20Page.html", cls: "t-pink" },
+  { n: "Origin Café", mono: "OC", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio web cálido y apetitoso para una cafetería, con menú y carácter de marca.", d_en: "A warm, appetizing website for a café, with menu and brand character.", url: "https://origincafe-tfto.github.io/OriginCaf-TFTOWeb/#", cls: "t-red" },
+  { n: "Game 2.0", mono: "G2", tag_es: "Interactivo", tag_en: "Interactive", d_es: "Experiencia web interactiva — demostración de UI dinámica y lógica en el navegador.", d_en: "Interactive web experience — a demo of dynamic in-browser UI and logic.", url: "https://emma35015-lgtm.github.io/Game-2.0/", cls: "t-lav" },
+  { n: "Cortadora Láser", mono: "CL", tag_es: "Landing page", tag_en: "Landing page", d_es: "Landing de servicios y operaciones de corte láser, con foco en la oferta y el contacto.", d_en: "Services & operations landing for laser cutting, focused on the offer and contact.", url: "https://emma35015-lgtm.github.io/Operaciones-Cortadora-Laser/#empresa", cls: "t-cream" },
+  { n: "Demo IA", mono: "AI", tag_es: "IA", tag_en: "AI", d_es: "Prototipo web generado y potenciado con inteligencia artificial.", d_en: "A web prototype generated and powered with artificial intelligence.", url: "https://pnediu7uucst.space.minimax.io", cls: "t-pink" },
+  { n: "CPM NexTech", mono: "CP", tag_es: "Plataforma", tag_en: "Platform", d_es: "Plataforma de gestión y control de proyectos para operación interna.", d_en: "Project management and control platform for internal operations.", url: "https://emma35015-lgtm.github.io/CPMNexTech-/", cls: "t-ink" }
+];
+
+function projCard(p, i) {
+  const num = String(i + 1).padStart(2, '0');
+  return `<a class="card" href="${p.url}" target="_blank" rel="noopener">
+    <div class="thumb ${p.cls}">
+      <span class="num">${num}</span>
+      <span class="mono">${p.mono}</span>
+      <span class="bgear">${gsvg(120, WM[p.cls] || '#111111')}</span>
+    </div>
+    <div class="card-body">
+      <span class="card-tag" data-es="${p.tag_es}" data-en="${p.tag_en}">${p.tag_es}</span>
+      <h3>${p.n}</h3>
+      <p data-es="${p.d_es}" data-en="${p.d_en}">${p.d_es}</p>
+      <span class="visit"><span data-es="Visitar sitio" data-en="Visit site">Visitar sitio</span>
+        <span class="arr"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+      </span>
+    </div>
+  </a>`;
+}
+
+document.getElementById('projGrid').innerHTML = PROJECTS.map(projCard).join('');
+
+let LANG = localStorage.getItem('pl_lang') || 'es';
+
+function setLang(l) {
+  LANG = l;
+  localStorage.setItem('pl_lang', l);
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-es]').forEach(el => {
+    const v = el.getAttribute('data-' + l);
+    if (v !== null) el.textContent = v;
+  });
+  document.getElementById('es').classList.toggle('on', l === 'es');
+  document.getElementById('en').classList.toggle('on', l === 'en');
+}
+
+setLang(LANG);
+
+// Nav becomes opaque after scrolling 62% of hero
+const navEl = document.querySelector('.nav');
+function onScroll() {
+  navEl.classList.toggle('solid', window.scrollY > window.innerHeight * 0.62);
+}
+onScroll();
+window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+</body>
+</html>
