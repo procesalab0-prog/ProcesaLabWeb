@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>if('scrollRestoration'in history)history.scrollRestoration='manual';</script>
 <title>ProcesaLab — Procesos inteligentes. Empresas imparables.</title>
 <meta name="description" content="ProcesaLab ayuda a pequeñas y medianas empresas a crecer con soluciones digitales y automatización con IA. La ingeniería de procesos se encuentra con la inteligencia artificial.">
 <meta property="og:title" content="ProcesaLab — Procesos inteligentes. Empresas imparables.">
@@ -383,8 +384,8 @@ function setLang(l) {
 setLang(LANG);
 
 // Prevent iOS Safari from restoring scroll position
-if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
 window.scrollTo(0, 0);
+window.addEventListener('load', () => window.scrollTo(0, 0));
 
 // Nav becomes opaque after scrolling 62% of hero
 const navEl = document.querySelector('.nav');
