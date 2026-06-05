@@ -161,10 +161,12 @@ svg{fill:currentColor}
   .nav-links .nl{display:none}
 }
 @media(max-width:600px){
-  .wrap{padding:0 18px}
-  .hero{padding:88px 0 80px;min-height:100svh;justify-content:center}
-  .ll-1,.ll-2{font-size:clamp(80px,23.5vw,290px)}
-  .hero-foot{flex-direction:column;align-items:flex-start;gap:22px;margin-top:28px}
+  .wrap{padding:0 20px}
+  .hero{padding:calc(74px + 20px) 0 56px;align-items:flex-start;min-height:100svh}
+  .hero-in{justify-content:flex-start}
+  .ll-1,.ll-2{font-size:clamp(74px,20.5vw,290px)}
+  .logo-lockup{overflow:visible}
+  .hero-foot{flex-direction:column;align-items:flex-start;gap:20px;margin-top:22px}
   .hero-tag{font-size:clamp(17px,4.8vw,22px);max-width:100%}
   .hero-cta{flex-direction:column;width:100%}
   .hero-cta .btn{width:100%;justify-content:center}
@@ -378,6 +380,10 @@ function setLang(l) {
 }
 
 setLang(LANG);
+
+// Prevent iOS Safari from restoring scroll position
+if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
+window.scrollTo(0, 0);
 
 // Nav becomes opaque after scrolling 62% of hero
 const navEl = document.querySelector('.nav');
