@@ -19,6 +19,9 @@
   --cream:#FFFBF6;
   --ink:#111111;
   --lav:#EDE6F2;
+  --paper:#FBD9E3;
+  --tan:#F0E8D4;
+  --tan-d:#DDD0B0;
   --accent:var(--red);
   --hero-bg:var(--cream);
   --maxw:1180px;
@@ -40,7 +43,7 @@ a{color:inherit;text-decoration:none}
 .gear{display:inline-block;vertical-align:middle}
 svg{fill:currentColor}
 .gear-spin{animation:spin 18s linear infinite}
-@media (prefers-reduced-motion:reduce){.gear-spin{animation:none}}
+@media (prefers-reduced-motion:reduce){.gear-spin{animation:none}.cmp-rig{animation:none}.proj-reveal.on .card{animation:none;opacity:1;transform:none}}
 
 /* NAV */
 .nav{position:fixed;top:0;left:0;right:0;z-index:50;background:transparent;border-bottom:1.5px solid transparent;transition:background .3s, border-color .3s, backdrop-filter .3s}
@@ -108,8 +111,58 @@ svg{fill:currentColor}
 .svc.alt{background:var(--pink)}
 .svc.alt .num{color:var(--red)}
 
+/* ===== ARCHIVE 3D SCENE ===== */
+.scene{position:relative;height:460vh;background:linear-gradient(180deg,var(--lav),var(--cream) 60%)}
+.sticky{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
+.scene-intro{position:absolute;top:11svh;left:0;right:0;text-align:center;z-index:5;padding:0 24px;transition:opacity .4s}
+.scene-intro .sec-tag{justify-content:center}
+.scene-intro h2{font-size:clamp(30px,5vw,54px);margin-top:14px}
+.scene-intro p{max-width:440px;margin:12px auto 0;color:#5a5256;font-size:16px;line-height:1.5}
+
+.stage{perspective:1600px;width:min(560px,88vw);height:min(460px,54vh);position:relative}
+.rig{position:absolute;left:50%;top:54%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(60deg) rotateZ(-38deg)}
+.face{position:absolute;left:0;top:0;border:2px solid var(--ink);background:var(--paper)}
+/* canonical cube box: W(x)=260 D(y)=260 H(z)=140, centered at rig origin */
+.fBottom{width:260px;height:260px;margin:-130px;transform:translateZ(-70px);background:var(--paper)}
+.fN{width:260px;height:140px;margin:-70px -130px;transform:translateY(-130px) rotateX(-90deg);background:var(--ink);filter:brightness(1.15)}
+.fS{width:260px;height:140px;margin:-70px -130px;transform:translateY(130px) rotateX(90deg);background:var(--tan)}
+.fE{width:260px;height:140px;margin:-70px -130px;transform:translateX(130px) rotateY(90deg) rotateZ(90deg);background:var(--ink);filter:brightness(.75)}
+.fW{width:260px;height:140px;margin:-70px -130px;transform:translateX(-130px) rotateY(-90deg) rotateZ(90deg);background:var(--ink);filter:brightness(1.35)}
+.handle{position:absolute;left:50%;top:50%;width:52px;height:13px;margin:-6.5px 0 0 -26px;border:2.5px solid var(--ink);border-radius:10px;background:transparent}
+.folders{position:absolute;left:0;top:0;transform-style:preserve-3d}
+
+/* folders: vertical cards rising up (+Z) out of the open top */
+.folder{position:absolute;left:0;top:0;width:150px;height:104px;margin:-52px -75px;transform-style:preserve-3d;transform:translateX(var(--spread,0px)) translateZ(var(--rise,-50px)) rotateZ(38deg) rotateX(-60deg) rotate(var(--yaw,0deg));opacity:0}
+.folder .sheet{position:absolute;inset:0;border:2px solid var(--ink);border-radius:6px 6px 3px 3px;background:var(--tan);display:flex;flex-direction:column;box-shadow:0 8px 18px rgba(0,0,0,.14)}
+.folder .tab{position:absolute;top:-18px;left:12px;width:76px;height:20px;border:2px solid var(--ink);border-bottom:none;border-radius:8px 8px 0 0;background:inherit}
+.folder .lbl{margin:auto;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:clamp(11px,2vw,14px);color:var(--ink);padding:0 10px;line-height:1.1;word-break:break-word}
+.folder .lbl small{display:block;font-weight:500;font-size:9px;letter-spacing:.05em;text-transform:uppercase;opacity:.65;margin-top:4px}
+.folder.t-pink .sheet,.folder.t-pink .tab{background:var(--pink)}
+.folder.t-ink .sheet,.folder.t-ink .tab{background:var(--ink)}
+.folder.t-ink .lbl{color:var(--pink)}
+.folder.t-red .sheet,.folder.t-red .tab{background:var(--red)}
+.folder.t-red .lbl{color:var(--cream)}
+.folder.t-lav .sheet,.folder.t-lav .tab{background:var(--lav)}
+.folder.t-cream .sheet,.folder.t-cream .tab{background:var(--cream)}
+
+/* reveal: real project grid fades in once the box is fully open */
+.proj-reveal{position:absolute;inset:0;z-index:8;display:flex;align-items:flex-start;justify-content:center;overflow-y:auto;-webkit-overflow-scrolling:touch;padding:96px 0 40px;opacity:0;pointer-events:none;transition:opacity .45s}
+.proj-reveal.on{opacity:1;pointer-events:auto}
+.proj-reveal .card{opacity:0;transform:translateY(28px) scale(.94)}
+.proj-reveal.on .card{animation:popIn .5s cubic-bezier(.34,1.6,.5,1) forwards}
+.proj-reveal.on .card:nth-child(2){animation-delay:.04s}
+.proj-reveal.on .card:nth-child(3){animation-delay:.08s}
+.proj-reveal.on .card:nth-child(4){animation-delay:.12s}
+.proj-reveal.on .card:nth-child(5){animation-delay:.16s}
+.proj-reveal.on .card:nth-child(6){animation-delay:.2s}
+.proj-reveal.on .card:nth-child(7){animation-delay:.24s}
+.proj-reveal.on .card:nth-child(8){animation-delay:.28s}
+.proj-reveal.on .card:nth-child(9){animation-delay:.32s}
+.proj-reveal.on .card:nth-child(10){animation-delay:.36s}
+.proj-reveal.on .card:nth-child(11){animation-delay:.4s}
+@keyframes popIn{from{opacity:0;transform:translateY(28px) scale(.94)}to{opacity:1;transform:none}}
+
 /* PROJECTS */
-#proyectos{background:var(--lav)}
 .proj-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
 .card{background:var(--cream);border:1.5px solid var(--ink);border-radius:20px;overflow:hidden;display:flex;flex-direction:column;transition:transform .18s, box-shadow .18s;box-shadow:0 0 0 var(--ink)}
 .card:hover{transform:translateY(-6px);box-shadow:7px 9px 0 var(--ink)}
@@ -131,13 +184,14 @@ svg{fill:currentColor}
 .card:hover .visit .arr{transform:translate(4px,-4px)}
 .card:hover .visit{color:var(--red)}
 
-/* CTA */
-.cta{background:var(--ink);color:var(--cream);text-align:center;position:relative;overflow:hidden}
-.cta .wrap{position:relative;z-index:2;padding:104px 28px}
-.cta h2{font-size:clamp(40px,6.4vw,80px);color:var(--cream)}
+/* CTA — scroll-pinned finale with 3D computer */
+.finale{position:relative;height:320vh;background:var(--ink)}
+.cta{background:var(--ink);color:var(--cream);text-align:center;position:relative;overflow:hidden;width:100%;max-height:100%}
+.cta .wrap{position:relative;z-index:2;padding:80px 28px;display:grid;grid-template-columns:1fr;justify-items:center;gap:12px}
+.cta h2{font-size:clamp(36px,5.6vw,72px);color:var(--cream)}
 .cta h2 .red{color:var(--accent)}
-.cta p{max-width:520px;margin:24px auto 0;font-size:18px;line-height:1.55;color:#cfc7ca}
-.cta-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:40px}
+.cta p{max-width:520px;margin:20px auto 0;font-size:17px;line-height:1.55;color:#cfc7ca}
+.cta-actions{display:flex;flex-wrap:wrap;gap:14px;justify-content:center;margin-top:8px}
 .cta .btn-primary{box-shadow:4px 4px 0 var(--accent)}
 .cta .btn-primary:hover{box-shadow:6px 6px 0 var(--accent)}
 .cta .btn-out{background:transparent;color:var(--cream);border-color:var(--cream)}
@@ -145,6 +199,32 @@ svg{fill:currentColor}
 .cta-deco{position:absolute;color:rgba(247,182,201,.13);z-index:1}
 .cd1{top:-60px;left:-50px}
 .cd2{bottom:-70px;right:-40px}
+
+/* ===== FINALE: retro computer ===== */
+.computer{perspective:1200px;height:min(300px,34vh);width:min(360px,72vw);position:relative;margin:8px auto 0}
+.cmp-rig{position:absolute;left:50%;top:52%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(-6deg) rotateY(calc(-28deg + var(--spin,0deg)));animation:floaty 6s ease-in-out infinite}
+@keyframes floaty{0%,100%{translate:0 -6px}50%{translate:0 7px}}
+.cbox{position:absolute;left:0;top:0;transform-style:preserve-3d}
+.cf{position:absolute;left:0;top:0;border:2px solid var(--ink);background:var(--pink)}
+.mon{transform:translateY(-26px)}
+.mon .fr{width:164px;height:128px;margin:-64px -82px;transform:translateZ(58px);border-radius:8px}
+.mon .bk{width:164px;height:128px;margin:-64px -82px;transform:translateZ(-58px) rotateY(180deg);filter:brightness(.82)}
+.mon .lf{width:116px;height:128px;margin:-64px -58px;transform:translateX(-82px) rotateY(-90deg);filter:brightness(.72)}
+.mon .rt{width:116px;height:128px;margin:-64px -58px;transform:translateX(82px) rotateY(90deg);filter:brightness(1.08)}
+.mon .top{width:164px;height:116px;margin:-58px -82px;transform:translateY(-64px) rotateX(90deg);filter:brightness(1.2)}
+.mon .bot{width:164px;height:116px;margin:-58px -82px;transform:translateY(64px) rotateX(-90deg);filter:brightness(.66)}
+.screen{position:absolute;left:50%;top:50%;width:124px;height:96px;margin:-48px -62px;background:#7FB2E6;border:2px solid var(--ink);border-radius:8px;transform:translateZ(59px);display:flex;align-items:center;justify-content:center;overflow:hidden}
+.neck{transform:translateY(46px)}
+.neck .fr{width:46px;height:29px;margin:-14.5px -23px;transform:translateZ(20px);filter:brightness(.9)}
+.neck .lf{width:40px;height:29px;margin:-14.5px -20px;transform:translateX(-23px) rotateY(-90deg);filter:brightness(.78)}
+.neck .rt{width:40px;height:29px;margin:-14.5px -20px;transform:translateX(23px) rotateY(90deg);filter:brightness(1.05)}
+.neck .top{width:46px;height:40px;margin:-20px -23px;transform:translateY(-14.5px) rotateX(90deg);filter:brightness(1.12)}
+.base{transform:translateY(68px)}
+.base .top{width:112px;height:98px;margin:-49px -56px;transform:translateY(-8.5px) rotateX(90deg);filter:brightness(1.12)}
+.base .fr{width:112px;height:17px;margin:-8.5px -56px;transform:translateZ(49px);filter:brightness(.94)}
+.base .bk{width:112px;height:17px;margin:-8.5px -56px;transform:translateZ(-49px) rotateY(180deg);filter:brightness(.7)}
+.base .lf{width:98px;height:17px;margin:-8.5px -49px;transform:translateX(-56px) rotateY(-90deg);filter:brightness(.78)}
+.base .rt{width:98px;height:17px;margin:-8.5px -49px;transform:translateX(56px) rotateY(90deg);filter:brightness(1.08)}
 
 /* FOOTER */
 .foot{background:var(--cream);border-top:1.5px solid var(--ink);padding:54px 0 40px}
@@ -160,6 +240,7 @@ svg{fill:currentColor}
   .proj-grid{grid-template-columns:1fr 1fr}
   .svc-grid{grid-template-columns:1fr}
   .nav-links .nl{display:none}
+  .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.86)}
 }
 @media(max-width:600px){
   .wrap{padding:0 20px}
@@ -174,6 +255,15 @@ svg{fill:currentColor}
   .hero-scroll{display:none}
   .proj-grid{grid-template-columns:1fr}
   .foot-right{text-align:left}
+  .scene{height:520vh}
+  .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.68)}
+  .scene-intro{top:9svh}
+  .scene-intro p{max-width:280px}
+  .proj-reveal{padding:88px 0 32px}
+  .computer{width:min(260px,74vw);height:min(190px,24vh);margin-top:4px}
+  .cta .wrap{padding:64px 22px;gap:8px}
+  .cta p{margin-top:12px;font-size:15.5px}
+  .cta-actions{margin-top:4px}
 }
 </style>
 </head>
@@ -270,30 +360,56 @@ svg{fill:currentColor}
   </div>
 </section>
 
-<!-- PROJECTS -->
-<section class="sec" id="proyectos">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
-        <h2 data-es="Proyectos en vivo" data-en="Live projects">Proyectos en vivo</h2>
-      </div>
-      <p data-es="Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos." data-en="A selection of sites and experiences we've designed and built. Click to visit them.">Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos.</p>
+<!-- PROJECTS: 3D archive scene -->
+<section class="scene" id="proyectos" data-scene>
+  <div class="sticky">
+    <div class="scene-intro" id="archIntro">
+      <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
+      <h2 data-es="Abrimos el archivo" data-en="We open the archive">Abrimos el archivo</h2>
+      <p data-es="Cada folder es un proyecto real que diseñamos y construimos. Sigue bajando." data-en="Each folder is a real project we designed and built. Keep scrolling.">Cada folder es un proyecto real que diseñamos y construimos. Sigue bajando.</p>
     </div>
-    <div class="proj-grid" id="projGrid"></div>
+    <div class="stage" aria-hidden="true">
+      <div class="rig" id="rig">
+        <div class="face fBottom"></div>
+        <div class="folders" id="folders"></div>
+        <div class="face fN"></div><div class="face fW"></div><div class="face fE"></div>
+        <div class="face fS"><div class="handle"></div></div>
+      </div>
+    </div>
+    <div class="proj-reveal" id="reveal">
+      <div class="wrap">
+        <div class="sec-head">
+          <div>
+            <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
+            <h2 data-es="Proyectos en vivo" data-en="Live projects">Proyectos en vivo</h2>
+          </div>
+          <p data-es="Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos." data-en="A selection of sites and experiences we've designed and built. Click to visit them.">Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos.</p>
+        </div>
+        <div class="proj-grid" id="projGrid"></div>
+      </div>
+    </div>
   </div>
 </section>
 
-<!-- CTA -->
-<section class="cta" id="contacto">
-  <span class="cta-deco cd1 gear-spin gslot" data-s="300"></span>
-  <span class="cta-deco cd2 gear-spin gslot" data-s="240" style="animation-direction:reverse"></span>
-  <div class="wrap">
-    <h2><span data-es="¿Listo para" data-en="Ready to">¿Listo para</span> <span class="red" data-es="crecer?" data-en="grow?">crecer?</span></h2>
-    <p data-es="Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos." data-en="Tell us which process you want to automate or which site you want to build. We'll reply with a clear, jargon-free plan.">Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos.</p>
-    <div class="cta-actions">
-      <a class="btn btn-primary" href="mailto:procesalab0@gmail.com">procesalab0@gmail.com</a>
-      <a class="btn btn-out" href="mailto:procesalab0@gmail.com?subject=Quiero%20automatizar%20un%20proceso" data-es="Iniciar un proyecto" data-en="Start a project">Iniciar un proyecto</a>
+<!-- CTA: scroll-pinned finale with 3D computer -->
+<section class="finale" id="contacto" data-scene>
+  <div class="sticky">
+    <div class="cta">
+      <span class="cta-deco cd1 gear-spin gslot" data-s="300"></span>
+      <span class="cta-deco cd2 gear-spin gslot" data-s="240" style="animation-direction:reverse"></span>
+      <div class="wrap">
+        <h2><span data-es="¿Listo para" data-en="Ready to">¿Listo para</span> <span class="red" data-es="crecer?" data-en="grow?">crecer?</span></h2>
+        <p data-es="Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos." data-en="Tell us which process you want to automate or which site you want to build. We'll reply with a clear, jargon-free plan.">Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos.</p>
+        <div class="cta-actions">
+          <a class="btn btn-primary" href="mailto:procesalab0@gmail.com">procesalab0@gmail.com</a>
+          <a class="btn btn-out" href="mailto:procesalab0@gmail.com?subject=Quiero%20automatizar%20un%20proceso" data-es="Iniciar un proyecto" data-en="Start a project">Iniciar un proyecto</a>
+        </div>
+        <div class="computer" aria-hidden="true"><div class="cmp-rig" id="cmpRig">
+          <div class="cbox base"><b class="cf top"></b><b class="cf fr"></b><b class="cf bk"></b><b class="cf lf"></b><b class="cf rt"></b></div>
+          <div class="cbox neck"><b class="cf fr"></b><b class="cf lf"></b><b class="cf rt"></b><b class="cf top"></b></div>
+          <div class="cbox mon"><b class="cf top"></b><b class="cf bot"></b><b class="cf lf"></b><b class="cf rt"></b><b class="cf bk"></b><b class="cf fr"></b><div class="screen"><span class="gslot" data-s="70" style="color:var(--red)"></span></div></div>
+        </div></div>
+      </div>
     </div>
   </div>
 </section>
@@ -369,6 +485,58 @@ function projCard(p, i) {
 }
 
 document.getElementById('projGrid').innerHTML = PROJECTS.map(projCard).join('');
+
+// build the 3D archive folders (one per project)
+const foldersWrap = document.getElementById('folders');
+const N = PROJECTS.length;
+PROJECTS.forEach((p, i) => {
+  const f = document.createElement('div');
+  f.className = 'folder ' + p.cls;
+  const spread = (i - (N - 1) / 2);
+  f.dataset.spread = spread;
+  f.innerHTML = `<div class="sheet"><span class="tab"></span><div class="lbl">${p.n}<small data-es="${p.tag_es}" data-en="${p.tag_en}">${p.tag_es}</small></div></div>`;
+  foldersWrap.appendChild(f);
+});
+const folders = [...document.querySelectorAll('.folder')];
+
+const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
+const lerp = (a, b, t) => a + (b - a) * t;
+const reveal = document.getElementById('reveal');
+const archIntro = document.getElementById('archIntro');
+const cmpRig = document.getElementById('cmpRig');
+const archScene = document.getElementById('proyectos');
+const finScene = document.getElementById('contacto');
+const spreadAmt = Math.min(46, 320 / N);
+const delayStep = 0.5 / N;
+
+function tickScenes() {
+  // ARCHIVE
+  const ar = archScene.getBoundingClientRect();
+  const at = archScene.offsetHeight - innerHeight;
+  const ap = clamp(-ar.top / at, 0, 1);
+  const rise = clamp(ap / 0.55, 0, 1);
+  folders.forEach((f, i) => {
+    const sp = parseFloat(f.dataset.spread);
+    const local = clamp(rise * 1.15 - i * delayStep, 0, 1);
+    f.style.setProperty('--rise', lerp(-50, 120, local) + 'px');
+    f.style.setProperty('--yaw', (sp * local * 9) + 'deg');
+    f.style.setProperty('--spread', (sp * local * spreadAmt) + 'px');
+    f.style.opacity = clamp(local * 3, 0, 1);
+  });
+  const showGrid = ap > 0.7;
+  reveal.classList.toggle('on', showGrid);
+  archIntro.style.opacity = ap < 0.45 ? 1 : 0;
+  document.querySelector('#proyectos .stage').style.opacity = showGrid ? 0 : 1;
+
+  // FINALE — computer rotates as you scroll
+  const fr = finScene.getBoundingClientRect();
+  const ft = finScene.offsetHeight - innerHeight;
+  const fp = clamp(-fr.top / ft, 0, 1);
+  cmpRig.style.setProperty('--spin', (fp * 70) + 'deg');
+
+  requestAnimationFrame(tickScenes);
+}
+requestAnimationFrame(tickScenes);
 
 let LANG = localStorage.getItem('pl_lang') || 'es';
 
