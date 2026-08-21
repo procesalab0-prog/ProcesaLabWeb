@@ -14,27 +14,45 @@ module.exports = async (req, res) => {
     return;
   }
 
+  let meta;
   try {
-    const meta = await head(u);
-    const downloadUrl = meta.downloadUrl || meta.url;
-
-    // This account's Blob store authenticates via System Environment
-    // Variables (OIDC), not a static BLOB_READ_WRITE_TOKEN. Serverless
-    // functions get a short-lived token in VERCEL_OIDC_TOKEN — needed to
-    // actually fetch bytes from a private blob's download URL.
-    const oidcToken = process.env.VERCEL_OIDC_TOKEN;
-    const upstream = await fetch(downloadUrl, {
-      headers: oidcToken ? { Authorization: `Bearer ${oidcToken}` } : {},
-    });
-    if (!upstream.ok) {
-      res.status(upstream.status).send('No se pudo obtener el archivo desde Blob (' + upstream.status + ')');
-      return;
-    }
-    const buf = Buffer.from(await upstream.arrayBuffer());
-    res.setHeader('Content-Type', meta.contentType || 'text/html; charset=utf-8');
-    res.setHeader('Cache-Control', 'private, no-store');
-    res.status(200).send(buf);
+    meta = await head(u);
   } catch (err) {
-    res.status(500).send('Error al leer el archivo: ' + String(err));
+    res.status(500).send('head() falló: ' + String(err));
+    return;
   }
+
+  const downloadUrl = meta.downloadUrl || meta.url;
+  const oidcToken = process.env.VERCEL_OIDC_TOKEN;
+
+  const attempts = [
+    { label: 'sin header extra', headers: {} },
+    { label: 'con Authorization Bearer OIDC', headers: oidcToken ? { Authorization: `Bearer ${oidcToken}` } : null },
+  ].filter((a) => a.headers !== null);
+
+  const results = [];
+  for (const attempt of attempts) {
+    try {
+      const upstream = await fetch(downloadUrl, { headers: attempt.headers });
+      if (upstream.ok) {
+        const buf = Buffer.from(await upstream.arrayBuffer());
+        res.setHeader('Content-Type', meta.contentType || 'text/html; charset=utf-8');
+        res.setHeader('Cache-Control', 'private, no-store');
+        res.status(200).send(buf);
+        return;
+      }
+      const bodyText = await upstream.text().catch(() => '(sin cuerpo)');
+      results.push(`[${attempt.label}] status ${upstream.status}: ${bodyText.slice(0, 300)}`);
+    } catch (err) {
+      results.push(`[${attempt.label}] excepción: ${String(err)}`);
+    }
+  }
+
+  res.status(502).send(
+    'No se pudo descargar el blob. Diagnóstico:\n' +
+      `- meta.url: ${meta.url}\n` +
+      `- meta.downloadUrl: ${meta.downloadUrl || '(no viene)'}\n` +
+      `- hay VERCEL_OIDC_TOKEN: ${Boolean(oidcToken)}\n` +
+      results.map((r) => '- ' + r).join('\n')
+  );
 };
