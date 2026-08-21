@@ -188,7 +188,7 @@ async function loadFiles() {
         <div class="meta">${date} · ${(f.size / 1024).toFixed(0)} KB</div>
       </div>
       <div class="actions">
-        <a href="${f.url}" target="_blank" rel="noopener">Ver</a>
+        <a href="/api/view?u=${encodeURIComponent(f.url)}" target="_blank" rel="noopener">Ver</a>
         <button data-url="${f.url}" class="delBtn">Eliminar</button>
       </div>`;
     el.querySelector('.delBtn').addEventListener('click', async (e) => {
