@@ -66,8 +66,8 @@ button.danger{background:var(--ink);color:var(--cream)}
 
   <!-- LOGIN GATE -->
   <div class="gate card" id="gate">
-    <h1>Acceso privado</h1>
-    <p>Solo tú puedes ver y subir contenido aquí.</p>
+    <h1>Acceso con contraseña</h1>
+    <p>Entra con la contraseña que te compartió ProcesaLab.</p>
     <form id="loginForm">
       <input type="password" id="password" placeholder="Contraseña" autocomplete="current-password" required>
       <div class="err hidden" id="loginErr"></div>
@@ -157,11 +157,13 @@ loginForm.addEventListener('submit', async (e) => {
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({ password }),
   });
-  if (res.ok) {
+  const data = await res.json().catch(() => ({}));
+  if (res.ok && data.type === 'client' && data.redirect) {
+    location.href = data.redirect;
+  } else if (res.ok) {
     showApp(true);
     loadFiles();
   } else {
-    const data = await res.json().catch(() => ({}));
     loginErr.textContent = data.error || 'No se pudo iniciar sesión';
     loginErr.classList.remove('hidden');
   }
