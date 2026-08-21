@@ -14,11 +14,24 @@ module.exports = async (req, res) => {
     return;
   }
 
+  let signedUrl;
   try {
-    const signedUrl = await getDownloadUrl(u);
+    signedUrl = await getDownloadUrl(u);
+  } catch (err) {
+    res.status(500).send('getDownloadUrl() falló: ' + String(err));
+    return;
+  }
+
+  try {
     const upstream = await fetch(signedUrl);
     if (!upstream.ok) {
-      res.status(upstream.status).send('No se pudo obtener el archivo desde Blob (' + upstream.status + ')');
+      const bodyText = await upstream.text().catch(() => '(sin cuerpo)');
+      res.status(502).send(
+        `No se pudo obtener el archivo desde Blob.\n` +
+          `- signedUrl: ${signedUrl}\n` +
+          `- status: ${upstream.status}\n` +
+          `- cuerpo: ${bodyText.slice(0, 500)}`
+      );
       return;
     }
     const buf = Buffer.from(await upstream.arrayBuffer());
