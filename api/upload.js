@@ -38,7 +38,7 @@ module.exports = async (req, res) => {
 
   try {
     const blob = await put(pathname, content, {
-      access: 'private',
+      access: 'public',
       contentType: 'text/html; charset=utf-8',
       addRandomSuffix: false,
     });
