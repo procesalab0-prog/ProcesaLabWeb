@@ -160,7 +160,7 @@ uploadBtn.addEventListener('click', async () => {
       body: JSON.stringify({ filename: file.name, content: contentText }),
     });
     const data = await res.json();
-    if (!res.ok) throw new Error(data.error || 'Error al subir');
+    if (!res.ok) throw new Error((data.error || 'Error al subir') + (data.detail ? ' — ' + data.detail : ''));
     fileInput.value = '';
     loadFiles();
   } catch (err) {
