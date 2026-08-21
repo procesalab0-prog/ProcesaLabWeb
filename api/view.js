@@ -15,13 +15,17 @@ module.exports = async (req, res) => {
   }
 
   try {
-    // No manual token needed — this account's Blob store authenticates
-    // implicitly via its System Environment Variables (BLOB_STORE_ID),
-    // the same way upload/list/delete already do.
     const meta = await head(u);
     const downloadUrl = meta.downloadUrl || meta.url;
 
-    const upstream = await fetch(downloadUrl);
+    // This account's Blob store authenticates via System Environment
+    // Variables (OIDC), not a static BLOB_READ_WRITE_TOKEN. Serverless
+    // functions get a short-lived token in VERCEL_OIDC_TOKEN — needed to
+    // actually fetch bytes from a private blob's download URL.
+    const oidcToken = process.env.VERCEL_OIDC_TOKEN;
+    const upstream = await fetch(downloadUrl, {
+      headers: oidcToken ? { Authorization: `Bearer ${oidcToken}` } : {},
+    });
     if (!upstream.ok) {
       res.status(upstream.status).send('No se pudo obtener el archivo desde Blob (' + upstream.status + ')');
       return;
