@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Privado — ProcesaLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#F7B6C9; --red:#FF4E3A; --cream:#FFFBF6; --ink:#111111; --lav:#EDE6F2;
+  --accent:var(--red);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Instrument Sans",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+h1,h2{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.02em;margin:0}
+.wrap{max-width:960px;margin:0 auto;padding:60px 24px 80px}
+.brand{font-family:"Space Grotesk";font-weight:700;font-size:20px;letter-spacing:-.03em}
+.brand span{color:var(--accent)}
+.card{background:#fff;border:1.5px solid var(--ink);border-radius:20px;padding:32px;box-shadow:5px 5px 0 var(--ink)}
+.gate{max-width:400px;margin:80px auto 0}
+.gate h1{font-size:28px;margin-bottom:8px}
+.gate p{color:#5a5256;font-size:15px;margin-bottom:24px}
+input[type=password],input[type=text],input[type=file]{
+  width:100%;font-family:"Instrument Sans";font-size:15px;padding:12px 14px;
+  border:1.5px solid var(--ink);border-radius:12px;background:var(--cream);margin-bottom:14px
+}
+button{
+  font-family:"Space Grotesk";font-weight:600;font-size:15px;padding:12px 20px;
+  border-radius:40px;border:1.5px solid var(--ink);cursor:pointer;background:var(--accent);color:#fff;
+  box-shadow:4px 4px 0 var(--ink);transition:transform .15s
+}
+button:hover{transform:translate(-2px,-2px)}
+button.ghost{background:transparent;color:var(--ink);box-shadow:none}
+button.danger{background:var(--ink);color:var(--cream)}
+.err{color:var(--red);font-size:14px;margin:-6px 0 14px;font-weight:600}
+.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:40px}
+.uploader{margin-bottom:40px}
+.uploader h2{font-size:20px;margin-bottom:14px}
+.hint{font-size:13px;color:#8a8085;margin-top:-6px;margin-bottom:16px}
+.files{display:grid;gap:14px}
+.file{
+  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  background:var(--lav);border:1.5px solid var(--ink);border-radius:14px;padding:16px 20px
+}
+.file .name{font-family:"Space Grotesk";font-weight:600;font-size:15px}
+.file .meta{font-size:12.5px;color:#5a5256;margin-top:3px}
+.file .actions{display:flex;gap:8px;flex:none}
+.file .actions button,.file .actions a{
+  font-family:"Space Grotesk";font-weight:600;font-size:13px;padding:8px 14px;
+  border-radius:20px;border:1.5px solid var(--ink);cursor:pointer;text-decoration:none;color:var(--ink)
+}
+.empty{color:#8a8085;font-size:14px;padding:20px 0}
+.hidden{display:none}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <div class="top">
+    <div class="brand">PROCESA<span>LAB</span> · privado</div>
+    <button class="ghost hidden" id="logoutBtn">Cerrar sesión</button>
+  </div>
+
+  <!-- LOGIN GATE -->
+  <div class="gate card" id="gate">
+    <h1>Acceso privado</h1>
+    <p>Solo tú puedes ver y subir contenido aquí.</p>
+    <form id="loginForm">
+      <input type="password" id="password" placeholder="Contraseña" autocomplete="current-password" required>
+      <div class="err hidden" id="loginErr"></div>
+      <button type="submit">Entrar</button>
+    </form>
+  </div>
+
+  <!-- PRIVATE CONTENT -->
+  <div id="content" class="hidden">
+    <div class="uploader card">
+      <h2>Subir presentación</h2>
+      <p class="hint">Acepta archivos .html (por ejemplo, exportados de Claude Design).</p>
+      <input type="file" id="fileInput" accept=".html,.htm">
+      <div class="err hidden" id="uploadErr"></div>
+      <button id="uploadBtn">Subir</button>
+    </div>
+
+    <div style="margin-top:32px">
+      <h2 style="font-size:20px;margin-bottom:14px">Tus archivos</h2>
+      <div class="files" id="fileList"></div>
+      <div class="empty hidden" id="emptyMsg">Todavía no has subido nada.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+const gate = document.getElementById('gate');
+const content = document.getElementById('content');
+const logoutBtn = document.getElementById('logoutBtn');
+const loginForm = document.getElementById('loginForm');
+const loginErr = document.getElementById('loginErr');
+const fileInput = document.getElementById('fileInput');
+const uploadBtn = document.getElementById('uploadBtn');
+const uploadErr = document.getElementById('uploadErr');
+const fileList = document.getElementById('fileList');
+const emptyMsg = document.getElementById('emptyMsg');
+
+function showApp(authenticated) {
+  gate.classList.toggle('hidden', authenticated);
+  content.classList.toggle('hidden', !authenticated);
+  logoutBtn.classList.toggle('hidden', !authenticated);
+}
+
+async function checkAuth() {
+  const res = await fetch('/api/check');
+  const data = await res.json();
+  showApp(data.authenticated);
+  if (data.authenticated) loadFiles();
+}
+
+loginForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  loginErr.classList.add('hidden');
+  const password = document.getElementById('password').value;
+  const res = await fetch('/api/login', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ password }),
+  });
+  if (res.ok) {
+    showApp(true);
+    loadFiles();
+  } else {
+    const data = await res.json().catch(() => ({}));
+    loginErr.textContent = data.error || 'No se pudo iniciar sesión';
+    loginErr.classList.remove('hidden');
+  }
+});
+
+logoutBtn.addEventListener('click', async () => {
+  await fetch('/api/logout', { method: 'POST' });
+  showApp(false);
+});
+
+uploadBtn.addEventListener('click', async () => {
+  uploadErr.classList.add('hidden');
+  const file = fileInput.files[0];
+  if (!file) {
+    uploadErr.textContent = 'Elige un archivo .html primero';
+    uploadErr.classList.remove('hidden');
+    return;
+  }
+  uploadBtn.disabled = true;
+  uploadBtn.textContent = 'Subiendo…';
+  try {
+    const contentText = await file.text();
+    const res = await fetch('/api/upload', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ filename: file.name, content: contentText }),
+    });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Error al subir');
+    fileInput.value = '';
+    loadFiles();
+  } catch (err) {
+    uploadErr.textContent = err.message;
+    uploadErr.classList.remove('hidden');
+  } finally {
+    uploadBtn.disabled = false;
+    uploadBtn.textContent = 'Subir';
+  }
+});
+
+async function loadFiles() {
+  const res = await fetch('/api/files');
+  if (!res.ok) return;
+  const { files } = await res.json();
+  fileList.innerHTML = '';
+  emptyMsg.classList.toggle('hidden', files.length > 0);
+  files.forEach((f) => {
+    const el = document.createElement('div');
+    el.className = 'file';
+    const date = new Date(f.uploadedAt).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
+    el.innerHTML = `
+      <div>
+        <div class="name">${f.name}</div>
+        <div class="meta">${date} · ${(f.size / 1024).toFixed(0)} KB</div>
+      </div>
+      <div class="actions">
+        <a href="${f.url}" target="_blank" rel="noopener">Ver</a>
+        <button data-url="${f.url}" class="delBtn">Eliminar</button>
+      </div>`;
+    el.querySelector('.delBtn').addEventListener('click', async (e) => {
+      const url = e.target.dataset.url;
+      if (!confirm('¿Eliminar este archivo?')) return;
+      await fetch('/api/delete', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ url }),
+      });
+      loadFiles();
+    });
+    fileList.appendChild(el);
+  });
+}
+
+checkAuth();
+</script>
+</body>
+</html>
