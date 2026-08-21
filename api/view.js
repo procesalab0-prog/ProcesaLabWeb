@@ -14,21 +14,16 @@ module.exports = async (req, res) => {
     return;
   }
 
-  const token = process.env.BLOB_READ_WRITE_TOKEN;
-  if (!token) {
-    res.status(500).send('Falta configurar BLOB_READ_WRITE_TOKEN en Vercel');
-    return;
-  }
-
   try {
-    const meta = await head(u, { token });
+    // No manual token needed — this account's Blob store authenticates
+    // implicitly via its System Environment Variables (BLOB_STORE_ID),
+    // the same way upload/list/delete already do.
+    const meta = await head(u);
     const downloadUrl = meta.downloadUrl || meta.url;
 
-    const upstream = await fetch(downloadUrl, {
-      headers: { Authorization: `Bearer ${token}` },
-    });
+    const upstream = await fetch(downloadUrl);
     if (!upstream.ok) {
-      res.status(upstream.status).send('No se pudo obtener el archivo desde Blob');
+      res.status(upstream.status).send('No se pudo obtener el archivo desde Blob (' + upstream.status + ')');
       return;
     }
     const buf = Buffer.from(await upstream.arrayBuffer());
