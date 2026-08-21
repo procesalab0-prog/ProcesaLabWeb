@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Código de ética — Uso de IA · ProcesaLab</title>
+<meta name="description" content="Cómo usamos inteligencia artificial en ProcesaLab: siempre como herramienta, siempre revisado por un humano.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --pink:#F7B6C9; --red:#FF4E3A; --cream:#FFFBF6; --ink:#111111; --lav:#EDE6F2; --accent:var(--red);
+}
+*{box-sizing:border-box}
+body{margin:0;font-family:"Instrument Sans",system-ui,sans-serif;background:var(--cream);color:var(--ink);-webkit-font-smoothing:antialiased}
+h1,h2{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.02em;line-height:1;margin:0}
+p{margin:0 0 14px;line-height:1.6;font-size:15.5px;color:#3a3436}
+a{color:var(--accent)}
+.wrap{max-width:760px;margin:0 auto;padding:0 24px}
+
+.nav{padding:26px 0;border-bottom:1.5px solid var(--ink)}
+.nav .wrap{display:flex;align-items:center;justify-content:space-between}
+.brand{display:flex;align-items:center;gap:9px;font-family:"Space Grotesk";font-weight:700;font-size:19px;letter-spacing:-.03em;color:var(--ink);text-decoration:none}
+.brand .tm{font-size:9px;vertical-align:super;font-weight:600;opacity:.6}
+.langtog{display:flex;border:1.5px solid var(--ink);border-radius:30px;overflow:hidden;font-family:"Space Grotesk";font-weight:600;font-size:12px}
+.langtog button{border:0;background:transparent;padding:6px 12px;cursor:pointer;font:inherit;color:var(--ink)}
+.langtog button.on{background:var(--ink);color:var(--cream)}
+.back{font-family:"Space Grotesk";font-weight:600;font-size:14px;color:var(--ink);display:inline-flex;align-items:center;gap:6px;margin-top:18px}
+
+.hero{padding:54px 0 10px}
+.eyebrow{font-family:"Space Grotesk";font-weight:600;font-size:12.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent);display:flex;align-items:center;gap:9px;margin-bottom:14px}
+.eyebrow::before{content:"";width:24px;height:2px;background:var(--accent)}
+h1{font-size:clamp(30px,5vw,44px);margin-bottom:14px}
+.lede{font-size:17px;color:#3a3436}
+
+main{padding:12px 0 80px}
+.principle{border:1.5px solid var(--ink);background:#fff;border-radius:18px;padding:26px 28px;margin:20px 0;box-shadow:4px 4px 0 var(--ink)}
+.principle .n{display:inline-flex;align-items:center;justify-content:center;width:30px;height:30px;border-radius:9px;background:var(--ink);color:var(--pink);font-family:"Space Grotesk";font-weight:700;font-size:14px;margin-bottom:14px}
+.principle h2{font-size:19px;margin-bottom:8px}
+.principle p:last-child{margin-bottom:0}
+
+.note{background:var(--lav);border-radius:16px;padding:20px 24px;margin-top:32px;font-size:14px;color:#3a3436}
+.note b{font-family:"Space Grotesk"}
+
+footer{border-top:1.5px solid var(--ink);padding:30px 0;font-size:13px;color:#8a8085;text-align:center}
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a href="/" class="brand">PROCESA<span style="margin-left:4px">LAB</span><span class="tm">™</span></a>
+    <div class="langtog" role="group" aria-label="Language">
+      <button id="es" class="on" onclick="setLang('es')">ES</button>
+      <button id="en" onclick="setLang('en')">EN</button>
+    </div>
+  </div>
+</header>
+
+<section class="hero wrap">
+  <div class="eyebrow" data-es="Transparencia" data-en="Transparency">Transparencia</div>
+  <h1 data-es="Código de ética: uso de IA" data-en="Ethics code: use of AI">Código de ética: uso de IA</h1>
+  <p class="lede" data-es="En ProcesaLab usamos inteligencia artificial como una herramienta más dentro de nuestro proceso de trabajo — nunca como reemplazo del criterio humano. Esto es lo que eso significa en la práctica." data-en="At ProcesaLab we use artificial intelligence as one more tool in our workflow — never as a replacement for human judgment. Here's what that means in practice.">En ProcesaLab usamos inteligencia artificial como una herramienta más dentro de nuestro proceso de trabajo — nunca como reemplazo del criterio humano. Esto es lo que eso significa en la práctica.</p>
+</section>
+
+<main class="wrap">
+
+  <div class="principle">
+    <div class="n">01</div>
+    <h2 data-es="La IA es una herramienta, no quien decide" data-en="AI is a tool, not the decision-maker">La IA es una herramienta, no quien decide</h2>
+    <p data-es="Usamos IA para acelerar tareas repetitivas, explorar ideas más rápido y apoyar el diseño y el desarrollo. Pero ninguna decisión final de negocio, diseño o contenido queda en manos de un modelo — siempre hay una persona detrás que decide." data-en="We use AI to speed up repetitive tasks, explore ideas faster, and support design and development. But no final business, design, or content decision is left to a model — there's always a person deciding.">Usamos IA para acelerar tareas repetitivas, explorar ideas más rápido y apoyar el diseño y el desarrollo. Pero ninguna decisión final de negocio, diseño o contenido queda en manos de un modelo — siempre hay una persona detrás que decide.</p>
+  </div>
+
+  <div class="principle">
+    <div class="n">02</div>
+    <h2 data-es="Todo lo revisa y comprueba un humano" data-en="Everything is reviewed and verified by a human">Todo lo revisa y comprueba un humano</h2>
+    <p data-es="Cada entregable — un sitio web, una propuesta, un flujo automatizado — pasa por revisión humana antes de llegar a un cliente: se prueba, se corrige y se aprueba. La IA propone; una persona confirma que esté bien." data-en="Every deliverable — a website, a proposal, an automated workflow — goes through human review before it reaches a client: it gets tested, corrected, and approved. AI proposes; a person confirms it's right.">Cada entregable — un sitio web, una propuesta, un flujo automatizado — pasa por revisión humana antes de llegar a un cliente: se prueba, se corrige y se aprueba. La IA propone; una persona confirma que esté bien.</p>
+  </div>
+
+  <div class="principle">
+    <div class="n">03</div>
+    <h2 data-es="Transparencia con nuestros clientes" data-en="Transparency with our clients">Transparencia con nuestros clientes</h2>
+    <p data-es="Cuando el uso de IA es relevante para un proyecto, lo decimos abiertamente. No escondemos cómo trabajamos — al contrario, creemos que usarla bien es parte de lo que hace más eficiente y accesible nuestro trabajo." data-en="When AI use is relevant to a project, we say so openly. We don't hide how we work — on the contrary, we believe using it well is part of what makes our work more efficient and accessible.">Cuando el uso de IA es relevante para un proyecto, lo decimos abiertamente. No escondemos cómo trabajamos — al contrario, creemos que usarla bien es parte de lo que hace más eficiente y accesible nuestro trabajo.</p>
+  </div>
+
+  <div class="principle">
+    <div class="n">04</div>
+    <h2 data-es="Cuidado con la información" data-en="Care with information">Cuidado con la información</h2>
+    <p data-es="No alimentamos información confidencial de un cliente a herramientas de terceros sin su conocimiento. Los datos sensibles de cada proyecto se tratan con el mismo cuidado, use o no herramientas de IA de por medio." data-en="We don't feed a client's confidential information into third-party tools without their knowledge. Every project's sensitive data is treated with the same care, whether AI tools are involved or not.">No alimentamos información confidencial de un cliente a herramientas de terceros sin su conocimiento. Los datos sensibles de cada proyecto se tratan con el mismo cuidado, use o no herramientas de IA de por medio.</p>
+  </div>
+
+  <div class="principle">
+    <div class="n">05</div>
+    <h2 data-es="Mejora continua, no atajos" data-en="Continuous improvement, not shortcuts">Mejora continua, no atajos</h2>
+    <p data-es="El objetivo de usar IA nunca es entregar menos esfuerzo por el mismo precio — es liberar tiempo humano para enfocarlo en lo que más importa: criterio, estrategia y calidad." data-en="The goal of using AI is never to deliver less effort for the same price — it's to free up human time to focus on what matters most: judgment, strategy, and quality.">El objetivo de usar IA nunca es entregar menos esfuerzo por el mismo precio — es liberar tiempo humano para enfocarlo en lo que más importa: criterio, estrategia y calidad.</p>
+  </div>
+
+  <div class="note">
+    <p>
+      <b data-es="Este código aplica a todo el trabajo de ProcesaLab" data-en="This code applies to all of ProcesaLab's work">Este código aplica a todo el trabajo de ProcesaLab</b><span data-es=", y también a los proyectos personales de quienes lo fundamos — creemos que estos principios no deberían cambiar según el cliente." data-en=", and to the personal projects of its founders too — we believe these principles shouldn't change depending on the client.">, y también a los proyectos personales de quienes lo fundamos — creemos que estos principios no deberían cambiar según el cliente.</span>
+    </p>
+  </div>
+
+  <a class="back" href="/">
+    <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M13 8H3M3 8l4-4M3 8l4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    <span data-es="Volver al inicio" data-en="Back to home">Volver al inicio</span>
+  </a>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span data-es="Preguntas sobre este código: " data-en="Questions about this code: ">Preguntas sobre este código: </span><a href="mailto:procesalab0@gmail.com">procesalab0@gmail.com</a>
+  </div>
+</footer>
+
+<script>
+let LANG = localStorage.getItem('pl_lang') || 'es';
+
+function setLang(l) {
+  LANG = l;
+  localStorage.setItem('pl_lang', l);
+  document.documentElement.lang = l;
+  document.querySelectorAll('[data-es]').forEach(el => {
+    const v = el.getAttribute('data-' + l);
+    if (v !== null) el.textContent = v;
+  });
+  document.getElementById('es').classList.toggle('on', l === 'es');
+  document.getElementById('en').classList.toggle('on', l === 'en');
+}
+
+setLang(LANG);
+</script>
+</body>
+</html>
