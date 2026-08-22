@@ -143,9 +143,11 @@ h2.sec{position:relative}
 .rh img{height:14px}
 .rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
 .rf b{color:var(--red)}
+#docFit{width:100%;overflow:hidden}
 </style>
 </head>
 <body>
+<div id="docFit">
 <doc-page size="letter" margin="0.7in">
 
 <div class="rh" slot="header"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span>Propuesta · La Costumbre · Sistema de pedidos directos</span></div>
@@ -385,7 +387,34 @@ h2.sec{position:relative}
 </div>
 
 </doc-page>
+</div>
 <script src="doc-page.js"></script>
+<script>
+// On phones the doc-page component keeps its true physical page width
+// (letter size) rather than shrinking to the viewport, which otherwise
+// forces the user to pinch-zoom out to read it. Scale the whole page
+// down to fit the screen width instead.
+function fitDocToViewport() {
+  const dp = document.querySelector('doc-page');
+  const wrap = document.getElementById('docFit');
+  if (!dp || !wrap) return;
+  dp.style.transform = 'none';
+  const naturalW = dp.getBoundingClientRect().width;
+  const naturalH = dp.getBoundingClientRect().height;
+  const avail = wrap.clientWidth;
+  if (naturalW > avail && naturalW > 0) {
+    const scale = avail / naturalW;
+    dp.style.transformOrigin = 'top left';
+    dp.style.transform = 'scale(' + scale + ')';
+    wrap.style.height = (naturalH * scale) + 'px';
+  } else {
+    dp.style.transform = 'none';
+    wrap.style.height = 'auto';
+  }
+}
+window.addEventListener('load', () => setTimeout(fitDocToViewport, 200));
+window.addEventListener('resize', fitDocToViewport);
+</script>
 <script>
 const RED="#FF4E3A", INK="#141310", PINK="#F7B6C9", LAV="#EDE6F2", GREEN="#1f7a4d", MUT="#8a8085";
 const peso=n=>"$"+Math.round(n).toLocaleString("en-US");
