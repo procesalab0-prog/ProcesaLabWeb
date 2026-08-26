@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Beneficios, impacto y propuesta económica — Vaqueros SM × ProcesaLab</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/check')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = '/privado.html';
+      }
+    })
+    .catch(function () { location.href = '/privado.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--pink:#F7B6C9;--pinkd:#FBD9E3;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--muted:#5f565a;--line:#E7DED8;--green:#1f7a4d}
+*{box-sizing:border-box}
+doc-page{--fg:var(--ink)}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.6;font-size:15px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 12px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+.muted{color:var(--muted)}
+
+.cover-top{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid var(--ink);padding-bottom:14px}
+.cover-top img.pl{height:30px;width:auto}
+.cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+.hero{background:var(--pink);border:2.5px solid var(--ink);border-radius:18px;padding:32px 30px;margin-top:20px;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;position:relative;overflow:hidden}
+.hero .ey{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8a2f3f}
+.hero h1{font-size:38px;font-weight:700;margin:10px 0 0}
+.hero .sub{font-family:"Space Grotesk";font-weight:600;font-size:16px;margin-top:9px;color:#5a2733}
+.hero img.fig{height:178px;width:auto;position:relative;z-index:2}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:15px}
+.stat{border:2px solid var(--ink);border-radius:13px;padding:13px 15px;background:var(--cream)}
+.stat .k{font-family:"Space Grotesk";font-weight:600;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:"Space Grotesk";font-weight:700;font-size:23px;line-height:1;margin-top:7px}
+.stat .v small{font-size:11.5px;font-weight:600;color:var(--red)}
+.stat.hl{background:var(--ink)}
+.stat.hl .k{color:#c9b9be}.stat.hl .v{color:#fff}.stat.hl .v small{color:var(--pink)}
+
+.callout{border-left:5px solid var(--red);background:var(--lav);border-radius:0 12px 12px 0;padding:15px 19px;margin:18px 0;break-inside:avoid}
+.callout .lbl{font-family:"Space Grotesk";font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.callout.dark{background:var(--ink);color:#ddd4d6}
+.callout.dark .lbl{color:var(--pink)}
+.callout.dark strong{color:#fff}
+
+h2.sec{font-size:24px;margin:32px 0 4px;padding-top:20px;border-top:1.5px solid var(--line);display:flex;align-items:baseline;gap:12px;break-after:avoid;clear:both}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:13px;color:#fff;background:var(--red);min-width:29px;height:29px;padding:0 7px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none;transform:translateY(2px)}
+.lead{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+h3.sub{font-family:"Space Grotesk";font-size:16.5px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:9px}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+
+.fig{float:right;height:116px;width:auto;margin:0 0 10px 20px}
+.fig.sm{height:98px}.fig.lg{height:138px}
+.clear::after{content:"";display:block;clear:both}
+
+ul.clean{margin:6px 0 14px;padding:0;list-style:none}
+ul.clean li{position:relative;padding-left:20px;margin-bottom:7px;font-size:14px}
+ul.clean li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+ul.cols{columns:2;column-gap:26px}
+ul.cols li{break-inside:avoid}
+
+table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:13.5px;break-inside:avoid}
+thead th{background:var(--ink);color:var(--cream);font-family:"Space Grotesk";font-weight:600;font-size:12px;text-align:left;padding:9px 12px}
+thead th.num{text-align:right}
+tbody td{padding:8px 12px;border-bottom:1px solid var(--line)}
+tbody td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:"Space Grotesk";font-weight:600}
+tbody tr:nth-child(even){background:#faf6f9}
+tbody tr.total{background:var(--pink)}
+tbody tr.total td{font-weight:700;border-bottom:none}
+.tnote{font-size:11.5px;color:var(--muted);margin:-6px 0 14px}
+
+/* before / after */
+.ba{display:grid;grid-template-columns:1fr auto 1fr;gap:15px;align-items:center;margin:14px 0;break-inside:avoid}
+.ba .box{border:2px solid var(--ink);border-radius:14px;padding:14px 16px;background:#fff}
+.ba .box.now{background:#fbf4f5;border-color:#dcc4ca}
+.ba .box.next{background:var(--pink)}
+.ba .cap{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.ba .row{font-family:"Space Grotesk";font-size:12.5px;padding:4px 0;border-bottom:1px dashed #e0d4d8}
+.ba .row:last-child{border-bottom:none}
+.ba .arrow{font-size:26px;color:var(--red);font-weight:700}
+.chips{display:flex;flex-wrap:wrap;gap:5px;margin-top:4px}
+.chip{font-family:"Space Grotesk";font-weight:600;font-size:11px;background:#fff;border:1.5px solid var(--red);color:var(--red);border-radius:20px;padding:3px 9px}
+
+/* ledger */
+.ledger{border:2px solid var(--ink);border-radius:14px;overflow:hidden;margin:14px 0;break-inside:avoid;font-family:"Space Grotesk";font-size:13px}
+.ledger .lr{display:flex;justify-content:space-between;padding:8px 15px;border-bottom:1px solid var(--line)}
+.ledger .lr:nth-child(even){background:#faf6f9}
+.ledger .lr b{font-variant-numeric:tabular-nums}
+.ledger .lr.head{background:var(--ink);color:var(--cream);font-weight:600;border:none}
+.ledger .lr.foot{background:var(--pink);font-weight:700;border:none}
+.neg{color:var(--red)}.pos{color:var(--green)}
+
+/* chain / flow */
+.chain{display:flex;align-items:center;gap:8px;flex-wrap:wrap;background:var(--ink);border-radius:14px;padding:15px 17px;margin:14px 0;break-inside:avoid}
+.chain span{font-family:"Space Grotesk";font-weight:600;font-size:12.5px;color:var(--cream);background:#262022;border:1.5px solid #38302f;border-radius:9px;padding:6px 12px}
+.chain i{color:var(--red);font-style:normal;font-weight:700}
+.chain span.on{background:var(--red);border-color:var(--red)}
+
+/* cards */
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+.bcard{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;break-inside:avoid;background:#fff}
+.bcard .n{font-family:"Space Grotesk";font-weight:700;color:var(--red);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+.bcard h4{font-size:14.5px;margin:4px 0 0}
+.bcard p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
+
+/* charts */
+.chart{border:2px solid var(--ink);border-radius:14px;padding:18px 20px 14px;margin:14px 0;background:#fff;break-inside:avoid}
+.chart .ct{font-family:"Space Grotesk";font-weight:600;font-size:14px}
+.chart .cs{font-size:12px;color:var(--muted);margin-bottom:12px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.b-cat{font-family:"Instrument Sans",sans-serif;font-size:11.5px;fill:var(--ink)}
+.b-val{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:12.5px;fill:var(--ink)}
+.twoup{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+
+/* milestones */
+.miles{margin:14px 0;break-inside:avoid}
+.mile{display:grid;grid-template-columns:34px 1fr auto;gap:13px;align-items:center;border:1.5px solid var(--line);border-radius:12px;padding:12px 15px;margin-bottom:8px;background:#fff;break-inside:avoid}
+.mile .mn{font-family:"Space Grotesk";font-weight:700;font-size:13px;color:#fff;background:var(--ink);width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center}
+.mile h4{font-size:14.5px}
+.mile p{margin:3px 0 0;font-size:12.5px;color:var(--muted)}
+.mile .amt{font-family:"Space Grotesk";font-weight:700;font-size:19px;color:var(--red);white-space:nowrap}
+.mile.tot{background:var(--pink);border-color:var(--ink);border-width:2px}
+.mile.tot .mn{background:var(--red)}
+.mile.tot .amt{color:var(--ink);font-size:22px}
+
+/* price compare */
+.prices{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0;break-inside:avoid}
+.pc{border:2px solid var(--ink);border-radius:15px;padding:18px 20px;background:#fff;position:relative}
+.pc .pl{font-family:"Space Grotesk";font-weight:600;font-size:11px;letter-spacing:.07em;text-transform:uppercase;color:var(--muted)}
+.pc .pv{font-family:"Space Grotesk";font-weight:700;font-size:34px;line-height:1;margin-top:8px}
+.pc .pn{font-size:12px;color:var(--muted);margin-top:7px}
+.pc.strike .pv{color:var(--muted);text-decoration:line-through;text-decoration-thickness:2.5px}
+.pc.best{background:var(--pink)}
+.pc.best .pv{color:var(--ink)}
+.pc .tagd{position:absolute;top:-11px;right:14px;font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:20px;padding:4px 11px}
+
+/* saving band */
+.band{background:var(--ink);border-radius:16px;padding:24px 26px;margin:16px 0;display:grid;grid-template-columns:1fr auto;gap:20px;align-items:center;break-inside:avoid}
+.band .big{font-family:"Space Grotesk";font-weight:700;font-size:38px;line-height:1;color:var(--pink)}
+.band .big span{color:#fff;font-size:.5em}
+.band p{color:#cfc3c7;font-size:13.5px;margin:10px 0 0}
+.band img{height:126px;width:auto}
+
+/* today vs new */
+.tvn{display:grid;grid-template-columns:1fr auto 1fr;gap:14px;align-items:center;margin:14px 0;break-inside:avoid}
+.tvn .col{border-radius:14px;padding:16px 18px;border:2px solid var(--ink)}
+.tvn .col.a{background:#fbf4f5}
+.tvn .col.b{background:var(--pink)}
+.tvn .cap{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:9px}
+.tvn .piece{font-family:"Space Grotesk";font-weight:600;font-size:12px;background:#fff;border:1.5px solid #ddd0d4;border-radius:8px;padding:5px 10px;margin:0 4px 5px 0;display:inline-block}
+.tvn .col.b .piece{border-color:var(--ink)}
+.tvn .arrow{font-size:26px;color:var(--red);font-weight:700}
+
+/* characters */
+.charband{background:var(--pink);border:2.5px solid var(--ink);border-radius:16px;padding:17px 19px 13px;margin:18px 0;break-inside:avoid}
+.charband .cb{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.charband figure{margin:0;text-align:center}
+.charband img{height:100px;width:auto;display:block;margin:0 auto 7px}
+.charband figcaption{font-family:"Space Grotesk";font-weight:600;font-size:11px;color:#5a2733;line-height:1.25}
+.objrow{display:grid;grid-template-columns:repeat(7,1fr);gap:8px;margin:12px 0;background:var(--lav);border-radius:14px;padding:13px 15px;break-inside:avoid;align-items:center}
+.objrow img{height:50px;width:auto;display:block;margin:0 auto}
+
+.collab{display:flex;align-items:center;justify-content:center;gap:32px;margin:18px 0 0;padding:24px;border:2.5px solid var(--ink);border-radius:16px;background:var(--cream);break-inside:avoid}
+.collab img.pl{height:42px;width:auto}
+.collab img.vs{height:78px;width:auto}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:32px;color:var(--red);line-height:1}
+
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh img{height:13px}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+.rf b{color:var(--red)}
+#docFit{width:100%;overflow:hidden}
+</style>
+</head>
+<body>
+<div id="docFit">
+<doc-page size="letter" margin="0.7in">
+
+<div class="rh" slot="header"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span>Beneficios y propuesta económica · Vaqueros SM</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+<div class="cover-top">
+  <img class="pl" src="assets/logo-horizontal.png" alt="ProcesaLab">
+  <div class="for">Documento preparado para<br><strong style="color:var(--ink);font-size:14px">Vaqueros SM</strong></div>
+</div>
+
+<div class="hero">
+  <div>
+    <div class="ey">Vaqueros SM × ProcesaLab</div>
+    <h1>Beneficios, impacto y propuesta económica</h1>
+    <div class="sub">Una plataforma desarrollada alrededor de su operación — no solo un punto de venta</div>
+  </div>
+  <img class="fig" src="assets/vs-04.png" alt="">
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="k">Valor comercial</div><div class="v">$145K <small>MXN</small></div></div>
+  <div class="stat hl"><div class="k">Propuesta preferencial</div><div class="v">$120K <small>MXN</small></div></div>
+  <div class="stat"><div class="k">Pago</div><div class="v">Por <small>avances</small></div></div>
+  <div class="stat"><div class="k">Mensualidad</div><div class="v">$2,400 <small>/ mes</small></div></div>
+</div>
+
+<div class="callout">
+  <div class="lbl">La idea de fondo</div>
+  <p style="margin-bottom:0">El objetivo del nuevo sistema no es únicamente sustituir el punto de venta actual, sino crear una <strong>plataforma desarrollada alrededor de la operación de Vaqueros SM</strong> que reduzca trabajo administrativo, mejore el control del inventario y prepare tecnológicamente al negocio para su crecimiento.</p>
+</div>
+
+<!-- PARTE 1 -->
+<h2 class="sec"><span class="no">1</span>Reducción del tiempo de captura de mercancía</h2>
+<p class="lead">Hoy, productos como botas, ropa o sombreros requieren múltiples registros por sus tallas, colores y variantes. El nuevo sistema permite registrar un modelo <strong>una sola vez</strong> y generar sus variantes automáticamente.</p>
+<div class="ba">
+  <div class="box now">
+    <div class="cap">Proceso tradicional · 7 pasos</div>
+    <div class="row">Registrar modelo talla 25</div>
+    <div class="row">Registrar modelo talla 25.5</div>
+    <div class="row">Registrar modelo talla 26</div>
+    <div class="row">Registrar modelo talla 26.5</div>
+    <div class="row">Registrar modelo talla 27</div>
+    <div class="row">Asignar códigos</div>
+    <div class="row">Generar etiquetas</div>
+  </div>
+  <div class="arrow">→</div>
+  <div class="box next">
+    <div class="cap">Nuevo sistema · 1 flujo</div>
+    <div class="row"><strong>Registrar modelo</strong></div>
+    <div class="cap" style="margin:9px 0 2px">Seleccionar tallas</div>
+    <div class="chips"><span class="chip">25</span><span class="chip">25.5</span><span class="chip">26</span><span class="chip">26.5</span><span class="chip">27</span></div>
+    <div class="row" style="margin-top:9px">Cantidades → variantes → códigos → etiquetas</div>
+  </div>
+</div>
+
+<h2 class="sec"><span class="no">2</span>Menos trabajo duplicado entre tienda física y online</h2>
+<img class="fig sm" src="assets/vs-07.png" alt="">
+<p class="lead">Hoy el punto de venta y WooCommerce funcionan como sistemas independientes. La integración permite que ambos compartan información: una venta física actualiza la disponibilidad online, y una venta online se refleja en el sistema central.</p>
+<p>Esto elimina actividades como revisar existencias manualmente, actualizar productos uno por uno en WooCommerce, comparar dos inventarios, capturar la misma información más de una vez y corregir diferencias por actualizaciones tardías.</p>
+<div class="chain">
+  <span class="on">Venta en tienda</span><i>→</i><span>Inventario central</span><i>→</i><span>Disponibilidad online</span>
+</div>
+<p class="tnote">El ahorro no solo se refleja en horas de trabajo, sino en una menor probabilidad de error — y en menos ventas de productos sin existencia, que hoy derivan en cancelaciones, reembolsos y llamadas al cliente.</p>
+<div class="clear"></div>
+
+<h2 class="sec"><span class="no">3</span>Mayor control sobre el inventario</h2>
+<p class="lead">Cada movimiento queda registrado. El sistema permite conocer no solamente <em>“tenemos 7 piezas”</em>, sino <strong>por qué</strong> tenemos 7 piezas.</p>
+<div class="ledger">
+  <div class="lr head"><span>Movimiento</span><span>Piezas</span></div>
+  <div class="lr"><span>Existencia inicial</span><b>10</b></div>
+  <div class="lr"><span>Venta</span><b class="neg">−1</b></div>
+  <div class="lr"><span>Venta</span><b class="neg">−1</b></div>
+  <div class="lr"><span>Devolución</span><b class="pos">+1</b></div>
+  <div class="lr"><span>Ajuste autorizado</span><b class="neg">−2</b></div>
+  <div class="lr foot"><span>Existencia final</span><b>7</b></div>
+</div>
+<p>En un negocio con muchos productos y variantes, pequeñas diferencias acumulan un valor considerable. Un mejor control permite detectar productos faltantes, errores de captura, movimientos incorrectos, diferencias entre sistema y existencia física, ajustes realizados por empleados, inventario negativo y productos duplicados.</p>
+<h3 class="sub">Control de empleados y operaciones</h3>
+<p>Cada operación podrá relacionarse con empleado, caja, fecha, hora, sucursal y tipo de operación. En lugar de solamente detectar una diferencia, será posible investigar <strong>cómo ocurrió</strong>.</p>
+
+<h2 class="sec"><span class="no">4</span>Mejor información para comprar mercancía</h2>
+<img class="fig" src="assets/vq-02.png" alt="">
+<p class="lead">Un sistema centralizado convierte las ventas en información para decidir: productos más vendidos, tallas con mayor rotación, productos con poca salida, marcas con mejor desempeño, agotados frecuentes y mercancía detenida demasiado tiempo.</p>
+<div class="chart">
+  <div class="ct">Rotación por talla — modelo de ejemplo</div>
+  <div class="cs">Las compras siguientes se hacen con información histórica real</div>
+  <div id="ch-rot"></div>
+</div>
+<p>La pregunta deja de ser <em>“¿cuánto tenemos?”</em> y pasa a ser <strong>“¿qué deberíamos volver a comprar?”</strong> — lo que significa menos capital detenido en mercancía que no se vende y mayor disponibilidad de lo que sí tiene demanda.</p>
+<div class="clear"></div>
+
+<h2 class="sec"><span class="no">5</span>Preparación para nuevas sucursales</h2>
+<p class="lead">Sin un sistema centralizado, cada nueva sucursal multiplica capturas, revisiones, reportes, conciliaciones y administración de usuarios. Con una plataforma central, esas tareas siguen ocurriendo en el mismo sistema.</p>
+<div class="chain">
+  <span>Sucursal 1</span><span>Sucursal 2</span><span>Sucursal 3</span><span>Tienda online</span><i>→</i><span class="on">Un solo sistema</span>
+</div>
+<p>Esto permite consultar inventario por ubicación y, después, realizar transferencias entre sucursales. Si un cliente pide una talla que no hay en una tienda, el empleado puede ver de inmediato si está en otra ubicación — <strong>una venta que hoy se perdería</strong>.</p>
+<p class="tnote">El crecimiento de sucursales no implica incrementar el trabajo administrativo en la misma proporción.</p>
+
+<!-- DONDE SE GENERA EL AHORRO -->
+<h2 class="sec"><span class="no">6</span>¿Dónde se genera el ahorro?</h2>
+<div class="cards three">
+  <div class="bcard"><div class="n">01 · Horas</div><h4>Trabajo operativo</h4><p>Menos tiempo capturando mercancía, actualizando inventarios y conciliando sistemas.</p></div>
+  <div class="bcard"><div class="n">02 · Errores</div><h4>Captura y códigos</h4><p>Menos errores de captura, inventario y códigos duplicados o faltantes.</p></div>
+  <div class="bcard"><div class="n">03 · Ventas</div><h4>Ventas recuperadas</h4><p>Menor probabilidad de perder una venta por no saber que el producto existe en otra ubicación.</p></div>
+  <div class="bcard"><div class="n">04 · Inventario</div><h4>Capital liberado</h4><p>Mejores decisiones de compra y menos capital detenido en mercancía sin rotación.</p></div>
+  <div class="bcard"><div class="n">05 · Ecommerce</div><h4>Menos cancelaciones</h4><p>Se evita vender online mercancía que ya no existe físicamente.</p></div>
+  <div class="bcard"><div class="n">06 · Administración</div><h4>Procesos manuales</h4><p>Menor necesidad de procesos manuales conforme aumentan las sucursales.</p></div>
+</div>
+<p class="tnote">07 · Tecnología — una misma plataforma incorpora progresivamente nuevas necesidades, sin contratar sistemas independientes para cada proceso.</p>
+
+<!-- IMPACTO -->
+<h2 class="sec"><span class="no">7</span>Ejemplo de impacto económico</h2>
+<p class="lead">El ahorro exacto deberá calcularse con información real de Vaqueros SM. Este escenario solo ilustra cómo mejoras relativamente pequeñas pueden justificar la inversión.</p>
+<div class="twoup">
+  <div>
+    <table>
+      <thead><tr><th>Supuesto ilustrativo</th><th class="num">Anual</th></tr></thead>
+      <tbody>
+        <tr><td>2 horas de trabajo al día × 300 días = 600 h, a $100/h</td><td class="num">$60,000</td></tr>
+        <tr><td>$5,000 / mes entre errores, cancelaciones y ventas recuperadas</td><td class="num">$60,000</td></tr>
+        <tr class="total"><td>Impacto potencial anual</td><td class="num">$120,000</td></tr>
+      </tbody>
+    </table>
+    <p class="tnote">Escenario ilustrativo; no debe presentarse como ahorro garantizado.</p>
+  </div>
+  <div class="chart">
+    <div class="ct">Impacto potencial vs. inversión</div>
+    <div class="cs">Escenario ilustrativo · MXN al año</div>
+    <div id="ch-imp"></div>
+  </div>
+</div>
+<div class="callout dark">
+  <div class="lbl">Lo importante</div>
+  <p style="margin-bottom:0">Una mejora relativamente pequeña en la operación podría ser suficiente para recuperar una inversión de <strong>$120,000 MXN</strong>. Y conforme se incorporen la segunda y tercera sucursal, el valor de tener todos los puntos de venta, inventarios y la tienda online en una misma infraestructura será considerablemente mayor.</p>
+</div>
+
+<!-- PROPUESTA -->
+<h2 class="sec"><span class="no">8</span>Propuesta económica</h2>
+<p class="lead">Por el alcance y nivel de personalización requerido, un desarrollo de estas características se estima entre <strong>$130,000 y $160,000 MXN</strong>. ProcesaLab toma <strong>$145,000 MXN</strong> como valor comercial de referencia.</p>
+<div class="prices">
+  <div class="pc strike">
+    <div class="pl">Valor comercial estimado</div>
+    <div class="pv">$145,000</div>
+    <div class="pn">Desarrollo personalizado alrededor de la operación, no la instalación de un punto de venta existente.</div>
+  </div>
+  <div class="pc best">
+    <span class="tagd">Propuesta preferencial</span>
+    <div class="pl">Inversión ProcesaLab</div>
+    <div class="pv">$120,000</div>
+    <div class="pn"><strong>$25,000 MXN menos</strong> — buscando una relación de largo plazo y reduciendo el riesgo antes de comprobar el funcionamiento.</div>
+  </div>
+</div>
+<p>El alcance contemplado incluye punto de venta, administración de inventario, productos y variantes, códigos de barras, generación de etiquetas, ventas y tickets, cajas y cortes, usuarios y permisos, operaciones administrativas acordadas, conexión con WooCommerce, sincronización de inventario y pedidos, pruebas de operación, implementación de la primera sucursal y una arquitectura preparada para nuevas ubicaciones.</p>
+
+<h2 class="sec"><span class="no">9</span>Esquema de inversión por avances</h2>
+<p class="lead">No será necesario cubrir los $120,000 MXN al inicio. La inversión se divide conforme el proyecto alcanza etapas funcionales y verificables.</p>
+<div class="miles">
+  <div class="mile"><div class="mn">1</div><div><h4>Inicio del proyecto</h4><p>Inicio formal, levantamiento, planeación, arquitectura y comienzo del desarrollo.</p></div><div class="amt">$30,000</div></div>
+  <div class="mile"><div class="mn">2</div><div><h4>Primera etapa funcional</h4><p>Presentación y validación de los primeros módulos principales del sistema.</p></div><div class="amt">$30,000</div></div>
+  <div class="mile"><div class="mn">3</div><div><h4>Punto de venta funcional</h4><p>Funciones principales del punto de venta listas para iniciar pruebas.</p></div><div class="amt">$25,000</div></div>
+  <div class="mile"><div class="mn">4</div><div><h4>Integraciones y sistema para piloto</h4><p>Integraciones principales y funciones acordadas disponibles para pruebas operativas.</p></div><div class="amt">$20,000</div></div>
+  <div class="mile"><div class="mn">5</div><div><h4>Implementación</h4><p>Inicio de la implementación y puesta en operación de la primera versión.</p></div><div class="amt">$15,000</div></div>
+  <div class="mile tot"><div class="mn">✓</div><div><h4>Inversión total</h4><p>Los pagos se realizan conforme se presentan resultados y avances funcionales.</p></div><div class="amt">$120,000</div></div>
+</div>
+<div class="chart">
+  <div class="ct">Distribución de la inversión por etapa</div>
+  <div class="cs">MXN · pago vinculado a entregables verificables</div>
+  <div id="ch-mile"></div>
+</div>
+
+<h2 class="sec"><span class="no">10</span>Licencia, mantenimiento y soporte</h2>
+<img class="fig sm" src="assets/vs-01.png" alt="">
+<p class="lead">Cuando el sistema concluya su etapa de desarrollo y comience formalmente su operación, se establece una mensualidad de <strong>$2,400 MXN</strong>. La mensualidad comienza únicamente cuando el sistema entra en operación.</p>
+<ul class="clean cols">
+  <li>Licencia de uso</li><li>Mantenimiento del sistema</li><li>Corrección de errores</li><li>Soporte de funcionamiento</li>
+  <li>Monitoreo básico</li><li>Actualizaciones para mantener la operación</li><li>Ajustes menores sobre funcionalidades existentes</li>
+</ul>
+<p class="tnote">La mensualidad no contempla el desarrollo ilimitado de nuevas funcionalidades.</p>
+<h3 class="sub">Infraestructura y servicios externos</h3>
+<p>Los servicios tecnológicos externos (base de datos, hosting, almacenamiento, APIs, facturación u otros) son independientes de la mensualidad. Siempre que sea posible, las cuentas serán propiedad de Vaqueros SM y ProcesaLab realizará únicamente su configuración e integración.</p>
+<div class="clear"></div>
+
+<h2 class="sec"><span class="no">11</span>Crecimiento a nuevas sucursales</h2>
+<p class="lead">La primera sucursal está incluida en la inversión inicial. La arquitectura se prepara desde el desarrollo para incorporar nuevas ubicaciones conforme avance la expansión.</p>
+<div class="twoup">
+  <div>
+    <table>
+      <thead><tr><th>Concepto</th><th class="num">Monto</th></tr></thead>
+      <tbody>
+        <tr><td>Primera sucursal</td><td class="num">Incluida</td></tr>
+        <tr><td>Implementación por sucursal adicional</td><td class="num">$10,000 – $15,000</td></tr>
+        <tr><td>Incremento de mensualidad por sucursal</td><td class="num">$500 – $800 / mes</td></tr>
+      </tbody>
+    </table>
+    <p class="tnote">El monto de implementación depende de los requerimientos particulares de cada nueva ubicación.</p>
+  </div>
+  <div class="chart">
+    <div class="ct">Mensualidad según sucursales</div>
+    <div class="cs">Tomando $700 MXN como referencia por sucursal adicional</div>
+    <div id="ch-suc"></div>
+  </div>
+</div>
+
+<h2 class="sec"><span class="no">12</span>Desarrollo futuro</h2>
+<img class="fig" src="assets/vs-08.png" alt="">
+<p class="lead">La principal diferencia frente a un sistema cerrado es que Vaqueros SM podrá seguir evolucionando la plataforma conforme cambien sus necesidades, sin sustituir todo el sistema otra vez.</p>
+<ul class="clean cols">
+  <li>Programa de lealtad y puntos</li><li>Tarjeta digital para clientes</li><li>Nuevas automatizaciones</li><li>Nuevos módulos administrativos</li>
+  <li>Reportes especializados</li><li>Nuevas integraciones</li><li>Herramientas para nuevas sucursales</li><li>Funcionalidades para clientes o empleados</li>
+</ul>
+<p class="tnote">Las funcionalidades nuevas que representen desarrollos adicionales serán evaluadas y cotizadas independientemente.</p>
+<div class="clear"></div>
+
+<!-- MAS QUE UN POS -->
+<h2 class="sec"><span class="no">★</span>Más que un punto de venta</h2>
+<p class="lead">Vaqueros SM no estaría adquiriendo únicamente una herramienta para cobrar, sino construyendo una plataforma tecnológica propia alrededor de su operación.</p>
+<div class="tvn">
+  <div class="col a">
+    <div class="cap">Hoy · sistemas independientes</div>
+    <span class="piece">Punto de venta</span><span class="piece">Inventario</span><span class="piece">WooCommerce</span>
+  </div>
+  <div class="arrow">→</div>
+  <div class="col b">
+    <div class="cap">Con el nuevo sistema · una estructura</div>
+    <span class="piece">Punto de venta</span><span class="piece">Inventario</span><span class="piece">Tienda online</span><span class="piece">Productos</span><span class="piece">Códigos</span><span class="piece">Empleados</span><span class="piece">Información</span><span class="piece">Futuras sucursales</span>
+  </div>
+</div>
+<p>Las futuras necesidades se desarrollan sobre una base ya existente, en lugar de buscar un sistema diferente cada vez que el negocio necesite una nueva función. El objetivo no es solo administrar mejor la operación actual, sino <strong>permitir que Vaqueros SM crezca sin que la complejidad administrativa crezca al mismo ritmo</strong>.</p>
+
+<!-- RESUMEN -->
+<h2 class="sec"><span class="no">✓</span>Resumen de la propuesta</h2>
+<table>
+  <thead><tr><th>Concepto</th><th class="num">Condición</th></tr></thead>
+  <tbody>
+    <tr><td>Valor comercial estimado del proyecto</td><td class="num">$145,000 MXN</td></tr>
+    <tr class="total"><td>Propuesta preferencial ProcesaLab</td><td class="num">$120,000 MXN</td></tr>
+    <tr><td>Esquema de pago</td><td class="num">Por avances y entregables</td></tr>
+    <tr><td>Mensualidad</td><td class="num">$2,400 / mes desde la operación</td></tr>
+    <tr><td>Primera sucursal</td><td class="num">Incluida</td></tr>
+    <tr><td>Nueva sucursal — implementación</td><td class="num">$10,000 – $15,000</td></tr>
+    <tr><td>Incremento mensual por sucursal</td><td class="num">$500 – $800</td></tr>
+    <tr><td>Infraestructura externa</td><td class="num">Independiente</td></tr>
+    <tr><td>Nuevos desarrollos</td><td class="num">Cotización independiente</td></tr>
+  </tbody>
+</table>
+
+<div class="band">
+  <div>
+    <div class="big">$25,000 <span>MXN de diferencia</span></div>
+    <p>La propuesta busca reducir el riesgo inicial para Vaqueros SM, vinculando la inversión al avance real del proyecto y estableciendo una plataforma que pueda continuar creciendo junto con el negocio.</p>
+  </div>
+  <img src="assets/vs-09.png" alt="">
+</div>
+
+<div class="objrow">
+  <img src="assets/vs-13.png" alt=""><img src="assets/vs-10.png" alt=""><img src="assets/vs-11.png" alt=""><img src="assets/vs-12.png" alt="">
+  <img src="assets/vr-10.png" alt=""><img src="assets/vr-11.png" alt=""><img src="assets/vs-15.png" alt="">
+</div>
+
+<div class="collab">
+  <img class="pl" src="assets/logo-horizontal.png" alt="ProcesaLab">
+  <span class="x">×</span>
+  <img class="vs" src="assets/vsm-logo.png" alt="Vaqueros SM">
+</div>
+
+</doc-page>
+</div>
+
+<script>
+const RED="#FF4E3A",PINK="#F7B6C9",INK="#141310",LAV="#EDE6F2",MUT="#9a8f92";
+function barChart(id,data,opt){
+  opt=opt||{};
+  const W=opt.w||520,H=opt.h||230,padL=8,padR=8,padTop=26,padBot=40;
+  const n=data.length,gap=opt.gap||16,bw=(W-padL-padR-gap*(n-1))/n;
+  const max=Math.max(...data.map(d=>d.v));
+  const plot=H-padTop-padBot;
+  let s='';
+  data.forEach((d,i)=>{
+    const x=padL+i*(bw+gap);
+    const h=Math.max(2,(d.v/max)*plot);
+    const y=padTop+plot-h;
+    s+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="5" fill="${d.color}"/>`;
+    s+=`<text class="b-val" x="${x+bw/2}" y="${y-7}" text-anchor="middle" fill="${d.vcolor||INK}">${d.label||('$'+d.v.toLocaleString('en-US'))}</text>`;
+    const lines=String(d.cat).split("|");
+    lines.forEach((ln,k)=>{s+=`<text class="b-cat" x="${x+bw/2}" y="${padTop+plot+18+k*13}" text-anchor="middle">${ln}</text>`;});
+  });
+  s+=`<line x1="0" y1="${padTop+plot}" x2="${W}" y2="${padTop+plot}" stroke="${LAV}" stroke-width="2"/>`;
+  document.getElementById(id).innerHTML=`<svg viewBox="0 0 ${W} ${H}">${s}</svg>`;
+}
+
+barChart("ch-rot",[
+  {v:42,color:RED,cat:"Talla 25",label:"Alta"},
+  {v:46,color:RED,cat:"Talla 26",label:"Alta"},
+  {v:38,color:RED,cat:"Talla 27",label:"Alta"},
+  {v:9,color:PINK,vcolor:"#8a2f3f",cat:"Talla 29",label:"Baja"},
+],{h:210,w:480,gap:24});
+
+barChart("ch-imp",[
+  {v:60000,color:PINK,vcolor:"#8a2f3f",cat:"Horas de|trabajo"},
+  {v:60000,color:PINK,vcolor:"#8a2f3f",cat:"Errores y|ventas"},
+  {v:120000,color:RED,cat:"Impacto|potencial"},
+  {v:120000,color:INK,cat:"Inversión|total"},
+],{h:230,w:470,gap:18});
+
+barChart("ch-mile",[
+  {v:30000,color:RED,cat:"1 · Inicio"},
+  {v:30000,color:RED,cat:"2 · Etapa|funcional"},
+  {v:25000,color:RED,cat:"3 · Punto|de venta"},
+  {v:20000,color:PINK,vcolor:"#8a2f3f",cat:"4 · Inte-|graciones"},
+  {v:15000,color:PINK,vcolor:"#8a2f3f",cat:"5 · Imple-|mentación"},
+],{h:240,w:660,gap:26});
+
+barChart("ch-suc",[
+  {v:2400,color:INK,cat:"1 sucursal"},
+  {v:3100,color:RED,cat:"2 sucursales"},
+  {v:3800,color:RED,cat:"3 sucursales"},
+],{h:210,w:440,gap:26});
+</script>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#F7B6C9"></rect><rect x="26" y="62" width="14" height="30" fill="#141310"></rect><rect x="46" y="46" width="14" height="46" fill="#FF4E3A"></rect><rect x="66" y="34" width="14" height="58" fill="#FF4E3A"></rect><rect x="86" y="54" width="8" height="38" fill="#141310"></rect></svg></template>
+
+<script>
+// On phones the doc-page component keeps its true physical page width
+// (letter size) rather than shrinking to the viewport, which otherwise
+// forces the user to pinch-zoom out to read it. Scale the whole page
+// down to fit the screen width instead.
+function fitDocToViewport() {
+  const dp = document.querySelector('doc-page');
+  const wrap = document.getElementById('docFit');
+  if (!dp || !wrap) return;
+  dp.style.transform = 'none';
+  const naturalW = dp.getBoundingClientRect().width;
+  const naturalH = dp.getBoundingClientRect().height;
+  const avail = wrap.clientWidth;
+  if (naturalW > avail && naturalW > 0) {
+    const scale = avail / naturalW;
+    dp.style.transformOrigin = 'top left';
+    dp.style.transform = 'scale(' + scale + ')';
+    wrap.style.height = (naturalH * scale) + 'px';
+  } else {
+    dp.style.transform = 'none';
+    wrap.style.height = 'auto';
+  }
+}
+window.addEventListener('load', () => setTimeout(fitDocToViewport, 200));
+window.addEventListener('resize', fitDocToViewport);
+</script>
+</body>
+</html>
