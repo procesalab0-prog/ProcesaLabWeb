@@ -100,6 +100,9 @@ svg{fill:currentColor}
 .hero-scroll svg{animation:bob 1.8s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 @media (prefers-reduced-motion:reduce){.hero-scroll svg{animation:none}}
+.scene-scroll{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:"Space Grotesk";font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .4s;pointer-events:none}
+.scene-scroll svg{animation:bob 1.8s ease-in-out infinite}
+@media (prefers-reduced-motion:reduce){.scene-scroll svg{animation:none}}
 
 /* MARQUEE */
 .marq{background:var(--ink);color:var(--cream);overflow:hidden;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
@@ -389,6 +392,10 @@ svg{fill:currentColor}
         <div class="face fS"><div class="handle"></div></div>
       </div>
     </div>
+    <div class="scene-scroll" id="sceneScroll" aria-hidden="true">
+      <span data-es="Sigue bajando" data-en="Keep scrolling">Sigue bajando</span>
+      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M3 9l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    </div>
   </div>
 </section>
 
@@ -515,6 +522,7 @@ const folders = [...document.querySelectorAll('.folder')];
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const lerp = (a, b, t) => a + (b - a) * t;
 const archIntro = document.getElementById('archIntro');
+const sceneScroll = document.getElementById('sceneScroll');
 const cmpRig = document.getElementById('cmpRig');
 const archScene = document.getElementById('proyectos');
 const finScene = document.getElementById('contacto');
@@ -540,6 +548,9 @@ function tickScenes() {
     f.style.opacity = clamp(0.55 + local * 0.6, 0, 1);
   });
   archIntro.style.opacity = ap < 0.5 ? 1 : 0;
+  // "keep scrolling" cue: appears once the intro text fades, hides again
+  // as the folders finish fanning out and the project grid is near
+  sceneScroll.style.opacity = (ap > 0.1 && ap < 0.85) ? 1 : 0;
 
   // FINALE — computer rotates as you scroll
   const fr = finScene.getBoundingClientRect();
