@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Propuesta de Desarrollo — Sistema de Cotizaciones Econow</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/client-check?slug=econow')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = './login.html';
+      }
+    })
+    .catch(function () { location.href = './login.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--pink:#F7B6C9;--pinkd:#FBD9E3;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--muted:#5f565a;--line:#E7DED8}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.6;font-size:15px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 12px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+.muted{color:var(--muted)}
+
+.cover-top{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid var(--ink);padding-bottom:14px}
+.cover-top img.pl{height:30px;width:auto}
+.cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+.cover-top img.cl{height:44px;width:auto;display:block;margin-top:7px;margin-left:auto}
+.collab{display:flex;align-items:center;justify-content:center;gap:30px;margin:18px 0 0;padding:24px;border:2.5px solid var(--ink);border-radius:16px;background:var(--cream);break-inside:avoid}
+.collab img.pl{height:34px;width:auto}
+.collab img.ec{height:58px;width:auto}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:30px;color:var(--red);line-height:1}
+.hero{background:var(--pink);border:2.5px solid var(--ink);border-radius:18px;padding:32px 30px;margin-top:20px;display:block}
+.hero .ey{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#8a2f3f}
+.hero h1{font-size:38px;font-weight:700;margin:10px 0 0}
+.hero .sub{font-family:"Space Grotesk";font-weight:600;font-size:16px;margin-top:9px;color:#5a2733}
+.hero img.fig{height:170px;width:auto}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:15px}
+.stat{border:2px solid var(--ink);border-radius:13px;padding:13px 15px;background:var(--cream)}
+.stat .k{font-family:"Space Grotesk";font-weight:600;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:"Space Grotesk";font-weight:700;font-size:23px;line-height:1;margin-top:7px}
+.stat .v small{font-size:11.5px;font-weight:600;color:var(--red)}
+.stat.hl{background:var(--ink)}
+.stat.hl .k{color:#c9b9be}.stat.hl .v{color:#fff}.stat.hl .v small{color:var(--pink)}
+
+.callout{border-left:5px solid var(--red);background:var(--lav);border-radius:0 12px 12px 0;padding:15px 19px;margin:18px 0;break-inside:avoid}
+.callout .lbl{font-family:"Space Grotesk";font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.callout.dark{background:var(--ink);color:#ddd4d6}
+.callout.dark .lbl{color:var(--pink)}
+.callout.dark strong{color:#fff}
+
+h2.sec{font-size:24px;margin:32px 0 4px;padding-top:20px;border-top:1.5px solid var(--line);display:flex;align-items:baseline;gap:12px;break-after:avoid;clear:both}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:13px;color:#fff;background:var(--red);min-width:29px;height:29px;padding:0 7px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none;transform:translateY(2px)}
+.lead{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+h3.sub{font-family:"Space Grotesk";font-size:16.5px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:9px}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+
+.fig{float:right;height:116px;width:auto;margin:0 0 10px 20px}
+.fig.sm{height:98px}
+.clear::after{content:"";display:block;clear:both}
+
+ul.clean{margin:6px 0 14px;padding:0;list-style:none}
+ul.clean li{position:relative;padding-left:20px;margin-bottom:7px;font-size:14px}
+ul.clean li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+ul.cols{columns:2;column-gap:26px}
+ul.cols li{break-inside:avoid}
+ul.cols.three{columns:3;column-gap:20px}
+
+table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:13.5px;break-inside:avoid}
+thead th{background:var(--ink);color:var(--cream);font-family:"Space Grotesk";font-weight:600;font-size:12px;text-align:left;padding:9px 12px}
+thead th.c{text-align:center}
+thead th.num{text-align:right}
+tbody td{padding:8px 12px;border-bottom:1px solid var(--line)}
+tbody td.c{text-align:center;font-family:"Space Grotesk";font-weight:700}
+tbody td.num{text-align:right;font-variant-numeric:tabular-nums;font-family:"Space Grotesk";font-weight:600}
+tbody tr:nth-child(even){background:#faf6f9}
+tbody tr.total{background:var(--pink)}
+tbody tr.total td{font-weight:700;border-bottom:none}
+.yes{color:var(--red)}.no{color:#c9bfc2}
+.tnote{font-size:11.5px;color:var(--muted);margin:-6px 0 14px}
+
+.chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:var(--ink);border-radius:14px;padding:15px 17px;margin:14px 0;break-inside:avoid}
+.chain span{font-family:"Space Grotesk";font-weight:600;font-size:12px;color:var(--cream);background:#262022;border:1.5px solid #38302f;border-radius:9px;padding:6px 11px}
+.chain i{color:var(--red);font-style:normal;font-weight:700}
+.chain span.on{background:var(--red);border-color:var(--red)}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+.bcard{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;break-inside:avoid;background:#fff}
+.bcard .n{font-family:"Space Grotesk";font-weight:700;color:var(--red);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+.bcard h4{font-size:14.5px;margin:4px 0 0}
+.bcard p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
+
+.chart{border:2px solid var(--ink);border-radius:14px;padding:18px 20px 14px;margin:14px 0;background:#fff;break-inside:avoid}
+.chart .ct{font-family:"Space Grotesk";font-weight:600;font-size:14px}
+.chart .cs{font-size:12px;color:var(--muted);margin-bottom:12px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.b-cat{font-family:"Instrument Sans",sans-serif;font-size:11.5px;fill:var(--ink)}
+.b-val{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:12.5px;fill:var(--ink)}
+.twoup{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+
+/* plans */
+.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;break-inside:avoid}
+.plan{border:2px solid var(--ink);border-radius:16px;padding:18px 18px 16px;background:#fff;position:relative;display:flex;flex-direction:column}
+.plan .pn{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.plan .pv{font-family:"Space Grotesk";font-weight:700;font-size:29px;line-height:1;margin-top:7px}
+.plan .pv small{font-size:11.5px;font-weight:600;color:var(--muted);display:block;margin-top:4px;letter-spacing:0}
+.plan .pd{font-size:12.5px;color:var(--muted);margin:9px 0 11px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.plan ul{margin:0;padding:0;list-style:none}
+.plan li{font-size:12px;padding-left:15px;position:relative;margin-bottom:4px;line-height:1.4}
+.plan li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+.plan .inc{font-family:"Space Grotesk";font-weight:600;font-size:11px;color:var(--ink);background:var(--lav);border-radius:7px;padding:5px 9px;margin-bottom:8px}
+.plan.best{background:var(--pink)}
+.plan.best .pn{color:#8a2f3f}
+.plan.best .inc{background:#fff}
+.plan .tagd{position:absolute;top:-11px;right:14px;font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:20px;padding:4px 10px}
+
+/* stages */
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;break-inside:avoid}
+.stg{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;background:#fff}
+.stg .sn{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.stg h4{font-size:14px;margin:3px 0 0}
+.stg p{margin:5px 0 0;font-size:12px;color:var(--muted)}
+
+.pays{display:grid;grid-template-columns:repeat(3,1fr);gap:11px;margin:14px 0;break-inside:avoid}
+.pay{border:2px solid var(--ink);border-radius:14px;padding:15px 17px;background:#fff}
+.pay .pp{font-family:"Space Grotesk";font-weight:700;font-size:26px;color:var(--red);line-height:1}
+.pay h4{font-size:13.5px;margin:6px 0 0}
+.pay p{margin:4px 0 0;font-size:11.5px;color:var(--muted)}
+.pay .amt{font-family:"Space Grotesk";font-weight:700;font-size:15px;margin-top:8px;padding-top:7px;border-top:1px solid var(--line)}
+
+.band{background:var(--ink);border-radius:16px;padding:24px 26px;margin:16px 0;break-inside:avoid}
+.band .big{font-family:"Space Grotesk";font-weight:700;font-size:34px;line-height:1.05;color:var(--pink)}
+.band .big span{color:#fff;font-size:.48em}
+.band p{color:#cfc3c7;font-size:13.5px;margin:10px 0 0}
+.band img{height:120px;width:auto}
+
+.close{border:2.5px solid var(--ink);border-radius:16px;padding:26px;background:var(--cream);text-align:center;margin-top:18px;break-inside:avoid}
+.close img{height:38px;width:auto;margin-bottom:10px}
+.close p{font-family:"Space Grotesk";font-weight:600;font-size:15px;margin:0;color:var(--muted)}
+
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh img{height:13px}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+.rf b{color:var(--red)}
+#docFit{width:100%;overflow:hidden}
+.pl-back{position:fixed;top:14px;left:14px;z-index:999;display:inline-flex;align-items:center;gap:6px;background:#111111;color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:13px;padding:9px 16px 9px 14px;border-radius:30px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+@media print{.pl-back{display:none}}
+</style>
+</head>
+<body>
+<a href="./" class="pl-back">&larr; Volver</a>
+<div id="docFit">
+<doc-page size="letter" margin="0.7in">
+
+<div class="rh" slot="header"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span>Propuesta de desarrollo · Sistema de Cotizaciones Econow</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+<div class="cover-top">
+  <img class="pl" src="assets/logo-horizontal.png" alt="ProcesaLab">
+  <div class="for">Propuesta preparada para<br><img class="cl" src="assets/econow-icon.png" alt="Econow"></div>
+</div>
+
+<div class="hero">
+  <div>
+    <div class="ey">Propuesta de desarrollo</div>
+    <h1>Sistema de Cotizaciones Econow</h1>
+    <div class="sub">Una plataforma privada diseñada alrededor de su proceso comercial</div>
+  </div>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="k">Esencial</div><div class="v">$33K <small>+ IVA</small></div></div>
+  <div class="stat"><div class="k">Profesional</div><div class="v">$40K <small>+ IVA</small></div></div>
+  <div class="stat hl"><div class="k">Integral · mejor valor</div><div class="v">$45K <small>+ IVA</small></div></div>
+  <div class="stat"><div class="k">Servicio mensual</div><div class="v">$1,400 <small>/ mes</small></div></div>
+</div>
+
+<h2 class="sec"><span class="no">1</span>El proyecto</h2>
+<p class="lead">Econow conservará su página de Wix como su principal punto de presencia y contacto digital. ProcesaLab desarrollará una <strong>plataforma privada de cotizaciones</strong> diseñada específicamente alrededor de su proceso comercial.</p>
+<p>El objetivo es sencillo: reducir el tiempo necesario para crear una cotización, disminuir tareas repetitivas y mantener organizada toda la información comercial.</p>
+<div class="callout">
+  <div class="lbl">Importante</div>
+  <p style="margin-bottom:0">El sistema no busca reemplazar el conocimiento técnico del equipo. Las decisiones sobre qué solución ofrecer a cada cliente continuarán siendo de su personal — <strong>la tecnología se encarga de hacer más rápido todo lo demás</strong>.</p>
+</div>
+<div class="clear"></div>
+
+<h2 class="sec"><span class="no">2</span>Flujo propuesto</h2>
+<p class="lead">En lugar de trabajar con archivos, cálculos y documentos por separado, la información estará centralizada en una misma plataforma.</p>
+<div class="chain">
+  <span>Cliente contacta</span><i>→</i><span>Nueva cotización</span><i>→</i><span>Captura de datos</span><i>→</i><span>Selección de equipos</span><i>→</i><span class="on">Cálculos automáticos</span><i>→</i><span>PDF</span><i>→</i><span>Envío</span><i>→</i><span>Seguimiento</span>
+</div>
+
+<h2 class="sec"><span class="no">3</span>Sistema privado y dashboard</h2>
+<p class="lead">El equipo accederá desde computadora, tablet o dispositivo compatible mediante usuario y contraseña. El panel principal permitirá identificar rápidamente qué requiere atención.</p>
+<ul class="clean cols three">
+  <li>Cotizaciones recientes</li><li>Pendientes</li><li>Enviadas</li><li>Aceptadas</li><li>Rechazadas</li>
+  <li>Prospectos y clientes</li><li>Actividad comercial</li><li>Indicadores generales</li>
+</ul>
+
+<h2 class="sec"><span class="no">4</span>Clientes y prospectos</h2>
+<p class="lead">Econow contará con una base de datos propia para centralizar la información de sus clientes: nombre, teléfono/WhatsApp, correo, ubicación, tipo de inmueble, información del proyecto, observaciones e historial de cotizaciones.</p>
+<p>Cuando un cliente vuelva a solicitar información, sus datos y cotizaciones anteriores podrán consultarse <strong>sin comenzar nuevamente desde cero</strong>.</p>
+<div class="clear"></div>
+
+<h2 class="sec"><span class="no">5</span>Cotizador Econow</h2>
+<p class="lead">Módulo principal de la plataforma. El equipo captura la información del proyecto y selecciona los componentes correspondientes.</p>
+<ul class="clean cols three">
+  <li>Información del cliente</li><li>Consumo eléctrico</li><li>Recibo CFE</li><li>Tipo de inmueble</li><li>Número de paneles</li><li>Modelo de panel</li>
+  <li>Capacidad</li><li>Inversor</li><li>Estructuras</li><li>Material eléctrico</li><li>Mano de obra</li><li>Servicios adicionales</li>
+  <li>Descuentos</li><li>Impuestos</li><li>Observaciones técnicas y comerciales</li>
+</ul>
+<p class="tnote">Los campos y cálculos definitivos serán establecidos durante el levantamiento inicial con Econow.</p>
+
+<h2 class="sec"><span class="no">6</span>Cálculos automáticos</h2>
+<p class="lead">El sistema realiza automáticamente las operaciones repetitivas usadas para construir cada propuesta, e incorpora las fórmulas específicas que Econow utiliza actualmente.</p>
+<div class="chain">
+  <span>Cantidad × Precio</span><i>→</i><span>Subtotal</span><i>→</i><span>Ajustes</span><i>→</i><span>Descuento</span><i>→</i><span>IVA</span><i>→</i><span class="on">Total</span>
+</div>
+<div class="callout dark">
+  <div class="lbl">El principio</div>
+  <p style="margin-bottom:0"><strong>Econow mantiene el criterio técnico. El sistema agiliza el proceso.</strong></p>
+</div>
+
+<h2 class="sec"><span class="no">7</span>Catálogo, plantillas y PDF</h2>
+<div class="cards three">
+  <div class="bcard"><div class="n">Catálogo</div><h4>Precios centralizados</h4><p>Paneles, inversores, estructuras, materiales, mano de obra y servicios con descripción y precio. Al cambiar un precio se actualiza desde el sistema, sin modificar cada cotización.</p></div>
+  <div class="bcard"><div class="n">Plantillas</div><h4>Configuraciones frecuentes</h4><p>Seleccionar plantilla → modificar cantidades y equipos → ajustar información → generar cotización.</p></div>
+  <div class="bcard"><div class="n">PDF</div><h4>Documento profesional</h4><p>Generación automática con la identidad visual de Econow: logotipo, cliente, proyecto, equipos, precios, impuestos, inversión total, condiciones y vigencia.</p></div>
+</div>
+
+<h2 class="sec"><span class="no">8</span>Historial y seguimiento</h2>
+<p class="lead">Cada cotización permanece almacenada: permite consultar propuestas anteriores, duplicarlas y mantener un historial por cliente.</p>
+<div class="chain">
+  <span>Borrador</span><i>→</i><span>Enviada</span><i>→</i><span>Seguimiento</span><i>→</i><span class="on">Aceptada</span><span>Rechazada</span>
+</div>
+<p>Econow podrá conocer no solamente cuánto está cotizando, sino <strong>qué oportunidades continúan abiertas</strong>.</p>
+
+<h2 class="sec"><span class="no">9</span>Conexión con Wix y usuarios</h2>
+<p class="lead">En la versión Integral, el sistema se conecta con la captación de prospectos desde Wix, evitando volver a capturar información que el cliente ya proporcionó.</p>
+<div class="chain">
+  <span>Cliente visita Wix</span><i>→</i><span>Solicita información</span><i>→</i><span class="on">Prospecto entra al sistema</span><i>→</i><span>Cotización</span><i>→</i><span>PDF</span><i>→</i><span>Seguimiento</span>
+</div>
+<p>Wix continúa como la cara pública de Econow; la nueva plataforma funciona como su herramienta interna de operación comercial. La plataforma maneja además <strong>diferentes usuarios con niveles de acceso</strong> según su función, preparándose para el crecimiento del equipo comercial.</p>
+<div class="clear"></div>
+
+<h2 class="sec"><span class="no">10</span>Opciones de implementación</h2>
+<div class="plans">
+  <div class="plan">
+    <div class="pn">Esencial</div>
+    <div class="pv">$33,000<small>MXN + IVA</small></div>
+    <div class="pd">Para agilizar la creación de cotizaciones.</div>
+    <ul>
+      <li>Sistema web privado con usuario y contraseña</li><li>Registro de clientes</li><li>Catálogo de equipos y conceptos</li><li>Creación y edición de cotizaciones</li><li>Cálculos automáticos</li><li>Administración básica de precios</li><li>Generación automática de PDF</li><li>Historial de cotizaciones</li><li>Diseño adaptado a la identidad de Econow</li>
+    </ul>
+  </div>
+  <div class="plan">
+    <div class="pn">Profesional</div>
+    <div class="pv">$40,000<small>MXN + IVA</small></div>
+    <div class="pd">Para cotizar y administrar el proceso comercial.</div>
+    <div class="inc">Todo lo de Esencial, más:</div>
+    <ul>
+      <li>Dashboard administrativo</li><li>Plantillas de cotización</li><li>Estados de cotización</li><li>Seguimiento comercial</li><li>Gestión ampliada de clientes</li><li>Administración avanzada del catálogo</li><li>Indicadores comerciales básicos</li><li>Configuración administrativa ampliada</li><li>Estructura preparada para integraciones</li>
+    </ul>
+  </div>
+  <div class="plan best">
+    <span class="tagd">Mejor valor</span>
+    <div class="pn">Integral</div>
+    <div class="pv">$45,000<small>MXN + IVA</small></div>
+    <div class="pd">De la captación del cliente a la cotización en un mismo flujo.</div>
+    <div class="inc">Todo lo de Profesional, más:</div>
+    <ul>
+      <li>Integración con la landing actual de Wix</li><li>Recepción de prospectos desde la página</li><li>Flujo Wix → Sistema → Cotización</li><li>Gestión de usuarios, roles y permisos</li><li>Métricas comerciales ampliadas</li><li>Seguimiento de oportunidades</li><li>Mayor automatización del flujo comercial</li><li>Preparada para futuras ampliaciones</li>
+    </ul>
+  </div>
+</div>
+<div class="callout">
+  <div class="lbl">Por $5,000 MXN adicionales</div>
+  <p style="margin-bottom:0">Respecto a la versión Profesional, Econow obtiene la <strong>conexión entre su captación digital y su sistema interno</strong>, además de las herramientas necesarias para preparar la plataforma al crecimiento de su operación.</p>
+</div>
+
+<h2 class="sec"><span class="no">11</span>Comparativa</h2>
+<div class="twoup">
+  <table>
+    <thead><tr><th>Funcionalidad</th><th class="c">Es.</th><th class="c">Pro.</th><th class="c">Int.</th></tr></thead>
+    <tbody>
+      <tr><td>Sistema privado</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Clientes</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Cotizador</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Cálculos automáticos</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Catálogo</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>PDF profesional</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Historial</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Dashboard</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Plantillas</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Seguimiento comercial</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Indicadores</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Integración Wix</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+      <tr><td>Prospectos Wix → Sistema</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+      <tr><td>Usuarios y permisos</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+      <tr><td>Métricas ampliadas</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+      <tr><td>Flujo comercial integrado</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+    </tbody>
+  </table>
+  <div>
+    <div class="chart">
+      <div class="ct">Inversión por paquete</div>
+      <div class="cs">MXN + IVA · pago único de desarrollo</div>
+      <div id="ch-pack"></div>
+    </div>
+    <div class="chart">
+      <div class="ct">Funcionalidades incluidas</div>
+      <div class="cs">De 16 funcionalidades comparadas</div>
+      <div id="ch-feat"></div>
+    </div>
+  </div>
+</div>
+
+<h2 class="sec"><span class="no">12</span>Servicio mensual</h2>
+<p class="lead"><strong>$1,400 MXN + IVA al mes.</strong> Contempla la infraestructura y el cuidado continuo de la plataforma.</p>
+<ul class="clean cols">
+  <li>Alojamiento del sistema</li><li>Base de datos</li><li>Infraestructura necesaria</li><li>Respaldos</li><li>Mantenimiento técnico</li><li>Corrección de errores</li><li>Actualizaciones correctivas</li><li>Soporte</li><li>Monitoreo general</li>
+</ul>
+<p class="tnote">Nuevos módulos, integraciones o modificaciones importantes fuera del alcance original podrán cotizarse independientemente.</p>
+<div class="clear"></div>
+
+<h2 class="sec"><span class="no">13</span>Etapas del proyecto</h2>
+<div class="stages">
+  <div class="stg"><div class="sn">01 · Levantamiento</div><h4>Analizar el proceso actual</h4><p>Con cotizaciones reales: datos, fórmulas, equipos, precios, reglas y estructura del documento actual.</p></div>
+  <div class="stg"><div class="sn">02 · Diseño</div><h4>Interfaz y experiencia</h4><p>Diseño del sistema alrededor de la operación real de Econow.</p></div>
+  <div class="stg"><div class="sn">03 · Desarrollo</div><h4>Construcción</h4><p>Módulos correspondientes al paquete seleccionado.</p></div>
+  <div class="stg"><div class="sn">04 · Pruebas</div><h4>Comparación</h4><p>Cotizaciones del proceso actual vs. las generadas por la nueva plataforma.</p></div>
+  <div class="stg"><div class="sn">05 · Implementación</div><h4>Configuración final</h4><p>Información inicial necesaria y capacitación del equipo.</p></div>
+  <div class="stg"><div class="sn">06 · Operación</div><h4>Liberación</h4><p>Uso cotidiano y comienzo del servicio de soporte.</p></div>
+</div>
+<div class="callout">
+  <div class="lbl">Tiempo estimado</div>
+  <p style="margin-bottom:0"><strong>4 a 7 semanas.</strong> Dependerá del paquete seleccionado, las reglas y cálculos actuales, y los tiempos de revisión y aprobación de Econow. Después del levantamiento inicial se establecerá el calendario definitivo.</p>
+</div>
+
+<h2 class="sec"><span class="no">14</span>Forma de pago</h2>
+<p class="lead">Ejemplo para la versión Integral de $45,000 MXN + IVA:</p>
+<div class="pays">
+  <div class="pay"><div class="pp">40%</div><h4>Inicio</h4><p>Levantamiento, planeación, diseño y comienzo del desarrollo.</p><div class="amt">$18,000 + IVA</div></div>
+  <div class="pay"><div class="pp">30%</div><h4>Versión funcional</h4><p>Presentación de una versión operativa para pruebas y validación.</p><div class="amt">$13,500 + IVA</div></div>
+  <div class="pay"><div class="pp">30%</div><h4>Implementación</h4><p>Entrega final, configuración y puesta en operación.</p><div class="amt">$13,500 + IVA</div></div>
+</div>
+
+<h2 class="sec"><span class="no">15</span>Alcance y consideraciones</h2>
+<ul class="clean">
+  <li>El sistema será una herramienta de apoyo para el proceso comercial de Econow.</li>
+  <li>La selección técnica de equipos, el dimensionamiento del proyecto y la validación de la solución continuarán dependiendo del conocimiento y criterio del personal de Econow.</li>
+  <li>Las fórmulas, precios, reglas y criterios proporcionados por Econow se implementarán después de ser definidos y validados durante el levantamiento.</li>
+  <li>La página actual de Wix podrá continuar funcionando independientemente del sistema.</li>
+</ul>
+
+<h2 class="sec"><span class="no">16</span>Una plataforma preparada para crecer</h2>
+<p class="lead">El objetivo inicial resuelve una necesidad concreta: <strong>cotizar mejor y en menos tiempo</strong>. La plataforma podrá evolucionar conforme crezcan las necesidades de Econow.</p>
+<ul class="clean cols three">
+  <li>Lectura asistida de recibos CFE</li><li>Integración con WhatsApp</li><li>CRM comercial</li><li>Recordatorios automáticos</li><li>Aceptación digital de propuestas</li><li>Cálculo de retorno de inversión</li>
+  <li>Alternativas de financiamiento</li><li>Estadísticas avanzadas</li><li>Gestión de instalaciones</li><li>Seguimiento de proyectos</li><li>Postventa</li><li>Automatizaciones con IA</li>
+</ul>
+
+<div class="band">
+  <div>
+    <div class="big">Construir una base<br>que evolucione <span>junto con Econow</span></div>
+    <p>Sin obligar al equipo a cambiar la forma en que realiza correctamente su trabajo.</p>
+  </div>
+</div>
+
+<div class="collab">
+  <img class="pl" src="assets/logo-horizontal.png" alt="ProcesaLab">
+  <span class="x">×</span>
+  <img class="ec" src="assets/econow-icon.png" alt="Econow">
+</div>
+
+<div class="close">
+  <img src="assets/logo-horizontal.png" alt="ProcesaLab">
+  <p>Tecnología diseñada alrededor de los procesos de cada negocio.</p>
+</div>
+
+</doc-page>
+</div>
+
+<script>
+const RED="#FF4E3A",PINK="#F7B6C9",INK="#141310",LAV="#EDE6F2";
+function barChart(id,data,opt){
+  opt=opt||{};
+  const W=opt.w||440,H=opt.h||210,padL=8,padR=8,padTop=26,padBot=38;
+  const n=data.length,gap=opt.gap||22,bw=(W-padL-padR-gap*(n-1))/n;
+  const max=Math.max(...data.map(d=>d.v));
+  const plot=H-padTop-padBot;
+  let s='';
+  data.forEach((d,i)=>{
+    const x=padL+i*(bw+gap);
+    const h=Math.max(2,(d.v/max)*plot);
+    const y=padTop+plot-h;
+    s+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="5" fill="${d.color}"/>`;
+    s+=`<text class="b-val" x="${x+bw/2}" y="${y-7}" text-anchor="middle" fill="${d.vcolor||INK}">${d.label}</text>`;
+    String(d.cat).split("|").forEach((ln,k)=>{s+=`<text class="b-cat" x="${x+bw/2}" y="${padTop+plot+18+k*13}" text-anchor="middle">${ln}</text>`;});
+  });
+  s+=`<line x1="0" y1="${padTop+plot}" x2="${W}" y2="${padTop+plot}" stroke="${LAV}" stroke-width="2"/>`;
+  document.getElementById(id).innerHTML=`<svg viewBox="0 0 ${W} ${H}">${s}</svg>`;
+}
+barChart("ch-pack",[
+  {v:33000,color:PINK,vcolor:"#8a2f3f",cat:"Esencial",label:"$33,000"},
+  {v:40000,color:RED,cat:"Profesional",label:"$40,000"},
+  {v:45000,color:INK,cat:"Integral",label:"$45,000"},
+],{h:200,w:400,gap:28});
+barChart("ch-feat",[
+  {v:7,color:PINK,vcolor:"#8a2f3f",cat:"Esencial",label:"7"},
+  {v:11,color:RED,cat:"Profesional",label:"11"},
+  {v:16,color:INK,cat:"Integral",label:"16"},
+],{h:190,w:400,gap:28});
+</script>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#F7B6C9"></rect><rect x="28" y="60" width="16" height="32" rx="3" fill="#141310"></rect><rect x="52" y="44" width="16" height="48" rx="3" fill="#FF4E3A"></rect><rect x="76" y="30" width="16" height="62" rx="3" fill="#141310"></rect></svg></template>
+
+<script>
+// On phones the doc-page component keeps its true physical page width
+// (letter size) rather than shrinking to the viewport, which otherwise
+// forces the user to pinch-zoom out to read it. Scale the whole page
+// down to fit the screen width instead.
+function fitDocToViewport() {
+  const dp = document.querySelector('doc-page');
+  const wrap = document.getElementById('docFit');
+  if (!dp || !wrap) return;
+  dp.style.transform = 'none';
+  const naturalW = dp.getBoundingClientRect().width;
+  const naturalH = dp.getBoundingClientRect().height;
+  const avail = wrap.clientWidth;
+  if (naturalW > avail && naturalW > 0) {
+    const scale = avail / naturalW;
+    dp.style.transformOrigin = 'top left';
+    dp.style.transform = 'scale(' + scale + ')';
+    wrap.style.height = (naturalH * scale) + 'px';
+  } else {
+    dp.style.transform = 'none';
+    wrap.style.height = 'auto';
+  }
+}
+window.addEventListener('load', () => setTimeout(fitDocToViewport, 200));
+window.addEventListener('resize', fitDocToViewport);
+</script>
+</body>
+</html>
