@@ -100,9 +100,6 @@ svg{fill:currentColor}
 .hero-scroll svg{animation:bob 1.8s ease-in-out infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(4px)}}
 @media (prefers-reduced-motion:reduce){.hero-scroll svg{animation:none}}
-.scene-scroll{position:absolute;left:50%;bottom:22px;transform:translateX(-50%);z-index:6;display:flex;flex-direction:column;align-items:center;gap:6px;font-family:"Space Grotesk";font-weight:600;font-size:11px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink);opacity:0;transition:opacity .4s;pointer-events:none}
-.scene-scroll svg{animation:bob 1.8s ease-in-out infinite}
-@media (prefers-reduced-motion:reduce){.scene-scroll svg{animation:none}}
 
 /* MARQUEE */
 .marq{background:var(--ink);color:var(--cream);overflow:hidden;border-top:1.5px solid var(--ink);border-bottom:1.5px solid var(--ink)}
@@ -131,14 +128,13 @@ svg{fill:currentColor}
 .svc.alt .num{color:var(--red)}
 
 /* ===== ARCHIVE 3D SCENE ===== */
-.scene{position:relative;height:280vh;background:linear-gradient(180deg,var(--lav),var(--cream))}
-.sticky{position:sticky;top:0;height:100svh;display:flex;flex-direction:column;align-items:center;justify-content:center;overflow:hidden}
-.scene-intro{position:absolute;top:11svh;left:0;right:0;text-align:center;z-index:5;padding:0 24px;transition:opacity .4s}
+.scene{position:relative;padding:96px 24px 110px;display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,var(--lav),var(--cream));overflow:hidden}
+.scene-intro{text-align:center;padding:0 24px;max-width:600px}
 .scene-intro .sec-tag{justify-content:center}
 .scene-intro h2{font-size:clamp(30px,5vw,54px);margin-top:14px}
 .scene-intro p{max-width:440px;margin:12px auto 0;color:#5a5256;font-size:16px;line-height:1.5}
 
-.stage{perspective:1600px;width:min(560px,88vw);height:min(460px,54vh);position:relative}
+.stage{perspective:1600px;width:min(560px,88vw);height:min(460px,54vh);position:relative;margin-top:24px}
 .rig{position:absolute;left:50%;top:54%;width:0;height:0;transform-style:preserve-3d;transform:rotateX(60deg) rotateZ(-38deg)}
 .face{position:absolute;left:0;top:0;border:2px solid var(--ink);background:var(--paper)}
 /* canonical cube box: W(x)=260 D(y)=260 H(z)=140, centered at rig origin */
@@ -152,7 +148,8 @@ svg{fill:currentColor}
 
 /* folders: vertical cards rising up (+Z) out of the open top — always at least
    partially visible/fanned so the box never reads as empty at rest */
-.folder{position:absolute;left:0;top:0;width:150px;height:104px;margin:-52px -75px;transform-style:preserve-3d;transform:translateX(var(--spread,0px)) translateZ(var(--rise,10px)) rotateZ(38deg) rotateX(-60deg) rotate(var(--yaw,0deg));opacity:.7}
+.folder{position:absolute;left:0;top:0;width:150px;height:104px;margin:-52px -75px;transform-style:preserve-3d;transform:translateX(var(--spread,0px)) translateZ(var(--rise,10px)) rotateZ(38deg) rotateX(-60deg) rotate(var(--yaw,0deg));opacity:.7;transition:transform 1s cubic-bezier(.25,.9,.35,1),opacity .8s ease}
+@media (prefers-reduced-motion:reduce){.folder{transition:none}}
 .folder .sheet{position:absolute;inset:0;border:2px solid var(--ink);border-radius:6px 6px 3px 3px;background:var(--tan);display:flex;flex-direction:column;box-shadow:0 8px 18px rgba(0,0,0,.14)}
 .folder .tab{position:absolute;top:-18px;left:12px;width:76px;height:20px;border:2px solid var(--ink);border-bottom:none;border-radius:8px 8px 0 0;background:inherit}
 .folder .lbl{margin:auto;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:clamp(11px,2vw,14px);color:var(--ink);padding:0 10px;line-height:1.1;word-break:break-word}
@@ -269,9 +266,8 @@ svg{fill:currentColor}
   .hero-scroll{display:none}
   .proj-grid{grid-template-columns:1fr}
   .foot-right{text-align:left}
-  .scene{height:320vh}
+  .scene{padding:64px 20px 80px}
   .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.68)}
-  .scene-intro{top:9svh}
   .scene-intro p{max-width:280px}
   .computer{width:min(260px,74vw);height:min(190px,24vh);margin-top:4px}
   .cta .wrap{padding:64px 22px;gap:8px}
@@ -376,25 +372,19 @@ svg{fill:currentColor}
   </div>
 </section>
 
-<!-- PROJECTS: 3D archive box scene (pinned) -->
-<section class="scene" id="proyectos" data-scene>
-  <div class="sticky">
-    <div class="scene-intro" id="archIntro">
-      <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
-      <h2 data-es="Abrimos el archivo" data-en="We open the archive">Abrimos el archivo</h2>
-      <p data-es="Cada folder es un proyecto real que diseñamos y construimos. Sigue bajando." data-en="Each folder is a real project we designed and built. Keep scrolling.">Cada folder es un proyecto real que diseñamos y construimos. Sigue bajando.</p>
-    </div>
-    <div class="stage" aria-hidden="true">
-      <div class="rig" id="rig">
-        <div class="face fBottom"></div>
-        <div class="folders" id="folders"></div>
-        <div class="face fN"></div><div class="face fW"></div><div class="face fE"></div>
-        <div class="face fS"><div class="handle"></div></div>
-      </div>
-    </div>
-    <div class="scene-scroll" id="sceneScroll" aria-hidden="true">
-      <span data-es="Sigue bajando" data-en="Keep scrolling">Sigue bajando</span>
-      <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M8 2v12M3 9l5 5 5-5" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+<!-- PROJECTS: 3D archive box, plays on its own once it scrolls into view -->
+<section class="scene" id="proyectos">
+  <div class="scene-intro" id="archIntro">
+    <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
+    <h2 data-es="Abrimos el archivo" data-en="We open the archive">Abrimos el archivo</h2>
+    <p data-es="Cada folder es un proyecto real que diseñamos y construimos." data-en="Each folder is a real project we designed and built.">Cada folder es un proyecto real que diseñamos y construimos.</p>
+  </div>
+  <div class="stage" aria-hidden="true">
+    <div class="rig" id="rig">
+      <div class="face fBottom"></div>
+      <div class="folders" id="folders"></div>
+      <div class="face fN"></div><div class="face fW"></div><div class="face fE"></div>
+      <div class="face fS"><div class="handle"></div></div>
     </div>
   </div>
 </section>
@@ -520,38 +510,40 @@ PROJECTS.forEach((p, i) => {
 const folders = [...document.querySelectorAll('.folder')];
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
-const lerp = (a, b, t) => a + (b - a) * t;
-const archIntro = document.getElementById('archIntro');
-const sceneScroll = document.getElementById('sceneScroll');
 const cmpRig = document.getElementById('cmpRig');
-const archScene = document.getElementById('proyectos');
 const finScene = document.getElementById('contacto');
 // keep the fan comfortably inside the box footprint (half-width ~130px)
 // regardless of how many projects there are
 const spreadAmt = Math.min(18, 170 / N);
-const delayStep = 0.55 / N;
-const BASE = 0.24; // folders are always at least this "open" — box never looks empty
+const delayStep = 90; // ms between each folder's cascade
 
-function tickScenes() {
-  // ARCHIVE
-  const ar = archScene.getBoundingClientRect();
-  const at = archScene.offsetHeight - innerHeight;
-  const ap = clamp(-ar.top / at, 0, 1);
-  const rise = clamp(ap / 0.7, 0, 1);
+// Archive box: plays once on its own when it scrolls into view, instead
+// of being scrubbed by scroll position (which people found confusing).
+const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+function openArchiveBox() {
   folders.forEach((f, i) => {
     const sp = parseFloat(f.dataset.spread);
-    const scrollLocal = clamp(rise * 1.15 - i * delayStep, 0, 1);
-    const local = BASE + (1 - BASE) * scrollLocal;
-    f.style.setProperty('--rise', lerp(10, 110, local) + 'px');
-    f.style.setProperty('--yaw', (sp * local * 6) + 'deg');
-    f.style.setProperty('--spread', (sp * local * spreadAmt) + 'px');
-    f.style.opacity = clamp(0.55 + local * 0.6, 0, 1);
+    const reveal = () => {
+      f.style.setProperty('--rise', '110px');
+      f.style.setProperty('--yaw', (sp * 6) + 'deg');
+      f.style.setProperty('--spread', (sp * spreadAmt) + 'px');
+      f.style.opacity = 1;
+    };
+    if (reduceMotion) reveal();
+    else setTimeout(reveal, i * delayStep);
   });
-  archIntro.style.opacity = ap < 0.5 ? 1 : 0;
-  // "keep scrolling" cue: appears once the intro text fades, hides again
-  // as the folders finish fanning out and the project grid is near
-  sceneScroll.style.opacity = (ap > 0.1 && ap < 0.85) ? 1 : 0;
+}
+const archiveObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      openArchiveBox();
+      archiveObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.35 });
+archiveObserver.observe(document.querySelector('.stage'));
 
+function tickScenes() {
   // FINALE — computer rotates as you scroll
   const fr = finScene.getBoundingClientRect();
   const ft = finScene.offsetHeight - innerHeight;
