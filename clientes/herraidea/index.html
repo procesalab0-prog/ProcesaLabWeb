@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Herraidea — ProcesaLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/client-check?slug=herraidea')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = './login.html';
+      }
+    })
+    .catch(function () { location.href = './login.html'; });
+})();
+</script>
+<style>
+:root{ --pink:#F7B6C9; --red:#FF4E3A; --cream:#FFFBF6; --ink:#111111; }
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;font-family:"Instrument Sans",system-ui,sans-serif;background:var(--pink);color:var(--ink)}
+.wrap{max-width:640px;margin:0 auto;padding:60px 24px 80px}
+h1{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:28px;margin:0 0 6px;letter-spacing:-.02em}
+p.lede{margin:0 0 32px;font-size:15px;color:#5a2733}
+.card{background:#fff;border:1.5px solid var(--ink);border-radius:16px;padding:20px 22px;box-shadow:4px 4px 0 var(--ink);display:flex;align-items:center;justify-content:space-between;gap:16px;text-decoration:none;color:var(--ink);margin-bottom:16px;transition:transform .15s}
+.card:hover{transform:translate(-2px,-2px)}
+.card .name{font-family:"Space Grotesk";font-weight:700;font-size:17px}
+.card .meta{font-size:13.5px;color:#5a5256;margin-top:3px}
+.card .arrow{font-size:20px;flex:none}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <h1>Herraidea</h1>
+  <p class="lede">Documentos preparados por ProcesaLab.</p>
+
+  <a class="card" href="./propuesta.html">
+    <div>
+      <div class="name">Propuesta de rediseño web</div>
+      <div class="meta">Nueva presencia digital</div>
+    </div>
+    <div class="arrow">→</div>
+  </a>
+</div>
+</body>
+</html>

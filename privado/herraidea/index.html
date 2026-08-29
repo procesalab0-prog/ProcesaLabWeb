@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Propuesta de Rediseño Web — Herraidea × ProcesaLab</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/check')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = '/privado.html';
+      }
+    })
+    .catch(function () { location.href = '/privado.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--hred:#FF1F1F;--pink:#F7B6C9;--pinkl:#FBE3EA;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--lavl:#F5F0F8;--muted:#5f565a;--line:#E7DED8}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.6;font-size:15px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 12px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+
+.cover-top{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid var(--ink);padding-bottom:14px}
+.cover-top img.pl{height:30px;width:auto}
+.cover-top .pllogo{height:30px;--patch:#fff}
+.cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+
+/* animated Herraidea logo */
+.hlogo{position:relative;display:inline-block;line-height:0}
+.hlogo img{display:block;height:100%;width:auto}
+.hlogo .patch{position:absolute;left:60.2%;top:29.2%;width:4.1%;height:8.9%;background:var(--patch,var(--ink))}
+.hlogo .dot{position:absolute;left:60.77%;top:30.11%;width:2.99%;height:7.04%;background:var(--hred);animation:dotDrop 2.8s cubic-bezier(.5,0,.5,1) infinite;transform-origin:50% 100%}
+@keyframes dotDrop{
+  0%,58%{transform:translateY(0) scale(1,1)}
+  66%{transform:translateY(-260%) scale(.86,1.18)}
+  76%{transform:translateY(0) scale(1.22,.72)}
+  84%{transform:translateY(-70%) scale(.94,1.06)}
+  92%,100%{transform:translateY(0) scale(1,1)}
+}
+@media print{.hlogo .dot{animation:none}}
+
+/* animated ProcesaLab logo (spinning gear) */
+.pllogo{position:relative;display:inline-block;line-height:0}
+.pllogo img{display:block;height:100%;width:auto}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:plspin 9s linear infinite}
+.pllogo .gt{fill:var(--gear,var(--red))}
+.pllogo .gh{fill:var(--patch,#fff)}
+@keyframes plspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.pllogo .plgear,.hlogo .dot{animation:none}}
+
+.hero{background:var(--ink);border-radius:18px;padding:30px;margin-top:20px;--patch:var(--ink)}
+.hero .hlogo{height:46px;margin-bottom:20px}
+.hero .ey{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.hero h1{font-size:37px;font-weight:700;margin:10px 0 0;color:#fff}
+.hero .sub{font-family:"Space Grotesk";font-weight:600;font-size:16px;margin-top:9px;color:#cfc3c7}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:15px}
+.stat{border:2px solid var(--ink);border-radius:13px;padding:13px 15px;background:var(--cream)}
+.stat .k{font-family:"Space Grotesk";font-weight:600;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:"Space Grotesk";font-weight:700;font-size:23px;line-height:1;margin-top:7px}
+.stat .v small{font-size:11.5px;font-weight:600;color:var(--red)}
+.stat.hl{background:var(--ink)}
+.stat.hl .k{color:#c9b9be}.stat.hl .v{color:#fff}.stat.hl .v small{color:var(--pink)}
+.stat:nth-child(2){background:var(--lavl)}
+.stat:nth-child(4){background:var(--pinkl)}
+
+.callout{border-left:5px solid var(--red);background:var(--lav);border-radius:0 12px 12px 0;padding:15px 19px;margin:18px 0;break-inside:avoid}
+.callout .lbl{font-family:"Space Grotesk";font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.callout.dark{background:var(--ink);color:#ddd4d6}
+.callout.dark .lbl{color:var(--pink)}
+.callout.dark strong{color:#fff}
+
+h2.sec{font-size:24px;margin:32px 0 4px;padding-top:20px;border-top:2px solid var(--pink);display:flex;align-items:baseline;gap:12px;break-after:avoid}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:13px;color:#fff;background:var(--red);min-width:29px;height:29px;padding:0 7px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none;transform:translateY(2px)}
+.lead{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+h3.sub{font-family:"Space Grotesk";font-size:16.5px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:9px}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+
+ul.clean{margin:6px 0 14px;padding:0;list-style:none}
+ul.clean li{position:relative;padding-left:20px;margin-bottom:7px;font-size:14px}
+ul.clean li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+ul.cols{columns:2;column-gap:26px}
+ul.cols.three{columns:3;column-gap:20px}
+ul.cols li{break-inside:avoid}
+
+table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:13.5px;break-inside:avoid}
+thead th{background:var(--ink);color:var(--cream);font-family:"Space Grotesk";font-weight:600;font-size:12px;text-align:left;padding:9px 12px}
+thead th.c{text-align:center}
+tbody td{padding:7px 12px;border-bottom:1px solid var(--line)}
+tbody td.c{text-align:center;font-family:"Space Grotesk";font-weight:700}
+tbody tr:nth-child(even){background:var(--lavl)}
+.yes{color:var(--red)}.no{color:#c9bfc2}
+.bas{font-size:11px;color:var(--muted)}
+.tnote{font-size:11.5px;color:var(--muted);margin:-6px 0 14px}
+
+.chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:var(--ink);border-radius:14px;padding:15px 17px;margin:14px 0;break-inside:avoid}
+.chain span{font-family:"Space Grotesk";font-weight:600;font-size:12px;color:var(--cream);background:#262022;border:1.5px solid #38302f;border-radius:9px;padding:6px 11px}
+.chain i{color:var(--red);font-style:normal;font-weight:700}
+.chain span.on{background:var(--red);border-color:var(--red)}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+.bcard{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;break-inside:avoid;background:var(--lavl)}
+.bcard:nth-child(even){background:var(--pinkl)}
+.bcard:nth-child(3n){background:var(--cream)}
+.bcard .n{font-family:"Space Grotesk";font-weight:700;color:var(--red);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+.bcard h4{font-size:14.5px;margin:4px 0 0}
+.bcard p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
+
+.chart{border:2px solid var(--ink);border-radius:14px;padding:18px 20px 14px;margin:14px 0;background:var(--cream);break-inside:avoid}
+.chart .ct{font-family:"Space Grotesk";font-weight:600;font-size:14px}
+.chart .cs{font-size:12px;color:var(--muted);margin-bottom:12px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.b-cat{font-family:"Instrument Sans",sans-serif;font-size:11.5px;fill:var(--ink)}
+.b-val{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:12.5px;fill:var(--ink)}
+.twoup{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.plan{border:2px solid var(--ink);border-radius:16px;padding:18px;background:var(--cream);position:relative;break-inside:avoid}
+.plan:nth-child(2){background:var(--lavl)}
+.plan .pn{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.plan .pv{font-family:"Space Grotesk";font-weight:700;font-size:30px;line-height:1;margin-top:7px}
+.plan .pv small{font-size:11.5px;font-weight:600;color:var(--muted);display:block;margin-top:4px;letter-spacing:0}
+.plan .pd{font-size:12.5px;color:var(--muted);margin:9px 0 11px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.plan ul{margin:0;padding:0;list-style:none;columns:2;column-gap:16px}
+.plan li{font-size:11.5px;padding-left:14px;position:relative;margin-bottom:4px;line-height:1.38;break-inside:avoid}
+.plan li::before{content:"";position:absolute;left:0;top:5.5px;width:6px;height:6px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+.plan .inc{font-family:"Space Grotesk";font-weight:600;font-size:11px;background:var(--lav);border-radius:7px;padding:5px 9px;margin-bottom:9px}
+.plan.best{background:var(--pink);border-width:2.5px}
+.plan.best .pn{color:#8a2f3f}
+.plan.best .inc{background:#fff}
+.plan .tagd{position:absolute;top:-11px;right:14px;font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:20px;padding:4px 10px}
+.plan.dark{background:var(--ink)}
+.plan.dark .pn{color:var(--pink)}
+.plan.dark .pv{color:#fff}
+.plan.dark .pv small{color:#a99ba0}
+.plan.dark .pd{color:#cfc3c7;border-bottom-color:#38302f}
+.plan.dark .inc{background:#262022;color:var(--pink)}
+.plan.dark li{color:#ddd4d6}
+.plan.dark li::before{background:var(--pink)}
+
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;break-inside:avoid}
+.stg{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--cream)}
+.stg:nth-child(3n+2){background:var(--lavl)}
+.stg:nth-child(3n){background:var(--pinkl)}
+.stg .sn{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.stg h4{font-size:14px;margin:3px 0 0}
+.stg p{margin:5px 0 0;font-size:12px;color:var(--muted)}
+
+.funnel{display:flex;align-items:stretch;gap:6px;margin:14px 0;break-inside:avoid}
+.fn{flex:1;background:var(--pink);border:2px solid var(--ink);border-radius:12px;padding:14px 10px;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:12.5px;letter-spacing:.04em}
+.fn:nth-child(2){background:#FBD9E3}
+.fn:nth-child(3){background:var(--lav)}
+.fn:nth-child(4){background:#fff}
+.fn:last-child{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.band{background:var(--ink);border-radius:16px;padding:26px;margin:16px 0;break-inside:avoid;--patch:var(--ink)}
+.band .hlogo{height:34px;margin-bottom:16px}
+.band .big{font-family:"Space Grotesk";font-weight:700;font-size:31px;line-height:1.08;color:var(--pink)}
+.band .big span{color:#fff;font-size:.5em}
+.band p{color:#cfc3c7;font-size:13.5px;margin:11px 0 0;max-width:560px}
+
+.collab{display:flex;align-items:center;justify-content:center;gap:30px;margin:18px 0 0;padding:26px;border-radius:16px;background:var(--ink);break-inside:avoid;--patch:var(--ink)}
+.collab img.pl{height:32px;width:auto;filter:brightness(0) invert(1)}
+.collab .pllogo{height:32px;--patch:var(--ink);--gear:#fff}
+.collab .hlogo{height:30px}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:28px;color:var(--red);line-height:1}
+
+.close{border:2.5px solid var(--ink);border-radius:16px;padding:24px;background:var(--cream);text-align:center;margin-top:12px;break-inside:avoid}
+.close img{height:34px;width:auto;margin-bottom:10px}
+.close .pllogo{height:34px;--patch:var(--cream);margin-bottom:10px}
+.close p{font-family:"Space Grotesk";font-weight:600;font-size:14.5px;margin:0;color:var(--muted);max-width:540px;margin:0 auto}
+
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh img{height:13px}
+.rh .pllogo{height:13px;--patch:#fff}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+.rf b{color:var(--red)}
+#docFit{width:100%;overflow:hidden}
+.pl-back{position:fixed;top:14px;left:14px;z-index:999;display:inline-flex;align-items:center;gap:6px;background:#111111;color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:13px;padding:9px 16px 9px 14px;border-radius:30px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+@media print{.pl-back{display:none}}
+</style>
+</head>
+<body>
+<a href="/privado.html" class="pl-back">&larr; Volver</a>
+<div id="docFit">
+<doc-page size="letter" margin="0.7in">
+
+<div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Propuesta de rediseño web · Herraidea</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+<div class="cover-top">
+  <span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <div class="for">Propuesta preparada para<br><strong style="color:var(--ink);font-size:14px">Herraidea</strong></div>
+</div>
+
+<div class="hero">
+  <div class="hlogo"><img src="assets/herraidea-logo.png" alt="Herraidea"><span class="patch"></span><span class="dot"></span></div>
+  <div class="ey">Herraidea × ProcesaLab</div>
+  <h1>Propuesta de rediseño web</h1>
+  <div class="sub">Desarrollo de una nueva experiencia digital</div>
+</div>
+
+<div class="stat-row">
+  <div class="stat"><div class="k">Esencial</div><div class="v">$12K <small>MXN</small></div></div>
+  <div class="stat"><div class="k">Interactiva</div><div class="v">$15K <small>MXN</small></div></div>
+  <div class="stat hl"><div class="k">Premium · recomendada</div><div class="v">$18K <small>MXN</small></div></div>
+  <div class="stat"><div class="k">Smart</div><div class="v">$25K <small>desde</small></div></div>
+</div>
+
+<h2 class="sec"><span class="no">1</span>Objetivo del proyecto</h2>
+<p class="lead">Rediseñar por completo la presencia digital actual de Herraidea, sustituyendo su sitio web actual por una experiencia moderna, rápida, visualmente atractiva y optimizada para dispositivos móviles.</p>
+<p>El objetivo no es únicamente renovar la apariencia de la página, sino desarrollar una herramienta digital que permita:</p>
+<ul class="clean cols">
+  <li>Presentar profesionalmente la marca</li><li>Mostrar productos, soluciones y aplicaciones</li><li>Facilitar que los clientes encuentren lo que necesitan</li><li>Generar confianza</li>
+  <li>Incrementar los puntos de contacto</li><li>Llevar visitantes hacia WhatsApp o formularios</li><li>Medir el comportamiento de los visitantes</li><li>Preparar la plataforma para futuras ampliaciones</li>
+</ul>
+<div class="callout">
+  <div class="lbl">La diferencia</div>
+  <p style="margin-bottom:0">La nueva página será desarrollada <strong>específicamente para las necesidades de Herraidea</strong>, evitando las limitaciones de una página basada únicamente en plantillas prediseñadas.</p>
+</div>
+
+<h2 class="sec"><span class="no">2</span>Planes de desarrollo</h2>
+<div class="plans">
+  <div class="plan">
+    <div class="pn">Plan 1 · Esencial</div>
+    <div class="pv">$12,000<small>MXN</small></div>
+    <div class="pd">Renovación completa de la presencia digital actual. Nueva presencia profesional, rápida y moderna, con una estructura sencilla.</div>
+    <ul>
+      <li>Diseño web completamente renovado</li><li>Desarrollo personalizado</li><li>Hero principal de alto impacto</li><li>Presentación de Herraidea</li><li>Productos y/o soluciones</li><li>Beneficios y diferenciadores</li><li>Galería de proyectos o aplicaciones</li><li>Sección de contacto</li><li>Botones directos a WhatsApp</li><li>Formulario de contacto</li><li>Integración de redes sociales</li><li>Diseño responsive</li><li>Celular, tablet y computadora</li><li>SEO básico</li><li>Optimización de velocidad</li><li>Configuración y publicación</li><li>Integración del dominio existente</li>
+    </ul>
+  </div>
+  <div class="plan">
+    <div class="pn">Plan 2 · Interactiva</div>
+    <div class="pv">$15,000<small>MXN</small></div>
+    <div class="pd">Mayor interacción y herramientas para conocer el comportamiento de los visitantes.</div>
+    <div class="inc">Todo lo de Esencial, más:</div>
+    <ul>
+      <li>Animaciones y transiciones</li><li>Microinteracciones</li><li>Secciones interactivas</li><li>Formularios avanzados</li><li>Llamadas a la acción estratégicas</li><li>Analítica web</li><li>Google Analytics</li><li>Google Search Console</li><li>Seguimiento de conversiones</li><li>Medición de clics a WhatsApp</li><li>Medición de formularios</li><li>Optimización avanzada de rendimiento</li><li>Arquitectura preparada para ampliar</li>
+    </ul>
+  </div>
+  <div class="plan best">
+    <span class="tagd">★ Recomendada</span>
+    <div class="pn">Plan 3 · Premium</div>
+    <div class="pv">$18,000<small>MXN</small></div>
+    <div class="pd">Una experiencia desarrollada específicamente para Herraidea, enfocada en diferenciar la marca y convertir la página en una verdadera herramienta comercial.</div>
+    <div class="inc">Todo lo anterior, más:</div>
+    <ul>
+      <li>Asistente “Encuentra tu solución”</li><li>Mini cotizador / configurador</li><li>Animaciones personalizadas</li><li>Elementos visuales de producto</li><li>Comparadores interactivos</li><li>Casos de aplicación</li><li>Proyectos destacados</li><li>Testimonios</li><li>Preguntas frecuentes interactivas</li><li>Llamadas a la acción inteligentes</li><li>Navegación fluida</li><li>Diseño enfocado en conversión</li><li>Analítica avanzada</li><li>Sin base de datos</li>
+    </ul>
+  </div>
+  <div class="plan dark">
+    <div class="pn">Plan 4 · Smart</div>
+    <div class="pv">Desde $25,000<small>MXN</small></div>
+    <div class="pd">Transforma la página en una plataforma digital conectada a una base de datos.</div>
+    <div class="inc">Todo lo de Premium, más:</div>
+    <ul>
+      <li>Base de datos</li><li>Panel administrativo</li><li>Gestión de prospectos</li><li>Registro de solicitudes</li><li>Historial de contactos</li><li>Gestión de proyectos</li><li>Gestión de casos de éxito</li><li>Gestión de contenido</li><li>Actualización desde un panel</li><li>Seguimiento de solicitudes</li><li>Estados de prospectos</li><li>Información centralizada</li>
+    </ul>
+  </div>
+</div>
+<p class="tnote">El precio final del Plan Smart podrá variar dependiendo de los módulos, automatizaciones y funcionalidades administrativas requeridas.</p>
+
+<h2 class="sec"><span class="no">3</span>Asistente “Encuentra tu solución”</h2>
+<p class="lead">Incluido en Premium. El visitante responde algunas preguntas sencillas para encontrar el producto o solución de Herraidea que mejor se adapta a sus necesidades.</p>
+<div class="chain">
+  <span>Tipo de proyecto</span><i>→</i><span>Tipo de aplicación</span><i>→</i><span>Producto requerido</span><i>→</i><span>Características</span><i>→</i><span class="on">Solución recomendada</span><i>→</i><span>WhatsApp</span>
+</div>
+<p>Con base en sus respuestas, la página podrá recomendar una solución, mostrar productos relacionados, dirigir al visitante a la sección correspondiente, preparar automáticamente una solicitud y generar un mensaje de WhatsApp con la información proporcionada.</p>
+<div class="cards three">
+  <div class="bcard"><div class="n">Asesor digital</div><h4>Sin base de datos</h4><p>Una experiencia similar a un pequeño asesor, manteniendo la infraestructura sencilla.</p></div>
+  <div class="bcard"><div class="n">Configurador</div><h4>Solicitud inicial</h4><p>El visitante selecciona características y envía la información directamente a Herraidea.</p></div>
+  <div class="bcard"><div class="n">Resultado</div><h4>Más avanzada</h4><p>Considerablemente más completa que una landing page tradicional.</p></div>
+</div>
+
+<h2 class="sec"><span class="no">4</span>Analítica</h2>
+<p class="lead">Desde el Plan Interactiva, Herraidea podrá tomar decisiones basadas en el comportamiento real de sus visitantes.</p>
+<ul class="clean cols three">
+  <li>Número de visitantes</li><li>Evolución del tráfico</li><li>Páginas más consultadas</li><li>Dispositivos utilizados</li><li>Procedencia del tráfico</li><li>Clics hacia WhatsApp</li>
+  <li>Formularios enviados</li><li>Interacciones principales</li><li>Uso del asistente</li><li>Uso del configurador</li><li>Conversiones principales</li>
+</ul>
+<p class="tnote">Mediante herramientas como Google Analytics, Google Search Console y herramientas de rendimiento web.</p>
+
+<h2 class="sec"><span class="no">5</span>Comparativa e inversión</h2>
+<div class="twoup">
+  <table>
+    <thead><tr><th>Característica</th><th class="c">Es.</th><th class="c">Int.</th><th class="c">Pre.</th><th class="c">Sm.</th></tr></thead>
+    <tbody>
+      <tr><td>Diseño personalizado</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Responsive</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>WhatsApp</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Formularios</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>SEO</td><td class="c bas">Básico</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Google Analytics</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Search Console</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Seguimiento conversiones</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Animaciones</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Microinteracciones</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Asistente de soluciones</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Mini configurador</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+      <tr><td>Base de datos</td><td class="c no">—</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+      <tr><td>Panel administrativo</td><td class="c no">—</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+      <tr><td>Gestión de prospectos</td><td class="c no">—</td><td class="c no">—</td><td class="c no">—</td><td class="c yes">✓</td></tr>
+      <tr><td>Preparado para crecer</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td><td class="c yes">✓</td></tr>
+    </tbody>
+  </table>
+  <div>
+    <div class="chart">
+      <div class="ct">Inversión por plan</div>
+      <div class="cs">MXN · pago único de desarrollo</div>
+      <div id="ch-plan"></div>
+    </div>
+    <div class="chart">
+      <div class="ct">Funcionalidades incluidas</div>
+      <div class="cs">De 16 características comparadas</div>
+      <div id="ch-feat"></div>
+    </div>
+  </div>
+</div>
+
+<h2 class="sec"><span class="no">6</span>Infraestructura y servicios</h2>
+<p class="lead">Los planes Esencial, Interactiva y Premium están diseñados para mantener una infraestructura ligera y evitar costos recurrentes innecesarios.</p>
+<ul class="clean cols three">
+  <li>Infraestructura web en la nube</li><li>Certificado SSL/HTTPS</li><li>Google Analytics</li><li>Google Search Console</li><li>Herramientas de rendimiento</li><li>Dominio de Herraidea</li>
+</ul>
+<p class="tnote">Los servicios gratuitos o incluidos en determinados niveles de uso no representan una mensualidad de ProcesaLab. Si algún servicio externo requiere posteriormente un plan de pago por crecimiento, tráfico o nuevas funcionalidades, el costo será informado previamente a Herraidea.</p>
+
+<h2 class="sec"><span class="no">7</span>Mantenimiento opcional</h2>
+<p class="lead">La contratación de mantenimiento mensual <strong>no es obligatoria</strong> para los planes que no requieren operación continua de un sistema. Una vez publicada, la página puede continuar funcionando sin cambios mensuales.</p>
+<div class="callout" style="border-left-color:var(--pink);background:var(--pinkl)">
+  <div class="lbl" style="color:#8a2f3f">Mantenimiento ProcesaLab · $800 MXN / mes</div>
+  <p style="margin-bottom:0">Para empresas que desean mantener su página actualizada sin cotizar cada modificación individualmente.</p>
+</div>
+<ul class="clean cols three">
+  <li>Cambios menores de textos</li><li>Actualización de imágenes</li><li>Actualización de información</li><li>Datos de contacto</li><li>Productos o servicios existentes</li><li>Banners y elementos promocionales</li>
+  <li>Revisión general del funcionamiento</li><li>Revisión de formularios</li><li>Revisión de enlaces y WhatsApp</li><li>Seguimiento básico de rendimiento</li><li>Soporte técnico</li><li>Respaldo y seguimiento</li>
+</ul>
+<p class="tnote">Los cambios deberán corresponder a modificaciones menores sobre funcionalidades y secciones existentes. Nuevas funcionalidades, módulos, secciones complejas o rediseños importantes se cotizarán por separado.</p>
+
+<h2 class="sec"><span class="no">8</span>Reporte digital opcional</h2>
+<p class="lead">Si Herraidea quiere conocer periódicamente el desempeño de su página, ProcesaLab podrá ofrecer un servicio adicional de análisis: visitantes del periodo, evolución del tráfico, fuentes principales, secciones más consultadas, clics hacia WhatsApp, formularios, conversiones, uso del asistente y del configurador, y recomendaciones de mejora.</p>
+<p>Esto permite que la página evolucione utilizando información real sobre el comportamiento de sus visitantes. El servicio podrá contratarse posteriormente dependiendo de las necesidades de Herraidea.</p>
+
+<h2 class="sec"><span class="no">9</span>Tecnología</h2>
+<p class="lead">El proyecto será desarrollado utilizando tecnologías web modernas y una infraestructura preparada para crecer junto con Herraidea.</p>
+<ul class="clean cols three">
+  <li>Alto rendimiento</li><li>Seguridad</li><li>Excelente experiencia móvil</li><li>Escalabilidad</li><li>Facilidad de mantenimiento</li><li>SEO</li><li>Analítica</li><li>Integración de nuevos módulos</li>
+</ul>
+<p class="tnote">La página podrá conservar el dominio actual de Herraidea. En la versión Smart se incorpora adicionalmente infraestructura backend y base de datos.</p>
+
+<h2 class="sec"><span class="no">10</span>Metodología de trabajo</h2>
+<div class="stages">
+  <div class="stg"><div class="sn">Etapa 1 · Análisis</div><h4>Punto de partida</h4><p>Revisión de la página actual, contenido, productos, identidad visual y objetivos comerciales.</p></div>
+  <div class="stg"><div class="sn">Etapa 2 · Diseño</div><h4>Propuesta visual</h4><p>Desarrollo de la nueva propuesta visual y experiencia de navegación.</p></div>
+  <div class="stg"><div class="sn">Etapa 3 · Desarrollo</div><h4>Construcción</h4><p>Construcción de la página y sus funcionalidades.</p></div>
+  <div class="stg"><div class="sn">Etapa 4 · Revisión</div><h4>Pruebas</h4><p>Presentación del proyecto, pruebas y ajustes.</p></div>
+  <div class="stg"><div class="sn">Etapa 5 · Lanzamiento</div><h4>Publicación</h4><p>Configuración del dominio y publicación de la nueva página.</p></div>
+  <div class="stg"><div class="sn">Etapa 6 · Seguimiento</div><h4>Post-lanzamiento</h4><p>Verificación del funcionamiento, rendimiento y comportamiento.</p></div>
+</div>
+
+<h2 class="sec"><span class="no">11</span>Resultado esperado</h2>
+<p class="lead">Herraidea pasará de contar con una página principalmente informativa a tener una presencia digital moderna diseñada para:</p>
+<div class="funnel">
+  <div class="fn">ATRAER</div><div class="fn">EXPLICAR</div><div class="fn">GENERAR CONFIANZA</div><div class="fn">ORIENTAR</div><div class="fn">CONVERTIR</div>
+</div>
+<p>El objetivo es que cada visitante pueda comprender rápidamente qué ofrece Herraidea, encontrar la solución adecuada y tener un camino sencillo para ponerse en contacto con la empresa. Además, la arquitectura permitirá continuar agregando herramientas y funcionalidades conforme evolucionen las necesidades de Herraidea.</p>
+
+<h3 class="sub">Posibles ampliaciones futuras</h3>
+<p>La arquitectura del Plan Smart permitirá posteriormente incorporar:</p>
+<ul class="clean cols three">
+  <li>CRM interno</li><li>Cotizador avanzado</li><li>Cotizaciones PDF automáticas</li><li>Área privada para clientes</li><li>Usuarios y permisos</li><li>Seguimiento de proyectos</li>
+  <li>Catálogo administrable</li><li>Automatizaciones</li><li>Integraciones con otros sistemas</li><li>Herramientas con Inteligencia Artificial</li>
+</ul>
+<p class="tnote">De esta forma, el proyecto puede comenzar como una página web y evolucionar posteriormente hacia un sistema comercial completo para Herraidea.</p>
+
+<div class="band">
+  <div class="hlogo"><img src="assets/herraidea-logo.png" alt="Herraidea"><span class="patch"></span><span class="dot"></span></div>
+  <div class="big">Comenzar como una página.<br><span>Evolucionar hacia una plataforma.</span></div>
+  <p>La tecnología debe adaptarse a la forma en la que trabaja una empresa, no obligar a la empresa a adaptarse a la tecnología.</p>
+</div>
+
+<div class="collab">
+  <span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab" style="filter:brightness(0) invert(1)"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <span class="x">×</span>
+  <div class="hlogo"><img src="assets/herraidea-logo.png" alt="Herraidea"><span class="patch"></span><span class="dot"></span></div>
+</div>
+
+<div class="close">
+  <span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <p>Soluciones digitales diseñadas alrededor de cada negocio.</p>
+</div>
+
+</doc-page>
+</div>
+
+<script>
+const RED="#FF4E3A",PINK="#F7B6C9",INK="#141310",LAV="#EDE6F2";
+function barChart(id,data,opt){
+  opt=opt||{};
+  const W=opt.w||400,H=opt.h||200,padL=8,padR=8,padTop=26,padBot=38;
+  const n=data.length,gap=opt.gap||20,bw=(W-padL-padR-gap*(n-1))/n;
+  const max=Math.max(...data.map(d=>d.v));
+  const plot=H-padTop-padBot;
+  let s='';
+  data.forEach((d,i)=>{
+    const x=padL+i*(bw+gap);
+    const h=Math.max(2,(d.v/max)*plot);
+    const y=padTop+plot-h;
+    s+=`<rect x="${x}" y="${y}" width="${bw}" height="${h}" rx="5" fill="${d.color}"/>`;
+    s+=`<text class="b-val" x="${x+bw/2}" y="${y-7}" text-anchor="middle" fill="${d.vcolor||INK}">${d.label}</text>`;
+    String(d.cat).split("|").forEach((ln,k)=>{s+=`<text class="b-cat" x="${x+bw/2}" y="${padTop+plot+18+k*13}" text-anchor="middle">${ln}</text>`;});
+  });
+  s+=`<line x1="0" y1="${padTop+plot}" x2="${W}" y2="${padTop+plot}" stroke="${LAV}" stroke-width="2"/>`;
+  document.getElementById(id).innerHTML=`<svg viewBox="0 0 ${W} ${H}">${s}</svg>`;
+}
+barChart("ch-plan",[
+  {v:12000,color:PINK,vcolor:"#8a2f3f",cat:"Esencial",label:"$12K"},
+  {v:15000,color:PINK,vcolor:"#8a2f3f",cat:"Interactiva",label:"$15K"},
+  {v:18000,color:RED,cat:"Premium",label:"$18K"},
+  {v:25000,color:INK,cat:"Smart",label:"$25K+"},
+],{h:200,w:400,gap:18});
+barChart("ch-feat",[
+  {v:6,color:PINK,vcolor:"#8a2f3f",cat:"Esencial",label:"6"},
+  {v:11,color:PINK,vcolor:"#8a2f3f",cat:"Interactiva",label:"11"},
+  {v:13,color:RED,cat:"Premium",label:"13"},
+  {v:16,color:INK,cat:"Smart",label:"16"},
+],{h:190,w:400,gap:18});
+</script>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#141310"></rect><path d="M34 34 L58 60 L34 86 L46 86 L70 60 L46 34 Z" fill="#FF1F1F"></path><rect x="80" y="44" width="14" height="14" fill="#FF1F1F"></rect></svg></template>
+
+<script>
+// On phones the doc-page component keeps its true physical page width
+// (letter size) rather than shrinking to the viewport, which otherwise
+// forces the user to pinch-zoom out to read it. Scale the whole page
+// down to fit the screen width instead.
+function fitDocToViewport() {
+  const dp = document.querySelector('doc-page');
+  const wrap = document.getElementById('docFit');
+  if (!dp || !wrap) return;
+  dp.style.transform = 'none';
+  const naturalW = dp.getBoundingClientRect().width;
+  const naturalH = dp.getBoundingClientRect().height;
+  const avail = wrap.clientWidth;
+  if (naturalW > avail && naturalW > 0) {
+    const scale = avail / naturalW;
+    dp.style.transformOrigin = 'top left';
+    dp.style.transform = 'scale(' + scale + ')';
+    wrap.style.height = (naturalH * scale) + 'px';
+  } else {
+    dp.style.transform = 'none';
+    wrap.style.height = 'auto';
+  }
+}
+window.addEventListener('load', () => setTimeout(fitDocToViewport, 200));
+window.addEventListener('resize', fitDocToViewport);
+</script>
+</body>
+</html>
