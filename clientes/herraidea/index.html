@@ -35,13 +35,28 @@ p.lede{margin:0 0 32px;font-size:15px;color:#5a2733}
 .card .name{font-family:"Space Grotesk";font-weight:700;font-size:17px}
 .card .meta{font-size:13.5px;color:#5a5256;margin-top:3px}
 .card .arrow{font-size:20px;flex:none}
+.card.system{background:var(--ink);color:#fff;border-color:var(--ink)}
+.card.system .meta{color:#c9b9be}
+.card.system .arrow{color:var(--pink)}
+.section-lbl{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a2f3f;margin:28px 0 12px}
+.section-lbl:first-of-type{margin-top:0}
 </style>
 </head>
 <body>
 <div class="wrap">
   <h1>Herraidea</h1>
-  <p class="lede">Documentos preparados por ProcesaLab.</p>
+  <p class="lede">Documentos y accesos preparados por ProcesaLab.</p>
 
+  <div class="section-lbl">Tu sitio</div>
+  <a class="card system" href="https://herraidea-landing.vercel.app" target="_blank" rel="noopener">
+    <div>
+      <div class="name">Herraidea Landing</div>
+      <div class="meta">Ver tu página en vivo</div>
+    </div>
+    <div class="arrow">→</div>
+  </a>
+
+  <div class="section-lbl">Documentos</div>
   <a class="card" href="./propuesta.html">
     <div>
       <div class="name">Propuesta de rediseño web</div>
