@@ -20,23 +20,32 @@ module.exports = async (req, res) => {
     }
 
     if (req.method === 'POST') {
-      const { title, date, time, notes } = req.body || {};
+      const { title, date, time, notes, sourceKey } = req.body || {};
       if (!title || !date) {
         res.status(400).json({ error: 'Falta título o fecha' });
         return;
       }
       const events = await readJSON(PATH, []);
+      const normalizedSourceKey = sourceKey ? String(sourceKey).slice(0, 300) : '';
+      if (normalizedSourceKey) {
+        const existing = events.find((item) => item.sourceKey === normalizedSourceKey);
+        if (existing) {
+          res.status(200).json({ ok: true, event: existing, created: false });
+          return;
+        }
+      }
       const event = {
         id: crypto.randomUUID(),
         title: String(title).slice(0, 200),
         date: String(date),
         time: time ? String(time) : '',
         notes: notes ? String(notes).slice(0, 1000) : '',
+        sourceKey: normalizedSourceKey,
         createdAt: new Date().toISOString(),
       };
       events.push(event);
       await writeJSON(PATH, events);
-      res.status(200).json({ ok: true, event });
+      res.status(200).json({ ok: true, event, created: true });
       return;
     }
 
