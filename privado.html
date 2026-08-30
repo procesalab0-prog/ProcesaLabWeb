@@ -42,7 +42,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 .hint{font-size:13px;color:#8a8085;margin-top:-6px;margin-bottom:16px}
 .files{display:grid;gap:14px}
 .file{
-  display:flex;justify-content:space-between;align-items:center;gap:16px;
+  display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:10px 16px;
   background:var(--lav);border:1.5px solid var(--ink);border-radius:14px;padding:16px 20px
 }
 .file .name{font-family:"Space Grotesk";font-weight:600;font-size:15px}
@@ -102,6 +102,26 @@ button.danger{background:var(--ink);color:var(--cream)}
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="card" style="margin-bottom:32px">
+      <h2 style="font-size:20px;margin-bottom:14px">Calendario</h2>
+      <form id="eventForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;min-width:0">
+        <input type="text" id="evTitle" placeholder="Título del evento" required style="grid-column:1/-1;min-width:0">
+        <input type="date" id="evDate" required style="min-width:0;width:100%">
+        <input type="time" id="evTime" style="min-width:0;width:100%">
+        <textarea id="evNotes" placeholder="Notas (opcional)" rows="2" style="grid-column:1/-1;font-family:'Instrument Sans';font-size:15px;padding:12px 14px;border:1.5px solid var(--ink);border-radius:12px;background:var(--cream);resize:vertical"></textarea>
+        <div class="err hidden" id="eventErr" style="grid-column:1/-1"></div>
+        <button type="submit" style="grid-column:1/-1">Agregar evento</button>
+      </form>
+      <div class="files" id="eventList"></div>
+      <div class="empty hidden" id="eventEmpty">No hay eventos agendados.</div>
+    </div>
+
+    <div class="card" style="margin-bottom:32px">
+      <h2 style="font-size:20px;margin-bottom:14px">Analítica</h2>
+      <p class="hint" style="margin-top:-2px">Conteo simple de visitas (no visitantes únicos). Para datos exactos con filtro por página, activa <strong>Web Analytics</strong> en el dashboard de Vercel.</p>
+      <div class="files" id="statsList"></div>
     </div>
 
     <div class="card" style="margin-bottom:32px">
@@ -286,7 +306,105 @@ async function checkAuth() {
   const res = await fetch('/api/check');
   const data = await res.json();
   showApp(data.authenticated);
-  if (data.authenticated) loadFiles();
+  if (data.authenticated) {
+    loadFiles();
+    loadEvents();
+    loadStats();
+  }
+}
+
+// ---- Calendario ----
+const CLIENT_NAMES = {
+  'la-costumbre': 'La Costumbre',
+  'vaquero-sm': 'Vaquero SM',
+  'econow': 'Econow',
+  'herraidea': 'Herraidea',
+};
+
+const eventForm = document.getElementById('eventForm');
+const eventErr = document.getElementById('eventErr');
+const eventList = document.getElementById('eventList');
+const eventEmpty = document.getElementById('eventEmpty');
+
+async function loadEvents() {
+  const res = await fetch('/api/calendar');
+  if (!res.ok) return;
+  const { events } = await res.json();
+  eventList.innerHTML = '';
+  eventEmpty.classList.toggle('hidden', events.length > 0);
+  events.forEach((ev) => {
+    const el = document.createElement('div');
+    el.className = 'file';
+    const dateLabel = new Date(ev.date + 'T00:00:00').toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
+    const timeLabel = ev.time ? ` · ${ev.time}` : '';
+    el.innerHTML = `
+      <div>
+        <div class="name">${ev.title}</div>
+        <div class="meta">${dateLabel}${timeLabel}${ev.notes ? ' · ' + ev.notes : ''}</div>
+      </div>
+      <div class="actions">
+        <a href="/api/calendar-ics?id=${encodeURIComponent(ev.id)}">📅 Agregar</a>
+        <button data-id="${ev.id}" class="delEventBtn">Eliminar</button>
+      </div>`;
+    el.querySelector('.delEventBtn').addEventListener('click', async (e) => {
+      const id = e.target.dataset.id;
+      if (!confirm('¿Eliminar este evento?')) return;
+      await fetch('/api/calendar', {
+        method: 'DELETE',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ id }),
+      });
+      loadEvents();
+    });
+    eventList.appendChild(el);
+  });
+}
+
+eventForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  eventErr.classList.add('hidden');
+  const title = document.getElementById('evTitle').value;
+  const date = document.getElementById('evDate').value;
+  const time = document.getElementById('evTime').value;
+  const notes = document.getElementById('evNotes').value;
+  const res = await fetch('/api/calendar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ title, date, time, notes }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (res.ok) {
+    eventForm.reset();
+    loadEvents();
+  } else {
+    eventErr.textContent = data.error || 'No se pudo agregar el evento';
+    eventErr.classList.remove('hidden');
+  }
+});
+
+// ---- Analítica ----
+async function loadStats() {
+  const res = await fetch('/api/stats');
+  if (!res.ok) return;
+  const { counts } = await res.json();
+  const statsList = document.getElementById('statsList');
+  statsList.innerHTML = '';
+
+  const rows = [{ key: 'main', label: 'Landing (ProcesaLab)' }].concat(
+    Object.entries(CLIENT_NAMES).map(([slug, name]) => ({ key: `client:${slug}`, label: name }))
+  );
+
+  rows.forEach((row) => {
+    const el = document.createElement('div');
+    el.className = 'file';
+    const count = (counts && counts[row.key]) || 0;
+    el.innerHTML = `
+      <div>
+        <div class="name">${row.label}</div>
+        <div class="meta">${count} ${count === 1 ? 'visita' : 'visitas'}</div>
+      </div>`;
+    statsList.appendChild(el);
+  });
 }
 
 loginForm.addEventListener('submit', async (e) => {
@@ -380,5 +498,6 @@ async function loadFiles() {
 
 checkAuth();
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>

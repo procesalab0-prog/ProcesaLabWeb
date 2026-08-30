@@ -598,6 +598,19 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   });
 }
+
+// Simple visit counter, shown in the owner's private dashboard.
+(function () {
+  try {
+    const body = JSON.stringify({ path: 'main' });
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+    } else {
+      fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body, keepalive: true }).catch(() => {});
+    }
+  } catch (e) {}
+})();
 </script>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
