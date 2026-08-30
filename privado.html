@@ -59,7 +59,11 @@ button.danger{background:var(--ink);color:var(--cream)}
 .status{display:inline-block;font-family:"Space Grotesk";font-weight:600;font-size:11px;padding:4px 8px;border:1px solid var(--ink);border-radius:20px;margin-left:6px}
 .status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}
 .crm-dates{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:6px;font-size:12.5px;color:#5a5256}
-@media(max-width:620px){.crm-grid{grid-template-columns:1fr}.crm-grid .wide{grid-column:auto}.file .actions{width:100%;flex-wrap:wrap}}
+.event-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:20px;min-width:0}
+.event-form .wide{grid-column:1/-1}
+.event-field{display:grid;gap:6px;min-width:0;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#8a8085}
+.event-field input{min-width:0;width:100%;margin:0}
+@media(max-width:620px){.crm-grid,.event-form{grid-template-columns:1fr}.crm-grid .wide,.event-form .wide{grid-column:auto}.file .actions{width:100%;flex-wrap:wrap}.card{padding:24px 20px}.event-form{gap:14px}}
 .hidden{display:none}
 </style>
 </head>
@@ -139,15 +143,13 @@ button.danger{background:var(--ink);color:var(--cream)}
 
     <div class="card" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:14px">Calendario</h2>
-      <form id="eventForm" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:20px;min-width:0">
-        <input type="text" id="evTitle" placeholder="Título del evento" required style="grid-column:1/-1;min-width:0">
-        <div style="font-family:'Space Grotesk';font-weight:600;font-size:12px;color:#8a8085;margin-bottom:-6px">Fecha</div>
-        <div style="font-family:'Space Grotesk';font-weight:600;font-size:12px;color:#8a8085;margin-bottom:-6px">Hora (opcional)</div>
-        <input type="date" id="evDate" required style="min-width:0;width:100%">
-        <input type="time" id="evTime" style="min-width:0;width:100%">
-        <textarea id="evNotes" placeholder="Notas (opcional)" rows="2" style="grid-column:1/-1;font-family:'Instrument Sans';font-size:15px;padding:12px 14px;border:1.5px solid var(--ink);border-radius:12px;background:var(--cream);resize:vertical"></textarea>
-        <div class="err hidden" id="eventErr" style="grid-column:1/-1"></div>
-        <button type="submit" style="grid-column:1/-1">Agregar evento</button>
+      <form id="eventForm" class="event-form">
+        <input type="text" id="evTitle" placeholder="Título del evento" required class="wide" style="min-width:0">
+        <label class="event-field"><span>Fecha</span><input type="date" id="evDate" required></label>
+        <label class="event-field"><span>Hora (opcional)</span><input type="time" id="evTime"></label>
+        <textarea id="evNotes" placeholder="Notas (opcional)" rows="2" class="wide" style="resize:vertical"></textarea>
+        <div class="err hidden wide" id="eventErr"></div>
+        <button type="submit" class="wide">Agregar evento</button>
       </form>
       <div class="files" id="eventList"></div>
       <div class="empty hidden" id="eventEmpty">No hay eventos agendados.</div>
