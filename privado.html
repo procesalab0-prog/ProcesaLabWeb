@@ -59,6 +59,12 @@ button.danger{background:var(--ink);color:var(--cream)}
 .crm-grid>*{min-width:0;max-width:100%}
 .crm-grid label{display:grid;gap:6px;min-width:0;overflow:hidden;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#5a5256}
 .crm-grid input[type=date],.event-form input[type=date],.event-form input[type=time]{display:block;width:100%;min-width:0;max-width:100%}
+.dashboard-card{margin-bottom:0!important;min-width:0}
+#content:not(.hidden){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:stretch}
+.dashboard-card.systems{order:1}.dashboard-card.analytics{order:2}
+.dashboard-card.directory{order:3}.dashboard-card.calendar{order:4}
+.dashboard-card.presentations{order:5}.dashboard-card.shared{order:6}
+.dashboard-card.university{order:7;grid-column:1/-1}
 .status{display:inline-block;font-family:"Space Grotesk";font-weight:600;font-size:11px;padding:4px 8px;border:1px solid var(--ink);border-radius:20px;margin-left:6px}
 .status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}
 .crm-dates{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:6px;font-size:12.5px;color:#5a5256}
@@ -67,7 +73,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 .event-form>*{min-width:0;max-width:100%}
 .event-field{display:grid;gap:6px;min-width:0;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#8a8085}
 .event-field input{min-width:0;width:100%;margin:0}
-@media(max-width:620px){.crm-grid,.event-form{grid-template-columns:1fr}.crm-grid .wide,.event-form .wide{grid-column:auto}.file .actions{width:100%;flex-wrap:wrap}.card{padding:24px 20px}.event-form{gap:14px}}
+@media(max-width:700px){#content:not(.hidden){grid-template-columns:1fr;gap:24px}.dashboard-card.university{grid-column:auto}.crm-grid,.event-form{grid-template-columns:1fr}.crm-grid .wide,.event-form .wide{grid-column:auto}.file .actions{width:100%;flex-wrap:wrap}.card{padding:24px 20px}.event-form{gap:14px}}
 .hidden{display:none}
 </style>
 </head>
@@ -95,7 +101,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 
   <!-- PRIVATE CONTENT -->
   <div id="content" class="hidden">
-    <div class="card" style="margin-bottom:32px">
+    <div class="card dashboard-card systems" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:14px">Sistemas de clientes</h2>
       <div class="files">
         <div class="file">
@@ -119,7 +125,7 @@ button.danger{background:var(--ink);color:var(--cream)}
       </div>
     </div>
 
-    <div class="card" style="margin-bottom:32px">
+    <div class="card dashboard-card directory" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:6px">Directorio de clientes</h2>
       <p class="hint" style="margin-top:0">Controla el estado, pagos y renovaciones. Puedes mandar dominio y hosting al calendario con un clic.</p>
       <form id="clientForm" class="crm-grid">
@@ -145,7 +151,7 @@ button.danger{background:var(--ink);color:var(--cream)}
       <div class="empty hidden" id="clientEmpty">Todavía no hay clientes en el directorio.</div>
     </div>
 
-    <div class="card" style="margin-bottom:32px">
+    <div class="card dashboard-card calendar" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:14px">Calendario</h2>
       <form id="eventForm" class="event-form">
         <input type="text" id="evTitle" placeholder="Título del evento" required class="wide" style="min-width:0">
@@ -159,13 +165,13 @@ button.danger{background:var(--ink);color:var(--cream)}
       <div class="empty hidden" id="eventEmpty">No hay eventos agendados.</div>
     </div>
 
-    <div class="card" style="margin-bottom:32px">
+    <div class="card dashboard-card analytics" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:14px">Analítica</h2>
       <p class="hint" style="margin-top:-2px">Conteo simple de visitas (no visitantes únicos). Para datos exactos con filtro por página, activa <strong>Web Analytics</strong> en el dashboard de Vercel.</p>
       <div class="files" id="statsList"></div>
     </div>
 
-    <div class="card" style="margin-bottom:32px">
+    <div class="card dashboard-card presentations" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:14px">Presentaciones</h2>
       <div class="files">
         <div class="file">
@@ -216,7 +222,7 @@ button.danger{background:var(--ink);color:var(--cream)}
       </div>
     </div>
 
-    <div class="card" style="margin-bottom:32px">
+    <div class="card dashboard-card shared" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:14px">Compartido con clientes</h2>
       <div class="files">
         <div class="file">
@@ -258,7 +264,7 @@ button.danger{background:var(--ink);color:var(--cream)}
       </div>
     </div>
 
-    <div class="card" style="margin-bottom:32px">
+    <div class="card dashboard-card university" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:14px">Proyectos de la universidad</h2>
       <div class="files">
         <div class="file">
