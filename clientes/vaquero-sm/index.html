@@ -16,6 +16,14 @@
     .then(function (d) {
       if (d.authenticated) {
         document.documentElement.style.visibility = 'visible';
+        try {
+          var body = JSON.stringify({ path: 'client:vaquero-sm' });
+          if (navigator.sendBeacon) {
+            navigator.sendBeacon('/api/track', new Blob([body], { type: 'application/json' }));
+          } else {
+            fetch('/api/track', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: body, keepalive: true }).catch(function(){});
+          }
+        } catch (e) {}
       } else {
         location.href = './login.html';
       }
@@ -73,5 +81,6 @@ p.lede{margin:0 0 32px;font-size:15px;color:#5a2733}
     <div class="arrow">→</div>
   </a>
 </div>
+<script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
