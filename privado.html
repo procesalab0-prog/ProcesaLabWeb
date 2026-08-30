@@ -23,10 +23,11 @@ h1,h2{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.02
 .gate{max-width:400px;margin:80px auto 0}
 .gate h1{font-size:28px;margin-bottom:8px}
 .gate p{color:#5a5256;font-size:15px;margin-bottom:24px}
-input[type=password],input[type=text],input[type=file]{
+input[type=password],input[type=text],input[type=file],input[type=date],input[type=time],select,textarea{
   width:100%;font-family:"Instrument Sans";font-size:15px;padding:12px 14px;
-  border:1.5px solid var(--ink);border-radius:12px;background:var(--cream);margin-bottom:14px
+  border:1.5px solid var(--ink);border-radius:12px;background:var(--cream)
 }
+input[type=password],input[type=file]{margin-bottom:14px}
 button{
   font-family:"Space Grotesk";font-weight:600;font-size:15px;padding:12px 20px;
   border-radius:40px;border:1.5px solid var(--ink);cursor:pointer;background:var(--accent);color:#fff;
@@ -53,6 +54,12 @@ button.danger{background:var(--ink);color:var(--cream)}
   border-radius:20px;border:1.5px solid var(--ink);cursor:pointer;text-decoration:none;color:var(--ink)
 }
 .empty{color:#8a8085;font-size:14px;padding:20px 0}
+.crm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.crm-grid .wide{grid-column:1/-1}
+.status{display:inline-block;font-family:"Space Grotesk";font-weight:600;font-size:11px;padding:4px 8px;border:1px solid var(--ink);border-radius:20px;margin-left:6px}
+.status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}
+.crm-dates{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:6px;font-size:12.5px;color:#5a5256}
+@media(max-width:620px){.crm-grid{grid-template-columns:1fr}.crm-grid .wide{grid-column:auto}.file .actions{width:100%;flex-wrap:wrap}}
 .hidden{display:none}
 </style>
 </head>
@@ -102,6 +109,32 @@ button.danger{background:var(--ink);color:var(--cream)}
           </div>
         </div>
       </div>
+    </div>
+
+    <div class="card" style="margin-bottom:32px">
+      <h2 style="font-size:20px;margin-bottom:6px">Directorio de clientes</h2>
+      <p class="hint" style="margin-top:0">Controla el estado, pagos y renovaciones. Puedes mandar dominio y hosting al calendario con un clic.</p>
+      <form id="clientForm" class="crm-grid">
+        <input type="hidden" id="clientId">
+        <input type="text" id="clientName" placeholder="Nombre del cliente" required class="wide">
+        <input type="text" id="clientContact" placeholder="Contacto (correo o teléfono)">
+        <select id="clientStatus" aria-label="Estado del proyecto">
+          <option value="active">Proyecto activo</option>
+          <option value="paused">Proyecto pausado</option>
+          <option value="finished">Proyecto terminado</option>
+        </select>
+        <label>Próximo pago<input type="date" id="clientNextPayment"></label>
+        <label>Renovación de dominio<input type="date" id="clientDomainRenewal"></label>
+        <label>Renovación de hosting<input type="date" id="clientHostingRenewal"></label>
+        <textarea id="clientNotes" placeholder="Notas (opcional)" rows="2"></textarea>
+        <div class="err hidden wide" id="clientErr"></div>
+        <div class="wide" style="display:flex;gap:10px;flex-wrap:wrap">
+          <button type="submit" id="clientSaveBtn">Agregar cliente</button>
+          <button type="button" class="ghost hidden" id="clientCancelBtn">Cancelar edición</button>
+        </div>
+      </form>
+      <div class="files" id="clientList"></div>
+      <div class="empty hidden" id="clientEmpty">Todavía no hay clientes en el directorio.</div>
     </div>
 
     <div class="card" style="margin-bottom:32px">
@@ -291,6 +324,7 @@ async function checkAuth() {
   showApp(data.authenticated);
   if (data.authenticated) {
     loadEvents();
+    loadClients();
     loadStats();
   }
 }
@@ -390,6 +424,165 @@ eventForm.addEventListener('submit', async (e) => {
   }
 });
 
+// ---- Directorio de clientes ----
+const STATUS_LABELS = { active: 'Activo', paused: 'Pausado', finished: 'Terminado' };
+const clientForm = document.getElementById('clientForm');
+const clientErr = document.getElementById('clientErr');
+const clientList = document.getElementById('clientList');
+const clientEmpty = document.getElementById('clientEmpty');
+const clientCancelBtn = document.getElementById('clientCancelBtn');
+const clientSaveBtn = document.getElementById('clientSaveBtn');
+let currentClients = [];
+
+function escapeHtml(value) {
+  return String(value || '').replace(/[&<>'"]/g, (char) => ({
+    '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;',
+  })[char]);
+}
+
+function formatDate(value) {
+  if (!value) return '';
+  return new Date(value + 'T00:00:00').toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
+}
+
+function resetClientForm() {
+  clientForm.reset();
+  document.getElementById('clientId').value = '';
+  clientSaveBtn.textContent = 'Agregar cliente';
+  clientCancelBtn.classList.add('hidden');
+  clientErr.classList.add('hidden');
+}
+
+function editClient(client) {
+  document.getElementById('clientId').value = client.id;
+  document.getElementById('clientName').value = client.name || '';
+  document.getElementById('clientContact').value = client.contact || '';
+  document.getElementById('clientStatus').value = client.status || 'active';
+  document.getElementById('clientNextPayment').value = client.nextPayment || '';
+  document.getElementById('clientDomainRenewal').value = client.domainRenewal || '';
+  document.getElementById('clientHostingRenewal').value = client.hostingRenewal || '';
+  document.getElementById('clientNotes').value = client.notes || '';
+  clientSaveBtn.textContent = 'Guardar cambios';
+  clientCancelBtn.classList.remove('hidden');
+  clientForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+}
+
+async function addRenewalToCalendar(client, type) {
+  const isDomain = type === 'domain';
+  const date = isDomain ? client.domainRenewal : client.hostingRenewal;
+  const label = isDomain ? 'dominio' : 'hosting';
+  if (!date) return;
+  const res = await fetch('/api/calendar', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      title: `Renovar ${label} — ${client.name}`,
+      date,
+      notes: `Recordatorio de renovación de ${label} para ${client.name}`,
+      sourceKey: `client:${client.id}:${type}:${date}`,
+    }),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    clientErr.textContent = data.error || 'No se pudo crear el recordatorio';
+    clientErr.classList.remove('hidden');
+    return;
+  }
+  if (!currentEvents.some((event) => event.id === data.event.id)) {
+    currentEvents.push(data.event);
+    sortEvents();
+    renderEvents();
+  }
+  clientErr.textContent = data.created === false ? 'Ese recordatorio ya estaba en el calendario.' : 'Recordatorio agregado al calendario.';
+  clientErr.classList.remove('hidden');
+}
+
+function renderClients() {
+  clientList.innerHTML = '';
+  clientEmpty.classList.toggle('hidden', currentClients.length > 0);
+  currentClients.forEach((client) => {
+    const el = document.createElement('div');
+    el.className = 'file';
+    const dates = [
+      client.nextPayment ? `<span>💳 Pago: ${formatDate(client.nextPayment)}</span>` : '',
+      client.domainRenewal ? `<span>🌐 Dominio: ${formatDate(client.domainRenewal)}</span>` : '',
+      client.hostingRenewal ? `<span>☁️ Hosting: ${formatDate(client.hostingRenewal)}</span>` : '',
+    ].filter(Boolean).join('');
+    el.innerHTML = `
+      <div style="min-width:0;flex:1">
+        <div class="name">${escapeHtml(client.name)} <span class="status ${client.status}">${STATUS_LABELS[client.status] || 'Activo'}</span></div>
+        <div class="meta">${escapeHtml(client.contact || 'Sin contacto')}${client.notes ? ' · ' + escapeHtml(client.notes) : ''}</div>
+        <div class="crm-dates">${dates}</div>
+      </div>
+      <div class="actions">
+        ${client.domainRenewal ? '<button class="domainReminderBtn">+ Dominio</button>' : ''}
+        ${client.hostingRenewal ? '<button class="hostingReminderBtn">+ Hosting</button>' : ''}
+        <button class="editClientBtn">Editar</button>
+        <button class="deleteClientBtn">Eliminar</button>
+      </div>`;
+    el.querySelector('.editClientBtn').addEventListener('click', () => editClient(client));
+    el.querySelector('.deleteClientBtn').addEventListener('click', async () => {
+      if (!confirm(`¿Eliminar a ${client.name} del directorio?`)) return;
+      const res = await fetch('/api/clients', {
+        method: 'DELETE', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ id: client.id }),
+      });
+      if (res.ok) {
+        currentClients = currentClients.filter((item) => item.id !== client.id);
+        renderClients();
+      }
+    });
+    const domainBtn = el.querySelector('.domainReminderBtn');
+    const hostingBtn = el.querySelector('.hostingReminderBtn');
+    if (domainBtn) domainBtn.addEventListener('click', () => addRenewalToCalendar(client, 'domain'));
+    if (hostingBtn) hostingBtn.addEventListener('click', () => addRenewalToCalendar(client, 'hosting'));
+    clientList.appendChild(el);
+  });
+}
+
+async function loadClients() {
+  const res = await fetch('/api/clients');
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    clientErr.textContent = data.error || 'No se pudo cargar el directorio';
+    clientErr.classList.remove('hidden');
+    return;
+  }
+  currentClients = data.clients || [];
+  renderClients();
+}
+
+clientForm.addEventListener('submit', async (e) => {
+  e.preventDefault();
+  clientErr.classList.add('hidden');
+  const id = document.getElementById('clientId').value;
+  const body = {
+    id,
+    name: document.getElementById('clientName').value,
+    contact: document.getElementById('clientContact').value,
+    status: document.getElementById('clientStatus').value,
+    nextPayment: document.getElementById('clientNextPayment').value,
+    domainRenewal: document.getElementById('clientDomainRenewal').value,
+    hostingRenewal: document.getElementById('clientHostingRenewal').value,
+    notes: document.getElementById('clientNotes').value,
+  };
+  const res = await fetch('/api/clients', {
+    method: id ? 'PUT' : 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body),
+  });
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    clientErr.textContent = (data.error || 'No se pudo guardar el cliente') + (data.detail ? ' — ' + data.detail : '');
+    clientErr.classList.remove('hidden');
+    return;
+  }
+  const index = currentClients.findIndex((item) => item.id === data.client.id);
+  if (index === -1) currentClients.push(data.client); else currentClients[index] = data.client;
+  currentClients.sort((a, b) => a.name.localeCompare(b.name, 'es'));
+  resetClientForm();
+  renderClients();
+});
+
+clientCancelBtn.addEventListener('click', resetClientForm);
+
 // ---- Analítica ----
 async function loadStats() {
   const res = await fetch('/api/stats');
@@ -430,6 +623,7 @@ loginForm.addEventListener('submit', async (e) => {
   } else if (res.ok) {
     showApp(true);
     loadEvents();
+    loadClients();
     loadStats();
   } else {
     loginErr.textContent = data.error || 'No se pudo iniciar sesión';
