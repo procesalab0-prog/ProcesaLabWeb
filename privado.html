@@ -19,7 +19,7 @@ h1,h2{font-family:"Space Grotesk",sans-serif;font-weight:700;letter-spacing:-.02
 .wrap{max-width:960px;margin:0 auto;padding:60px 24px 80px}
 .brand{font-family:"Space Grotesk";font-weight:700;font-size:20px;letter-spacing:-.03em}
 .brand span{color:var(--accent)}
-.card{background:#fff;border:1.5px solid var(--ink);border-radius:20px;padding:32px;box-shadow:5px 5px 0 var(--ink)}
+.card{background:#fff;border:1.5px solid var(--ink);border-radius:20px;padding:32px;box-shadow:5px 5px 0 var(--ink);min-width:0}
 .gate{max-width:400px;margin:80px auto 0}
 .gate h1{font-size:28px;margin-bottom:8px}
 .gate p{color:#5a5256;font-size:15px;margin-bottom:24px}
@@ -54,13 +54,17 @@ button.danger{background:var(--ink);color:var(--cream)}
   border-radius:20px;border:1.5px solid var(--ink);cursor:pointer;text-decoration:none;color:var(--ink)
 }
 .empty{color:#8a8085;font-size:14px;padding:20px 0}
-.crm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px}
+.crm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px;width:100%;min-width:0}
 .crm-grid .wide{grid-column:1/-1}
+.crm-grid>*{min-width:0;max-width:100%}
+.crm-grid label{display:grid;gap:6px;min-width:0;overflow:hidden;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#5a5256}
+.crm-grid input[type=date],.event-form input[type=date],.event-form input[type=time]{display:block;width:100%;min-width:0;max-width:100%}
 .status{display:inline-block;font-family:"Space Grotesk";font-weight:600;font-size:11px;padding:4px 8px;border:1px solid var(--ink);border-radius:20px;margin-left:6px}
 .status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}
 .crm-dates{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:6px;font-size:12.5px;color:#5a5256}
-.event-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:20px;min-width:0}
+.event-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:20px;width:100%;min-width:0}
 .event-form .wide{grid-column:1/-1}
+.event-form>*{min-width:0;max-width:100%}
 .event-field{display:grid;gap:6px;min-width:0;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#8a8085}
 .event-field input{min-width:0;width:100%;margin:0}
 @media(max-width:620px){.crm-grid,.event-form{grid-template-columns:1fr}.crm-grid .wide,.event-form .wide{grid-column:auto}.file .actions{width:100%;flex-wrap:wrap}.card{padding:24px 20px}.event-form{gap:14px}}
