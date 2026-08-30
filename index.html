@@ -104,12 +104,10 @@ svg{fill:currentColor}
 .ll-2.logo-line>span{animation-delay:.12s}
 .hero-tag,.hero-cta{opacity:0;transform:translateY(18px);animation:heroFade .65s .72s ease forwards}
 .hero-cta{animation-delay:.86s}
-.hero-orbit{position:absolute;width:min(58vw,720px);aspect-ratio:1;border:1.5px solid rgba(17,17,17,.2);border-radius:50%;right:-18vw;top:-16vw;animation:orbitPulse 7s ease-in-out infinite;z-index:1}
-.hero-orbit::before,.hero-orbit::after{content:"";position:absolute;border:1.5px solid rgba(17,17,17,.15);border-radius:50%;inset:13%}.hero-orbit::after{inset:28%}
-.hero-dot{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--red);left:12%;top:20%;box-shadow:0 0 0 8px rgba(255,78,58,.15)}
+.hero-bg-gear{position:absolute;right:-13vw;top:-16vw;width:min(62vw,760px);height:min(62vw,760px);z-index:1;color:rgba(111,76,132,.18);animation-duration:28s;animation-direction:reverse;pointer-events:none}
+.hero-bg-gear svg{width:100%;height:100%}
 @keyframes logoRise{to{transform:none}}
 @keyframes heroFade{to{opacity:1;transform:none}}
-@keyframes orbitPulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.04) rotate(8deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:clamp(28px,4vw,52px);max-width:1180px}
 .hero-tag{font-family:"Space Grotesk";font-weight:600;font-size:clamp(18px,2.3vw,26px);letter-spacing:-.01em;line-height:1.1;color:var(--ink);max-width:440px}
@@ -220,7 +218,8 @@ svg{fill:currentColor}
 .card:hover .visit{color:var(--red)}
 
 /* CTA — scroll-pinned finale with 3D computer */
-.finale{position:relative;height:320vh;background:var(--ink)}
+.finale{position:relative;height:220vh;background:var(--ink)}
+.sticky{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden}
 .cta{background:var(--ink);color:var(--cream);text-align:center;position:relative;overflow:hidden;width:100%;max-height:100%}
 .cta .wrap{position:relative;z-index:2;padding:80px 28px;display:grid;grid-template-columns:1fr;justify-items:center;gap:12px}
 .cta h2{font-size:clamp(36px,5.6vw,72px);color:var(--cream)}
@@ -270,7 +269,9 @@ svg{fill:currentColor}
 .foot-right .lbl{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a8085;margin-bottom:8px}
 .foot-right a.mail{font-family:"Space Grotesk";font-weight:700;font-size:22px;color:var(--ink);border-bottom:2.5px solid var(--accent);padding-bottom:2px}
 .foot-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:46px;padding-top:22px;border-top:1.5px solid #e7ded8;font-size:13px;color:#8a8085;flex-wrap:wrap;gap:10px}
-.wa-float{position:fixed;right:22px;bottom:22px;z-index:45;background:#25D366;color:#062d16;border:1.5px solid var(--ink);border-radius:999px;padding:13px 18px;font-family:"Space Grotesk";font-weight:700;font-size:14px;box-shadow:4px 4px 0 var(--ink);display:flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s}.wa-float:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.menu-back{display:none}
+.private-lock{width:46px;height:46px;border:1.5px solid var(--ink);border-radius:50%;align-items:center;justify-content:center;background:var(--cream)}
+.swipe-hint{display:none}
 
 @media(max-width:880px){
   .proj-grid{grid-template-columns:1fr 1fr}
@@ -285,13 +286,14 @@ svg{fill:currentColor}
   .brand{font-size:17px;gap:6px}
   .brand .gear svg{width:20px;height:20px}
   .nav-links{display:none}.menu-toggle{display:flex}
-  .mobile-menu{display:flex;position:fixed;inset:0;z-index:70;background:var(--pink);padding:100px 22px 34px;flex-direction:column;justify-content:space-between;transform:translateX(102%);transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  .mobile-menu{display:flex;position:fixed;inset:0;z-index:70;background:var(--pink);padding:94px 22px 34px;flex-direction:column;justify-content:space-between;transform:translateX(102%);transition:transform .45s cubic-bezier(.16,1,.3,1)}
   .mobile-menu.open{transform:none}.mobile-menu nav{display:grid;gap:4px}.mobile-menu nav a{font-family:"Space Grotesk";font-weight:700;font-size:clamp(34px,11vw,50px);letter-spacing:-.04em;border-bottom:1.5px solid var(--ink);padding:10px 0}.mobile-menu-foot{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .menu-back{display:flex;position:absolute;left:22px;top:22px;width:44px;height:44px;border:1.5px solid var(--ink);border-radius:50%;background:var(--cream);align-items:center;justify-content:center;cursor:pointer}.private-lock{display:flex;margin-left:auto}
   .hero{padding:88px 0 44px;align-items:center;justify-content:center;min-height:100svh}
   .hero-in{justify-content:center}
   .ll-1,.ll-2{font-size:clamp(70px,20.8vw,100px)}
   .logo-lockup{overflow:visible}
-  .hero-kicker{font-size:10px;margin-bottom:12px}.hero-orbit{width:100vw;right:-58vw;top:7vh}.hero-dot{width:12px;height:12px}
+  .hero-kicker{font-size:10px;margin-bottom:12px}.hero-bg-gear{width:112vw;height:112vw;right:-65vw;top:8vh;color:rgba(111,76,132,.2)}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:18px;margin-top:18px}
   .hero-tag{font-size:clamp(21px,6vw,27px);max-width:330px;line-height:1.03}
   .hero-cta{flex-direction:column;width:100%}
@@ -299,7 +301,8 @@ svg{fill:currentColor}
   .hero-scroll{display:none}
   .proj-reveal{overflow:hidden}.proj-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:2px 20px 22px;scrollbar-width:none}.proj-grid::-webkit-scrollbar{display:none}.proj-grid .card{min-width:84vw;scroll-snap-align:center}.proj-reveal .sec-head{margin-bottom:26px}
   .process-grid{grid-template-columns:1fr}.process-step{min-height:0;padding:26px 22px}.process-step h3{margin:24px 0 9px}.process-step:hover{background:var(--ink);color:var(--cream)}.process-step:hover p{color:#cfc7ca}
-  .svc{padding:28px 24px}.svc:hover{transform:none;box-shadow:5px 5px 0 var(--ink)}
+  #servicios{padding-top:94px;padding-bottom:104px}.svc-grid{gap:28px}.svc{padding:30px 24px}.svc:hover{transform:none;box-shadow:5px 5px 0 var(--ink)}
+  .swipe-hint{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a5256;margin:-8px 0 14px}.swipe-hint .arrow{font-size:20px;color:var(--red);animation:swipeNudge 1.5s ease-in-out infinite}@keyframes swipeNudge{50%{transform:translateX(7px)}}
   .foot-right{text-align:left}
   .scene{padding:64px 20px 80px}
   .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.68)}
@@ -308,9 +311,9 @@ svg{fill:currentColor}
   .cta .wrap{padding:64px 22px;gap:8px}
   .cta p{margin-top:12px;font-size:15.5px}
   .cta-actions{margin-top:4px}
-  .cta-actions .btn{width:100%;justify-content:center}.wa-float{right:14px;bottom:14px;padding:12px 14px;font-size:13px}.wa-float span{display:none}
+  .cta-actions .btn{width:100%;justify-content:center}.finale{height:150vh}.sticky{height:100svh}
 }
-@media (prefers-reduced-motion:reduce){.logo-line>span,.hero-kicker,.hero-tag,.hero-cta{animation:none;opacity:1;transform:none}.hero-orbit{animation:none}.reveal-up{opacity:1;transform:none;transition:none}.mobile-menu{transition:none}}
+@media (prefers-reduced-motion:reduce){.logo-line>span,.hero-kicker,.hero-tag,.hero-cta{animation:none;opacity:1;transform:none}.hero-bg-gear{animation:none}.reveal-up{opacity:1;transform:none;transition:none}.mobile-menu{transition:none}.swipe-hint .arrow{animation:none}}
 </style>
 </head>
 <body>
@@ -342,6 +345,7 @@ svg{fill:currentColor}
   </div>
 </header>
 <div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <button class="menu-back" id="menuBack" aria-label="Regresar"><svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M15 18l-6-6 6-6" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round"/></svg></button>
   <nav>
     <a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a>
     <a href="#proceso" data-es="Proceso" data-en="Process">Proceso</a>
@@ -350,7 +354,7 @@ svg{fill:currentColor}
   </nav>
   <div class="mobile-menu-foot">
     <div class="langtog" role="group" aria-label="Language"><button id="esMobile" onclick="setLang('es')">ES</button><button id="enMobile" onclick="setLang('en')">EN</button></div>
-    <a href="/privado.html" class="btn btn-ghost" data-es="Área privada" data-en="Private area">Área privada</a>
+    <a href="/privado.html" class="private-lock" title="Área privada" aria-label="Área privada"><svg width="19" height="19" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg></a>
   </div>
 </div>
 
@@ -358,7 +362,7 @@ svg{fill:currentColor}
 
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-orbit" aria-hidden="true"><span class="hero-dot"></span></div>
+  <span class="hero-bg-gear gear-spin gslot" data-s="100%" aria-hidden="true"></span>
   <div class="wrap hero-in">
     <div class="hero-kicker" data-es="IA · procesos · experiencias digitales" data-en="AI · processes · digital experiences">IA · procesos · experiencias digitales</div>
     <div class="logo-lockup">
@@ -371,7 +375,7 @@ svg{fill:currentColor}
         <a class="btn btn-primary" href="#proyectos" data-es="Ver proyectos" data-en="See projects">Ver proyectos
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a class="btn btn-dark" href="https://wa.me/524773191563?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Vi%20su%20trabajo%20y%20quiero%20transformar%20una%20idea%20o%20proceso%20en%20una%20soluci%C3%B3n%20digital%20que%20realmente%20haga%20crecer%20mi%20negocio.%20%C2%BFPlaticamos%3F" target="_blank" rel="noopener" data-es="Cuéntanos tu idea" data-en="Tell us your idea">Cuéntanos tu idea</a>
+        <a class="btn btn-dark" href="#contacto" data-es="Cuéntanos tu idea" data-en="Tell us your idea">Cuéntanos tu idea</a>
       </div>
     </div>
   </div>
@@ -466,6 +470,7 @@ svg{fill:currentColor}
       </div>
       <p data-es="Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos." data-en="A selection of sites and experiences we've designed and built. Click to visit them.">Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos.</p>
     </div>
+    <div class="swipe-hint" aria-hidden="true"><span data-es="Desliza para explorar" data-en="Swipe to explore">Desliza para explorar</span><span class="arrow">→</span></div>
     <div class="proj-grid" id="projGrid"></div>
   </div>
 </section>
@@ -480,7 +485,7 @@ svg{fill:currentColor}
         <h2><span data-es="¿Listo para" data-en="Ready to">¿Listo para</span> <span class="red" data-es="crecer?" data-en="grow?">crecer?</span></h2>
         <p data-es="Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos." data-en="Tell us which process you want to automate or which site you want to build. We'll reply with a clear, jargon-free plan.">Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos.</p>
         <div class="cta-actions">
-          <a class="btn btn-primary" href="https://wa.me/524773191563?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Vi%20su%20trabajo%20y%20quiero%20transformar%20una%20idea%20o%20proceso%20en%20una%20soluci%C3%B3n%20digital%20que%20realmente%20haga%20crecer%20mi%20negocio.%20%C2%BFPlaticamos%3F" target="_blank" rel="noopener" data-es="WhatsApp principal" data-en="Main WhatsApp">WhatsApp principal</a>
+          <a class="btn btn-primary" href="https://wa.me/524773191563?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Vi%20su%20trabajo%20y%20quiero%20transformar%20una%20idea%20o%20proceso%20en%20una%20soluci%C3%B3n%20digital%20que%20realmente%20haga%20crecer%20mi%20negocio.%20%C2%BFPlaticamos%3F" target="_blank" rel="noopener" data-es="Platiquemos por WhatsApp" data-en="Let's talk on WhatsApp">Platiquemos por WhatsApp</a>
           <a class="btn btn-out" href="https://wa.me/525637009606?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Quiero%20platicarles%20sobre%20una%20idea%20digital%20para%20mi%20negocio.%20%C2%BFMe%20pueden%20orientar%3F" target="_blank" rel="noopener" data-es="WhatsApp alternativo" data-en="Alternative WhatsApp">WhatsApp alternativo</a>
           <a class="btn btn-out" href="mailto:procesalab0@gmail.com" data-es="Enviar correo" data-en="Send email">Enviar correo</a>
         </div>
@@ -516,8 +521,6 @@ svg{fill:currentColor}
     <span data-es="IA + Procesos · Resultados reales" data-en="AI + Processes · Real results">IA + Procesos · Resultados reales</span>
   </div>
 </footer>
-
-<a class="wa-float" href="https://wa.me/524773191563?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Vi%20su%20trabajo%20y%20quiero%20transformar%20una%20idea%20o%20proceso%20en%20una%20soluci%C3%B3n%20digital%20que%20realmente%20haga%20crecer%20mi%20negocio.%20%C2%BFPlaticamos%3F" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">✦ <span data-es="Platiquemos" data-en="Let's talk">Platiquemos</span></a>
 
 <script>
 const GA = [0, 45, 90, 135, 180, 225, 270, 315];
@@ -647,6 +650,7 @@ document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el)
 
 const menuToggle = document.getElementById('menuToggle');
 const mobileMenu = document.getElementById('mobileMenu');
+const menuBack = document.getElementById('menuBack');
 function closeMenu() {
   menuToggle.classList.remove('open');
   mobileMenu.classList.remove('open');
@@ -662,6 +666,7 @@ menuToggle.addEventListener('click', () => {
   mobileMenu.setAttribute('aria-hidden', String(!open));
   document.body.style.overflow = open ? 'hidden' : '';
 });
+menuBack.addEventListener('click', closeMenu);
 mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
 
 let LANG = localStorage.getItem('pl_lang') || 'es';
