@@ -296,45 +296,6 @@ async function checkAuth() {
 }
 
 // ---- Calendario ----
-// The .ics is built entirely from data already on screen — no server
-// round-trip — so "Agregar a mi calendario" never depends on storage
-// having caught up with a write that just happened.
-function icsEscape(s) {
-  return String(s || '')
-    .replace(/\\/g, '\\\\')
-    .replace(/;/g, '\\;')
-    .replace(/,/g, '\\,')
-    .replace(/\n/g, '\\n');
-}
-function icsAddOneDay(dateStr) {
-  const d = new Date(dateStr + 'T00:00:00Z');
-  d.setUTCDate(d.getUTCDate() + 1);
-  return d.toISOString().slice(0, 10);
-}
-function buildIcs(ev) {
-  const datePart = ev.date.replace(/-/g, '');
-  let dtStart, dtEnd;
-  if (ev.time) {
-    const timePart = ev.time.replace(':', '') + '00';
-    dtStart = `DTSTART:${datePart}T${timePart}`;
-    dtEnd = `DTEND:${datePart}T${timePart}`;
-  } else {
-    const nextDay = icsAddOneDay(ev.date).replace(/-/g, '');
-    dtStart = `DTSTART;VALUE=DATE:${datePart}`;
-    dtEnd = `DTEND;VALUE=DATE:${nextDay}`;
-  }
-  return [
-    'BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//ProcesaLab//Calendario//ES', 'CALSCALE:GREGORIAN',
-    'BEGIN:VEVENT', `UID:${ev.id}@procesalab`, dtStart, dtEnd,
-    `SUMMARY:${icsEscape(ev.title)}`,
-    ev.notes ? `DESCRIPTION:${icsEscape(ev.notes)}` : '',
-    'END:VEVENT', 'END:VCALENDAR',
-  ].filter(Boolean).join('\r\n');
-}
-function icsHref(ev) {
-  return 'data:text/calendar;charset=utf-8,' + encodeURIComponent(buildIcs(ev));
-}
-
 const CLIENT_NAMES = {
   'la-costumbre': 'La Costumbre',
   'vaquero-sm': 'Vaquero SM',
@@ -367,7 +328,7 @@ function renderEvents() {
         <div class="meta">${dateLabel}${timeLabel}${ev.notes ? ' · ' + ev.notes : ''}</div>
       </div>
       <div class="actions">
-        <a href="${icsHref(ev)}">📅 Agregar</a>
+        <a href="/api/calendar-ics?id=${encodeURIComponent(ev.id)}" download="evento-procesalab.ics">📅 Agregar</a>
         <button data-id="${ev.id}" class="delEventBtn">Eliminar</button>
       </div>`;
     el.querySelector('.delEventBtn').addEventListener('click', async (e) => {
