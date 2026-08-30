@@ -308,13 +308,16 @@ const eventErr = document.getElementById('eventErr');
 const eventList = document.getElementById('eventList');
 const eventEmpty = document.getElementById('eventEmpty');
 
-async function loadEvents() {
-  const res = await fetch('/api/calendar');
-  if (!res.ok) return;
-  const { events } = await res.json();
+let currentEvents = [];
+
+function sortEvents() {
+  currentEvents.sort((a, b) => `${a.date}T${a.time || '00:00'}`.localeCompare(`${b.date}T${b.time || '00:00'}`));
+}
+
+function renderEvents() {
   eventList.innerHTML = '';
-  eventEmpty.classList.toggle('hidden', events.length > 0);
-  events.forEach((ev) => {
+  eventEmpty.classList.toggle('hidden', currentEvents.length > 0);
+  currentEvents.forEach((ev) => {
     const el = document.createElement('div');
     el.className = 'file';
     const dateLabel = new Date(ev.date + 'T00:00:00').toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
@@ -331,15 +334,34 @@ async function loadEvents() {
     el.querySelector('.delEventBtn').addEventListener('click', async (e) => {
       const id = e.target.dataset.id;
       if (!confirm('¿Eliminar este evento?')) return;
-      await fetch('/api/calendar', {
+      const res = await fetch('/api/calendar', {
         method: 'DELETE',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ id }),
       });
-      loadEvents();
+      if (res.ok) {
+        // Update the list we already have instead of re-reading from
+        // storage right away — Blob can take a moment to reflect a
+        // write it just made, so an immediate re-fetch can look empty.
+        currentEvents = currentEvents.filter((ev2) => ev2.id !== id);
+        renderEvents();
+      }
     });
     eventList.appendChild(el);
   });
+}
+
+async function loadEvents() {
+  const res = await fetch('/api/calendar');
+  const data = await res.json().catch(() => ({}));
+  if (!res.ok) {
+    eventErr.textContent = (data.error || 'No se pudieron cargar los eventos') + (data.detail ? ' — ' + data.detail : '');
+    eventErr.classList.remove('hidden');
+    return;
+  }
+  currentEvents = data.events || [];
+  sortEvents();
+  renderEvents();
 }
 
 eventForm.addEventListener('submit', async (e) => {
@@ -357,7 +379,11 @@ eventForm.addEventListener('submit', async (e) => {
   const data = await res.json().catch(() => ({}));
   if (res.ok) {
     eventForm.reset();
-    loadEvents();
+    // Same reasoning as delete: add it straight to what's already on
+    // screen instead of re-fetching, which can race with the write.
+    currentEvents.push(data.event);
+    sortEvents();
+    renderEvents();
   } else {
     eventErr.textContent = (data.error || 'No se pudo agregar el evento') + (data.detail ? ' — ' + data.detail : '');
     eventErr.classList.remove('hidden');
