@@ -57,7 +57,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 .crm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px;width:100%;min-width:0}
 .crm-grid .wide{grid-column:1/-1}
 .crm-grid>*{min-width:0;max-width:100%}
-.crm-grid label{display:grid;gap:6px;min-width:0;overflow:hidden;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#5a5256}
+.crm-grid label{display:grid;grid-column:1/-1;gap:6px;min-width:0;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#5a5256}
 .crm-grid input[type=date],.event-form input[type=date],.event-form input[type=time]{display:block;width:100%;min-width:0;max-width:100%}
 .dashboard-card{margin-bottom:0!important;min-width:0}
 #content:not(.hidden){display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:28px;align-items:stretch}
@@ -68,7 +68,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 .status{display:inline-block;font-family:"Space Grotesk";font-weight:600;font-size:11px;padding:4px 8px;border:1px solid var(--ink);border-radius:20px;margin-left:6px}
 .status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}
 .crm-dates{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:6px;font-size:12.5px;color:#5a5256}
-.event-form{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:12px;margin-bottom:20px;width:100%;min-width:0}
+.event-form{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;width:100%;min-width:0}
 .event-form .wide{grid-column:1/-1}
 .event-form>*{min-width:0;max-width:100%}
 .event-field{display:grid;gap:6px;min-width:0;font-family:"Space Grotesk";font-weight:600;font-size:12px;color:#8a8085}
@@ -140,7 +140,7 @@ button.danger{background:var(--ink);color:var(--cream)}
         <label>Próximo pago<input type="date" id="clientNextPayment"></label>
         <label>Renovación de dominio<input type="date" id="clientDomainRenewal"></label>
         <label>Renovación de hosting<input type="date" id="clientHostingRenewal"></label>
-        <textarea id="clientNotes" placeholder="Notas (opcional)" rows="2"></textarea>
+        <textarea id="clientNotes" placeholder="Notas (opcional)" rows="2" class="wide"></textarea>
         <div class="err hidden wide" id="clientErr"></div>
         <div class="wide" style="display:flex;gap:10px;flex-wrap:wrap">
           <button type="submit" id="clientSaveBtn">Agregar cliente</button>
