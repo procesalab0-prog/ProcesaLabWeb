@@ -82,6 +82,11 @@ svg{fill:currentColor}
 .btn-dark{background:var(--ink);color:var(--cream);box-shadow:4px 4px 0 rgba(17,17,17,.25)}
 .btn-dark:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 rgba(17,17,17,.25)}
 .nav .btn{padding:10px 18px;font-size:14px}
+.menu-toggle{display:none;width:44px;height:44px;border:1.5px solid var(--ink);border-radius:50%;background:var(--cream);padding:0;align-items:center;justify-content:center;position:relative;z-index:72;cursor:pointer}
+.menu-toggle span,.menu-toggle::before,.menu-toggle::after{content:"";position:absolute;width:18px;height:2px;background:var(--ink);transition:transform .3s,opacity .2s}
+.menu-toggle::before{transform:translateY(-6px)}.menu-toggle::after{transform:translateY(6px)}
+.menu-toggle.open span{opacity:0}.menu-toggle.open::before{transform:rotate(45deg)}.menu-toggle.open::after{transform:rotate(-45deg)}
+.mobile-menu{display:none}
 
 /* HERO */
 .hero{position:relative;background:var(--pink);min-height:100svh;display:flex;align-items:center;padding:120px 0 72px;overflow:hidden}
@@ -92,6 +97,19 @@ svg{fill:currentColor}
 .ll-tm{font-size:.16em;font-weight:600;align-self:flex-start;margin-top:.18em;margin-left:.03em;letter-spacing:0}
 .ll-gear{width:.82em;height:.82em;display:inline-block;flex:none;margin-left:.16em}
 .ll-gear.gear-spin{animation:spin 9s linear infinite}
+.hero-kicker{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:18px;opacity:0;animation:heroFade .65s .12s ease forwards}
+.hero-kicker::before{content:"";width:36px;height:2px;background:var(--ink)}
+.logo-line{display:block;overflow:hidden;padding:.08em 0}
+.logo-line>span{display:flex;align-items:center;transform:translateY(115%) rotate(2deg);animation:logoRise .9s cubic-bezier(.16,1,.3,1) forwards}
+.ll-2.logo-line>span{animation-delay:.12s}
+.hero-tag,.hero-cta{opacity:0;transform:translateY(18px);animation:heroFade .65s .72s ease forwards}
+.hero-cta{animation-delay:.86s}
+.hero-orbit{position:absolute;width:min(58vw,720px);aspect-ratio:1;border:1.5px solid rgba(17,17,17,.2);border-radius:50%;right:-18vw;top:-16vw;animation:orbitPulse 7s ease-in-out infinite;z-index:1}
+.hero-orbit::before,.hero-orbit::after{content:"";position:absolute;border:1.5px solid rgba(17,17,17,.15);border-radius:50%;inset:13%}.hero-orbit::after{inset:28%}
+.hero-dot{position:absolute;width:18px;height:18px;border-radius:50%;background:var(--red);left:12%;top:20%;box-shadow:0 0 0 8px rgba(255,78,58,.15)}
+@keyframes logoRise{to{transform:none}}
+@keyframes heroFade{to{opacity:1;transform:none}}
+@keyframes orbitPulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.04) rotate(8deg)}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:clamp(28px,4vw,52px);max-width:1180px}
 .hero-tag{font-family:"Space Grotesk";font-weight:600;font-size:clamp(18px,2.3vw,26px);letter-spacing:-.01em;line-height:1.1;color:var(--ink);max-width:440px}
@@ -126,6 +144,19 @@ svg{fill:currentColor}
 .svc .num{position:absolute;top:24px;right:30px;font-family:"Space Grotesk";font-weight:700;font-size:18px;color:var(--pink)}
 .svc.alt{background:var(--pink)}
 .svc.alt .num{color:var(--red)}
+.svc-benefits{display:grid;gap:8px;margin:20px 0 0;padding:18px 0 0;border-top:1px solid rgba(17,17,17,.18);list-style:none}
+.svc-benefits li{font-family:"Space Grotesk";font-weight:600;font-size:13px;display:flex;align-items:center;gap:9px}.svc-benefits li::before{content:"✦";color:var(--red)}
+
+/* PROCESS */
+.process{background:var(--ink);color:var(--cream)}
+.process .sec-tag{color:var(--pink)}.process .sec-tag::before{background:var(--pink)}
+.process-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:1px;background:#4a4548;border:1px solid #4a4548;border-radius:22px;overflow:hidden}
+.process-step{background:var(--ink);padding:32px 26px;min-height:230px;position:relative;transition:background .3s,color .3s}
+.process-step:hover{background:var(--pink);color:var(--ink)}
+.process-num{font-family:"Space Grotesk";font-weight:700;color:var(--red);font-size:13px;letter-spacing:.1em}
+.process-step h3{font-size:23px;margin:42px 0 12px}.process-step p{color:#cfc7ca;font-size:14px;line-height:1.5}.process-step:hover p{color:#4a4347}
+
+.reveal-up{opacity:0;transform:translateY(28px);transition:opacity .65s ease,transform .65s cubic-bezier(.16,1,.3,1)}.reveal-up.in{opacity:1;transform:none}
 
 /* ===== ARCHIVE 3D SCENE ===== */
 .scene{position:relative;padding:96px 24px 110px;display:flex;flex-direction:column;align-items:center;background:linear-gradient(180deg,var(--lav),var(--cream));overflow:hidden}
@@ -239,32 +270,36 @@ svg{fill:currentColor}
 .foot-right .lbl{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#8a8085;margin-bottom:8px}
 .foot-right a.mail{font-family:"Space Grotesk";font-weight:700;font-size:22px;color:var(--ink);border-bottom:2.5px solid var(--accent);padding-bottom:2px}
 .foot-bottom{display:flex;justify-content:space-between;align-items:center;margin-top:46px;padding-top:22px;border-top:1.5px solid #e7ded8;font-size:13px;color:#8a8085;flex-wrap:wrap;gap:10px}
+.wa-float{position:fixed;right:22px;bottom:22px;z-index:45;background:#25D366;color:#062d16;border:1.5px solid var(--ink);border-radius:999px;padding:13px 18px;font-family:"Space Grotesk";font-weight:700;font-size:14px;box-shadow:4px 4px 0 var(--ink);display:flex;align-items:center;gap:8px;transition:transform .2s,box-shadow .2s}.wa-float:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
 
 @media(max-width:880px){
   .proj-grid{grid-template-columns:1fr 1fr}
   .svc-grid{grid-template-columns:1fr}
   .nav-links .nl{display:none}
+  .process-grid{grid-template-columns:1fr 1fr}
   .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.86)}
 }
 @media(max-width:600px){
   .wrap{padding:0 20px}
   .nav-in{height:64px}
-  .brand{font-size:15px;gap:5px}
+  .brand{font-size:17px;gap:6px}
   .brand .gear svg{width:20px;height:20px}
-  .nav-links{gap:6px}
-  .langtog{font-size:11px}
-  .langtog button{padding:4px 7px}
-  .nav .btn{padding:7px 10px;font-size:11.5px;gap:4px}
-  .hero{padding:74px 0 56px;align-items:center;justify-content:center;min-height:100svh}
+  .nav-links{display:none}.menu-toggle{display:flex}
+  .mobile-menu{display:flex;position:fixed;inset:0;z-index:70;background:var(--pink);padding:100px 22px 34px;flex-direction:column;justify-content:space-between;transform:translateX(102%);transition:transform .45s cubic-bezier(.16,1,.3,1)}
+  .mobile-menu.open{transform:none}.mobile-menu nav{display:grid;gap:4px}.mobile-menu nav a{font-family:"Space Grotesk";font-weight:700;font-size:clamp(34px,11vw,50px);letter-spacing:-.04em;border-bottom:1.5px solid var(--ink);padding:10px 0}.mobile-menu-foot{display:flex;justify-content:space-between;align-items:center;gap:12px}
+  .hero{padding:88px 0 44px;align-items:center;justify-content:center;min-height:100svh}
   .hero-in{justify-content:center}
-  .ll-1,.ll-2{font-size:clamp(74px,21vw,290px)}
+  .ll-1,.ll-2{font-size:clamp(70px,20.8vw,100px)}
   .logo-lockup{overflow:visible}
-  .hero-foot{flex-direction:column;align-items:flex-start;gap:20px;margin-top:22px}
-  .hero-tag{font-size:clamp(17px,4.8vw,22px);max-width:100%}
+  .hero-kicker{font-size:10px;margin-bottom:12px}.hero-orbit{width:100vw;right:-58vw;top:7vh}.hero-dot{width:12px;height:12px}
+  .hero-foot{flex-direction:column;align-items:flex-start;gap:18px;margin-top:18px}
+  .hero-tag{font-size:clamp(21px,6vw,27px);max-width:330px;line-height:1.03}
   .hero-cta{flex-direction:column;width:100%}
-  .hero-cta .btn{width:100%;justify-content:center}
+  .hero-cta .btn{width:100%;justify-content:center;padding:15px 20px}
   .hero-scroll{display:none}
-  .proj-grid{grid-template-columns:1fr}
+  .proj-reveal{overflow:hidden}.proj-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:2px 20px 22px;scrollbar-width:none}.proj-grid::-webkit-scrollbar{display:none}.proj-grid .card{min-width:84vw;scroll-snap-align:center}.proj-reveal .sec-head{margin-bottom:26px}
+  .process-grid{grid-template-columns:1fr}.process-step{min-height:0;padding:26px 22px}.process-step h3{margin:24px 0 9px}.process-step:hover{background:var(--ink);color:var(--cream)}.process-step:hover p{color:#cfc7ca}
+  .svc{padding:28px 24px}.svc:hover{transform:none;box-shadow:5px 5px 0 var(--ink)}
   .foot-right{text-align:left}
   .scene{padding:64px 20px 80px}
   .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.68)}
@@ -273,7 +308,9 @@ svg{fill:currentColor}
   .cta .wrap{padding:64px 22px;gap:8px}
   .cta p{margin-top:12px;font-size:15.5px}
   .cta-actions{margin-top:4px}
+  .cta-actions .btn{width:100%;justify-content:center}.wa-float{right:14px;bottom:14px;padding:12px 14px;font-size:13px}.wa-float span{display:none}
 }
+@media (prefers-reduced-motion:reduce){.logo-line>span,.hero-kicker,.hero-tag,.hero-cta{animation:none;opacity:1;transform:none}.hero-orbit{animation:none}.reveal-up{opacity:1;transform:none;transition:none}.mobile-menu{transition:none}}
 </style>
 </head>
 <body>
@@ -301,17 +338,32 @@ svg{fill:currentColor}
       </a>
       <a class="btn btn-primary" href="#contacto" data-es="Hablemos" data-en="Let's talk">Hablemos</a>
     </nav>
+    <button class="menu-toggle" id="menuToggle" aria-label="Abrir menú" aria-expanded="false"><span></span></button>
   </div>
 </header>
+<div class="mobile-menu" id="mobileMenu" aria-hidden="true">
+  <nav>
+    <a href="#servicios" data-es="Servicios" data-en="Services">Servicios</a>
+    <a href="#proceso" data-es="Proceso" data-en="Process">Proceso</a>
+    <a href="#proyectos" data-es="Proyectos" data-en="Projects">Proyectos</a>
+    <a href="#contacto" data-es="Hablemos" data-en="Let's talk">Hablemos</a>
+  </nav>
+  <div class="mobile-menu-foot">
+    <div class="langtog" role="group" aria-label="Language"><button id="esMobile" onclick="setLang('es')">ES</button><button id="enMobile" onclick="setLang('en')">EN</button></div>
+    <a href="/privado.html" class="btn btn-ghost" data-es="Área privada" data-en="Private area">Área privada</a>
+  </div>
+</div>
 
 <main id="top">
 
 <!-- HERO -->
 <section class="hero">
+  <div class="hero-orbit" aria-hidden="true"><span class="hero-dot"></span></div>
   <div class="wrap hero-in">
+    <div class="hero-kicker" data-es="IA · procesos · experiencias digitales" data-en="AI · processes · digital experiences">IA · procesos · experiencias digitales</div>
     <div class="logo-lockup">
-      <div class="ll-1">PROCESA</div>
-      <div class="ll-2">LAB<span class="ll-tm">™</span><span class="ll-gear gear-spin gslot" data-s="100%" style="color:var(--red)"></span></div>
+      <div class="ll-1 logo-line"><span>PROCESA</span></div>
+      <div class="ll-2 logo-line"><span>LAB<span class="ll-tm">™</span><span class="ll-gear gear-spin gslot" data-s="100%" style="color:var(--red)"></span></span></div>
     </div>
     <div class="hero-foot">
       <p class="hero-tag" data-es="Procesos inteligentes. Empresas imparables." data-en="Smart processes. Unstoppable businesses.">Procesos inteligentes. Empresas imparables.</p>
@@ -319,7 +371,7 @@ svg{fill:currentColor}
         <a class="btn btn-primary" href="#proyectos" data-es="Ver proyectos" data-en="See projects">Ver proyectos
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
         </a>
-        <a class="btn btn-dark" href="#contacto" data-es="Agendar consultoría" data-en="Book a consultation">Agendar consultoría</a>
+        <a class="btn btn-dark" href="https://wa.me/524773191563?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Vi%20su%20trabajo%20y%20quiero%20transformar%20una%20idea%20o%20proceso%20en%20una%20soluci%C3%B3n%20digital%20que%20realmente%20haga%20crecer%20mi%20negocio.%20%C2%BFPlaticamos%3F" target="_blank" rel="noopener" data-es="Cuéntanos tu idea" data-en="Tell us your idea">Cuéntanos tu idea</a>
       </div>
     </div>
   </div>
@@ -360,6 +412,7 @@ svg{fill:currentColor}
       </div>
       <h3 data-es="Automatización de procesos con IA" data-en="AI process automation">Automatización de procesos con IA</h3>
       <p data-es="Identificamos tareas repetitivas y las convertimos en flujos automáticos e inteligentes. Menos trabajo manual, menos errores, más tiempo para crecer." data-en="We spot repetitive tasks and turn them into smart, automated workflows. Less manual work, fewer errors, more time to grow.">Identificamos tareas repetitivas y las convertimos en flujos automáticos e inteligentes. Menos trabajo manual, menos errores, más tiempo para crecer.</p>
+      <ul class="svc-benefits"><li data-es="Menos tareas repetitivas" data-en="Fewer repetitive tasks">Menos tareas repetitivas</li><li data-es="Información en tiempo real" data-en="Real-time information">Información en tiempo real</li><li data-es="Operación más clara" data-en="Clearer operations">Operación más clara</li></ul>
     </div>
     <div class="svc alt">
       <span class="num">02</span>
@@ -368,6 +421,20 @@ svg{fill:currentColor}
       </div>
       <h3 data-es="Desarrollo de sitios web y landing pages" data-en="Websites &amp; landing pages">Desarrollo de sitios web y landing pages</h3>
       <p data-es="Diseñamos y construimos sitios rápidos, modernos y enfocados en conversión — la primera impresión digital que tu marca merece." data-en="We design and build fast, modern, conversion-focused sites — the digital first impression your brand deserves.">Diseñamos y construimos sitios rápidos, modernos y enfocados en conversión — la primera impresión digital que tu marca merece.</p>
+      <ul class="svc-benefits"><li data-es="Diseño que se recuerda" data-en="Memorable design">Diseño que se recuerda</li><li data-es="Perfecto en teléfono" data-en="Great on mobile">Perfecto en teléfono</li><li data-es="Preparado para convertir" data-en="Built to convert">Preparado para convertir</li></ul>
+    </div>
+  </div>
+</section>
+
+<!-- PROCESS -->
+<section class="sec process" id="proceso">
+  <div class="wrap">
+    <div class="sec-head reveal-up"><div><div class="sec-tag" data-es="Cómo trabajamos" data-en="How we work">Cómo trabajamos</div><h2 data-es="De una idea a un sistema que funciona" data-en="From an idea to a system that works">De una idea a un sistema que funciona</h2></div><p data-es="Un proceso claro, sin vueltas ni tecnicismos innecesarios." data-en="A clear process without unnecessary complexity or jargon.">Un proceso claro, sin vueltas ni tecnicismos innecesarios.</p></div>
+    <div class="process-grid reveal-up">
+      <article class="process-step"><span class="process-num">01</span><h3 data-es="Entendemos" data-en="Understand">Entendemos</h3><p data-es="Escuchamos el problema, la operación y el resultado que buscas." data-en="We listen to the problem, the operation and your desired result.">Escuchamos el problema, la operación y el resultado que buscas.</p></article>
+      <article class="process-step"><span class="process-num">02</span><h3 data-es="Diseñamos" data-en="Design">Diseñamos</h3><p data-es="Convertimos tus necesidades en una experiencia clara y visual." data-en="We turn your needs into a clear, visual experience.">Convertimos tus necesidades en una experiencia clara y visual.</p></article>
+      <article class="process-step"><span class="process-num">03</span><h3 data-es="Construimos" data-en="Build">Construimos</h3><p data-es="Desarrollamos, conectamos y probamos la solución completa." data-en="We develop, connect and test the complete solution.">Desarrollamos, conectamos y probamos la solución completa.</p></article>
+      <article class="process-step"><span class="process-num">04</span><h3 data-es="Mejoramos" data-en="Improve">Mejoramos</h3><p data-es="Lanzamos, medimos y seguimos afinando lo que genere valor." data-en="We launch, measure and keep improving what creates value.">Lanzamos, medimos y seguimos afinando lo que genere valor.</p></article>
     </div>
   </div>
 </section>
@@ -413,8 +480,9 @@ svg{fill:currentColor}
         <h2><span data-es="¿Listo para" data-en="Ready to">¿Listo para</span> <span class="red" data-es="crecer?" data-en="grow?">crecer?</span></h2>
         <p data-es="Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos." data-en="Tell us which process you want to automate or which site you want to build. We'll reply with a clear, jargon-free plan.">Cuéntanos qué proceso quieres automatizar o qué sitio quieres construir. Te respondemos con un plan claro y sin tecnicismos.</p>
         <div class="cta-actions">
-          <a class="btn btn-primary" href="mailto:procesalab0@gmail.com">procesalab0@gmail.com</a>
-          <a class="btn btn-out" href="mailto:procesalab0@gmail.com?subject=Quiero%20automatizar%20un%20proceso" data-es="Iniciar un proyecto" data-en="Start a project">Iniciar un proyecto</a>
+          <a class="btn btn-primary" href="https://wa.me/524773191563?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Vi%20su%20trabajo%20y%20quiero%20transformar%20una%20idea%20o%20proceso%20en%20una%20soluci%C3%B3n%20digital%20que%20realmente%20haga%20crecer%20mi%20negocio.%20%C2%BFPlaticamos%3F" target="_blank" rel="noopener" data-es="WhatsApp principal" data-en="Main WhatsApp">WhatsApp principal</a>
+          <a class="btn btn-out" href="https://wa.me/525637009606?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Quiero%20platicarles%20sobre%20una%20idea%20digital%20para%20mi%20negocio.%20%C2%BFMe%20pueden%20orientar%3F" target="_blank" rel="noopener" data-es="WhatsApp alternativo" data-en="Alternative WhatsApp">WhatsApp alternativo</a>
+          <a class="btn btn-out" href="mailto:procesalab0@gmail.com" data-es="Enviar correo" data-en="Send email">Enviar correo</a>
         </div>
         <div class="computer" aria-hidden="true"><div class="cmp-rig" id="cmpRig">
           <div class="cbox base"><b class="cf top"></b><b class="cf fr"></b><b class="cf bk"></b><b class="cf lf"></b><b class="cf rt"></b></div>
@@ -448,6 +516,8 @@ svg{fill:currentColor}
     <span data-es="IA + Procesos · Resultados reales" data-en="AI + Processes · Real results">IA + Procesos · Resultados reales</span>
   </div>
 </footer>
+
+<a class="wa-float" href="https://wa.me/524773191563?text=Hola%20ProcesaLab%20%F0%9F%91%8B%20Vi%20su%20trabajo%20y%20quiero%20transformar%20una%20idea%20o%20proceso%20en%20una%20soluci%C3%B3n%20digital%20que%20realmente%20haga%20crecer%20mi%20negocio.%20%C2%BFPlaticamos%3F" target="_blank" rel="noopener" aria-label="Contactar por WhatsApp">✦ <span data-es="Platiquemos" data-en="Let's talk">Platiquemos</span></a>
 
 <script>
 const GA = [0, 45, 90, 135, 180, 225, 270, 315];
@@ -565,6 +635,35 @@ const cardObserver = new IntersectionObserver((entries) => {
 }, { threshold: 0.15 });
 document.querySelectorAll('#projGrid .card').forEach(c => cardObserver.observe(c));
 
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.16 });
+document.querySelectorAll('.reveal-up').forEach(el => revealObserver.observe(el));
+
+const menuToggle = document.getElementById('menuToggle');
+const mobileMenu = document.getElementById('mobileMenu');
+function closeMenu() {
+  menuToggle.classList.remove('open');
+  mobileMenu.classList.remove('open');
+  menuToggle.setAttribute('aria-expanded', 'false');
+  mobileMenu.setAttribute('aria-hidden', 'true');
+  document.body.style.overflow = '';
+}
+menuToggle.addEventListener('click', () => {
+  const open = !mobileMenu.classList.contains('open');
+  menuToggle.classList.toggle('open', open);
+  mobileMenu.classList.toggle('open', open);
+  menuToggle.setAttribute('aria-expanded', String(open));
+  mobileMenu.setAttribute('aria-hidden', String(!open));
+  document.body.style.overflow = open ? 'hidden' : '';
+});
+mobileMenu.querySelectorAll('a').forEach(link => link.addEventListener('click', closeMenu));
+
 let LANG = localStorage.getItem('pl_lang') || 'es';
 
 function setLang(l) {
@@ -577,6 +676,8 @@ function setLang(l) {
   });
   document.getElementById('es').classList.toggle('on', l === 'es');
   document.getElementById('en').classList.toggle('on', l === 'en');
+  document.getElementById('esMobile').classList.toggle('on', l === 'es');
+  document.getElementById('enMobile').classList.toggle('on', l === 'en');
 }
 
 setLang(LANG);
