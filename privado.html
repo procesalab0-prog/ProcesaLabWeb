@@ -268,19 +268,6 @@ button.danger{background:var(--ink);color:var(--cream)}
       </div>
     </div>
 
-    <div class="uploader card">
-      <h2>Subir presentación</h2>
-      <p class="hint">Acepta archivos .html (por ejemplo, exportados de Claude Design).</p>
-      <input type="file" id="fileInput" accept=".html,.htm">
-      <div class="err hidden" id="uploadErr"></div>
-      <button id="uploadBtn">Subir</button>
-    </div>
-
-    <div style="margin-top:32px">
-      <h2 style="font-size:20px;margin-bottom:14px">Tus archivos</h2>
-      <div class="files" id="fileList"></div>
-      <div class="empty hidden" id="emptyMsg">Todavía no has subido nada.</div>
-    </div>
   </div>
 </div>
 
@@ -290,12 +277,6 @@ const content = document.getElementById('content');
 const logoutBtn = document.getElementById('logoutBtn');
 const loginForm = document.getElementById('loginForm');
 const loginErr = document.getElementById('loginErr');
-const fileInput = document.getElementById('fileInput');
-const uploadBtn = document.getElementById('uploadBtn');
-const uploadErr = document.getElementById('uploadErr');
-const fileList = document.getElementById('fileList');
-const emptyMsg = document.getElementById('emptyMsg');
-
 function showApp(authenticated) {
   gate.classList.toggle('hidden', authenticated);
   content.classList.toggle('hidden', !authenticated);
@@ -307,7 +288,6 @@ async function checkAuth() {
   const data = await res.json();
   showApp(data.authenticated);
   if (data.authenticated) {
-    loadFiles();
     loadEvents();
     loadStats();
   }
@@ -421,7 +401,8 @@ loginForm.addEventListener('submit', async (e) => {
     location.href = data.redirect;
   } else if (res.ok) {
     showApp(true);
-    loadFiles();
+    loadEvents();
+    loadStats();
   } else {
     loginErr.textContent = data.error || 'No se pudo iniciar sesión';
     loginErr.classList.remove('hidden');
@@ -432,69 +413,6 @@ logoutBtn.addEventListener('click', async () => {
   await fetch('/api/logout', { method: 'POST' });
   showApp(false);
 });
-
-uploadBtn.addEventListener('click', async () => {
-  uploadErr.classList.add('hidden');
-  const file = fileInput.files[0];
-  if (!file) {
-    uploadErr.textContent = 'Elige un archivo .html primero';
-    uploadErr.classList.remove('hidden');
-    return;
-  }
-  uploadBtn.disabled = true;
-  uploadBtn.textContent = 'Subiendo…';
-  try {
-    const contentText = await file.text();
-    const res = await fetch('/api/upload', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({ filename: file.name, content: contentText }),
-    });
-    const data = await res.json();
-    if (!res.ok) throw new Error((data.error || 'Error al subir') + (data.detail ? ' — ' + data.detail : ''));
-    fileInput.value = '';
-    loadFiles();
-  } catch (err) {
-    uploadErr.textContent = err.message;
-    uploadErr.classList.remove('hidden');
-  } finally {
-    uploadBtn.disabled = false;
-    uploadBtn.textContent = 'Subir';
-  }
-});
-
-async function loadFiles() {
-  const res = await fetch('/api/files');
-  if (!res.ok) return;
-  const { files } = await res.json();
-  fileList.innerHTML = '';
-  emptyMsg.classList.toggle('hidden', files.length > 0);
-  files.forEach((f) => {
-    const el = document.createElement('div');
-    el.className = 'file';
-    const date = new Date(f.uploadedAt).toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
-    el.innerHTML = `
-      <div>
-        <div class="name">${f.name}</div>
-        <div class="meta">${date} · ${(f.size / 1024).toFixed(0)} KB</div>
-      </div>
-      <div class="actions">
-        <a href="/api/view?u=${encodeURIComponent(f.url)}" target="_blank" rel="noopener">Ver</a>
-        <button data-url="${f.url}" class="delBtn">Eliminar</button>
-      </div>`;
-    el.querySelector('.delBtn').addEventListener('click', async (e) => {
-      const url = e.target.dataset.url;
-      if (!confirm('¿Eliminar este archivo?')) return;
-      await fetch('/api/delete', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ url }),
-      });
-      loadFiles();
-    });
-    fileList.appendChild(el);
-  });
-}
 
 checkAuth();
 </script>
