@@ -66,7 +66,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 .dashboard-card.presentations{order:5}.dashboard-card.shared{order:6}
 .dashboard-card.university{order:7;grid-column:1/-1}
 .status{display:inline-block;font-family:"Space Grotesk";font-weight:600;font-size:11px;padding:4px 8px;border:1px solid var(--ink);border-radius:20px;margin-left:6px}
-.status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}
+.status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}.status.possible{background:#d6e8ff}
 .crm-dates{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:6px;font-size:12.5px;color:#5a5256}
 .event-form{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;width:100%;min-width:0}
 .event-form .wide{grid-column:1/-1}
@@ -127,7 +127,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 
     <div class="card dashboard-card directory" style="margin-bottom:32px">
       <h2 style="font-size:20px;margin-bottom:6px">Directorio de clientes</h2>
-      <p class="hint" style="margin-top:0">Controla el estado, pagos y renovaciones. Puedes mandar dominio y hosting al calendario con un clic.</p>
+      <p class="hint" style="margin-top:0">Controla el estado, pagos, valor estimado y renovaciones. Al guardar dominio u hosting se agregan solos al calendario.</p>
       <form id="clientForm" class="crm-grid">
         <input type="hidden" id="clientId">
         <input type="text" id="clientName" placeholder="Nombre del cliente" required class="wide">
@@ -136,7 +136,9 @@ button.danger{background:var(--ink);color:var(--cream)}
           <option value="active">Proyecto activo</option>
           <option value="paused">Proyecto pausado</option>
           <option value="finished">Proyecto terminado</option>
+          <option value="possible">Posible proyecto</option>
         </select>
+        <input type="number" id="clientEstimatedValue" placeholder="Valor estimado (MXN)" min="0" step="100" class="wide">
         <label>Próximo pago<input type="date" id="clientNextPayment"></label>
         <label>Renovación de dominio<input type="date" id="clientDomainRenewal"></label>
         <label>Renovación de hosting<input type="date" id="clientHostingRenewal"></label>
@@ -437,7 +439,7 @@ eventForm.addEventListener('submit', async (e) => {
 });
 
 // ---- Directorio de clientes ----
-const STATUS_LABELS = { active: 'Activo', paused: 'Pausado', finished: 'Terminado' };
+const STATUS_LABELS = { active: 'Activo', paused: 'Pausado', finished: 'Terminado', possible: 'Posible proyecto' };
 const clientForm = document.getElementById('clientForm');
 const clientErr = document.getElementById('clientErr');
 const clientList = document.getElementById('clientList');
@@ -457,6 +459,12 @@ function formatDate(value) {
   return new Date(value + 'T00:00:00').toLocaleDateString('es-MX', { year: 'numeric', month: 'short', day: 'numeric' });
 }
 
+function formatCurrency(value) {
+  const num = Number(value);
+  if (!num) return '';
+  return num.toLocaleString('es-MX', { style: 'currency', currency: 'MXN', maximumFractionDigits: 0 });
+}
+
 function resetClientForm() {
   clientForm.reset();
   document.getElementById('clientId').value = '';
@@ -470,6 +478,7 @@ function editClient(client) {
   document.getElementById('clientName').value = client.name || '';
   document.getElementById('clientContact').value = client.contact || '';
   document.getElementById('clientStatus').value = client.status || 'active';
+  document.getElementById('clientEstimatedValue').value = client.estimatedValue || '';
   document.getElementById('clientNextPayment').value = client.nextPayment || '';
   document.getElementById('clientDomainRenewal').value = client.domainRenewal || '';
   document.getElementById('clientHostingRenewal').value = client.hostingRenewal || '';
@@ -479,11 +488,11 @@ function editClient(client) {
   clientForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
-async function addRenewalToCalendar(client, type) {
+async function postRenewalReminder(client, type) {
   const isDomain = type === 'domain';
   const date = isDomain ? client.domainRenewal : client.hostingRenewal;
   const label = isDomain ? 'dominio' : 'hosting';
-  if (!date) return;
+  if (!date) return null;
   const res = await fetch('/api/calendar', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
@@ -495,18 +504,34 @@ async function addRenewalToCalendar(client, type) {
     }),
   });
   const data = await res.json().catch(() => ({}));
-  if (!res.ok) {
-    clientErr.textContent = data.error || 'No se pudo crear el recordatorio';
-    clientErr.classList.remove('hidden');
-    return;
-  }
+  if (!res.ok) return { ok: false, error: data.error };
   if (!currentEvents.some((event) => event.id === data.event.id)) {
     currentEvents.push(data.event);
-    sortEvents();
-    renderEvents();
   }
-  clientErr.textContent = data.created === false ? 'Ese recordatorio ya estaba en el calendario.' : 'Recordatorio agregado al calendario.';
+  return { ok: true, created: data.created !== false };
+}
+
+async function addRenewalToCalendar(client, type) {
+  const result = await postRenewalReminder(client, type);
+  if (!result) return;
+  sortEvents();
+  renderEvents();
+  if (!result.ok) {
+    clientErr.textContent = result.error || 'No se pudo crear el recordatorio';
+  } else {
+    clientErr.textContent = result.created ? 'Recordatorio agregado al calendario.' : 'Ese recordatorio ya estaba en el calendario.';
+  }
   clientErr.classList.remove('hidden');
+}
+
+// Every time domain/hosting renewal dates are saved on a client, a
+// matching calendar reminder is created automatically — sourceKey dedupes
+// so re-saving the same date never creates a duplicate event.
+async function syncClientRenewals(client) {
+  await postRenewalReminder(client, 'domain');
+  await postRenewalReminder(client, 'hosting');
+  sortEvents();
+  renderEvents();
 }
 
 function renderClients() {
@@ -516,6 +541,7 @@ function renderClients() {
     const el = document.createElement('div');
     el.className = 'file';
     const dates = [
+      client.estimatedValue ? `<span>💰 Valor estimado: ${formatCurrency(client.estimatedValue)}</span>` : '',
       client.nextPayment ? `<span>💳 Pago: ${formatDate(client.nextPayment)}</span>` : '',
       client.domainRenewal ? `<span>🌐 Dominio: ${formatDate(client.domainRenewal)}</span>` : '',
       client.hostingRenewal ? `<span>☁️ Hosting: ${formatDate(client.hostingRenewal)}</span>` : '',
@@ -572,6 +598,7 @@ clientForm.addEventListener('submit', async (e) => {
     name: document.getElementById('clientName').value,
     contact: document.getElementById('clientContact').value,
     status: document.getElementById('clientStatus').value,
+    estimatedValue: document.getElementById('clientEstimatedValue').value,
     nextPayment: document.getElementById('clientNextPayment').value,
     domainRenewal: document.getElementById('clientDomainRenewal').value,
     hostingRenewal: document.getElementById('clientHostingRenewal').value,
@@ -591,6 +618,7 @@ clientForm.addEventListener('submit', async (e) => {
   currentClients.sort((a, b) => a.name.localeCompare(b.name, 'es'));
   resetClientForm();
   renderClients();
+  syncClientRenewals(data.client);
 });
 
 clientCancelBtn.addEventListener('click', resetClientForm);
