@@ -9,6 +9,12 @@ function clean(value, maxLength = 300) {
   return value ? String(value).trim().slice(0, maxLength) : '';
 }
 
+function cleanEstimatedValue(value) {
+  const num = Number(value);
+  if (value === '' || value === undefined || value === null || Number.isNaN(num)) return '';
+  return Math.max(0, Math.round(num));
+}
+
 function clientFromBody(body, previous = {}) {
   const status = clean(body.status, 20);
   return {
@@ -16,6 +22,7 @@ function clientFromBody(body, previous = {}) {
     name: clean(body.name, 200),
     contact: clean(body.contact, 300),
     status: VALID_STATUSES.has(status) ? status : 'active',
+    estimatedValue: cleanEstimatedValue(body.estimatedValue),
     nextPayment: clean(body.nextPayment, 10),
     domainRenewal: clean(body.domainRenewal, 10),
     hostingRenewal: clean(body.hostingRenewal, 10),
