@@ -66,7 +66,7 @@ button.danger{background:var(--ink);color:var(--cream)}
 .dashboard-card.presentations{order:5}.dashboard-card.shared{order:6}
 .dashboard-card.university{order:7;grid-column:1/-1}
 .status{display:inline-block;font-family:"Space Grotesk";font-weight:600;font-size:11px;padding:4px 8px;border:1px solid var(--ink);border-radius:20px;margin-left:6px}
-.status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}
+.status.active{background:#c8f4d4}.status.paused{background:#ffe6a8}.status.finished{background:#ddd5e5}.status.possible{background:#d6e8ff}
 .crm-dates{display:flex;flex-wrap:wrap;gap:5px 14px;margin-top:6px;font-size:12.5px;color:#5a5256}
 .event-form{display:grid;grid-template-columns:1fr;gap:12px;margin-bottom:20px;width:100%;min-width:0}
 .event-form .wide{grid-column:1/-1}
@@ -136,6 +136,7 @@ button.danger{background:var(--ink);color:var(--cream)}
           <option value="active">Proyecto activo</option>
           <option value="paused">Proyecto pausado</option>
           <option value="finished">Proyecto terminado</option>
+          <option value="possible">Posible proyecto</option>
         </select>
         <label>Próximo pago<input type="date" id="clientNextPayment"></label>
         <label>Renovación de dominio<input type="date" id="clientDomainRenewal"></label>
@@ -437,7 +438,7 @@ eventForm.addEventListener('submit', async (e) => {
 });
 
 // ---- Directorio de clientes ----
-const STATUS_LABELS = { active: 'Activo', paused: 'Pausado', finished: 'Terminado' };
+const STATUS_LABELS = { active: 'Activo', paused: 'Pausado', finished: 'Terminado', possible: 'Posible proyecto' };
 const clientForm = document.getElementById('clientForm');
 const clientErr = document.getElementById('clientErr');
 const clientList = document.getElementById('clientList');

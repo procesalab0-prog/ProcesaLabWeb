@@ -3,7 +3,7 @@ const { isValidSession } = require('../lib/session');
 const { readJSON, writeJSON } = require('../lib/store');
 
 const PATH = 'data/clients.json';
-const VALID_STATUSES = new Set(['active', 'paused', 'finished']);
+const VALID_STATUSES = new Set(['active', 'paused', 'finished', 'possible']);
 
 function clean(value, maxLength = 300) {
   return value ? String(value).trim().slice(0, maxLength) : '';
