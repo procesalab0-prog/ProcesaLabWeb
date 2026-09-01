@@ -71,8 +71,9 @@ a{color:var(--red)}a:hover{color:var(--ink)}
 .stat .k{font-family:"Space Grotesk";font-weight:600;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 .stat .v{font-family:"Space Grotesk";font-weight:700;font-size:23px;line-height:1;margin-top:7px}
 .stat .v small{font-size:11.5px;font-weight:600;color:var(--red)}
+.stat .v .was{font-size:13px;font-weight:600;text-decoration:line-through;opacity:.55;margin-right:5px}
 .stat.hl{background:var(--ink)}
-.stat.hl .k{color:#c9b9be}.stat.hl .v{color:#fff}.stat.hl .v small{color:var(--pink)}
+.stat.hl .k{color:#c9b9be}.stat.hl .v{color:#fff}.stat.hl .v small{color:var(--pink)}.stat.hl .v .was{color:#c9b9be}
 .stat:nth-child(2){background:var(--lavl)}
 .stat:nth-child(4){background:var(--pinkl)}
 
@@ -134,6 +135,9 @@ tbody tr:nth-child(even){background:var(--lavl)}
 .plan .pn{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
 .plan .pv{font-family:"Space Grotesk";font-weight:700;font-size:30px;line-height:1;margin-top:7px}
 .plan .pv small{font-size:11.5px;font-weight:600;color:var(--muted);display:block;margin-top:4px;letter-spacing:0}
+.plan .pv .was{font-size:16px;font-weight:600;text-decoration:line-through;opacity:.55;margin-right:8px;display:inline-block}
+.plan.best .pv .was{color:#8a2f3f}
+.plan .savenote{font-family:"Space Grotesk";font-weight:700;font-size:11px;color:#8a2f3f;background:#fff;display:inline-block;border-radius:20px;padding:3px 10px;margin-top:8px}
 .plan .pd{font-size:12.5px;color:var(--muted);margin:9px 0 11px;border-bottom:1px solid var(--line);padding-bottom:10px}
 .plan ul{margin:0;padding:0;list-style:none;columns:2;column-gap:16px}
 .plan li{font-size:11.5px;padding-left:14px;position:relative;margin-bottom:4px;line-height:1.38;break-inside:avoid}
@@ -217,7 +221,7 @@ tbody tr:nth-child(even){background:var(--lavl)}
 <div class="stat-row">
   <div class="stat"><div class="k">Esencial</div><div class="v">$12K <small>MXN</small></div></div>
   <div class="stat"><div class="k">Interactiva</div><div class="v">$15K <small>MXN</small></div></div>
-  <div class="stat hl"><div class="k">Premium · recomendada</div><div class="v">$18K <small>MXN</small></div></div>
+  <div class="stat hl"><div class="k">Premium · recomendada</div><div class="v"><span class="was">$25K</span>$18K <small>MXN</small></div></div>
   <div class="stat"><div class="k">Smart</div><div class="v">$25K <small>desde</small></div></div>
 </div>
 
@@ -255,7 +259,8 @@ tbody tr:nth-child(even){background:var(--lavl)}
   <div class="plan best">
     <span class="tagd">★ Recomendada</span>
     <div class="pn">Plan 3 · Premium</div>
-    <div class="pv">$18,000<small>MXN</small></div>
+    <div class="pv"><span class="was">$25,000</span>$18,000<small>MXN</small></div>
+    <div class="savenote">Precio especial para Herraidea · ahorras $7,000</div>
     <div class="pd">Una experiencia desarrollada específicamente para Herraidea, enfocada en diferenciar la marca y convertir la página en una verdadera herramienta comercial.</div>
     <div class="inc">Todo lo anterior, más:</div>
     <ul>
