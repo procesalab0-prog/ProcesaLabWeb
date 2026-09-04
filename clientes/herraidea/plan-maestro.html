@@ -8,16 +8,16 @@
 <script>
 (function () {
   document.documentElement.style.visibility = 'hidden';
-  fetch('/api/check')
+  fetch('/api/client-check?slug=herraidea')
     .then(function (r) { return r.json(); })
     .then(function (d) {
       if (d.authenticated) {
         document.documentElement.style.visibility = 'visible';
       } else {
-        location.href = '/privado.html';
+        location.href = './login.html';
       }
     })
-    .catch(function () { location.href = '/privado.html'; });
+    .catch(function () { location.href = './login.html'; });
 })();
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -216,7 +216,7 @@ td.new{font-family:"Space Grotesk";font-weight:700;color:var(--red)}
 </style>
 </head>
 <body>
-<a href="/privado.html" class="pl-back">&larr; Volver</a>
+<a href="./" class="pl-back">&larr; Volver</a>
 <div id="docFit">
 <doc-page size="letter" margin="0.7in">
 
