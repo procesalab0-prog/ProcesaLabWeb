@@ -181,29 +181,6 @@ function initNavigation() {
   document.querySelector('#printBtn')?.addEventListener('click', () => print());
 }
 
-function initNavigation() {
-  const bar = document.querySelector('#progressBar');
-  const topbar = document.querySelector('#topbar');
-  const dots = [...document.querySelectorAll('.chapter-dots a')];
-  const chapters = [...document.querySelectorAll('.chapter')];
-  const update = () => {
-    const max = document.documentElement.scrollHeight - innerHeight;
-    bar.style.width = `${max ? scrollY / max * 100 : 0}%`;
-    topbar.classList.toggle('solid', scrollY > 40);
-    let current = chapters[0]?.id;
-    chapters.forEach(section => { if (section.getBoundingClientRect().top < innerHeight * .48) current = section.id; });
-    dots.forEach(dot => dot.classList.toggle('active', dot.getAttribute('href') === `#${current}`));
-  };
-  addEventListener('scroll', update, { passive: true }); update();
-}
-
-document.querySelectorAll('.question button').forEach(button => button.addEventListener('click', () => button.closest('.question').classList.toggle('open')));
-document.querySelector('#printBtn')?.addEventListener('click', () => print());
-document.querySelector('#presentBtn')?.addEventListener('click', async () => {
-  if (!document.fullscreenElement) await document.documentElement.requestFullscreen?.();
-  else await document.exitFullscreen?.();
-});
-
 renderCustomerRank();
 renderQfd();
 renderTechnicalPriorities();
