@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex, nofollow">
+  <meta name="theme-color" content="#F7B6C9">
+  <title>QFD de Servicios · Planeación Avanzada · ProcesaLab</title>
+  <script>
+  (function () {
+    document.documentElement.style.visibility = 'hidden';
+    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
+      document.documentElement.style.visibility = 'visible';
+      return;
+    }
+    fetch('/api/check').then(function (r) { return r.json(); }).then(function (d) {
+      if (d.authenticated) document.documentElement.style.visibility = 'visible';
+      else location.href = '/privado.html';
+    }).catch(function () { location.href = '/privado.html'; });
+  })();
+  </script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+  <header class="topbar" id="topbar">
+    <a class="brand" href="/privado.html" aria-label="Volver al área privada">
+      <span class="brand-mark">PROCESA<span>LAB</span></span>
+      <span class="brand-course">Planeación Avanzada</span>
+    </a>
+    <nav class="top-actions" aria-label="Acciones de presentación">
+      <button class="round-action" id="presentBtn" type="button" title="Ver en pantalla completa" aria-label="Ver en pantalla completa">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 3H3v5h2V5h3V3Zm13 5V3h-5v2h3v3h2ZM5 16H3v5h5v-2H5v-3Zm16 0h-2v3h-3v2h5v-5Z"/></svg>
+      </button>
+      <button class="round-action" id="printBtn" type="button" title="Imprimir o guardar PDF" aria-label="Imprimir o guardar PDF">
+        <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8H6V3h12v5Zm-2-2V5H8v1h8Zm2 13H6v-4H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2v4Zm-2-2v-4H8v4h8Zm3-6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg>
+      </button>
+      <a class="back-link" href="/privado.html">Volver</a>
+    </nav>
+  </header>
+
+  <aside class="chapter-dots" aria-label="Capítulos">
+    <a href="#inicio" class="active" data-label="Inicio"><span></span></a>
+    <a href="#muestra" data-label="Muestra"><span></span></a>
+    <a href="#encuesta" data-label="Encuesta"><span></span></a>
+    <a href="#voz" data-label="Voz del cliente"><span></span></a>
+    <a href="#qfd" data-label="Casa de la Calidad"><span></span></a>
+    <a href="#prioridades" data-label="Prioridades"><span></span></a>
+    <a href="#accion" data-label="Plan de acción"><span></span></a>
+  </aside>
+
+  <main>
+    <section class="hero chapter" id="inicio" data-theme="pink">
+      <div class="hero-grid" aria-hidden="true"></div>
+      <div class="orbit orbit-one" aria-hidden="true"></div>
+      <div class="orbit orbit-two" aria-hidden="true"></div>
+      <svg class="hero-gear gear-spin" viewBox="0 0 100 100" aria-hidden="true">
+        <path d="M57.5 5 60 15a37 37 0 0 1 7 3l9-5 11 11-5 9a37 37 0 0 1 3 7l10 2.5v15L85 60a37 37 0 0 1-3 7l5 9-11 11-9-5a37 37 0 0 1-7 3l-2.5 10h-15L40 85a37 37 0 0 1-7-3l-9 5-11-11 5-9a37 37 0 0 1-3-7L5 57.5v-15L15 40a37 37 0 0 1 3-7l-5-9 11-11 9 5a37 37 0 0 1 7-3L42.5 5h15ZM50 31a19 19 0 1 0 0 38 19 19 0 0 0 0-38Z"/>
+      </svg>
+      <div class="hero-content">
+        <p class="eyebrow hero-rise">Planeación Avanzada de la Calidad · Parcial 1</p>
+        <h1 aria-label="QFD de servicios para ProcesaLab">
+          <span class="title-line"><span>QFD DE</span></span>
+          <span class="title-line accent-line"><span>SERVICIOS</span></span>
+        </h1>
+        <div class="hero-bottom hero-rise">
+          <p>Traducimos la voz del cliente en prioridades medibles para diseñar el servicio general de ProcesaLab.</p>
+          <div class="hero-stamp">
+            <strong>10</strong><span>empresas<br>consultadas</span>
+          </div>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#muestra"><span>Explorar estudio</span><i></i></a>
+    </section>
+
+    <div class="ticker" aria-hidden="true">
+      <div class="ticker-track">
+        <span>VOZ DEL CLIENTE <b>✦</b> CALIDAD <b>✦</b> DISEÑO DE SERVICIO <b>✦</b> DECISIONES MEDIBLES <b>✦</b></span>
+        <span>VOZ DEL CLIENTE <b>✦</b> CALIDAD <b>✦</b> DISEÑO DE SERVICIO <b>✦</b> DECISIONES MEDIBLES <b>✦</b></span>
+      </div>
+    </div>
+
+    <section class="section chapter" id="muestra" data-theme="cream">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><p class="eyebrow">01 · Punto de partida</p><h2>Una muestra pequeña.<br><em>Señales muy claras.</em></h2></div>
+          <p class="section-intro">Diez negocios de giros distintos describieron sus necesidades, fricciones digitales, intención de contratación y criterios de decisión.</p>
+        </div>
+
+        <div class="metric-grid reveal-stagger">
+          <article class="metric-card metric-dark"><span>Respuestas válidas</span><strong data-count="10">0</strong><small>2–9 septiembre 2026</small></article>
+          <article class="metric-card"><span>Contratación probable</span><strong data-count="70" data-suffix="%">0%</strong><small>Probable o muy probable</small></article>
+          <article class="metric-card metric-red"><span>Redes sociales</span><strong data-count="60" data-suffix="%">0%</strong><small>Las considera muy importantes</small></article>
+          <article class="metric-card"><span>Criterio dominante</span><strong class="word-value">Calidad</strong><small>6 de 10 respuestas</small></article>
+        </div>
+
+        <div class="chart-grid">
+          <article class="panel reveal">
+            <div class="panel-head"><div><span class="panel-kicker">Demanda</span><h3>Servicio que buscan</h3></div><span class="sample">n = 10</span></div>
+            <div class="donut-layout">
+              <div class="donut" style="--segments: conic-gradient(var(--red) 0 40%, var(--pink) 40% 70%, #806491 70% 90%, var(--ink) 90% 100%)"><div><strong>10</strong><span>respuestas</span></div></div>
+              <ul class="legend">
+                <li><i style="--c:var(--red)"></i><span>Sistema interno</span><b>40%</b></li>
+                <li><i style="--c:var(--pink)"></i><span>Página web</span><b>30%</b></li>
+                <li><i style="--c:#806491"></i><span>Tienda en línea</span><b>20%</b></li>
+                <li><i style="--c:var(--ink)"></i><span>Catálogo</span><b>10%</b></li>
+              </ul>
+            </div>
+          </article>
+
+          <article class="panel reveal">
+            <div class="panel-head"><div><span class="panel-kicker">Intención</span><h3>Probabilidad de contratar</h3></div><span class="sample">n = 10</span></div>
+            <div class="stacked" aria-label="20% muy probable, 50% probable, 30% poco probable">
+              <span class="s-very" style="--w:20%"><b>20%</b></span><span class="s-prob" style="--w:50%"><b>50%</b></span><span class="s-low" style="--w:30%"><b>30%</b></span>
+            </div>
+            <div class="stack-labels"><span><i class="very"></i>Muy probable</span><span><i class="prob"></i>Probable</span><span><i class="low"></i>Poco probable</span></div>
+            <blockquote>Existe interés real, pero la propuesta debe reducir la incertidumbre sobre calidad, utilidad y precio.</blockquote>
+          </article>
+        </div>
+
+        <div class="evidence-strip reveal">
+          <span>Evidencia directa</span>
+          <p>“Que sea más intuitiva”</p><i></i><p>“Lentitud”</p><i></i><p>“Más claridad en el manejo”</p><i></i><p>“Que no son estafa”</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section survey-section chapter" id="encuesta" data-theme="pink">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><p class="eyebrow">02 · Instrumento de investigación</p><h2>La encuesta detrás<br>de <em>cada decisión.</em></h2></div>
+          <p class="section-intro">El primer corte contiene nueve preguntas sustantivas y 10 respuestas. La meta del ejercicio es alcanzar 20 empresas e incorporar medición directa de la competencia.</p>
+        </div>
+        <div class="survey-grid">
+          <article class="survey-progress reveal">
+            <div class="big">10<span>/20</span></div>
+            <h3>Respuestas recopiladas</h3>
+            <p>Este tablero muestra el avance real del levantamiento. Los cálculos se actualizarán al completar la segunda mitad de la muestra.</p>
+            <div class="progress-track" aria-label="50% de avance"><i></i></div>
+          </article>
+          <div class="survey-list reveal-stagger" aria-label="Preguntas aplicadas">
+            <article class="question"><button type="button"><span>01</span><span>Empresa y giro</span><i>+</i></button><p>Nombre de la empresa y actividad económica que realiza.</p></article>
+            <article class="question"><button type="button"><span>02</span><span>Necesidad principal de la empresa</span><i>+</i></button><p>Ejemplos: sistema interno, venta en línea, inventario o marketing.</p></article>
+            <article class="question"><button type="button"><span>03</span><span>Servicio digital que busca</span><i>+</i></button><p>Página web, tienda, catálogo o sistema interno.</p></article>
+            <article class="question"><button type="button"><span>04</span><span>Disposición de pago</span><i>+</i></button><p>Presupuesto estimado para el diseño o solución elegida.</p></article>
+            <article class="question"><button type="button"><span>05</span><span>Probabilidad de contratación</span><i>+</i></button><p>Intención de contratar una empresa especializada en interfaces digitales.</p></article>
+            <article class="question"><button type="button"><span>06</span><span>Problemas frecuentes</span><i>+</i></button><p>Fricciones encontradas al utilizar páginas web o aplicaciones.</p></article>
+            <article class="question"><button type="button"><span>07</span><span>Factor principal de elección</span><i>+</i></button><p>Calidad, precio, experiencia, diseño o atención al cliente.</p></article>
+            <article class="question"><button type="button"><span>08</span><span>Cambio deseado</span><i>+</i></button><p>Una mejora que la persona haría a las experiencias digitales actuales.</p></article>
+            <article class="question"><button type="button"><span>09</span><span>Importancia de redes sociales</span><i>+</i></button><p>Valor percibido de una presencia activa en redes.</p></article>
+          </div>
+        </div>
+        <div class="pending-questions reveal">
+          <span class="pending-pill">Ampliación necesaria</span>
+          <h3>Módulo de competencia para las siguientes respuestas</h3>
+          <ol>
+            <li>¿Qué empresa o alternativa usarías para resolver esta necesidad?</li>
+            <li>¿Qué hace mejor esa alternativa que otras opciones?</li>
+            <li>Califica su calidad, facilidad, rapidez, atención, precio y confianza del 1 al 10.</li>
+            <li>¿Qué tendría que ofrecer ProcesaLab para que la eligieras sobre esa alternativa?</li>
+          </ol>
+        </div>
+      </div>
+    </section>
+
+    <section class="section voice chapter" id="voz" data-theme="dark">
+      <div class="wrap">
+        <div class="section-head light reveal">
+          <div><p class="eyebrow">03 · Voz del cliente</p><h2>Lo que dicen se convierte<br>en lo que <em>debemos cumplir.</em></h2></div>
+          <p class="section-intro">Las respuestas abiertas se agruparon por afinidad. La prioridad combina recurrencia, impacto y el criterio declarado al elegir proveedor.</p>
+        </div>
+
+        <div class="voice-layout">
+          <div class="rank-chart panel panel-on-dark reveal" id="customerRank" aria-label="Prioridad de requerimientos del cliente"></div>
+          <div class="kano-stack reveal-stagger">
+            <article class="kano-card basic"><span>Básico</span><h3>Funcionalidad y confianza</h3><p>Si fallan, el servicio pierde credibilidad aunque el diseño sea atractivo.</p><b>Calidad · seguridad</b></article>
+            <article class="kano-card performance"><span>Desempeño</span><h3>Facilidad y velocidad</h3><p>Mientras mejor se resuelvan, mayor será la satisfacción percibida.</p><b>Usabilidad · rapidez · atención</b></article>
+            <article class="kano-card delight"><span>Emocional</span><h3>Una experiencia memorable</h3><p>Movimiento, claridad y acompañamiento pueden superar lo esperado.</p><b>Diseño dinámico · asesoría</b></article>
+          </div>
+        </div>
+
+        <div class="method-note reveal"><strong>Cómo se obtuvo la prioridad</strong><p>El formulario no pidió calificar cada necesidad por separado. Por eso la escala 1–10 es una codificación analítica basada en menciones, severidad de la fricción y factores de elección. Debe validarse en la siguiente ronda.</p></div>
+      </div>
+    </section>
+
+    <section class="section qfd-section chapter" id="qfd" data-theme="lavender">
+      <div class="wrap wide-wrap">
+        <div class="section-head reveal">
+          <div><p class="eyebrow">04 · Casa de la Calidad</p><h2>Del “qué necesito”<br>al <em>“cómo lo logramos”.</em></h2></div>
+          <p class="section-intro">Cada cruce expresa la fuerza de relación entre una necesidad del cliente y una característica medible del servicio.</p>
+        </div>
+
+        <div class="qfd-key reveal">
+          <span><i class="rel-9">9</i>Relación fuerte</span><span><i class="rel-3">3</i>Relación media</span><span><i class="rel-1">1</i>Relación débil</span><span><i class="rel-0"></i>Sin relación directa</span>
+        </div>
+
+        <div class="roof-wrap reveal" aria-label="Matriz de correlaciones entre requisitos técnicos">
+          <div class="roof-title"><span>Techo de correlaciones</span><small>sinergias y tensiones</small></div>
+          <svg id="correlationRoof" viewBox="0 0 640 220" role="img" aria-label="Correlaciones positivas y negativas"></svg>
+        </div>
+
+        <div class="swipe-hint"><span>Desliza para explorar la matriz</span><i>→</i></div>
+        <div class="qfd-scroll reveal" tabindex="0" aria-label="Casa de la Calidad, tabla desplazable">
+          <table class="qfd-table" id="qfdTable"></table>
+        </div>
+        <p class="qfd-caption">Pasa el cursor o toca una celda para seguir la relación. Prioridad técnica = Σ (relación × importancia × índice de mejora). En la matriz: 9 = fuerte, 3 = media, 1 = débil.</p>
+      </div>
+    </section>
+
+    <section class="section priorities chapter" id="prioridades" data-theme="cream">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <div><p class="eyebrow">05 · Resultado técnico</p><h2>¿Dónde debe invertir<br>primero <em>ProcesaLab?</em></h2></div>
+          <p class="section-intro">La prioridad técnica es la suma ponderada de cada relación. Concentra el esfuerzo donde una mejora responde a más necesidades importantes.</p>
+        </div>
+        <div class="priority-layout">
+          <div class="tech-bars panel reveal" id="techPriorities"></div>
+          <article class="top-priority reveal">
+            <span class="big-rank">01</span>
+            <div><p class="eyebrow">Mayor impacto</p><h3>Integraciones confiables</h3><strong>16.8%</strong><p>Conectar procesos, ventas, inventario y canales digitales con disponibilidad medible.</p></div>
+            <div class="pulse-ring" aria-hidden="true"><i></i><i></i><i></i></div>
+          </article>
+        </div>
+
+        <div class="benchmark-head reveal"><p class="eyebrow">Competencia directa · León, Guanajuato</p><h3>Cómo se presenta el mercado</h3></div>
+        <div class="competitor-cards reveal-stagger">
+          <a href="https://conlineweb.com/soluciones-corporativas/" target="_blank" rel="noopener"><span>01</span><h3>ConlineWeb</h3><p>Web, software empresarial, e-commerce, IA, SEO y soporte. Comunica proceso, plazos y entregables con amplitud.</p><b>Fortaleza: claridad comercial ↗</b></a>
+          <a href="https://www.nexxu.mx/desarrollo-web-profesional" target="_blank" rel="noopener"><span>02</span><h3>Nexxu MX</h3><p>Desarrollo full code, sistemas internos, APIs, rendimiento, seguridad y mantenimiento continuo.</p><b>Fortaleza: especialización técnica ↗</b></a>
+          <a href="https://www.integradesarrollo.com/" target="_blank" rel="noopener"><span>03</span><h3>Integra Desarrollo</h3><p>Software a medida, aplicaciones, ERP, punto de venta y e-commerce, con más de diez años declarados.</p><b>Fortaleza: amplitud y experiencia ↗</b></a>
+        </div>
+        <div class="benchmark panel reveal" id="benchmarkChart"></div>
+        <p class="benchmark-note reveal"><strong>Lectura responsable:</strong> puntuación documental de 1 a 10 según servicios, proceso, evidencia, contacto y atributos publicados en cada sitio. No representa satisfacción de sus clientes ni una auditoría técnica. ProcesaLab usa una autoevaluación preliminar.</p>
+      </div>
+    </section>
+
+    <section class="section action chapter" id="accion" data-theme="red">
+      <div class="wrap">
+        <div class="section-head light reveal">
+          <div><p class="eyebrow">06 · Despliegue</p><h2>De la matriz<br>a <em>decisiones reales.</em></h2></div>
+          <p class="section-intro">El QFD no termina en la tabla. Las prioridades se convierten en indicadores, responsables y una secuencia de implementación.</p>
+        </div>
+        <div class="roadmap reveal-stagger">
+          <article><span>01</span><small>0–30 días</small><h3>Estandarizar</h3><p>Checklist de calidad, levantamiento, propuesta y pruebas de flujos críticos.</p><b>QA ≥ 95%</b></article>
+          <article><span>02</span><small>31–60 días</small><h3>Medir</h3><p>Rendimiento, facilidad de uso, tiempos de respuesta y disponibilidad.</p><b>LCP ≤ 2.5 s</b></article>
+          <article><span>03</span><small>61–90 días</small><h3>Integrar</h3><p>Canales de venta, WhatsApp, inventario y automatizaciones según cada negocio.</p><b>Uptime ≥ 99%</b></article>
+          <article><span>04</span><small>Continuo</small><h3>Escuchar</h3><p>Ampliar la muestra y medir satisfacción después de cada entrega.</p><b>VOC trimestral</b></article>
+        </div>
+
+        <div class="closing reveal">
+          <div><p class="eyebrow">Conclusión</p><h2>La calidad que el cliente percibe empieza en el proceso que diseñamos.</h2></div>
+          <svg class="closing-gear gear-spin" viewBox="0 0 100 100" aria-hidden="true"><path d="M57.5 5 60 15a37 37 0 0 1 7 3l9-5 11 11-5 9a37 37 0 0 1 3 7l10 2.5v15L85 60a37 37 0 0 1-3 7l5 9-11 11-9-5a37 37 0 0 1-7 3l-2.5 10h-15L40 85a37 37 0 0 1-7-3l-9 5-11-11 5-9a37 37 0 0 1-3-7L5 57.5v-15L15 40a37 37 0 0 1 3-7l-5-9 11-11 9 5a37 37 0 0 1 7-3L42.5 5h15ZM50 31a19 19 0 1 0 0 38 19 19 0 0 0 0-38Z"/></svg>
+        </div>
+
+        <footer>
+          <div><strong>PROCESA<span>LAB</span></strong><p>Planeación Avanzada de la Calidad · Septiembre 2026</p></div>
+          <div class="sources"><span>Fuentes</span><p>Formulario PROCESALABForms, 10 respuestas. Guía “Quality Function Deployment (QFD) para Servicios”, Bernal, Dornberger y Suvelza, 2009. Sitios públicos de ConlineWeb, Nexxu MX e Integra Desarrollo, consultados el 9 de septiembre de 2026.</p></div>
+        </footer>
+      </div>
+    </section>
+  </main>
+  <script src="app.js"></script>
+</body>
+</html>
