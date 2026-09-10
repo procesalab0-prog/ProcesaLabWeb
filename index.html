@@ -217,6 +217,35 @@ svg{fill:currentColor}
 .mobile-story-device.in img{animation:phoneFloat 6.5s .6s ease-in-out infinite}
 @keyframes phoneFloat{0%,100%{transform:translate3d(0,0,0) rotate(.001deg)}50%{transform:translate3d(0,-10px,0) rotate(.35deg)}}
 
+/* FEATURED SYSTEMS — layered device photography with two distinct stories */
+.systems-story{position:relative;overflow:hidden;padding:clamp(86px,10vw,150px) 0}
+.systems-story .sec-tag{margin-bottom:18px}
+.systems-story h2{font-size:clamp(44px,6vw,88px);line-height:.94;letter-spacing:-.055em;max-width:880px}
+.systems-story-copy>p{font-size:clamp(16px,1.45vw,20px);line-height:1.55;max-width:590px;margin-top:24px}
+.store-story{background:var(--cream)}
+.store-story::before{content:"";position:absolute;width:620px;height:620px;right:-230px;top:-260px;border-radius:50%;background:var(--pink);opacity:.6;filter:blur(3px)}
+.store-stage{position:relative;height:clamp(470px,61vw,830px);margin-top:clamp(24px,3vw,48px);isolation:isolate}
+.store-device{position:absolute;display:block;margin:0;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.store-device img{display:block;width:100%;height:auto;filter:drop-shadow(0 34px 36px rgba(17,17,17,.16))}
+.store-device-primary{left:-7%;top:0;width:min(77vw,1120px);transform:rotate(-1.4deg)}
+.store-device-secondary{right:-4%;bottom:-2%;width:min(61vw,850px);transform:rotate(2.4deg);z-index:2}
+.store-device.in img{animation:systemFloat 7s ease-in-out infinite}.store-device-secondary.in img{animation-delay:.8s}
+.store-device:hover{z-index:3}.store-device-primary:hover{transform:translateY(-10px) rotate(-.5deg)}.store-device-secondary:hover{transform:translateY(-10px) rotate(1deg)}
+.story-label{position:absolute;left:4%;bottom:8%;z-index:4;background:var(--ink);color:var(--cream);padding:13px 18px;border-radius:999px;font:700 12px "Space Grotesk";letter-spacing:.07em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red)}
+@keyframes systemFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
+
+.studio-story{background:#1d1815;color:var(--cream);padding-bottom:clamp(70px,8vw,120px)}
+.studio-story .wrap{position:relative;z-index:2}.studio-story .sec-tag{color:#d6b9a3}.studio-story h2{color:var(--cream);max-width:980px}.studio-story-copy>p{color:#d1c7bf}
+.studio-stage{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(420px,1.18fr);align-items:center;gap:clamp(0px,2vw,30px);margin-top:30px;min-height:690px}
+.studio-device{display:block;position:relative;margin:0;transition:transform .7s cubic-bezier(.16,1,.3,1)}
+.studio-device img{display:block;width:100%;height:auto;filter:drop-shadow(0 38px 38px rgba(0,0,0,.38))}
+.studio-device-login{width:min(48vw,620px);margin-left:-10%;transform:rotate(-2deg);z-index:2}
+.studio-device-home{width:min(69vw,920px);margin-left:-18%;transform:rotate(1.6deg)}
+.studio-device.in img{animation:studioFloat 7.5s ease-in-out infinite}.studio-device-home.in img{animation-delay:.9s}
+.studio-device:hover{z-index:3}.studio-device-login:hover{transform:translateY(-10px) rotate(-.8deg)}.studio-device-home:hover{transform:translateY(-10px) rotate(.5deg)}
+.studio-link{color:var(--cream);border-color:#d6b9a3}
+@keyframes studioFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+
 /* PROJECTS grid — normal page flow below the scene, so it scrolls
    like the rest of the site (no nested-scroll traps on iOS) */
 .proj-reveal{background:var(--lav)}
@@ -336,6 +365,8 @@ svg{fill:currentColor}
   .project-device{width:155vw;margin:18px -27.5vw -10px}
   .project-device-badge{right:22%;bottom:9%;font-size:10px;padding:8px 10px 8px 13px}.project-device-badge i{width:26px;height:26px}
   .mobile-story{padding:72px 0 0}.mobile-story-in{grid-template-columns:1fr;gap:0;min-height:0}.mobile-story-copy{padding:0}.mobile-story h2{font-size:clamp(44px,14vw,64px);max-width:350px}.mobile-story-copy p{font-size:16px}.mobile-story-link{margin-top:24px}.mobile-story-device{width:128vw;margin:-16px -22vw -28px -6vw;justify-self:start}
+  .systems-story{padding:76px 0 62px}.systems-story h2{font-size:clamp(43px,13vw,62px);max-width:360px}.systems-story-copy>p{font-size:16px;margin-top:18px}.store-story::before{width:330px;height:330px;right:-190px;top:-120px}.store-stage{height:600px;margin-top:20px}.store-device-primary{width:128vw;left:-35vw;top:12px}.store-device-secondary{width:112vw;right:-32vw;bottom:14px}.story-label{left:20px;bottom:2px;font-size:10px;padding:11px 14px}
+  .studio-stage{display:block;min-height:720px;margin-top:28px}.studio-device-login{position:absolute;width:103vw;left:-28vw;top:0;margin:0}.studio-device-home{position:absolute;width:125vw;right:-37vw;bottom:6px;margin:0}.studio-link{margin-top:22px}
   .computer{width:min(260px,74vw);height:min(190px,24vh);margin-top:4px}
   .cta .wrap{padding:64px 22px;gap:8px}
   .cta p{margin-top:12px;font-size:15.5px}
@@ -497,6 +528,46 @@ svg{fill:currentColor}
     <a class="mobile-story-device reveal-up" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
       <img src="assets/tacos-don-luis-iphone-showcase.webp" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="1146" height="1372" loading="lazy">
     </a>
+  </div>
+</section>
+
+<!-- FEATURED SYSTEM: Mi Tienda SM -->
+<section class="systems-story store-story" aria-labelledby="tiendaTitle">
+  <div class="wrap">
+    <div class="systems-story-copy reveal-up">
+      <div class="sec-tag" data-es="Sistema de punto de venta" data-en="Point-of-sale system">Sistema de punto de venta</div>
+      <h2 id="tiendaTitle" data-es="Toda la tienda, en una sola pantalla." data-en="Your whole store, on one screen.">Toda la tienda, en una sola pantalla.</h2>
+      <p data-es="Mi Tienda SM reúne ventas, productos, inventario, caja, reportes, clientes y sucursales en un sistema diseñado para trabajar rápido y crecer sin perder el control." data-en="Mi Tienda SM brings sales, products, inventory, cash management, reports, customers and branches together in a system designed for speed and controlled growth.">Mi Tienda SM reúne ventas, productos, inventario, caja, reportes, clientes y sucursales en un sistema diseñado para trabajar rápido y crecer sin perder el control.</p>
+    </div>
+    <div class="store-stage" aria-label="Vistas del sistema Mi Tienda SM en computadoras portátiles">
+      <figure class="store-device store-device-primary reveal-up">
+        <img src="assets/mi-tienda-sm-modulos.webp" alt="Panel de módulos de Mi Tienda SM mostrado en una computadora portátil" width="1536" height="1024" loading="lazy">
+      </figure>
+      <figure class="store-device store-device-secondary reveal-up">
+        <img src="assets/mi-tienda-sm-venta.webp" alt="Punto de venta de Mi Tienda SM mostrado en una computadora portátil sostenida con una mano" width="1374" height="1145" loading="lazy">
+      </figure>
+      <span class="story-label" data-es="Venta · inventario · operación" data-en="Sales · inventory · operations">Venta · inventario · operación</span>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED SYSTEM: Muromío -->
+<section class="systems-story studio-story" aria-labelledby="muromioTitle">
+  <div class="wrap">
+    <div class="systems-story-copy reveal-up">
+      <div class="sec-tag" data-es="Interiorismo digital" data-en="Digital interior design">Interiorismo digital</div>
+      <h2 id="muromioTitle" data-es="La estética también puede organizar un negocio." data-en="Aesthetics can organize a business too.">La estética también puede organizar un negocio.</h2>
+      <p data-es="Muromío combina una presencia comercial elegante con un espacio privado para gestionar proyectos, clientes, presupuestos y renders en una experiencia visual coherente." data-en="Muromío combines an elegant commercial presence with a private space for managing projects, customers, budgets and renders in one coherent visual experience.">Muromío combina una presencia comercial elegante con un espacio privado para gestionar proyectos, clientes, presupuestos y renders en una experiencia visual coherente.</p>
+      <a class="mobile-story-link studio-link" href="https://muromio.vercel.app" target="_blank" rel="noopener"><span data-es="Explorar Muromío" data-en="Explore Muromío">Explorar Muromío</span><svg aria-hidden="true" viewBox="0 0 18 18" fill="none"><path d="M4 14 14 4M7 4h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <div class="studio-stage" aria-label="Landing y acceso privado de Muromío mostrados en tabletas">
+      <figure class="studio-device studio-device-login reveal-up">
+        <img src="assets/muromio-acceso-ipad.webp" alt="Pantalla de acceso privado de Muromío presentada en un iPad sostenido con ambas manos" width="1132" height="1390" loading="lazy">
+      </figure>
+      <a class="studio-device studio-device-home reveal-up" href="https://muromio.vercel.app" target="_blank" rel="noopener" aria-label="Visitar el proyecto Muromío">
+        <img src="assets/muromio-landing-ipad.webp" alt="Landing de Muromío presentada en un iPad sostenido con ambas manos" width="1374" height="1145" loading="lazy">
+      </a>
+    </div>
   </div>
 </section>
 
