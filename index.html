@@ -191,6 +191,16 @@ svg{fill:currentColor}
 .folder.t-lav .sheet,.folder.t-lav .tab{background:var(--lav)}
 .folder.t-cream .sheet,.folder.t-cream .tab{background:var(--cream)}
 
+/* PROJECT SHOWCASE — a real interface presented as a physical product */
+.project-device{position:relative;width:min(1440px,100vw);margin:14px auto -34px;display:block;isolation:isolate;transform-origin:center 70%}
+.project-device::before{content:"";position:absolute;left:12%;right:12%;bottom:8%;height:18%;border-radius:50%;background:rgba(111,76,132,.2);filter:blur(42px);z-index:-1}
+.project-device-img{display:block;width:100%;height:auto;mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%);transition:transform .7s cubic-bezier(.16,1,.3,1),filter .7s ease;filter:drop-shadow(0 30px 28px rgba(17,17,17,.12))}
+.project-device.in .project-device-img{animation:deviceFloat 6s 1s ease-in-out infinite}
+.project-device:hover .project-device-img{transform:translateY(-10px) scale(1.012);filter:drop-shadow(0 40px 34px rgba(17,17,17,.18))}
+.project-device-badge{position:absolute;right:max(28px,8vw);bottom:12%;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:1.5px solid var(--ink);border-radius:999px;padding:10px 13px 10px 17px;font:700 12px "Space Grotesk";letter-spacing:.04em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red);z-index:2}
+.project-device-badge i{width:30px;height:30px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-style:normal;font-size:17px}
+@keyframes deviceFloat{0%,100%{transform:translateY(0) rotate(.001deg)}50%{transform:translateY(-8px) rotate(-.25deg)}}
+
 /* PROJECTS grid — normal page flow below the scene, so it scrolls
    like the rest of the site (no nested-scroll traps on iOS) */
 .proj-reveal{background:var(--lav)}
@@ -307,6 +317,9 @@ svg{fill:currentColor}
   .scene{padding:64px 20px 80px}
   .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.68)}
   .scene-intro p{max-width:280px}
+  .project-device{width:155vw;margin:18px -27.5vw -10px}
+  .project-device-img{mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
+  .project-device-badge{right:22%;bottom:9%;font-size:10px;padding:8px 10px 8px 13px}.project-device-badge i{width:26px;height:26px}
   .computer{width:min(260px,74vw);height:min(190px,24vh);margin-top:4px}
   .cta .wrap{padding:64px 22px;gap:8px}
   .cta p{margin-top:12px;font-size:15.5px}
@@ -443,21 +456,17 @@ svg{fill:currentColor}
   </div>
 </section>
 
-<!-- PROJECTS: 3D archive box, plays on its own once it scrolls into view -->
+<!-- PROJECTS: editorial device showcase -->
 <section class="scene" id="proyectos">
   <div class="scene-intro" id="archIntro">
     <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
-    <h2 data-es="Abrimos el archivo" data-en="We open the archive">Abrimos el archivo</h2>
-    <p data-es="Cada folder es un proyecto real que diseñamos y construimos." data-en="Each folder is a real project we designed and built.">Cada folder es un proyecto real que diseñamos y construimos.</p>
+    <h2 data-es="El proyecto, en tus manos" data-en="The project, in your hands">El proyecto, en tus manos</h2>
+    <p data-es="Diseñamos experiencias que se entienden mejor cuando las ves funcionando." data-en="We design experiences best understood when you see them working.">Diseñamos experiencias que se entienden mejor cuando las ves funcionando.</p>
   </div>
-  <div class="stage" aria-hidden="true">
-    <div class="rig" id="rig">
-      <div class="face fBottom"></div>
-      <div class="folders" id="folders"></div>
-      <div class="face fN"></div><div class="face fW"></div><div class="face fE"></div>
-      <div class="face fS"><div class="handle"></div></div>
-    </div>
-  </div>
+  <a class="project-device reveal-up" href="https://herraidea-landing.vercel.app" target="_blank" rel="noopener" aria-label="Ver el proyecto Herraidea">
+    <img class="project-device-img" src="assets/herraidea-foldable-showcase.png" alt="Sitio de Herraidea presentado en un dispositivo plegable sostenido con ambas manos" width="1668" height="943" loading="lazy">
+    <span class="project-device-badge"><span data-es="Explorar Herraidea" data-en="Explore Herraidea">Explorar Herraidea</span><i>↗</i></span>
+  </a>
 </section>
 
 <!-- PROJECTS: real grid, normal page flow so it scrolls natively on iOS -->
@@ -569,52 +578,9 @@ function projCard(p, i) {
 
 document.getElementById('projGrid').innerHTML = PROJECTS.map(projCard).join('');
 
-// build the 3D archive folders (one per project)
-const foldersWrap = document.getElementById('folders');
-const N = PROJECTS.length;
-PROJECTS.forEach((p, i) => {
-  const f = document.createElement('div');
-  f.className = 'folder ' + p.cls;
-  const spread = (i - (N - 1) / 2);
-  f.dataset.spread = spread;
-  f.innerHTML = `<div class="sheet"><span class="tab"></span><div class="lbl">${p.n}<small data-es="${p.tag_es}" data-en="${p.tag_en}">${p.tag_es}</small></div></div>`;
-  foldersWrap.appendChild(f);
-});
-const folders = [...document.querySelectorAll('.folder')];
-
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const cmpRig = document.getElementById('cmpRig');
 const finScene = document.getElementById('contacto');
-// keep the fan comfortably inside the box footprint (half-width ~130px)
-// regardless of how many projects there are
-const spreadAmt = Math.min(18, 170 / N);
-const delayStep = 90; // ms between each folder's cascade
-
-// Archive box: plays once on its own when it scrolls into view, instead
-// of being scrubbed by scroll position (which people found confusing).
-const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-function openArchiveBox() {
-  folders.forEach((f, i) => {
-    const sp = parseFloat(f.dataset.spread);
-    const reveal = () => {
-      f.style.setProperty('--rise', '110px');
-      f.style.setProperty('--yaw', (sp * 6) + 'deg');
-      f.style.setProperty('--spread', (sp * spreadAmt) + 'px');
-      f.style.opacity = 1;
-    };
-    if (reduceMotion) reveal();
-    else setTimeout(reveal, i * delayStep);
-  });
-}
-const archiveObserver = new IntersectionObserver((entries) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      openArchiveBox();
-      archiveObserver.unobserve(entry.target);
-    }
-  });
-}, { threshold: 0.35 });
-archiveObserver.observe(document.querySelector('.stage'));
 
 function tickScenes() {
   // FINALE — computer rotates as you scroll
