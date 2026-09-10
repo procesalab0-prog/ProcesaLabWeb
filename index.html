@@ -194,11 +194,13 @@ svg{fill:currentColor}
 /* PROJECT SHOWCASE — a real interface presented as a physical product */
 .project-device{position:relative;width:min(1440px,100vw);margin:14px auto -34px;display:block;isolation:isolate;transform-origin:center 70%}
 .project-device::before{content:"";position:absolute;left:12%;right:12%;bottom:8%;height:18%;border-radius:50%;background:rgba(111,76,132,.2);filter:blur(42px);z-index:-1}
-.project-device-img{display:block;width:100%;height:auto;mask-image:linear-gradient(90deg,transparent 0,#000 4%,#000 96%,transparent 100%);transition:transform .7s cubic-bezier(.16,1,.3,1),filter .7s ease;filter:drop-shadow(0 30px 28px rgba(17,17,17,.12))}
+.project-device-img{display:block;width:100%;height:auto;transition:transform .7s cubic-bezier(.16,1,.3,1),filter .7s ease;filter:drop-shadow(0 30px 28px rgba(17,17,17,.12))}
 .project-device.in .project-device-img{animation:deviceFloat 6s 1s ease-in-out infinite}
 .project-device:hover .project-device-img{transform:translateY(-10px) scale(1.012);filter:drop-shadow(0 40px 34px rgba(17,17,17,.18))}
 .project-device-badge{position:absolute;right:max(28px,8vw);bottom:12%;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:1.5px solid var(--ink);border-radius:999px;padding:10px 13px 10px 17px;font:700 12px "Space Grotesk";letter-spacing:.04em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red);z-index:2}
-.project-device-badge i{width:30px;height:30px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-style:normal;font-size:17px}
+.project-device-badge i{width:30px;height:30px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-style:normal}
+.project-device-badge i::before{content:"";width:9px;height:9px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:translate(-1px,1px)}
+.project-device-badge i::after{content:"";position:absolute;width:11px;height:2px;background:currentColor;transform:rotate(-45deg) translate(-1px,-1px);transform-origin:center}
 @keyframes deviceFloat{0%,100%{transform:translateY(0) rotate(.001deg)}50%{transform:translateY(-8px) rotate(-.25deg)}}
 
 /* PROJECTS grid — normal page flow below the scene, so it scrolls
@@ -312,13 +314,12 @@ svg{fill:currentColor}
   .proj-reveal{overflow:hidden}.proj-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:2px 20px 22px;scrollbar-width:none}.proj-grid::-webkit-scrollbar{display:none}.proj-grid .card{min-width:84vw;scroll-snap-align:center}.proj-reveal .sec-head{margin-bottom:26px}
   .process-grid{grid-template-columns:1fr}.process-step{min-height:0;padding:26px 22px}.process-step h3{margin:24px 0 9px}.process-step:hover{background:var(--ink);color:var(--cream)}.process-step:hover p{color:#cfc7ca}
   #servicios{padding-top:94px;padding-bottom:104px}.svc-grid{gap:28px}.svc{padding:30px 24px}.svc:hover{transform:none;box-shadow:5px 5px 0 var(--ink)}
-  .swipe-hint{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a5256;margin:-8px 0 14px}.swipe-hint .arrow{font-size:20px;color:var(--red);animation:swipeNudge 1.5s ease-in-out infinite}@keyframes swipeNudge{50%{transform:translateX(7px)}}
+  .swipe-hint{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a5256;margin:-8px 0 14px}.swipe-hint .arrow{position:relative;width:24px;height:14px;color:var(--red);animation:swipeNudge 1.5s ease-in-out infinite}.swipe-hint .arrow::before{content:"";position:absolute;top:6px;left:1px;width:20px;height:2px;background:currentColor;border-radius:2px}.swipe-hint .arrow::after{content:"";position:absolute;top:3px;right:1px;width:7px;height:7px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg)}@keyframes swipeNudge{50%{transform:translateX(7px)}}
   .foot-right{text-align:left}
   .scene{padding:64px 20px 80px}
   .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.68)}
   .scene-intro p{max-width:280px}
   .project-device{width:155vw;margin:18px -27.5vw -10px}
-  .project-device-img{mask-image:linear-gradient(90deg,transparent 0,#000 7%,#000 93%,transparent 100%)}
   .project-device-badge{right:22%;bottom:9%;font-size:10px;padding:8px 10px 8px 13px}.project-device-badge i{width:26px;height:26px}
   .computer{width:min(260px,74vw);height:min(190px,24vh);margin-top:4px}
   .cta .wrap{padding:64px 22px;gap:8px}
@@ -465,7 +466,7 @@ svg{fill:currentColor}
   </div>
   <a class="project-device reveal-up" href="https://herraidea-landing.vercel.app" target="_blank" rel="noopener" aria-label="Ver el proyecto Herraidea">
     <img class="project-device-img" src="assets/herraidea-foldable-showcase.png" alt="Sitio de Herraidea presentado en un dispositivo plegable sostenido con ambas manos" width="1668" height="943" loading="lazy">
-    <span class="project-device-badge"><span data-es="Explorar Herraidea" data-en="Explore Herraidea">Explorar Herraidea</span><i>↗</i></span>
+    <span class="project-device-badge"><span data-es="Explorar Herraidea" data-en="Explore Herraidea">Explorar Herraidea</span><i aria-hidden="true"></i></span>
   </a>
 </section>
 
@@ -479,7 +480,7 @@ svg{fill:currentColor}
       </div>
       <p data-es="Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos." data-en="A selection of sites and experiences we've designed and built. Click to visit them.">Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos.</p>
     </div>
-    <div class="swipe-hint" aria-hidden="true"><span data-es="Desliza para explorar" data-en="Swipe to explore">Desliza para explorar</span><span class="arrow">→</span></div>
+    <div class="swipe-hint" aria-hidden="true"><span data-es="Desliza para explorar" data-en="Swipe to explore">Desliza para explorar</span><span class="arrow"></span></div>
     <div class="proj-grid" id="projGrid"></div>
   </div>
 </section>
