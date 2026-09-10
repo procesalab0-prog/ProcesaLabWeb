@@ -6,19 +6,6 @@
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#F7B6C9">
   <title>QFD de Servicios · Planeación Avanzada · ProcesaLab</title>
-  <script>
-  (function () {
-    document.documentElement.style.visibility = 'hidden';
-    if (location.hostname === 'localhost' || location.hostname === '127.0.0.1') {
-      document.documentElement.style.visibility = 'visible';
-      return;
-    }
-    fetch('/api/check').then(function (r) { return r.json(); }).then(function (d) {
-      if (d.authenticated) document.documentElement.style.visibility = 'visible';
-      else location.href = '/privado.html';
-    }).catch(function () { location.href = '/privado.html'; });
-  })();
-  </script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
@@ -27,7 +14,7 @@
 <body>
   <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
   <header class="topbar" id="topbar">
-    <a class="brand" href="/privado.html" aria-label="Volver al área privada">
+    <a class="brand" href="/" aria-label="Volver a ProcesaLab">
       <span class="brand-mark">PROCESA<span>LAB</span></span>
       <span class="brand-course">Planeación Avanzada</span>
     </a>
@@ -38,7 +25,7 @@
       <button class="round-action" id="printBtn" type="button" title="Imprimir o guardar PDF" aria-label="Imprimir o guardar PDF">
         <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M18 8H6V3h12v5Zm-2-2V5H8v1h8Zm2 13H6v-4H4a2 2 0 0 1-2-2v-3a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2h-2v4Zm-2-2v-4H8v4h8Zm3-6a1 1 0 1 0 0-2 1 1 0 0 0 0 2Z"/></svg>
       </button>
-      <a class="back-link" href="/privado.html">Volver</a>
+      <a class="back-link" href="/">Volver</a>
     </nav>
   </header>
 
