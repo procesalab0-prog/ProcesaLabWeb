@@ -198,10 +198,24 @@ svg{fill:currentColor}
 .project-device.in .project-device-img{animation:deviceFloat 6s 1s ease-in-out infinite}
 .project-device:hover .project-device-img{transform:translateY(-10px) scale(1.012);filter:drop-shadow(0 40px 34px rgba(17,17,17,.18))}
 .project-device-badge{position:absolute;right:max(28px,8vw);bottom:12%;display:flex;align-items:center;gap:10px;background:var(--ink);color:var(--cream);border:1.5px solid var(--ink);border-radius:999px;padding:10px 13px 10px 17px;font:700 12px "Space Grotesk";letter-spacing:.04em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red);z-index:2}
-.project-device-badge i{width:30px;height:30px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-style:normal}
-.project-device-badge i::before{content:"";width:9px;height:9px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:translate(-1px,1px)}
-.project-device-badge i::after{content:"";position:absolute;width:11px;height:2px;background:currentColor;transform:rotate(-45deg) translate(-1px,-1px);transform-origin:center}
+.project-device-badge i{width:30px;height:30px;border-radius:50%;background:var(--red);display:grid;place-items:center;font-style:normal;flex:0 0 auto}
+.project-device-badge svg{display:block;width:15px;height:15px;overflow:visible}
 @keyframes deviceFloat{0%,100%{transform:translateY(0) rotate(.001deg)}50%{transform:translateY(-8px) rotate(-.25deg)}}
+
+/* SECOND DEVICE STORY — vertical product composition for Tacos Don Luis */
+.mobile-story{background:var(--ink);color:var(--cream);overflow:hidden;padding:72px 0 24px}
+.mobile-story-in{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(420px,1.2fr);align-items:center;gap:clamp(18px,5vw,80px);min-height:680px}
+.mobile-story-copy{position:relative;z-index:2;padding:42px 0}
+.mobile-story .sec-tag{color:var(--pink)}
+.mobile-story h2{font-size:clamp(42px,5.6vw,82px);line-height:.94;letter-spacing:-.055em;max-width:650px;margin:16px 0 24px;color:var(--cream)}
+.mobile-story-copy p{font-size:clamp(16px,1.5vw,20px);line-height:1.55;color:#cfc7ca;max-width:520px}
+.mobile-story-link{display:inline-flex;align-items:center;gap:12px;margin-top:30px;color:var(--cream);font:700 13px "Space Grotesk";letter-spacing:.06em;text-transform:uppercase;border-bottom:2px solid var(--red);padding-bottom:7px}
+.mobile-story-link svg{width:17px;height:17px;transition:transform .25s ease}.mobile-story-link:hover svg{transform:translate(4px,-4px)}
+.mobile-story-device{position:relative;display:block;justify-self:center;width:min(680px,58vw);margin:-34px -8% -18px 0;transform-origin:55% 70%}
+.mobile-story-device::before{content:"";position:absolute;inset:18% 10% 5% 18%;background:radial-gradient(circle,rgba(255,75,61,.3),transparent 66%);filter:blur(45px);z-index:-1}
+.mobile-story-device img{display:block;width:100%;height:auto;filter:drop-shadow(0 34px 36px rgba(0,0,0,.3))}
+.mobile-story-device.in img{animation:phoneFloat 6.5s .6s ease-in-out infinite}
+@keyframes phoneFloat{0%,100%{transform:translate3d(0,0,0) rotate(.001deg)}50%{transform:translate3d(0,-10px,0) rotate(.35deg)}}
 
 /* PROJECTS grid — normal page flow below the scene, so it scrolls
    like the rest of the site (no nested-scroll traps on iOS) */
@@ -314,13 +328,14 @@ svg{fill:currentColor}
   .proj-reveal{overflow:hidden}.proj-grid{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;gap:14px;margin:0 -20px;padding:2px 20px 22px;scrollbar-width:none}.proj-grid::-webkit-scrollbar{display:none}.proj-grid .card{min-width:84vw;scroll-snap-align:center}.proj-reveal .sec-head{margin-bottom:26px}
   .process-grid{grid-template-columns:1fr}.process-step{min-height:0;padding:26px 22px}.process-step h3{margin:24px 0 9px}.process-step:hover{background:var(--ink);color:var(--cream)}.process-step:hover p{color:#cfc7ca}
   #servicios{padding-top:94px;padding-bottom:104px}.svc-grid{gap:28px}.svc{padding:30px 24px}.svc:hover{transform:none;box-shadow:5px 5px 0 var(--ink)}
-  .swipe-hint{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a5256;margin:-8px 0 14px}.swipe-hint .arrow{position:relative;width:24px;height:14px;color:var(--red);animation:swipeNudge 1.5s ease-in-out infinite}.swipe-hint .arrow::before{content:"";position:absolute;top:6px;left:1px;width:20px;height:2px;background:currentColor;border-radius:2px}.swipe-hint .arrow::after{content:"";position:absolute;top:3px;right:1px;width:7px;height:7px;border-top:2px solid currentColor;border-right:2px solid currentColor;transform:rotate(45deg)}@keyframes swipeNudge{50%{transform:translateX(7px)}}
+  .swipe-hint{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:#5a5256;margin:-8px 0 14px}.swipe-hint .arrow{display:grid;place-items:center;width:28px;height:20px;color:var(--red);animation:swipeNudge 1.5s ease-in-out infinite}.swipe-hint .arrow svg{display:block;width:24px;height:14px;overflow:visible}@keyframes swipeNudge{50%{transform:translateX(6px)}}
   .foot-right{text-align:left}
   .scene{padding:64px 20px 80px}
   .rig{transform:rotateX(58deg) rotateZ(-40deg) scale(.68)}
   .scene-intro p{max-width:280px}
   .project-device{width:155vw;margin:18px -27.5vw -10px}
   .project-device-badge{right:22%;bottom:9%;font-size:10px;padding:8px 10px 8px 13px}.project-device-badge i{width:26px;height:26px}
+  .mobile-story{padding:72px 0 0}.mobile-story-in{grid-template-columns:1fr;gap:0;min-height:0}.mobile-story-copy{padding:0}.mobile-story h2{font-size:clamp(44px,14vw,64px);max-width:350px}.mobile-story-copy p{font-size:16px}.mobile-story-link{margin-top:24px}.mobile-story-device{width:128vw;margin:-16px -22vw -28px -6vw;justify-self:start}
   .computer{width:min(260px,74vw);height:min(190px,24vh);margin-top:4px}
   .cta .wrap{padding:64px 22px;gap:8px}
   .cta p{margin-top:12px;font-size:15.5px}
@@ -466,8 +481,23 @@ svg{fill:currentColor}
   </div>
   <a class="project-device reveal-up" href="https://herraidea-landing.vercel.app" target="_blank" rel="noopener" aria-label="Ver el proyecto Herraidea">
     <img class="project-device-img" src="assets/herraidea-foldable-showcase.png" alt="Sitio de Herraidea presentado en un dispositivo plegable sostenido con ambas manos" width="1668" height="943" loading="lazy">
-    <span class="project-device-badge"><span data-es="Explorar Herraidea" data-en="Explore Herraidea">Explorar Herraidea</span><i aria-hidden="true"></i></span>
+    <span class="project-device-badge"><span data-es="Explorar Herraidea" data-en="Explore Herraidea">Explorar Herraidea</span><i aria-hidden="true"><svg viewBox="0 0 16 16" fill="none"><path d="M3.5 12.5 12.5 3.5M6 3.5h6.5V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></i></span>
   </a>
+</section>
+
+<!-- PROJECT STORY: a second interface shown as a product, not a flat screenshot -->
+<section class="mobile-story">
+  <div class="wrap mobile-story-in">
+    <div class="mobile-story-copy reveal-up">
+      <div class="sec-tag" data-es="Comercio móvil" data-en="Mobile commerce">Comercio móvil</div>
+      <h2 data-es="Tu negocio cabe en una mano." data-en="Your business fits in one hand.">Tu negocio cabe en una mano.</h2>
+      <p data-es="Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca." data-en="For Tacos Don Luis, we turned ordering, delivery times and WhatsApp service into a fast, clear mobile experience packed with brand flavor.">Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca.</p>
+      <a class="mobile-story-link" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener"><span data-es="Explorar Tacos Don Luis" data-en="Explore Tacos Don Luis">Explorar Tacos Don Luis</span><svg aria-hidden="true" viewBox="0 0 18 18" fill="none"><path d="M4 14 14 4M7 4h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <a class="mobile-story-device reveal-up" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
+      <img src="assets/tacos-don-luis-iphone-showcase.webp" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="1146" height="1372" loading="lazy">
+    </a>
+  </div>
 </section>
 
 <!-- PROJECTS: real grid, normal page flow so it scrolls natively on iOS -->
@@ -480,7 +510,7 @@ svg{fill:currentColor}
       </div>
       <p data-es="Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos." data-en="A selection of sites and experiences we've designed and built. Click to visit them.">Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos.</p>
     </div>
-    <div class="swipe-hint" aria-hidden="true"><span data-es="Desliza para explorar" data-en="Swipe to explore">Desliza para explorar</span><span class="arrow"></span></div>
+    <div class="swipe-hint" aria-hidden="true"><span data-es="Desliza para explorar" data-en="Swipe to explore">Desliza para explorar</span><span class="arrow"><svg viewBox="0 0 24 14" fill="none"><path d="M1 7h21M16 1l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
     <div class="proj-grid" id="projGrid"></div>
   </div>
 </section>
