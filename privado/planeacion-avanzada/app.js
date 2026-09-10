@@ -1,10 +1,10 @@
 const customerNeeds = [
   { name: 'Calidad funcional y confiable', importance: 10, type: 'Básico' },
-  { name: 'Uso sencillo e intuitivo', importance: 9, type: 'Desempeño' },
+  { name: 'Uso sencillo e intuitivo', importance: 10, type: 'Desempeño' },
   { name: 'Carga y respuesta rápidas', importance: 8, type: 'Desempeño' },
   { name: 'Información clara y suficiente', importance: 7, type: 'Desempeño' },
-  { name: 'Atención y asesoría oportuna', importance: 7, type: 'Desempeño' },
-  { name: 'Integración de canales y procesos', importance: 8, type: 'Desempeño' },
+  { name: 'Atención y asesoría oportuna', importance: 6, type: 'Desempeño' },
+  { name: 'Integración de canales y procesos', importance: 9, type: 'Desempeño' },
   { name: 'Diseño dinámico y atractivo', importance: 6, type: 'Emocional' },
   { name: 'Precio claro y accesible', importance: 5, type: 'Desempeño' },
   { name: 'Seguridad y confianza digital', importance: 6, type: 'Básico' }
