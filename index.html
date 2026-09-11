@@ -91,9 +91,13 @@ svg{fill:currentColor}
 /* HERO */
 .hero{position:relative;background:var(--pink);min-height:100svh;display:flex;align-items:center;padding:120px 0 72px;overflow:hidden}
 .hero-in{position:relative;z-index:2;width:100%;display:flex;flex-direction:column;justify-content:center}
-.logo-lockup{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--ink);line-height:.78;letter-spacing:-.045em}
-.ll-1{font-size:clamp(64px,17.8vw,255px)}
-.ll-2{font-size:clamp(64px,17.8vw,255px);display:flex;align-items:center}
+.logo-lockup{font-family:"Space Grotesk",sans-serif;font-weight:700;color:var(--ink);line-height:.78;letter-spacing:-.045em;container-type:inline-size}
+/* "PROCESA" renders ~4.9x its font-size, and .logo-line clips anything wider
+   (the overflow:hidden the rise-in animation needs), so size it from the
+   container instead of the viewport. The clamp is the fallback for browsers
+   without container units. */
+.ll-1{font-size:clamp(64px,17.8vw,225px);font-size:min(19.5cqw,225px)}
+.ll-2{font-size:clamp(64px,17.8vw,225px);font-size:min(19.5cqw,225px);display:flex;align-items:center}
 .ll-tm{font-size:.16em;font-weight:600;align-self:flex-start;margin-top:.18em;margin-left:.03em;letter-spacing:0}
 .ll-gear{width:.82em;height:.82em;display:inline-block;flex:none;margin-left:.16em}
 .ll-gear.gear-spin{animation:spin 9s linear infinite}
@@ -239,6 +243,12 @@ svg{fill:currentColor}
 .studio-stage{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(420px,1.18fr);align-items:center;gap:clamp(0px,2vw,30px);margin-top:30px;min-height:0}
 .studio-device{display:block;position:relative;margin:0;line-height:0;translate:0 var(--scroll-lift,0px);scale:var(--scroll-scale,1);transition:transform .7s cubic-bezier(.16,1,.3,1),translate .16s linear,scale .16s linear}
 .studio-device img{display:block;width:100%;height:auto;filter:drop-shadow(0 38px 38px rgba(0,0,0,.38))}
+/* The device mockups are cut-outs whose sleeves/wrists end in a flat edge at
+   the bottom of the file. Dissolve that edge instead of showing it sliced. */
+.mobile-story-device img,.store-device-secondary img,.studio-device img{
+  -webkit-mask-image:linear-gradient(180deg,#000 84%,transparent 99%);
+  mask-image:linear-gradient(180deg,#000 84%,transparent 99%)
+}
 .studio-device-login{width:min(48vw,620px);margin-left:-10%;transform:rotate(-2deg);z-index:2}
 .studio-device-home{width:min(69vw,920px);margin-left:-28%;transform:rotate(1.6deg)}
 .studio-device.in img{animation:studioFloat 7.5s ease-in-out infinite}.studio-device-home.in img{animation-delay:.9s}
@@ -346,7 +356,7 @@ svg{fill:currentColor}
   .menu-back{display:flex;position:absolute;left:22px;top:22px;width:44px;height:44px;border:1.5px solid var(--ink);border-radius:50%;background:var(--cream);align-items:center;justify-content:center;cursor:pointer}.private-lock{display:flex;margin-left:auto}
   .hero{padding:88px 0 44px;align-items:center;justify-content:center;min-height:100svh}
   .hero-in{justify-content:center}
-  .ll-1,.ll-2{font-size:clamp(70px,20.8vw,100px)}
+  .ll-1,.ll-2{font-size:clamp(52px,17.2vw,100px);font-size:min(19.5cqw,100px)}
   .logo-lockup{overflow:visible}
   .hero-kicker{font-size:10px;margin-bottom:12px}.hero-bg-gear{width:112vw;height:112vw;right:-65vw;top:8vh;color:rgba(111,76,132,.2)}
   .hero-foot{flex-direction:column;align-items:flex-start;gap:18px;margin-top:18px}
@@ -683,14 +693,18 @@ document.getElementById('projGrid').innerHTML = PROJECTS.map(projCard).join('');
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const cmpRig = document.getElementById('cmpRig');
 const finScene = document.getElementById('contacto');
-const systemStories = document.querySelectorAll('.systems-story');
+// Resolved once: this runs on every animation frame.
+const systemStories = [...document.querySelectorAll('.systems-story')].map(story => ({
+  story, devices: [...story.querySelectorAll('.store-device, .studio-device')]
+}));
 
 function tickScenes() {
   // FEATURED SYSTEMS — devices trade visual prominence as the page moves.
-  systemStories.forEach(story => {
+  systemStories.forEach(({ story, devices }) => {
     const rect = story.getBoundingClientRect();
+    // Nobody can see an off-screen scene move, so don't pay for it every frame.
+    if (rect.bottom < 0 || rect.top > innerHeight) return;
     const progress = clamp((innerHeight - rect.top) / (innerHeight + rect.height), 0, 1);
-    const devices = story.querySelectorAll('.store-device, .studio-device');
     devices.forEach((device, index) => {
       const direction = index === 0 ? -1 : 1;
       const lift = (progress - .5) * 56 * direction;
@@ -703,13 +717,15 @@ function tickScenes() {
 
   // FINALE — computer rotates as you scroll
   const fr = finScene.getBoundingClientRect();
-  const ft = finScene.offsetHeight - innerHeight;
-  const fp = clamp(-fr.top / ft, 0, 1);
-  cmpRig.style.setProperty('--spin', (fp * 70) + 'deg');
+  if (fr.bottom > 0 && fr.top < innerHeight) {
+    const ft = finScene.offsetHeight - innerHeight;
+    const fp = clamp(-fr.top / ft, 0, 1);
+    cmpRig.style.setProperty('--spin', (fp * 70) + 'deg');
+  }
 
   requestAnimationFrame(tickScenes);
 }
-requestAnimationFrame(tickScenes);
+if (!matchMedia('(prefers-reduced-motion: reduce)').matches) requestAnimationFrame(tickScenes);
 
 // fade the real project cards in as they scroll into view
 const cardObserver = new IntersectionObserver((entries) => {
