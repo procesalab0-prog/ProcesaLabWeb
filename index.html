@@ -209,7 +209,7 @@ svg{fill:currentColor}
 /* SECOND DEVICE STORY — vertical product composition for Tacos Don Luis */
 .mobile-story{background:var(--ink);color:var(--cream);overflow:hidden;padding:72px 0 24px}
 .mobile-story-in{display:grid;grid-template-columns:minmax(260px,.8fr) minmax(420px,1.2fr);align-items:center;gap:clamp(18px,5vw,80px);min-height:680px}
-.mobile-story-copy{position:relative;z-index:2;padding:42px 0}
+.mobile-story-copy{position:relative;z-index:2;padding:42px 0;min-width:0}
 .mobile-story .sec-tag{color:var(--pink)}
 .mobile-story h2{font-size:clamp(42px,5.6vw,82px);line-height:.94;letter-spacing:-.055em;max-width:650px;margin:16px 0 24px;color:var(--cream)}
 .mobile-story-copy p{font-size:clamp(16px,1.5vw,20px);line-height:1.55;color:#cfc7ca;max-width:520px}
@@ -219,6 +219,14 @@ svg{fill:currentColor}
 .mobile-story-device::before{content:"";position:absolute;inset:18% 10% 5% 18%;background:radial-gradient(circle,rgba(255,75,61,.3),transparent 66%);filter:blur(45px);z-index:-1}
 .mobile-story-device img{display:block;width:100%;height:auto;filter:drop-shadow(0 34px 36px rgba(0,0,0,.3))}
 .mobile-story-device.in img{animation:phoneFloat 6.5s .6s ease-in-out infinite}
+.mobile-story-device.has-motion img{animation:none}
+.mobile-story-device video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;mix-blend-mode:lighten;-webkit-mask-image:linear-gradient(180deg,#000 84%,transparent 99%);mask-image:linear-gradient(180deg,#000 84%,transparent 99%)}
+.mobile-story-device.motion-ready video{opacity:1}
+.mobile-story-device.motion-ready img{opacity:0}
+.mobile-story-motion-toggle{display:block;margin-top:22px;padding:8px 0;border:0;background:none;color:var(--cream);font:500 12px "Space Grotesk";text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.mobile-story-motion-toggle[hidden]{display:none}
+@media(max-width:760px){.mobile-story-in{grid-template-columns:minmax(0,1fr)!important}.mobile-story-device.has-motion{width:108vw;max-width:none;margin:0 -14vw 0 -4vw}}
+@media(prefers-reduced-motion:reduce){.mobile-story-device.in img{animation:none}}
 @keyframes phoneFloat{0%,100%{transform:translate3d(0,0,0) rotate(.001deg)}50%{transform:translate3d(0,-10px,0) rotate(.35deg)}}
 
 /* FEATURED SYSTEMS — layered device photography with two distinct stories */
@@ -535,8 +543,9 @@ svg{fill:currentColor}
       <p data-es="Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca." data-en="For Tacos Don Luis, we turned ordering, delivery times and WhatsApp service into a fast, clear mobile experience packed with brand flavor.">Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca.</p>
       <a class="mobile-story-link" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener"><span data-es="Explorar Tacos Don Luis" data-en="Explore Tacos Don Luis">Explorar Tacos Don Luis</span><svg aria-hidden="true" viewBox="0 0 18 18" fill="none"><path d="M4 14 14 4M7 4h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
-    <a class="mobile-story-device reveal-up" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
+    <a class="mobile-story-device reveal-up has-motion" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
       <img src="assets/tacos-don-luis-iphone-showcase.webp" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="1146" height="1372" loading="lazy">
+      <video id="donLuisMotion" muted loop playsinline preload="none" aria-hidden="true" data-src="assets/tacos-don-luis-motion.mp4"></video>
     </a>
   </div>
 </section>
@@ -804,6 +813,60 @@ if ('serviceWorker' in navigator) {
     navigator.serviceWorker.register('/sw.js').catch(() => {});
   });
 }
+
+// Load the product video only near the viewport; retain the still on playback failure.
+(() => {
+  const video = document.getElementById('donLuisMotion');
+  const device = video.closest('.mobile-story-device');
+  const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
+  const toggle = document.createElement('button');
+  toggle.type = 'button';
+  toggle.className = 'mobile-story-motion-toggle';
+  toggle.setAttribute('aria-controls', video.id);
+  toggle.hidden = true;
+  document.querySelector('.mobile-story-copy').append(toggle);
+  let visible = false;
+  let userPaused = false;
+  function label() {
+    const en = document.documentElement.lang === 'en';
+    toggle.textContent = video.paused ? (en ? 'Play animation' : 'Reproducir animación') : (en ? 'Pause animation' : 'Pausar animación');
+  }
+  function sync() {
+    if (!visible || document.hidden || reducedMotion.matches || userPaused) {
+      video.pause();
+      if (reducedMotion.matches) {
+        device.classList.remove('motion-ready');
+        toggle.hidden = true;
+      }
+      return;
+    }
+    if (!video.getAttribute('src')) video.src = video.dataset.src;
+    video.muted = true;
+    video.play().catch(() => {
+      device.classList.remove('motion-ready');
+      toggle.hidden = false;
+      label();
+    });
+  }
+  video.addEventListener('playing', () => {
+    device.classList.add('motion-ready');
+    toggle.hidden = false;
+    label();
+  });
+  video.addEventListener('pause', label);
+  video.addEventListener('error', () => {
+    device.classList.remove('motion-ready');
+    toggle.hidden = true;
+  });
+  toggle.addEventListener('click', () => { userPaused = !video.paused; sync(); });
+  new IntersectionObserver(entries => {
+    visible = entries[0].isIntersecting;
+    sync();
+  }, {threshold: 0.05}).observe(device);
+  reducedMotion.addEventListener('change', sync);
+  document.addEventListener('visibilitychange', sync);
+  new MutationObserver(label).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
+})();
 
 // Simple visit counter, shown in the owner's private dashboard.
 (function () {
