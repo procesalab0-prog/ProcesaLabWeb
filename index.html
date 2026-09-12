@@ -225,8 +225,6 @@ svg{fill:currentColor}
 .mobile-story-device.has-motion img{filter:none}
 .mobile-story-device.motion-ready video{opacity:1}
 .mobile-story-device.motion-ready img{opacity:0}
-.mobile-story-motion-toggle{display:block;margin-top:22px;padding:8px 0;border:0;background:none;color:var(--cream);font:500 12px "Space Grotesk";text-decoration:underline;text-underline-offset:4px;cursor:pointer}
-.mobile-story-motion-toggle[hidden]{display:none}
 @media(max-width:760px){.mobile-story-in{grid-template-columns:minmax(0,1fr)!important}.mobile-story-device.has-motion{width:108vw;max-width:none;margin:0 -14vw 0 -4vw}}
 @media(prefers-reduced-motion:reduce){.mobile-story-device.in img{animation:none}}
 @keyframes phoneFloat{0%,100%{transform:translate3d(0,0,0) rotate(.001deg)}50%{transform:translate3d(0,-10px,0) rotate(.35deg)}}
@@ -547,7 +545,7 @@ svg{fill:currentColor}
     </div>
     <a class="mobile-story-device reveal-up has-motion" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
       <img src="assets/tacos-don-luis-clean.png" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="880" height="1168" loading="lazy">
-      <video id="donLuisMotion" muted loop playsinline preload="none" aria-hidden="true" data-src="assets/tacos-don-luis-motion-clean.mp4"></video>
+      <video id="donLuisMotion" muted playsinline preload="none" aria-hidden="true" data-src="assets/tacos-don-luis-motion-clean.mp4"></video>
     </a>
   </div>
 </section>
@@ -816,58 +814,66 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Load the product video only near the viewport; retain the still on playback failure.
+// Tie the Don Luis product film to scroll position in both directions.
 (() => {
   const video = document.getElementById('donLuisMotion');
   const device = video.closest('.mobile-story-device');
+  const section = device.closest('.mobile-story');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  const toggle = document.createElement('button');
-  toggle.type = 'button';
-  toggle.className = 'mobile-story-motion-toggle';
-  toggle.setAttribute('aria-controls', video.id);
-  toggle.hidden = true;
-  document.querySelector('.mobile-story-copy').append(toggle);
-  let visible = false;
-  let userPaused = false;
-  function label() {
-    const en = document.documentElement.lang === 'en';
-    toggle.textContent = video.paused ? (en ? 'Play animation' : 'Reproducir animación') : (en ? 'Pause animation' : 'Pausar animación');
+  let framePending = false;
+
+  function scrollProgress() {
+    const rect = section.getBoundingClientRect();
+    const start = innerHeight * .85;
+    const distance = rect.height + innerHeight * .45;
+    return Math.min(1, Math.max(0, (start - rect.top) / distance));
   }
-  function sync() {
-    if (!visible || document.hidden || reducedMotion.matches || userPaused) {
-      video.pause();
-      if (reducedMotion.matches) {
-        device.classList.remove('motion-ready');
-        toggle.hidden = true;
-      }
-      return;
-    }
-    if (!video.getAttribute('src')) video.src = video.dataset.src;
-    video.muted = true;
-    video.play().catch(() => {
-      device.classList.remove('motion-ready');
-      toggle.hidden = false;
-      label();
-    });
+
+  function updateFrame() {
+    framePending = false;
+    if (reducedMotion.matches || !Number.isFinite(video.duration)) return;
+    const nextTime = scrollProgress() * Math.max(0, video.duration - .04);
+    if (Math.abs(video.currentTime - nextTime) > .015) video.currentTime = nextTime;
   }
-  video.addEventListener('playing', () => {
+
+  function requestFrame() {
+    if (framePending) return;
+    framePending = true;
+    requestAnimationFrame(updateFrame);
+  }
+
+  function loadMotion() {
+    if (reducedMotion.matches || video.getAttribute('src')) return;
+    video.src = video.dataset.src;
+    video.load();
+  }
+
+  video.addEventListener('loadeddata', () => {
+    video.pause();
     device.classList.add('motion-ready');
-    toggle.hidden = false;
-    label();
+    requestFrame();
   });
-  video.addEventListener('pause', label);
   video.addEventListener('error', () => {
     device.classList.remove('motion-ready');
-    toggle.hidden = true;
   });
-  toggle.addEventListener('click', () => { userPaused = !video.paused; sync(); });
+
   new IntersectionObserver(entries => {
-    visible = entries[0].isIntersecting;
-    sync();
-  }, {threshold: 0.05}).observe(device);
-  reducedMotion.addEventListener('change', sync);
-  document.addEventListener('visibilitychange', sync);
-  new MutationObserver(label).observe(document.documentElement, {attributes:true, attributeFilter:['lang']});
+    if (entries[0].isIntersecting) loadMotion();
+  }, {rootMargin: '80% 0px'}).observe(section);
+
+  function motionPreferenceChanged() {
+    if (reducedMotion.matches) {
+      device.classList.remove('motion-ready');
+      video.pause();
+    } else {
+      loadMotion();
+      if (video.readyState >= 2) device.classList.add('motion-ready');
+      requestFrame();
+    }
+  }
+  reducedMotion.addEventListener('change', motionPreferenceChanged);
+  addEventListener('scroll', requestFrame, {passive:true});
+  addEventListener('resize', requestFrame, {passive:true});
 })();
 
 // Simple visit counter, shown in the owner's private dashboard.
