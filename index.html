@@ -220,7 +220,9 @@ svg{fill:currentColor}
 .mobile-story-device img{display:block;width:100%;height:auto;filter:drop-shadow(0 34px 36px rgba(0,0,0,.3))}
 .mobile-story-device.in img{animation:phoneFloat 6.5s .6s ease-in-out infinite}
 .mobile-story-device.has-motion img{animation:none}
-.mobile-story-device video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;mix-blend-mode:lighten;-webkit-mask-image:linear-gradient(180deg,#000 84%,transparent 99%);mask-image:linear-gradient(180deg,#000 84%,transparent 99%)}
+.mobile-story-device video{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;-webkit-mask-image:linear-gradient(180deg,#000 84%,transparent 99%);mask-image:linear-gradient(180deg,#000 84%,transparent 99%)}
+.mobile-story-device.has-motion{mix-blend-mode:lighten;-webkit-mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent);mask-image:linear-gradient(90deg,transparent,#000 7%,#000 93%,transparent)}
+.mobile-story-device.has-motion img{filter:none}
 .mobile-story-device.motion-ready video{opacity:1}
 .mobile-story-device.motion-ready img{opacity:0}
 .mobile-story-motion-toggle{display:block;margin-top:22px;padding:8px 0;border:0;background:none;color:var(--cream);font:500 12px "Space Grotesk";text-decoration:underline;text-underline-offset:4px;cursor:pointer}
@@ -544,8 +546,8 @@ svg{fill:currentColor}
       <a class="mobile-story-link" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener"><span data-es="Explorar Tacos Don Luis" data-en="Explore Tacos Don Luis">Explorar Tacos Don Luis</span><svg aria-hidden="true" viewBox="0 0 18 18" fill="none"><path d="M4 14 14 4M7 4h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
     </div>
     <a class="mobile-story-device reveal-up has-motion" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
-      <img src="assets/tacos-don-luis-iphone-showcase.webp" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="1146" height="1372" loading="lazy">
-      <video id="donLuisMotion" muted loop playsinline preload="none" aria-hidden="true" data-src="assets/tacos-don-luis-motion.mp4"></video>
+      <img src="assets/tacos-don-luis-clean.png" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="880" height="1168" loading="lazy">
+      <video id="donLuisMotion" muted loop playsinline preload="none" aria-hidden="true" data-src="assets/tacos-don-luis-motion-clean.mp4"></video>
     </a>
   </div>
 </section>
