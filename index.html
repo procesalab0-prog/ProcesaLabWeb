@@ -243,6 +243,15 @@ svg{fill:currentColor}
 .store-device-secondary{width:108%;margin-left:-16%;transform:rotate(1.5deg);z-index:2}
 .store-device.in img{animation:systemFloat 7s ease-in-out infinite}.store-device-secondary.in img{animation-delay:.8s}
 .store-device:hover{z-index:3}.store-device-primary:hover{transform:translateY(-10px) rotate(-.5deg)}.store-device-secondary:hover{transform:translateY(-10px) rotate(1deg)}
+.store-stage.has-motion{isolation:auto}
+.store-stage.has-motion .store-device{mix-blend-mode:multiply;translate:var(--store-x,0%) var(--store-y,0px);scale:var(--store-scale,1);transition:none;-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.store-stage.has-motion .store-device img{animation:none;filter:none}
+.store-stage.has-motion .store-device:hover{transform:rotate(-1.2deg)}
+.store-stage.has-motion .store-device-secondary:hover{transform:rotate(1.5deg)}
+.store-device video{position:absolute;inset:0;display:block;width:100%;height:100%;object-fit:contain;opacity:0}
+.store-device.motion-ready video{opacity:1}.store-device.motion-ready img{opacity:0}
+.store-device-secondary video{-webkit-mask-image:linear-gradient(180deg,#000 84%,transparent 99%);mask-image:linear-gradient(180deg,#000 84%,transparent 99%)}
+@media(prefers-reduced-motion:reduce){.store-stage.has-motion .store-device{translate:none;scale:1}}
 .story-label{position:absolute;left:4%;bottom:4%;z-index:4;background:var(--ink);color:var(--cream);padding:13px 18px;border-radius:999px;font:700 12px "Space Grotesk";letter-spacing:.07em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red)}
 @keyframes systemFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
@@ -477,6 +486,22 @@ svg{fill:currentColor}
   </div>
 </div>
 
+<!-- PROJECT STORY: a second interface shown as a product, not a flat screenshot -->
+<section class="mobile-story">
+  <div class="wrap mobile-story-in">
+    <div class="mobile-story-copy reveal-up">
+      <div class="sec-tag" data-es="Comercio móvil" data-en="Mobile commerce">Comercio móvil</div>
+      <h2 data-es="Tu negocio cabe en una mano." data-en="Your business fits in one hand.">Tu negocio cabe en una mano.</h2>
+      <p data-es="Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca." data-en="For Tacos Don Luis, we turned ordering, delivery times and WhatsApp service into a fast, clear mobile experience packed with brand flavor.">Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca.</p>
+      <a class="mobile-story-link" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener"><span data-es="Explorar Tacos Don Luis" data-en="Explore Tacos Don Luis">Explorar Tacos Don Luis</span><svg aria-hidden="true" viewBox="0 0 18 18" fill="none"><path d="M4 14 14 4M7 4h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <a class="mobile-story-device reveal-up has-motion" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
+      <img src="assets/tacos-don-luis-clean.png" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="880" height="1168" loading="lazy">
+      <video id="donLuisMotion" muted playsinline preload="none" aria-hidden="true" data-src="assets/tacos-don-luis-motion-clean.mp4"></video>
+    </a>
+  </div>
+</section>
+
 <!-- SERVICES -->
 <section class="sec wrap" id="servicios">
   <div class="sec-head">
@@ -534,22 +559,6 @@ svg{fill:currentColor}
   </a>
 </section>
 
-<!-- PROJECT STORY: a second interface shown as a product, not a flat screenshot -->
-<section class="mobile-story">
-  <div class="wrap mobile-story-in">
-    <div class="mobile-story-copy reveal-up">
-      <div class="sec-tag" data-es="Comercio móvil" data-en="Mobile commerce">Comercio móvil</div>
-      <h2 data-es="Tu negocio cabe en una mano." data-en="Your business fits in one hand.">Tu negocio cabe en una mano.</h2>
-      <p data-es="Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca." data-en="For Tacos Don Luis, we turned ordering, delivery times and WhatsApp service into a fast, clear mobile experience packed with brand flavor.">Para Tacos Don Luis convertimos pedidos, tiempos de entrega y atención por WhatsApp en una experiencia móvil rápida, clara y con mucho sabor de marca.</p>
-      <a class="mobile-story-link" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener"><span data-es="Explorar Tacos Don Luis" data-en="Explore Tacos Don Luis">Explorar Tacos Don Luis</span><svg aria-hidden="true" viewBox="0 0 18 18" fill="none"><path d="M4 14 14 4M7 4h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
-    </div>
-    <a class="mobile-story-device reveal-up has-motion" href="https://tacos-don-luis.vercel.app/pedir/" target="_blank" rel="noopener" aria-label="Ver el proyecto Tacos Don Luis">
-      <img src="assets/tacos-don-luis-clean.png" alt="Aplicación de Tacos Don Luis presentada en un iPhone sostenido con una mano" width="880" height="1168" loading="lazy">
-      <video id="donLuisMotion" muted playsinline preload="none" aria-hidden="true" data-src="assets/tacos-don-luis-motion-clean.mp4"></video>
-    </a>
-  </div>
-</section>
-
 <!-- FEATURED SYSTEM: Mi Tienda SM -->
 <section class="systems-story store-story" aria-labelledby="tiendaTitle">
   <div class="wrap">
@@ -558,12 +567,14 @@ svg{fill:currentColor}
       <h2 id="tiendaTitle" data-es="Toda la tienda, en una sola pantalla." data-en="Your whole store, on one screen.">Toda la tienda, en una sola pantalla.</h2>
       <p data-es="Mi Tienda SM reúne ventas, productos, inventario, caja, reportes, clientes y sucursales en un sistema diseñado para trabajar rápido y crecer sin perder el control." data-en="Mi Tienda SM brings sales, products, inventory, cash management, reports, customers and branches together in a system designed for speed and controlled growth.">Mi Tienda SM reúne ventas, productos, inventario, caja, reportes, clientes y sucursales en un sistema diseñado para trabajar rápido y crecer sin perder el control.</p>
     </div>
-    <div class="store-stage" aria-label="Vistas del sistema Mi Tienda SM en computadoras portátiles">
+    <div class="store-stage has-motion" aria-label="Vistas del sistema Mi Tienda SM en computadoras portátiles">
       <figure class="store-device store-device-primary reveal-up">
-        <img src="assets/mi-tienda-sm-acceso-laptop.webp" alt="Acceso protegido de Mi Tienda SM mostrado en una computadora portátil" width="977" height="636" loading="lazy">
+        <img src="assets/mi-tienda-sm-gray-clean.png" alt="Acceso protegido de Mi Tienda SM mostrado en una computadora portátil" width="1024" height="688" loading="lazy">
+        <video id="tiendaGrayMotion" muted playsinline preload="none" aria-hidden="true" data-src="assets/mi-tienda-sm-gray-motion.mp4"></video>
       </figure>
       <figure class="store-device store-device-secondary reveal-up">
-        <img src="assets/mi-tienda-sm-acceso-mano.webp" alt="Acceso protegido de Mi Tienda SM mostrado en una computadora portátil sostenida con una mano" width="909" height="784" loading="lazy">
+        <img src="assets/mi-tienda-sm-yellow-clean.png" alt="Acceso protegido de Mi Tienda SM mostrado en una computadora portátil sostenida con una mano" width="1168" height="880" loading="lazy">
+        <video id="tiendaYellowMotion" muted playsinline preload="none" aria-hidden="true" data-src="assets/mi-tienda-sm-yellow-motion.mp4"></video>
       </figure>
       <span class="story-label" data-es="Venta · inventario · operación" data-en="Sales · inventory · operations">Venta · inventario · operación</span>
     </div>
@@ -703,7 +714,7 @@ const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const cmpRig = document.getElementById('cmpRig');
 const finScene = document.getElementById('contacto');
 // Resolved once: this runs on every animation frame.
-const systemStories = [...document.querySelectorAll('.systems-story')].map(story => ({
+const systemStories = [...document.querySelectorAll('.studio-story')].map(story => ({
   story, devices: [...story.querySelectorAll('.store-device, .studio-device')]
 }));
 
@@ -814,66 +825,80 @@ if ('serviceWorker' in navigator) {
   });
 }
 
-// Tie the Don Luis product film to scroll position in both directions.
+// Product films stay paused; scroll selects their frame in either direction.
 (() => {
-  const video = document.getElementById('donLuisMotion');
-  const device = video.closest('.mobile-story-device');
-  const section = device.closest('.mobile-story');
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
-  let framePending = false;
-
-  function scrollProgress() {
-    const rect = section.getBoundingClientRect();
-    const start = innerHeight * .85;
-    const distance = rect.height + innerHeight * .45;
-    return Math.min(1, Math.max(0, (start - rect.top) / distance));
+  const scenes = [
+    {element: document.querySelector('.mobile-story'), videos: [document.getElementById('donLuisMotion')]},
+    {element: document.querySelector('.store-stage'), videos: [...document.querySelectorAll('.store-device video')]}
+  ];
+  let pending = false;
+  function progress(element) {
+    const rect = element.getBoundingClientRect();
+    return Math.min(1, Math.max(0, (innerHeight * .85 - rect.top) / (rect.height + innerHeight * .45)));
   }
-
-  function updateFrame() {
-    framePending = false;
-    if (reducedMotion.matches || !Number.isFinite(video.duration)) return;
-    const nextTime = scrollProgress() * Math.max(0, video.duration - .04);
-    if (Math.abs(video.currentTime - nextTime) > .015) video.currentTime = nextTime;
+  function seek(video) {
+    if (reducedMotion.matches || video.seeking || video.readyState < 2 || !Number.isFinite(video.duration)) return;
+    const target = Number(video.dataset.progress || 0) * Math.max(0, video.duration - .04);
+    if (Math.abs(video.currentTime - target) > .025) video.currentTime = target;
   }
-
-  function requestFrame() {
-    if (framePending) return;
-    framePending = true;
-    requestAnimationFrame(updateFrame);
+  function update() {
+    pending = false;
+    if (reducedMotion.matches) return;
+    scenes.forEach(scene => {
+      const p = progress(scene.element);
+      scene.videos.forEach((video, index) => {
+        video.dataset.progress = p;
+        seek(video);
+        if (scene.element.matches('.store-stage')) {
+          const device = video.parentElement;
+          const direction = index === 0 ? -1 : 1;
+          device.style.setProperty('--store-x', (direction * p * 3) + '%');
+          device.style.setProperty('--store-y', (direction * (p - .5) * 42) + 'px');
+          device.style.setProperty('--store-scale', index === 0 ? 1.025 - p * .09 : .94 + p * .105);
+          device.style.zIndex = index === 0 ? (p < .4 ? '2' : '1') : (p < .4 ? '1' : '2');
+        }
+      });
+    });
   }
-
-  function loadMotion() {
-    if (reducedMotion.matches || video.getAttribute('src')) return;
-    video.src = video.dataset.src;
-    video.load();
+  function schedule() {
+    if (!pending) { pending = true; requestAnimationFrame(update); }
   }
-
-  video.addEventListener('loadeddata', () => {
-    video.pause();
-    device.classList.add('motion-ready');
-    requestFrame();
+  function load(scene) {
+    if (reducedMotion.matches) return;
+    scene.videos.forEach(video => {
+      if (!video.getAttribute('src')) { video.src = video.dataset.src; video.load(); }
+    });
+  }
+  scenes.forEach(scene => {
+    scene.videos.forEach(video => {
+      video.addEventListener('loadeddata', () => {
+        video.pause();
+        if (!reducedMotion.matches) video.parentElement.classList.add('motion-ready');
+        schedule();
+      });
+      video.addEventListener('seeked', () => seek(video));
+      video.addEventListener('progress', schedule);
+      video.addEventListener('error', () => video.parentElement.classList.remove('motion-ready'));
+    });
+    new IntersectionObserver(entries => {
+      if (entries[0].isIntersecting) load(scene);
+    }, {rootMargin: '80% 0px'}).observe(scene.element);
+    new ResizeObserver(schedule).observe(scene.element);
   });
-  video.addEventListener('error', () => {
-    device.classList.remove('motion-ready');
+  reducedMotion.addEventListener('change', () => {
+    scenes.forEach(scene => {
+      scene.videos.forEach(video => {
+        video.pause();
+        video.parentElement.classList.toggle('motion-ready', !reducedMotion.matches && video.readyState >= 2);
+      });
+      if (!reducedMotion.matches) load(scene);
+    });
+    schedule();
   });
-
-  new IntersectionObserver(entries => {
-    if (entries[0].isIntersecting) loadMotion();
-  }, {rootMargin: '80% 0px'}).observe(section);
-
-  function motionPreferenceChanged() {
-    if (reducedMotion.matches) {
-      device.classList.remove('motion-ready');
-      video.pause();
-    } else {
-      loadMotion();
-      if (video.readyState >= 2) device.classList.add('motion-ready');
-      requestFrame();
-    }
-  }
-  reducedMotion.addEventListener('change', motionPreferenceChanged);
-  addEventListener('scroll', requestFrame, {passive:true});
-  addEventListener('resize', requestFrame, {passive:true});
+  addEventListener('scroll', schedule, {passive:true});
+  addEventListener('resize', schedule, {passive:true});
+  schedule();
 })();
 
 // Simple visit counter, shown in the owner's private dashboard.

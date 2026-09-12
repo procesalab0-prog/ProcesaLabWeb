@@ -52,12 +52,13 @@ Rediseñar la sección actual de proyectos empezando por el espacio del archiver
 
 Tomar la implementación de Tacos Don Luis como referencia para animar las demás escenas de producto de la landing. Las nuevas piezas visuales se producirán con Higgsfield y se integrarán con el mismo comportamiento ligado al scroll: al bajar, la animación avanza; al subir, retrocede; al detener el desplazamiento, conserva el fotograma actual.
 
-Orden previsto:
+Actualización del 12 de septiembre de 2026: por petición del usuario, Mi Tienda SM se adelantó. Se generaron dos clips independientes de 5 segundos en 1080p con Higgsfield, mostrando únicamente las pantallas de acceso autorizadas. Comparten un controlador reversible de scroll con Don Luis, carga diferida y respaldo estático. Don Luis se movió inmediatamente después del hero y la marquesina. Se conservan los recursos anteriores para facilitar la reversión.
+
+Orden restante previsto:
 
 1. Herraidea: animar el dispositivo plegable conservando la interfaz y la estructura del sitio.
-2. Mi Tienda SM: animar las dos laptops como piezas independientes y mantener su superposición visual.
-3. Muromío: animar las dos tabletas, cuidando especialmente el encuadre y la legibilidad en teléfono.
-4. Revisar las demás escenas de proyectos que se incorporen a la landing y aplicar el mismo sistema cuando aporte claridad.
+2. Muromío: animar las dos tabletas, cuidando especialmente el encuadre y la legibilidad en teléfono.
+3. Revisar las demás escenas de proyectos que se incorporen a la landing y aplicar el mismo sistema cuando aporte claridad.
 
 Requisitos para cada generación:
 
