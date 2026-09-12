@@ -48,6 +48,27 @@ Las imágenes son referencias de composición y presentación. La ejecución fin
 
 Rediseñar la sección actual de proyectos empezando por el espacio del archivero. La primera versión puede mostrar un iPhone con Vaquero HUB, Tacos Don Luis o Herraidea en pantalla, acompañado por un selector sencillo para cambiar de proyecto. Después se pueden añadir variantes animadas en el hero, servicios y casos de éxito.
 
+## Siguiente etapa acordada: animaciones con Higgsfield
+
+Tomar la implementación de Tacos Don Luis como referencia para animar las demás escenas de producto de la landing. Las nuevas piezas visuales se producirán con Higgsfield y se integrarán con el mismo comportamiento ligado al scroll: al bajar, la animación avanza; al subir, retrocede; al detener el desplazamiento, conserva el fotograma actual.
+
+Orden previsto:
+
+1. Herraidea: animar el dispositivo plegable conservando la interfaz y la estructura del sitio.
+2. Mi Tienda SM: animar las dos laptops como piezas independientes y mantener su superposición visual.
+3. Muromío: animar las dos tabletas, cuidando especialmente el encuadre y la legibilidad en teléfono.
+4. Revisar las demás escenas de proyectos que se incorporen a la landing y aplicar el mismo sistema cuando aporte claridad.
+
+Requisitos para cada generación:
+
+- Utilizar una imagen base limpia y de alta resolución antes de generar el video.
+- Mantener sin cambios los logos, textos, capturas, colores e interfaces de cada proyecto.
+- Evitar halos, bordes dentados, píxeles sueltos y recortes visibles alrededor de dispositivos o manos.
+- Usar movimientos breves y sutiles que puedan recorrerse en ambos sentidos mediante el scroll.
+- Integrar el fondo del video con el color real de su sección.
+- Conservar una imagen estática como respaldo y para `prefers-reduced-motion`.
+- Comprobar el resultado en teléfono, iPad y computadora antes de publicarlo.
+
 ## Recursos necesarios al implementarlo
 
 - Capturas limpias de cada app o web en móvil y computadora.
