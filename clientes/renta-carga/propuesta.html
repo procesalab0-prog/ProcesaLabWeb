@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Propuesta digital — Renta Carga × ProcesaLab</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/client-check?slug=renta-carga')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = './login.html';
+      }
+    })
+    .catch(function () { location.href = './login.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--pink:#F7B6C9;--pinkl:#FBE3EA;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--lavl:#F5F0F8;--muted:#5f565a;--line:#E7DED8}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.6;font-size:15px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 12px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+
+.pllogo{position:relative;display:inline-block;line-height:0;max-width:100%}
+.pllogo img{display:block;height:100%;width:auto;max-width:100%}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:plspin 9s linear infinite}
+.pllogo .gt{fill:var(--gear,var(--red))}
+.pllogo .gh{fill:var(--patch,#fff)}
+@keyframes plspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.pllogo .plgear{animation:none}}
+@media print{.pllogo .plgear{animation:none}}
+
+/* Renta Carga logo */
+.rc{display:inline-block;line-height:0;max-width:100%}
+.rc img{display:block;height:100%;width:auto;max-width:100%}
+.rc.plate{padding:0}
+
+.cover-top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding-bottom:13px;border-bottom:1.5px solid var(--line)}
+.cover-top .pllogo{height:40px;--patch:#fff}
+.cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:right}
+
+/* cover: cream slab */
+.hero{position:relative;background:var(--cream);border:2.5px solid var(--ink);padding:32px 34px 30px;margin-top:16px;overflow:hidden;color:var(--ink);display:grid;grid-template-columns:1fr 196px;gap:0 18px;align-items:end}
+.hero>div{position:relative}
+.hero-r{align-self:end}
+.hero-r img{display:block;width:100%;height:auto}
+.hero .rc{height:104px;margin-bottom:24px}
+.hero .ey{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+.hero h1{font-size:44px;font-weight:700;margin:11px 0 0;color:var(--ink);max-width:15ch}
+.hero .sub{font-size:14.5px;margin-top:14px;color:var(--muted);max-width:430px;line-height:1.55}
+.hero .rail{display:flex;align-items:center;gap:0;margin-top:26px}
+.hero .rail i{height:3px;background:#e0d6d0;flex:1}
+.hero .rail i.on{background:var(--red)}
+.hero .rail b{width:11px;height:11px;border-radius:50%;background:var(--pink);flex:none;border:2px solid var(--ink)}
+.hero .rail b.s{background:var(--red)}
+.hero .rail b.e{background:var(--ink)}
+.hero .ver{display:inline-block;font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;padding:6px 12px;margin-top:22px}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin:20px 0 4px;break-inside:avoid;background:var(--lavl);border:1.5px solid var(--line);padding:16px 10px 14px}
+.jn{position:relative;padding:26px 8px 0;text-align:center}
+.jn::before{content:"";position:absolute;left:0;right:0;top:9px;height:2.5px;background:var(--pink)}
+.jn:first-child::before{left:50%}
+.jn:last-child::before{right:50%}
+.jn::after{content:"";position:absolute;left:50%;top:3px;width:15px;height:15px;margin-left:-7.5px;border-radius:50%;background:var(--lavl);border:2.5px solid var(--red)}
+.jn.f::after{background:var(--red)}
+.jn:nth-child(3)::after{border-color:#8a2f3f}
+.jn:nth-child(4)::after{border-color:#8a2f3f}
+.jn:nth-child(5)::after,.jn:nth-child(6)::after{border-color:var(--ink)}
+.jn .n{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.jn .t{font-family:"Space Grotesk";font-weight:700;font-size:13px;margin-top:3px}
+
+h2.sec{font-size:25px;margin:32px 0 4px;display:flex;align-items:center;gap:14px;break-after:avoid}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:31px;color:transparent;-webkit-text-stroke:1.6px var(--red);flex:none;line-height:1}
+h2.sec::after{content:"";flex:1;height:2px;background:var(--pink)}
+.lead{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+h3.sub{font-family:"Space Grotesk";font-size:16.5px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:9px}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+
+ul.clean{margin:6px 0 14px;padding:0;list-style:none}
+ul.clean li{position:relative;padding-left:17px;margin-bottom:5px;font-size:13.5px;break-inside:avoid}
+ul.clean li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;background:var(--red);border-radius:1px}
+ul.cols{columns:2;column-gap:26px}
+ul.clean.soft li::before{background:var(--pink)}
+
+/* proposals: big numeral + rule */
+.prop{display:grid;grid-template-columns:96px 1fr;gap:0 20px;padding:18px 0;border-top:1.5px solid var(--line);break-inside:avoid}
+.prop .ic{display:block;width:100%;height:auto;margin-top:12px}
+.prop:first-of-type{border-top:2.5px solid var(--ink)}
+.prop .pn{font-family:"Space Grotesk";font-weight:700;font-size:46px;line-height:.85;color:var(--pink);letter-spacing:-.04em}
+.prop:nth-of-type(even) .pn{color:var(--red)}
+.prop:nth-of-type(3n) .pn{color:#c9a6b4}
+.prop .pk{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-top:7px}
+.prop h4{font-size:19px;margin:0 0 7px}
+.prop p{font-size:13.5px;margin:0 0 8px;color:#2e2a2b}
+.prop ul.clean{margin:8px 0 0}
+.prop ul.clean li{font-size:12.5px;margin-bottom:4px}
+.prop .ben{margin-top:11px;padding-top:9px;border-top:1.5px solid var(--line);font-size:12.5px;color:var(--muted)}
+.prop .ben b{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:3px}
+
+/* growth cards */
+.grow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;break-inside:avoid}
+.gc{border-top:3px solid var(--red);padding:13px 15px;background:var(--pinkl)}
+.gc:nth-child(even){border-top-color:var(--pink);background:var(--lavl)}
+.gc h4{font-size:14.5px;margin:0 0 5px}
+.gc p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.5}
+
+/* stage ladder */
+.ladder{margin:16px 0;break-inside:avoid}
+.st{display:grid;grid-template-columns:auto 1fr;gap:0 18px;padding:14px 16px;border-bottom:1.5px solid var(--line);align-items:start}
+.st:nth-child(odd){background:var(--lavl)}
+.st:nth-child(even){background:var(--pinkl)}
+.st:first-child{border-top:2.5px solid var(--ink)}
+.st .sn{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--ink);padding:5px 9px;height:max-content;white-space:nowrap}
+.st:nth-child(2) .sn{background:var(--red)}
+.st:nth-child(3) .sn{background:#8a2f3f}
+.st:nth-child(4) .sn{background:var(--pink);color:var(--ink)}
+.st h4{font-size:16px;margin:0 0 4px}
+.st p{font-size:13px;color:var(--muted);margin:0}
+
+/* example timeline */
+.tl{margin:14px 0;break-inside:avoid}
+.tl li{list-style:none;position:relative;padding:0 0 15px 30px;border-left:2px solid var(--pink);margin-left:6px}
+.tl li:last-child{border-left-color:transparent;padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--cream);border:2.5px solid var(--red)}
+.tl li:nth-child(3)::before,.tl li:nth-child(4)::before{border-color:#8a2f3f}
+.tl li:nth-child(5)::before,.tl li:nth-child(6)::before{border-color:var(--ink)}
+.tl li:nth-child(3) b,.tl li:nth-child(4) b{color:#8a2f3f}
+.tl li:nth-child(5) b,.tl li:nth-child(6) b{color:var(--ink)}
+.tl li b{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);display:block}
+.tl li span{font-size:13.5px;display:block;margin-top:2px}
+.tl ul{padding:0;margin:0}
+
+.callout{border-top:1.5px solid var(--ink);padding:13px 16px;margin:18px 0;break-inside:avoid;background:var(--lavl)}
+.callout .lbl{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.callout p{font-size:13.5px}
+.callout p:last-child{margin-bottom:0}
+.callout.pk{border-top-color:var(--red);background:var(--pinkl)}
+.callout.pk .lbl{color:var(--ink)}
+
+.band{background:var(--pink);padding:28px 30px;margin:20px 0 0;break-inside:avoid;color:var(--ink)}
+.band .rc{height:78px;margin-bottom:18px}
+.band .big{font-family:"Space Grotesk";font-weight:700;font-size:28px;line-height:1.14;color:var(--ink)}
+.band .big span{color:#8a2f3f}
+.band p{color:#5a2733;font-size:13px;margin:12px 0 0;max-width:560px}
+
+.collab{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;margin:14px 0 0;padding:24px;background:var(--cream);border:2.5px solid var(--ink);break-inside:avoid;--patch:var(--cream)}
+.collab .pllogo{height:34px;--gear:var(--red)}
+.collab .rc{height:58px}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:30px;color:var(--red);line-height:1;flex:none}
+
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh .pllogo{height:13px;--patch:#fff}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+.rf b{color:var(--red)}
+</style>
+</head>
+<body>
+<doc-page size="letter" margin="0.7in">
+
+<div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Propuesta digital · Renta Carga</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+<div class="cover-top">
+  <span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <div class="for">Propuesta digital para<br><strong style="color:var(--ink);font-size:14px">Renta Carga</strong></div>
+</div>
+
+<div class="hero">
+ <div class="hero-l">
+  <div class="rc plate"><img src="assets/rentacarga-logo.png" alt="Renta Carga"></div>
+  <div class="ey">Renta Carga × ProcesaLab</div>
+  <h1>Más oportunidades de venta, mejor seguimiento y mayor control de cada servicio</h1>
+  <div class="sub">Soluciones para conectar la atención al cliente con la operación del negocio, implementables por etapas según sus prioridades.</div>
+  <div class="rail"><b class="s"></b><i class="on"></i><b></b><i class="on"></i><b></b><i></i><b></b><i></i><b></b><i></i><b class="e"></b></div>
+  <span class="ver">Propuesta · Septiembre 2026</span>
+ </div>
+ <div class="hero-r"><img src="assets/rc-unidad.png" alt="Unidad Renta Carga"></div>
+</div>
+
+<h2 class="sec"><span class="no">1</span>Una experiencia conectada</h2>
+<p class="lead">Proponemos acompañar todo el recorrido de un cliente: desde que busca un flete o una mudanza hasta que recibe su servicio. El objetivo es facilitar las solicitudes, agilizar las cotizaciones, organizar los viajes y reunir información útil para tomar decisiones.</p>
+<div class="journey">
+  <div class="jn f"><div class="n">01</div><div class="t">Solicitud</div></div>
+  <div class="jn f"><div class="n">02</div><div class="t">Cotización</div></div>
+  <div class="jn"><div class="n">03</div><div class="t">Seguimiento</div></div>
+  <div class="jn"><div class="n">04</div><div class="t">Programación</div></div>
+  <div class="jn"><div class="n">05</div><div class="t">Entrega</div></div>
+  <div class="jn"><div class="n">06</div><div class="t">Resultados</div></div>
+</div>
+<div class="callout">
+  <div class="lbl">Cómo leer esta propuesta</div>
+  <p style="margin-bottom:0">Cada módulo puede implementarse de forma independiente o conectada a los demás. El orden y el alcance se definen con Renta Carga según sus prioridades.</p>
+</div>
+
+<h2 class="sec"><span class="no">2</span>Las seis propuestas</h2>
+<p class="lead">Seis módulos que cubren el recorrido completo, desde la captación de clientes hasta la lectura de resultados.</p>
+
+<div class="prop">
+  <div><div class="pn">01</div><div class="pk">Captación</div><img class="ic" src="assets/rc-truck.png" alt=""></div>
+  <div>
+    <h4>Landing page comercial</h4>
+    <p>Una página diseñada para presentar los servicios de Renta Carga y facilitar que los visitantes soliciten una cotización.</p>
+    <ul class="clean">
+      <li>Servicios, cobertura y fotografías reales</li>
+      <li>Razones para elegir a la empresa y preguntas frecuentes</li>
+      <li>Contacto directo por WhatsApp</li>
+      <li>Solicitud con origen, destino, fecha y descripción de lo que se transportará</li>
+    </ul>
+    <div class="ben"><b>Beneficio principal</b>Ofrecer una presencia profesional y facilitar el primer contacto con clientes potenciales.</div>
+  </div>
+</div>
+
+<div class="prop">
+  <div><div class="pn">02</div><div class="pk">Comercial</div><img class="ic" src="assets/rc-pin.png" alt=""></div>
+  <div>
+    <h4>Seguimiento de clientes y cotizaciones</h4>
+    <p>Un espacio para reunir las solicitudes y conocer en qué etapa se encuentra cada oportunidad.</p>
+    <ul class="clean">
+      <li>Registro de clientes y asignación de responsables</li>
+      <li>Notas y recordatorios de seguimiento programados</li>
+      <li>Identificar qué solicitudes están pendientes de cotizar, cuáles esperan respuesta y cuáles ya fueron aceptadas</li>
+    </ul>
+    <div class="ben"><b>Beneficio principal</b>Dar continuidad a cada oportunidad y mantener organizada la atención comercial.</div>
+  </div>
+</div>
+
+<div class="prop">
+  <div><div class="pn">03</div><div class="pk">Cotización</div><img class="ic" src="assets/rc-route.png" alt=""></div>
+  <div>
+    <h4>Cotizador para el equipo</h4>
+    <p>Una herramienta interna para preparar cotizaciones utilizando las tarifas y reglas de Renta Carga.</p>
+    <ul class="clean">
+      <li>Factores que la empresa defina: recorrido, tipo de unidad, carga, personal de apoyo, maniobras y servicios adicionales</li>
+      <li>Cotización con la imagen de la empresa, lista para revisar y compartir</li>
+      <li>El precio final siempre validado por el equipo antes de enviarlo</li>
+    </ul>
+    <div class="ben"><b>Beneficio principal</b>Agilizar la preparación de propuestas y mantener criterios consistentes al cotizar.</div>
+  </div>
+</div>
+
+<div class="prop">
+  <div><div class="pn">04</div><div class="pk">Operación</div><img class="ic" src="assets/rc-time.png" alt=""></div>
+  <div>
+    <h4>Agenda operativa</h4>
+    <p>Un calendario central para organizar los servicios confirmados y asignar unidades, operadores y personal de apoyo.</p>
+    <ul class="clean">
+      <li>Cada viaje con origen, destino, horario, contacto e instrucciones especiales</li>
+      <li>Consulta de disponibilidad de unidades y personal</li>
+      <li>Identificación de posibles empalmes de programación</li>
+    </ul>
+    <div class="ben"><b>Beneficio principal</b>Facilitar la coordinación del equipo y la preparación de cada servicio.</div>
+  </div>
+</div>
+
+<div class="prop">
+  <div><div class="pn">05</div><div class="pk">Evidencia</div><img class="ic" src="assets/rc-shield.png" alt=""></div>
+  <div>
+    <h4>Expediente digital del servicio</h4>
+    <p>Un registro consultable desde el celular con la información y las evidencias de cada traslado.</p>
+    <ul class="clean">
+      <li>Inventario y fotografías de carga y descarga</li>
+      <li>Observaciones, incidencias y acuse de entrega</li>
+      <li>Todo asociado al servicio correspondiente para facilitar consultas posteriores</li>
+    </ul>
+    <div class="ben"><b>Beneficio principal</b>Documentar el trabajo realizado y contar con información organizada para atender aclaraciones.</div>
+  </div>
+</div>
+
+<div class="prop">
+  <div><div class="pn">06</div><div class="pk">Dirección</div><img class="ic" src="assets/rc-map.png" alt=""></div>
+  <div>
+    <h4>Panel de resultados</h4>
+    <p>Un panel para consultar información comercial y operativa en un mismo lugar.</p>
+    <ul class="clean">
+      <li>Solicitudes recibidas y cotizaciones aceptadas</li>
+      <li>Servicios realizados e ingresos y gastos registrados por viaje</li>
+      <li>Los indicadores disponibles dependen de los datos que la empresa capture o conecte al sistema</li>
+    </ul>
+    <div class="ben"><b>Beneficio principal</b>Identificar qué servicios generan mejores resultados y dónde conviene enfocar esfuerzos.</div>
+  </div>
+</div>
+
+<h2 class="sec"><span class="no">3</span>Opciones de crecimiento</h2>
+<p class="lead">Una vez establecidos los módulos principales, se pueden incorporar nuevas funciones. Se presentan como ampliaciones opcionales, sujetas a revisar la operación y las integraciones necesarias.</p>
+<div class="grow">
+  <div class="gc"><h4>Portal para clientes empresariales</h4><p>Solicitudes recurrentes, historial de servicios y comprobantes disponibles para el cliente.</p></div>
+  <div class="gc"><h4>Control de mantenimiento</h4><p>Historial por unidad y recordatorios programados por fecha o kilometraje.</p></div>
+  <div class="gc"><h4>Asistente por WhatsApp</h4><p>Recopilación inicial de datos y atención de preguntas frecuentes, con transferencia al equipo.</p></div>
+  <div class="gc"><h4>Aprovechamiento de regresos</h4><p>Cruce de viajes programados con solicitudes compatibles por ruta, fecha y capacidad.</p></div>
+</div>
+
+<h2 class="sec"><span class="no">4</span>Implementación por etapas</h2>
+<p class="lead">Cada etapa tendría un alcance definido y se validaría con el equipo antes de avanzar a la siguiente.</p>
+<div class="ladder">
+  <div class="st"><span class="sn">Etapa 1</span><div><h4>Presencia y captación</h4><p>Landing page y contacto para solicitar cotizaciones.</p></div></div>
+  <div class="st"><span class="sn">Etapa 2</span><div><h4>Organización comercial</h4><p>Registro de prospectos, seguimiento y cotizador.</p></div></div>
+  <div class="st"><span class="sn">Etapa 3</span><div><h4>Control operativo</h4><p>Agenda de viajes y expediente digital.</p></div></div>
+  <div class="st"><span class="sn">Etapa 4</span><div><h4>Información y crecimiento</h4><p>Panel de resultados y módulos adicionales.</p></div></div>
+</div>
+
+<h2 class="sec"><span class="no">5</span>Ejemplo de uso</h2>
+<p class="lead">Un cliente necesita una mudanza de León a otra ciudad. Así se vería el recorrido con los módulos conectados.</p>
+<ul class="tl">
+  <li><b>Paso 1 · Solicitud</b><span>Envía su solicitud desde la página con la fecha, el destino y los detalles de la carga.</span></li>
+  <li><b>Paso 2 · Cotización</b><span>La solicitud se registra y el equipo prepara una cotización con las tarifas de la empresa.</span></li>
+  <li><b>Paso 3 · Seguimiento</b><span>Se programa el seguimiento hasta obtener respuesta del cliente.</span></li>
+  <li><b>Paso 4 · Programación</b><span>Cuando el cliente acepta, se agenda el servicio y se asignan unidad, operador y personal de apoyo.</span></li>
+  <li><b>Paso 5 · Entrega</b><span>El personal registra la entrega, las evidencias y los gastos del viaje.</span></li>
+  <li><b>Paso 6 · Resultados</b><span>La administración consulta el historial del servicio y su resultado.</span></li>
+</ul>
+<p style="font-size:11.5px;color:var(--muted);margin-top:-2px">Este recorrido corresponde a la implementación de los módulos conectados entre sí.</p>
+
+<h2 class="sec"><span class="no">6</span>Siguiente paso</h2>
+<p class="lead">Identificar la primera mejora con mayor valor para Renta Carga.</p>
+<ul class="clean">
+  <li>Revisar cómo reciben solicitudes actualmente</li>
+  <li>Conocer cómo preparan sus cotizaciones</li>
+  <li>Entender cómo programan los servicios</li>
+  <li>Identificar las herramientas que ya utilizan</li>
+</ul>
+<div class="callout pk">
+  <div class="lbl">Resultado de esa conversación</div>
+  <p style="margin-bottom:0">Definir una <strong>primera etapa con entregables y tiempos claros</strong>, acordada con el equipo antes de comenzar.</p>
+</div>
+
+<div class="band">
+  <div class="rc plate"><img src="assets/rentacarga-logo.png" alt="Renta Carga"></div>
+  <div class="big">Una solución que puede comenzar con su presencia digital<br><span>y crecer junto con su operación.</span></div>
+  <p>Cada etapa se define, se valida y se entrega antes de avanzar a la siguiente.</p>
+</div>
+
+<div class="collab">
+  <span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <span class="x">×</span>
+  <div class="rc plate"><img src="assets/rentacarga-logo.png" alt="Renta Carga"></div>
+</div>
+
+</doc-page>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#141310"></rect><rect x="30" y="52" width="16" height="16" rx="3" fill="#FF4E3A"></rect><rect x="52" y="56" width="10" height="10" rx="2" fill="#F7B6C9"></rect><rect x="68" y="58" width="6" height="6" rx="1" fill="#FFFBF6"></rect></svg></template>
+</body>
+</html>
