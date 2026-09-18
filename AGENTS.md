@@ -92,6 +92,16 @@ Vercel Web Analytics (`<script defer src="/_vercel/insights/script.js">`
 en cada página) + contador simple propio (`api/track.js` sin auth,
 `api/stats.js` con auth) sobre `data/stats.json`.
 
+### Trabajos de la universidad
+
+Van en `/universidad/<slug>/` y son **públicos, sin contraseña** — están
+hechos para compartirse con maestros y compañeros, así que no deben
+quedar bajo `/privado/` (un link con esa ruta confunde a quien lo
+recibe). Se listan además en la tarjeta "Proyectos de la universidad"
+de `/privado.html` para que Emma los encuentre. Excepción histórica:
+`privado/planeacion-avanzada/` (el QFD) ya es público pero se quedó en
+esa ruta para no romper el link que ya se compartió.
+
 ## Testing local
 
 No hay framework de test. Verificación manual: `python3 -m http.server`
