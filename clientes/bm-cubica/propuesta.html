@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Propuesta digital — BM Cúbica × ProcesaLab</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/client-check?slug=bm-cubica')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = './login.html';
+      }
+    })
+    .catch(function () { location.href = './login.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--bm:#E10E33;--pink:#F7B6C9;--pinkl:#FBE3EA;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--lavl:#F5F0F8;--muted:#5f565a;--line:#E7DED8;--glass:#CFE0E6}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.6;font-size:15px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 12px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+
+.pllogo{position:relative;display:inline-block;line-height:0;max-width:100%}
+.pllogo img{display:block;height:100%;width:auto;max-width:100%}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:plspin 9s linear infinite}
+.pllogo .gt{fill:var(--gear,var(--red))}
+.pllogo .gh{fill:var(--patch,#fff)}
+@keyframes plspin{to{transform:rotate(360deg)}}
+
+.bm{display:inline-block;line-height:0;max-width:100%}
+.bm img{display:block;height:100%;width:auto;max-width:100%}
+
+.cover-top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding-bottom:13px;border-bottom:1.5px solid var(--line)}
+.cover-top .pllogo{height:40px;--patch:#fff}
+.cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:right}
+
+/* cover */
+.hero{position:relative;background:var(--ink);padding:34px 34px 30px;margin-top:16px;overflow:hidden;color:#fff}
+.hero .bm{height:118px;margin-bottom:22px;position:relative}
+.hero .ey{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--bm);position:relative}
+.hero h1{font-size:42px;font-weight:700;margin:11px 0 0;color:#fff;max-width:17ch;position:relative}
+.hero .sub{font-size:14.5px;margin-top:14px;color:#c9c2c4;max-width:450px;line-height:1.55;position:relative}
+.hero .ver{display:inline-block;font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--bm);color:#fff;padding:6px 12px;margin-top:22px;position:relative}
+.hero .grid-bg{position:absolute;inset:0;opacity:.5;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:34px 34px}
+.hero .iso{position:absolute;right:-34px;bottom:-40px;width:250px;opacity:.5}
+.hero .iso .ln{fill:none;stroke:var(--bm);stroke-width:2.4}
+.hero .iso .ln2{fill:none;stroke:#fff;stroke-width:1;opacity:.45}
+
+h2.sec{font-size:25px;margin:32px 0 4px;display:flex;align-items:center;gap:14px;break-after:avoid}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:31px;color:transparent;-webkit-text-stroke:1.6px var(--red);flex:none;line-height:1}
+h2.sec::after{content:"";flex:1;height:2px;background:var(--pink)}
+.lead{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+h3.sub{font-family:"Space Grotesk";font-size:16.5px;font-weight:600;margin:20px 0 8px;display:flex;align-items:center;gap:9px}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+
+ul.clean{margin:6px 0 14px;padding:0;list-style:none}
+ul.clean li{position:relative;padding-left:17px;margin-bottom:5px;font-size:13.5px;break-inside:avoid}
+ul.clean li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;background:var(--red);border-radius:1px}
+ul.q li::before{background:var(--bm);border-radius:50%}
+
+/* journey rail */
+.journey{position:relative;display:grid;grid-template-columns:repeat(4,1fr);margin:18px 0 6px;break-inside:avoid;background:var(--lavl);border:1.5px solid var(--line);padding:18px 12px 15px;overflow:hidden}
+.jn{position:relative;padding:26px 8px 0;text-align:center}
+.jn::before{content:"";position:absolute;left:0;right:0;top:9px;height:2.5px;background:var(--pink)}
+.jn:first-child::before{left:50%}
+.jn:last-child::before{right:50%}
+.jn::after{content:"";position:absolute;left:50%;top:3px;width:15px;height:15px;margin-left:-7.5px;border-radius:50%;background:var(--lavl);border:2.5px solid var(--red)}
+.jn:nth-child(2)::after{border-color:#c8283f}
+.jn:nth-child(3)::after{border-color:#8a2f3f}
+.jn:nth-child(4)::after{border-color:var(--ink)}
+.jn .n{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.jn .t{font-family:"Space Grotesk";font-weight:700;font-size:14px;margin-top:3px}
+.jdot{position:absolute;z-index:3;top:23px;left:calc(12px + (100% - 24px)*0.125 - 5.5px);width:11px;height:11px;border-radius:50%;background:var(--red);box-shadow:0 0 0 3px rgba(255,78,58,.25);animation:jride 8s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes jride{0%,15%{left:calc(12px + (100% - 24px)*0.125 - 5.5px)}25%,40%{left:calc(12px + (100% - 24px)*0.375 - 5.5px)}50%,65%{left:calc(12px + (100% - 24px)*0.625 - 5.5px)}75%,90%{left:calc(12px + (100% - 24px)*0.875 - 5.5px)}100%{left:calc(12px + (100% - 24px)*0.125 - 5.5px)}}
+
+/* showroom mock */
+.mock{border:2px solid var(--ink);background:#fff;break-inside:avoid;margin:14px 0}
+.mock .bar{display:flex;align-items:center;gap:6px;padding:7px 10px;background:var(--ink)}
+.mock .bar i{width:8px;height:8px;border-radius:50%;background:#4a4244}
+.mock .bar i:first-child{background:var(--bm)}
+.mock .bar span{margin-left:8px;font-family:"Space Grotesk";font-size:9px;letter-spacing:.1em;text-transform:uppercase;color:#8d8386}
+.mock .body{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;padding:12px}
+.shot{background:linear-gradient(135deg,#dfe8ea,#c3d3d8);border:1.5px solid var(--line);aspect-ratio:4/3;position:relative;overflow:hidden}
+.shot::after{content:"Fotografía de proyecto";position:absolute;left:8px;bottom:7px;font-family:"Space Grotesk";font-size:8.5px;letter-spacing:.09em;text-transform:uppercase;color:#5c7079}
+.shot .pane{position:absolute;inset:16% 12%;border:2.5px solid #fff;background:rgba(255,255,255,.22)}
+.shot .pane::before{content:"";position:absolute;left:50%;top:0;bottom:0;width:2.5px;background:#fff}
+.shot .gl{position:absolute;top:-40%;left:-60%;width:40%;height:190%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.75),transparent);transform:rotate(14deg);animation:sheen 5.5s ease-in-out infinite}
+@keyframes sheen{0%{left:-60%}55%,100%{left:130%}}
+.thumbs{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:9px}
+.thumbs div{aspect-ratio:1;background:#e6edee;border:1.5px solid var(--line)}
+.mk-h{font-family:"Space Grotesk";font-weight:700;font-size:14px;margin-bottom:5px}
+.mk-l{height:7px;background:var(--line);margin-bottom:6px}
+.mk-l.s{width:72%}.mk-l.xs{width:48%}
+.sw-row{display:flex;gap:7px;margin:11px 0 0}
+.sw-row b{width:24px;height:24px;border:1.5px solid var(--ink);display:block}
+.sw-row b.on{outline:2px solid var(--red);outline-offset:2px}
+.mk-btn{display:inline-block;font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.05em;background:var(--bm);color:#fff;padding:8px 13px;margin-top:12px}
+.cap{font-size:11px;color:var(--muted);margin:6px 0 0;font-style:italic}
+
+/* calculator: 5 steps */
+.steps{display:grid;grid-template-columns:repeat(5,1fr);gap:9px;margin:16px 0;break-inside:avoid}
+.sc{border-top:3px solid var(--red);background:var(--pinkl);padding:11px 11px 13px}
+.sc:nth-child(2){border-top-color:#e03a3f;background:var(--lavl)}
+.sc:nth-child(3){border-top-color:#c8283f;background:var(--pinkl)}
+.sc:nth-child(4){border-top-color:#8a2f3f;background:var(--lavl)}
+.sc:nth-child(5){border-top-color:var(--ink);background:var(--pinkl)}
+.sc .n{font-family:"Space Grotesk";font-weight:700;font-size:20px;line-height:1;color:var(--red)}
+.sc:nth-child(4) .n,.sc:nth-child(5) .n{color:#8a2f3f}
+.sc h4{font-size:12.5px;margin:6px 0 4px;line-height:1.2}
+.sc p{font-size:10.5px;line-height:1.42;color:var(--muted);margin:0}
+
+/* big animated cancel */
+.cancel-wrap{display:grid;grid-template-columns:1fr 210px;gap:18px;align-items:center;border:2px solid var(--ink);padding:18px;margin:16px 0;break-inside:avoid;background:var(--cream)}
+.cancel{width:100%;height:auto;display:block}
+.cancel .frame{fill:none;stroke:var(--ink);stroke-width:5}
+.cancel .glass{fill:var(--glass);opacity:.62}
+.cancel .mull{stroke:var(--ink);stroke-width:4}
+.cancel .door{transform-box:fill-box;transform-origin:left center;animation:swing 6s ease-in-out infinite}
+.cancel .hinge{fill:var(--bm)}
+.cancel .dimline{stroke:var(--red);stroke-width:1.6}
+.cancel .dimtxt{font-family:"Space Grotesk";font-size:13px;font-weight:700;fill:var(--red)}
+.cancel .arc{fill:none;stroke:var(--red);stroke-width:1.5;stroke-dasharray:5 4;opacity:.75}
+@keyframes swing{0%,14%{transform:perspective(520px) rotateY(0deg)}46%,62%{transform:perspective(520px) rotateY(-62deg)}94%,100%{transform:perspective(520px) rotateY(0deg)}}
+.ctrl .lbl{font-family:"Space Grotesk";font-weight:700;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 5px}
+.ctrl .fld{border:1.5px solid var(--ink);padding:6px 9px;font-family:"Space Grotesk";font-weight:600;font-size:12px;margin-bottom:10px;background:#fff;display:flex;justify-content:space-between}
+.ctrl .fld span{color:var(--muted);font-weight:500}
+.ctrl .seg{display:flex;border:1.5px solid var(--ink);margin-bottom:11px}
+.ctrl .seg b{flex:1;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:9.5px;padding:6px 2px;letter-spacing:.04em}
+.ctrl .seg b.on{background:var(--ink);color:#fff}
+.bars{display:flex;gap:5px;align-items:flex-end;height:34px;margin-bottom:11px}
+.bars i{flex:1;background:var(--pink);border:1.5px solid var(--ink);border-bottom:0;animation:grow 4.5s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.25s}.bars i:nth-child(3){animation-delay:.5s}.bars i:nth-child(4){animation-delay:.75s}
+.bars i.on{background:var(--bm)}
+@keyframes grow{0%,100%{height:38%}50%{height:100%}}
+
+/* what changes: 3 states */
+.states{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;break-inside:avoid}
+.stc{border:1.5px solid var(--line);background:#fff;padding:12px}
+.stc .t{font-family:"Space Grotesk";font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--red);margin-bottom:9px}
+.stc svg{width:100%;height:auto;display:block}
+.stc p{font-size:11px;color:var(--muted);margin:9px 0 0;line-height:1.45}
+.mini .f{fill:none;stroke:var(--ink);stroke-width:4}
+.mini .g{fill:var(--glass);opacity:.6}
+.mini .m{stroke:var(--ink);stroke-width:3}
+.mini .w{animation:widen 4s ease-in-out infinite}
+@keyframes widen{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.74)}}
+.mini .sw1{animation:mswing 4s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
+@keyframes mswing{0%,20%{transform:perspective(300px) rotateY(0)}55%,75%{transform:perspective(300px) rotateY(-55deg)}100%{transform:perspective(300px) rotateY(0)}}
+.mini .fin{animation:fin 5s steps(1) infinite}
+@keyframes fin{0%,32%{fill:#CFE0E6}33%,65%{fill:#B9C3C6}66%,100%{fill:#8F9BA0}}
+
+.sumcard{border:2px solid var(--ink);background:#fff;padding:0;margin:14px 0;break-inside:avoid}
+.sumcard .hd{background:var(--ink);color:#fff;padding:9px 14px;font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
+.sumcard .rows{display:grid;grid-template-columns:repeat(5,1fr)}
+.sumcard .r{padding:12px 13px;border-right:1.5px solid var(--line)}
+.sumcard .r:last-child{border-right:0;background:var(--pinkl)}
+.sumcard .r b{display:block;font-family:"Space Grotesk";font-weight:700;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:4px}
+.sumcard .r span{font-family:"Space Grotesk";font-weight:700;font-size:13px}
+
+/* phone */
+.phone-row{display:grid;grid-template-columns:168px 1fr;gap:22px;align-items:center;margin:14px 0;break-inside:avoid}
+.phone{border:2.5px solid var(--ink);border-radius:20px;padding:7px;background:var(--ink)}
+.phone .scr{background:var(--cream);border-radius:13px;padding:12px 11px;min-height:250px;position:relative;overflow:hidden}
+.phone .pb{height:3px;background:var(--line);margin-bottom:12px;position:relative}
+.phone .pb i{position:absolute;left:0;top:0;bottom:0;background:var(--bm);animation:prog 6s ease-in-out infinite}
+@keyframes prog{0%{width:20%}25%{width:40%}50%{width:60%}75%{width:80%}100%{width:20%}}
+.phone .q{font-family:"Space Grotesk";font-weight:700;font-size:12.5px;line-height:1.2;margin-bottom:10px}
+.phone .opt{border:1.5px solid var(--ink);padding:8px 9px;font-size:10.5px;margin-bottom:7px;background:#fff;display:flex;align-items:center;gap:7px}
+.phone .opt i{width:11px;height:11px;border:1.5px solid var(--ink);border-radius:50%;flex:none}
+.phone .opt.on{background:var(--pinkl)}
+.phone .opt.on i{background:var(--bm);box-shadow:inset 0 0 0 2px #fff}
+.phone .alt{font-size:9.5px;color:var(--muted);text-decoration:underline;margin-top:9px;display:block}
+
+/* pwa */
+.pwa{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;break-inside:avoid}
+.pw{border-left:3px solid var(--bm);padding:9px 0 9px 13px;background:var(--lavl)}
+.pw:nth-child(even){border-left-color:var(--pink);background:var(--pinkl)}
+.pw h4{font-size:13.5px;margin:0 0 3px}
+.pw p{font-size:11.5px;color:var(--muted);margin:0;line-height:1.45}
+
+/* process ladder */
+.ladder{margin:16px 0;break-inside:avoid}
+.st{display:grid;grid-template-columns:auto 1fr;gap:0 18px;padding:14px 16px;border-bottom:1.5px solid var(--line);align-items:start}
+.st:first-child{border-top:2.5px solid var(--ink)}
+.st:nth-child(odd){background:var(--lavl)}
+.st:nth-child(even){background:var(--pinkl)}
+.st .sn{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--ink);padding:5px 9px;height:max-content;white-space:nowrap}
+.st:nth-child(2) .sn{background:var(--red)}
+.st:nth-child(3) .sn{background:#c8283f}
+.st:nth-child(4) .sn{background:#8a2f3f}
+.st h4{font-size:16px;margin:0 0 4px}
+.st p{font-size:13px;color:var(--muted);margin:0}
+
+/* funnel */
+.funnel{margin:14px 0;break-inside:avoid;border:1.5px solid var(--line);padding:18px 20px;background:var(--cream)}
+.funnel .fr{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin-bottom:11px}
+.funnel .fr:last-child{margin-bottom:0}
+.funnel .fl{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;text-align:right}
+.funnel .fb{height:26px;background:var(--red);display:flex;align-items:center;justify-content:flex-end;padding-right:9px;font-family:"Space Grotesk";font-weight:700;font-size:10px;color:#fff;letter-spacing:.09em;animation:fbar 2.2s cubic-bezier(.3,1,.4,1) both}
+.funnel .fr:nth-child(2) .fb{background:#e03a3f;animation-delay:.18s}
+.funnel .fr:nth-child(3) .fb{background:#c8283f;animation-delay:.36s}
+.funnel .fr:nth-child(4) .fb{background:#8a2f3f;animation-delay:.54s}
+@keyframes fbar{from{transform:scaleX(.03);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+.funnel .note{font-size:11px;color:var(--muted);margin:13px 0 0;font-style:italic}
+
+.callout{border-top:1.5px solid var(--ink);padding:13px 16px;margin:18px 0;break-inside:avoid;background:var(--lavl)}
+.callout .lbl{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.callout p{font-size:13.5px}
+.callout p:last-child{margin-bottom:0}
+.callout.pk{border-top-color:var(--red);background:var(--pinkl)}
+.callout.dk{background:var(--ink);border-top-color:var(--bm);color:#fff}
+.callout.dk .lbl{color:var(--pink)}
+.callout.dk p{color:#d3cccd}
+
+.need{display:grid;grid-template-columns:repeat(5,1fr);gap:8px;margin:14px 0 0;break-inside:avoid}
+.need div{border:1.5px solid var(--ink);padding:10px 9px;font-family:"Space Grotesk";font-weight:600;font-size:11px;line-height:1.25;background:#fff}
+.need div b{display:block;font-size:15px;color:var(--bm);margin-bottom:4px}
+
+.band{background:var(--ink);padding:28px 30px;margin:20px 0 0;break-inside:avoid;color:#fff}
+.band .bm{height:78px;margin-bottom:18px}
+.band .big{font-family:"Space Grotesk";font-weight:700;font-size:27px;line-height:1.15;color:#fff}
+.band .big span{color:var(--pink)}
+.band p{color:#c9c2c4;font-size:13px;margin:12px 0 0;max-width:560px}
+
+.collab{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;margin:14px 0 0;padding:24px;background:var(--ink);break-inside:avoid;--patch:var(--ink)}
+.collab .pllogo{height:34px;--gear:var(--red);--patch:var(--ink)}
+.collab .bm{height:92px}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:30px;color:var(--bm);line-height:1;flex:none}
+
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh .pllogo{height:13px;--patch:#fff}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+.rf b{color:var(--red)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+@media print{.pllogo .plgear,.jdot,.shot .gl,.cancel .door,.bars i,.mini .w,.mini .sw1,.mini .fin,.phone .pb i,.funnel .fb{animation:none!important}.funnel .fb{transform:none!important}}
+</style>
+</head>
+<body>
+<doc-page size="letter" margin="0.7in">
+
+<div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Propuesta digital · BM Cúbica</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+<div class="cover-top">
+  <span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <div class="for">Propuesta digital para<br><strong style="color:var(--ink);font-size:14px">BM Cúbica</strong></div>
+</div>
+
+<div class="hero">
+  <div class="grid-bg"></div>
+  <svg class="iso" viewBox="0 0 200 200" aria-hidden="true"><g class="ln2"><path d="M20 60 100 20 180 60 180 150 100 190 20 150Z"></path><path d="M100 20 100 110M20 60 100 110M180 60 100 110"></path></g><g class="ln"><path d="M20 60 100 20 180 60"></path><path d="M20 60 20 150 100 190 180 150 180 60"></path></g></svg>
+  <span class="bm"><img src="assets/bmcubica-logo.png" alt="BM Cúbica"></span>
+  <div class="ey">BM Cúbica × ProcesaLab</div>
+  <h1>Una experiencia digital a la medida de sus proyectos</h1>
+  <div class="sub">Una web que permita descubrir soluciones, entender sus diferencias y preparar una solicitud de cotización — desde la primera idea hasta el contacto con un asesor.</div>
+  <span class="ver">Propuesta · Septiembre 2026</span>
+</div>
+
+<h2 class="sec"><span class="no">1</span>El punto de partida</h2>
+<p class="lead">Herraidea abrió esta conversación. Su experiencia combina presentación visual, exploración de productos y herramientas que ayudan a entender una solución.</p>
+<p>Para BM Cúbica proponemos aplicar ese enfoque a sus propios productos, materiales y procesos, con una identidad y un recorrido diseñados para su negocio.</p>
+
+<h3 class="sub">De la inspiración a la cotización</h3>
+<div class="journey">
+  <div class="jdot"></div>
+  <div class="jn"><div class="n">01</div><div class="t">Descubrir</div></div>
+  <div class="jn"><div class="n">02</div><div class="t">Comparar</div></div>
+  <div class="jn"><div class="n">03</div><div class="t">Configurar</div></div>
+  <div class="jn"><div class="n">04</div><div class="t">Solicitar asesoría</div></div>
+</div>
+<p class="lead" style="margin-top:12px">La web ayudará al visitante a responder:</p>
+<ul class="clean q">
+  <li>¿Qué solución puede funcionar en mi espacio?</li>
+  <li>¿Cómo se verá y cómo abrirá?</li>
+  <li>¿Qué cambia entre materiales y acabados?</li>
+  <li>¿Qué información necesitan para cotizar?</li>
+</ul>
+
+<h2 class="sec"><span class="no">2</span>Un showroom digital que se pueda explorar</h2>
+<p class="lead">Mostrar el espacio completo y los detalles que hacen la diferencia.</p>
+<p>Proponemos una presentación de servicios y proyectos con fotografías amplias, acercamientos a herrajes y acabados, y explicaciones sencillas sobre funcionamiento, limpieza y uso. Desde cada solución, el cliente podrá encontrar un siguiente paso claro: explorar opciones, configurar una similar o pedir asesoría.</p>
+<p>La dirección visual debe comunicar precisión y calidad de ejecución, respaldada por fotografías y contenido real del negocio.</p>
+
+<div class="mock">
+  <div class="bar"><i></i><i></i><i></i><span>Página de solución</span></div>
+  <div class="body">
+    <div>
+      <div class="shot"><div class="pane"></div><div class="gl"></div></div>
+      <div class="thumbs"><div></div><div></div><div></div></div>
+    </div>
+    <div>
+      <div class="mk-h">Cancel de baño · Sistema corredizo</div>
+      <div class="mk-l"></div><div class="mk-l s"></div><div class="mk-l xs"></div>
+      <div class="sw-row" style="margin-top:14px">
+        <b style="background:#CFE0E6" class="on"></b><b style="background:#B9C3C6"></b><b style="background:#8F9BA0"></b><b style="background:#2F3437"></b>
+      </div>
+      <div class="sw-row"><b style="background:#D9DCDE"></b><b style="background:#8A8F93"></b><b style="background:#1C1F21"></b></div>
+      <span class="mk-btn">Configurar uno similar</span>
+    </div>
+  </div>
+</div>
+<p class="cap">Visual conceptual: página de solución con fotografía principal, detalles ampliados, muestras de acabados y el botón “Configurar uno similar”.</p>
+
+<h2 class="sec"><span class="no">3</span>La pieza central: calculadora visual de canceles</h2>
+<p class="lead">Una herramienta para que el cliente comience por su espacio y construya una configuración que el equipo pueda revisar. Proponemos iniciar con una familia de canceles de baño seleccionada junto con BM Cúbica.</p>
+
+<div class="steps">
+  <div class="sc"><div class="n">1</div><h4>Describe tu espacio</h4><p>Distribución frontal o en esquina, con ilustraciones claras.</p></div>
+  <div class="sc"><div class="n">2</div><h4>Agrega medidas</h4><p>Ancho, alto y segundo lado, con guía visual de cada medida.</p></div>
+  <div class="sc"><div class="n">3</div><h4>Explora la apertura</h4><p>Opciones compatibles según las reglas que valide BM Cúbica.</p></div>
+  <div class="sc"><div class="n">4</div><h4>Elige acabados</h4><p>Compara cristales y herrajes del sistema seleccionado.</p></div>
+  <div class="sc"><div class="n">5</div><h4>Revisa y solicita</h4><p>Resumen de la configuración y solicitud de cotización.</p></div>
+</div>
+
+<div class="cancel-wrap">
+  <svg class="cancel" viewBox="0 0 420 260" aria-label="Cancel con apertura animada">
+    <path class="dimline" d="M40 24 H380"></path>
+    <path class="dimline" d="M40 18 V30 M380 18 V30"></path>
+    <text class="dimtxt" x="210" y="16" text-anchor="middle">ancho aprox.</text>
+    <path class="arc" d="M210 236 A 150 150 0 0 0 96 100"></path>
+    <rect class="glass" x="42" y="42" width="168" height="194"></rect>
+    <g class="door"><rect class="glass" x="210" y="42" width="168" height="194"></rect><line class="mull" x1="366" y1="52" x2="366" y2="226"></line><rect class="hinge" x="204" y="120" width="12" height="38" rx="3"></rect></g>
+    <rect class="frame" x="40" y="40" width="340" height="198"></rect>
+    <line class="mull" x1="210" y1="40" x2="210" y2="238"></line>
+    <path class="dimline" d="M396 40 V238 M390 40 H402 M390 238 H402"></path>
+    <text class="dimtxt" x="404" y="145" transform="rotate(90 404 145)" text-anchor="middle">alto</text>
+  </svg>
+  <div class="ctrl">
+    <div class="lbl">Distribución</div>
+    <div class="seg"><b class="on">Frontal</b><b>Esquina</b></div>
+    <div class="lbl">Medidas aprox.</div>
+    <div class="fld">Ancho <span>cm</span></div>
+    <div class="fld">Alto <span>cm</span></div>
+    <div class="lbl">Apertura compatible</div>
+    <div class="bars"><i class="on"></i><i></i><i></i><i></i></div>
+    <div class="lbl">Acabado</div>
+    <div class="sw-row"><b style="background:#CFE0E6" class="on"></b><b style="background:#B9C3C6"></b><b style="background:#8F9BA0"></b></div>
+  </div>
+</div>
+<p class="cap">Visual conceptual: el cancel como protagonista, acompañado de controles de medidas, apertura y acabados. En celular, los controles se organizan por pasos.</p>
+<div class="callout pk">
+  <div class="lbl">Siempre una salida</div>
+  <p style="margin-bottom:0">En todo momento habrá una alternativa disponible: <strong>“No tengo las medidas / necesito asesoría”.</strong></p>
+</div>
+
+<h2 class="sec"><span class="no">4</span>Ver qué cambia con cada elección</h2>
+<p class="lead">La calculadora debe responder visualmente a las decisiones del usuario.</p>
+<div class="states">
+  <div class="stc">
+    <div class="t">Medidas</div>
+    <svg class="mini" viewBox="0 0 150 120"><g class="w" style="transform-box:fill-box;transform-origin:center"><rect class="g" x="16" y="20" width="118" height="86"></rect><rect class="f" x="14" y="18" width="122" height="90"></rect><line class="m" x1="75" y1="18" x2="75" y2="108"></line></g></svg>
+    <p>Las proporciones se ajustan al cambiar ancho y alto.</p>
+  </div>
+  <div class="stc">
+    <div class="t">Apertura</div>
+    <svg class="mini" viewBox="0 0 150 120"><rect class="g" x="16" y="20" width="57" height="86"></rect><g class="sw1"><rect class="g" x="75" y="20" width="59" height="86"></rect></g><rect class="f" x="14" y="18" width="122" height="90"></rect><line class="m" x1="75" y1="18" x2="75" y2="108"></line></svg>
+    <p>Se muestra el movimiento de apertura de cada sistema.</p>
+  </div>
+  <div class="stc">
+    <div class="t">Acabados</div>
+    <svg class="mini" viewBox="0 0 150 120"><rect class="fin" x="16" y="20" width="118" height="86"></rect><rect class="f" x="14" y="18" width="122" height="90"></rect><line class="m" x1="75" y1="18" x2="75" y2="108"></line></svg>
+    <p>Los cristales y herrajes se comparan sobre el mismo modelo.</p>
+  </div>
+</div>
+<p>Las combinaciones estarán limitadas a las opciones autorizadas por BM Cúbica. La visualización puede comenzar con esquemas interactivos; el alcance de una versión 3D se definirá según los modelos y recursos disponibles.</p>
+
+<div class="sumcard">
+  <div class="hd">El resultado reúne</div>
+  <div class="rows">
+    <div class="r"><b>Vista</b><span>Del cancel</span></div>
+    <div class="r"><b>Medidas</b><span>Aproximadas</span></div>
+    <div class="r"><b>Sistema</b><span>Apertura</span></div>
+    <div class="r"><b>Acabados</b><span>Cristal + herraje</span></div>
+    <div class="r"><b>Acción</b><span>Solicitar cotización</span></div>
+  </div>
+</div>
+
+<h3 class="sub">¿Puede mostrar un precio?</h3>
+<p>Podremos incorporar una estimación cuando BM Cúbica proporcione y valide las tarifas, reglas de configuración, instalación y cargos aplicables. La cotización definitiva dependerá de la revisión del proyecto y las medidas en obra.</p>
+
+<h2 class="sec"><span class="no">5</span>Una experiencia sencilla desde el celular</h2>
+<div class="phone-row">
+  <div class="phone"><div class="scr">
+    <div class="pb"><i></i></div>
+    <div class="q">¿Cómo es tu espacio?</div>
+    <div class="opt on"><i></i>Frontal</div>
+    <div class="opt"><i></i>En esquina</div>
+    <div class="q" style="margin-top:14px">Apertura</div>
+    <div class="opt"><i></i>Corrediza</div>
+    <div class="opt on"><i></i>Batiente</div>
+    <span class="alt">No tengo las medidas / necesito asesoría</span>
+  </div></div>
+  <div>
+    <p>El cliente podrá explorar y configurar <strong>sin crear una cuenta</strong>. Cada paso tendrá preguntas cortas, imágenes de apoyo y opciones claras.</p>
+    <p>Podrá regresar, ajustar sus elecciones y continuar sin perder lo capturado durante el recorrido. Los datos de contacto se solicitarán al finalizar.</p>
+    <p style="margin-bottom:0">La solicitud preparará un resumen con la configuración y la zona del proyecto para compartirlo con el equipo comercial, facilitando que el asesor continúe la conversación con contexto.</p>
+  </div>
+</div>
+
+<h2 class="sec"><span class="no">6</span>Segunda fase: una PWA para retomar y dar seguimiento</h2>
+<p class="lead">Proponemos evaluar la evolución de la web hacia una aplicación web progresiva —PWA—, accesible mediante un enlace y que pueda añadirse a la pantalla de inicio en dispositivos compatibles.</p>
+<p>Esta segunda fase tendría sentido para usuarios que necesitan volver de forma frecuente: vendedores, arquitectos, instaladores o clientes con varios proyectos.</p>
+<div class="pwa">
+  <div class="pw"><h4>Guardar y retomar</h4><p>Configuraciones disponibles para continuar después.</p></div>
+  <div class="pw"><h4>Proyectos por cliente u obra</h4><p>Organización de la información por contexto.</p></div>
+  <div class="pw"><h4>Cotizaciones y versiones</h4><p>Consulta del historial de cada solicitud.</p></div>
+  <div class="pw"><h4>Seguimiento de solicitudes</h4><p>Estado y avance de cada requerimiento.</p></div>
+  <div class="pw" style="grid-column:1/-1"><h4>Catálogo como apoyo comercial</h4><p>Material de consulta durante visitas y presentaciones.</p></div>
+</div>
+<div class="callout">
+  <div class="lbl">Condición</div>
+  <p style="margin-bottom:0">Primero definiremos quién la usará y qué tareas necesita resolver. El guardado, seguimiento y acceso sin conexión requieren desarrollo específico; su alcance y compatibilidad se validarán en esta fase.</p>
+</div>
+
+<h2 class="sec"><span class="no">7</span>Cómo lo vamos a trabajar</h2>
+<div class="ladder">
+  <div class="st"><span class="sn">Paso 1</span><div><h4>Entender y priorizar</h4><p>Definir servicios, clientes, productos y proceso de cotización.</p></div></div>
+  <div class="st"><span class="sn">Paso 2</span><div><h4>Presentar un prototipo</h4><p>Mostrar una dirección visual y el recorrido completo de una solución para revisarlos juntos.</p></div></div>
+  <div class="st"><span class="sn">Paso 3</span><div><h4>Desarrollar y validar</h4><p>Integrar contenido real, reglas de configuración y funcionalidades acordadas, verificando la experiencia en celular y computadora.</p></div></div>
+  <div class="st"><span class="sn">Paso 4</span><div><h4>Publicar y entregar</h4><p>Comprobar el funcionamiento de las solicitudes, entregar accesos y acordar el seguimiento.</p></div></div>
+</div>
+<p style="font-size:12.5px;color:var(--muted)">Desde el inicio quedarán definidos alcance, responsables, entregables y criterios de aprobación.</p>
+
+<h2 class="sec"><span class="no">8</span>Un primer alcance concreto</h2>
+<p class="lead">La primera fase propuesta contempla una identidad visual propia, presentación de servicios y proyectos, calculadora para una familia prioritaria de canceles y solicitud de cotización con resumen.</p>
+<h3 class="sub">Y medir el recorrido</h3>
+<div class="funnel">
+  <div class="fr"><div class="fl">Visitan una solución</div><div class="fb" style="width:100%">Base</div></div>
+  <div class="fr"><div class="fl">Comienzan una configuración</div><div class="fb" style="width:74%">Inician</div></div>
+  <div class="fr"><div class="fl">Terminan la configuración</div><div class="fb" style="width:48%">Completan</div></div>
+  <div class="fr"><div class="fl">Solicitan asesoría</div><div class="fb" style="width:29%">Solicitan</div></div>
+  <p class="note">Ilustrativo: las proporciones reales se conocerán al medir el recorrido una vez publicado.</p>
+</div>
+<p>La segunda fase se definirá a partir de las necesidades operativas y del uso observado.</p>
+
+<h2 class="sec"><span class="no">9</span>El siguiente paso</h2>
+<p class="lead">Seleccionar juntos el primer sistema de cancel y preparar un prototipo que permita recorrer la experiencia completa.</p>
+<p>Para hacerlo necesitaremos de BM Cúbica:</p>
+<div class="need">
+  <div><b>01</b>Fotografías</div>
+  <div><b>02</b>Modelos prioritarios</div>
+  <div><b>03</b>Acabados disponibles</div>
+  <div><b>04</b>Reglas de configuración</div>
+  <div><b>05</b>Proceso actual de cotización</div>
+</div>
+
+<div class="band">
+  <span class="bm"><img src="assets/bmcubica-logo.png" alt="BM Cúbica"></span>
+  <div class="big">Del showroom al configurador:<br><span>que el cliente llegue con su proyecto ya armado.</span></div>
+  <p>Cada fase se define, se valida y se entrega antes de avanzar a la siguiente.</p>
+</div>
+
+<div class="collab">
+  <span class="pllogo"><img src="assets/logo-horizontal-white.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <span class="x">×</span>
+  <span class="bm"><img src="assets/bmcubica-logo.png" alt="BM Cúbica"></span>
+</div>
+
+</doc-page>
+
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#141310"></rect><path d="M24 44 60 26 96 44 96 86 60 104 24 86Z" fill="none" stroke="#E10E33" stroke-width="4"></path></svg></template>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
