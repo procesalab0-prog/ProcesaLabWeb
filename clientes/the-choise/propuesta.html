@@ -40,10 +40,24 @@ a{color:var(--red)}
 .muted{color:var(--muted)}
 small{font-size:12px}
 
+/* Logotipo ProcesaLab con el engrane girando, igual que en las
+   presentaciones recientes: el parche tapa el engrane fijo del PNG y
+   el SVG lo vuelve a dibujar encima para poder animarlo. El engrane
+   conserva el rojo de ProcesaLab, no el azul del cliente. */
+.pllogo{position:relative;display:inline-block;line-height:0;max-width:100%}
+.pllogo img{display:block;height:100%;width:auto;max-width:100%}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:plspin 9s linear infinite}
+.pllogo .gt{fill:var(--gear,#FF4E3A)}
+.pllogo .gh{fill:var(--patch,#fff)}
+@keyframes plspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.pllogo .plgear{animation:none}}
+@media print{.pllogo .plgear{animation:none}}
+
 /* COVER */
 .cover{margin:-4px 0 6px}
 .cover-top{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid var(--ink);padding-bottom:16px}
-.cover-top img{height:34px;width:auto}
+.cover-top .pllogo{height:34px;--patch:#fff}
 .cover-hero .cl-logo{display:block;height:96px;width:auto;margin:0 0 18px}
 .cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
 .cover-hero{background:var(--pink);border:2.5px solid var(--ink);border-radius:18px;padding:38px 34px;margin-top:22px;position:relative;overflow:hidden}
@@ -124,7 +138,7 @@ h2.sec{position:relative}
 
 /* running header/footer */
 .rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
-.rh img{height:14px}
+.rh .pllogo{height:14px;--patch:#fff}
 .rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
 .rf b{color:var(--red)}
 #docFit{width:100%;overflow:hidden}
@@ -137,13 +151,13 @@ h2.sec{position:relative}
 <div id="docFit">
 <doc-page size="letter" margin="0.7in">
 
-<div class="rh" slot="header"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span>Propuesta · The Choise · Sistema de pedidos directos</span></div>
+<div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Propuesta · The Choise · Sistema de pedidos directos</span></div>
 <div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
 
 <!-- COVER -->
 <div class="cover">
   <div class="cover-top">
-    <img src="assets/logo-horizontal.png" alt="ProcesaLab">
+    <span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
     <div class="for">Propuesta preparada para<br><strong style="color:var(--ink);font-size:14px">The Choise · La Piedad, Michoacán</strong></div>
   </div>
   <div class="cover-hero">
@@ -156,7 +170,7 @@ h2.sec{position:relative}
   <div class="stat-row">
     <div class="stat"><div class="k">Inversión inicial</div><div class="v">$35,000 <small>MXN</small></div></div>
     <div class="stat hl"><div class="k">Mensualidad</div><div class="v">$1,600 <small>/ mes</small></div></div>
-    <div class="stat"><div class="k">Ahorro por pedido</div><div class="v">$66.25 <small>estimado</small></div></div>
+    <div class="stat"><div class="k">Ahorro por pedido</div><div class="v">$79.50 <small>estimado</small></div></div>
   </div>
 </div>
 
@@ -179,14 +193,14 @@ h2.sec{position:relative}
 <!-- 2 -->
 <h2 class="sec"><span class="no">2</span>¿De dónde proviene el ahorro?</h2>
 
-<p class="lead">En 2026 las comisiones de marketplaces de delivery en México se ubican aproximadamente entre 18% y 30% o más. Para esta proyección se usa un escenario de trabajo de 30% sobre el valor del pedido; la comisión real debe sustituirse por la de los contratos actuales de The Choise.</p>
+<p class="lead">En 2026 las comisiones de marketplaces de delivery en México se ubican aproximadamente entre 18% y 30% o más. Para esta proyección se usa un escenario de trabajo de 30% sobre el ticket; la comisión real debe sustituirse por la de los contratos actuales de The Choise.</p>
 <div class="twoup">
   <div>
-    <p>Se toma como referencia un <strong>pedido de $250 MXN</strong> armado con el menú actual de The Choise: dos smash burgers sencillas ($109 c/u) más una orden de papas sencillas ($39). Con una comisión del 30% el costo de marketplace sería de <strong>$75 por pedido</strong>. Para un pedido directo se considera, de forma conservadora, <strong>3.5% de procesamiento de pago ($8.75)</strong>.</p>
-    <p>El resultado es un <strong style="color:var(--red)">ahorro bruto de $66.25 por pedido migrado</strong>, antes de considerar el costo de reparto. Si el pedido es para recoger en el local, el ahorro se acerca mucho más a esta cifra.</p>
+    <p>The Choise reporta un <strong>ticket promedio de $300 MXN</strong>, consistente con su menú (por ejemplo, una smash doble de $154, una sencilla de $109 y una orden de papas de $39). Con una comisión del 30% el costo de marketplace sería de <strong>$90 por pedido</strong>. Para un pedido directo se considera, de forma conservadora, <strong>3.5% de procesamiento de pago ($10.50)</strong>.</p>
+    <p>El resultado es un <strong style="color:var(--red)">ahorro bruto de $79.50 por pedido migrado</strong>, antes de considerar el costo de reparto. Si el pedido es para recoger en el local, el ahorro se acerca mucho más a esta cifra.</p>
   </div>
   <div class="chart">
-    <div class="ctitle">Costo por pedido de $250</div>
+    <div class="ctitle">Costo por pedido de $300</div>
     <div class="csub">Marketplace vs. canal propio</div>
     <div id="ch-order"></div>
   </div>
@@ -208,7 +222,7 @@ h2.sec{position:relative}
 
 <!-- 4 -->
 <h2 class="sec"><span class="no">4</span>Escenarios de ahorro y recuperación</h2>
-<p class="lead">Escenarios ilustrativos calculados sobre el pedido de referencia de $250, 30 días de operación, comisión de marketplace 30%, procesamiento directo 3.5% y mensualidad del sistema $1,600. Se asignan repartidores conforme aumenta el volumen.</p>
+<p class="lead">Escenarios calculados sobre el ticket promedio de $300 reportado por The Choise, 30 días de operación, comisión de marketplace 30%, procesamiento directo 3.5% y mensualidad del sistema $1,600. Se asignan repartidores conforme aumenta el volumen.</p>
 <div class="chart">
   <div class="ctitle">Ahorro neto mensual estimado</div>
   <div class="csub">Pedidos migrados por día — ahorro de comisiones menos reparto y mensualidad</div>
@@ -217,12 +231,12 @@ h2.sec{position:relative}
 <table>
   <thead><tr><th>Pedidos/día</th><th class="num">Pedidos/mes</th><th class="num">Ahorro bruto</th><th class="num">Repart.</th><th class="num">Reparto</th><th class="num">Ahorro neto/mes*</th><th class="num">Recup. $35K</th></tr></thead>
   <tbody>
-    <tr><td>5</td><td class="num">150</td><td class="num">$9,938</td><td class="num">1</td><td class="num">$13,000</td><td class="num"><span class="neg">−$4,663</span></td><td class="num">No recupera</td></tr>
-    <tr><td>10</td><td class="num">300</td><td class="num">$19,875</td><td class="num">1</td><td class="num">$13,000</td><td class="num"><span class="pos">$5,275</span></td><td class="num">6.6 meses</td></tr>
-    <tr><td>15</td><td class="num">450</td><td class="num">$29,813</td><td class="num">1</td><td class="num">$13,000</td><td class="num"><span class="pos">$15,213</span></td><td class="num">2.3 meses</td></tr>
-    <tr><td>20</td><td class="num">600</td><td class="num">$39,750</td><td class="num">2</td><td class="num">$26,000</td><td class="num"><span class="pos">$12,150</span></td><td class="num">2.9 meses</td></tr>
-    <tr><td>30</td><td class="num">900</td><td class="num">$59,625</td><td class="num">2</td><td class="num">$26,000</td><td class="num"><span class="pos">$32,025</span></td><td class="num">1.1 meses</td></tr>
-    <tr><td>40</td><td class="num">1,200</td><td class="num">$79,500</td><td class="num">3</td><td class="num">$39,000</td><td class="num"><span class="pos">$38,900</span></td><td class="num">0.9 meses</td></tr>
+    <tr><td>5</td><td class="num">150</td><td class="num">$11,925</td><td class="num">1</td><td class="num">$13,000</td><td class="num"><span class="neg">−$2,675</span></td><td class="num">No recupera</td></tr>
+    <tr><td>10</td><td class="num">300</td><td class="num">$23,850</td><td class="num">1</td><td class="num">$13,000</td><td class="num"><span class="pos">$9,250</span></td><td class="num">3.8 meses</td></tr>
+    <tr><td>15</td><td class="num">450</td><td class="num">$35,775</td><td class="num">1</td><td class="num">$13,000</td><td class="num"><span class="pos">$21,175</span></td><td class="num">1.7 meses</td></tr>
+    <tr><td>20</td><td class="num">600</td><td class="num">$47,700</td><td class="num">2</td><td class="num">$26,000</td><td class="num"><span class="pos">$20,100</span></td><td class="num">1.7 meses</td></tr>
+    <tr><td>30</td><td class="num">900</td><td class="num">$71,550</td><td class="num">2</td><td class="num">$26,000</td><td class="num"><span class="pos">$43,950</span></td><td class="num">0.8 meses</td></tr>
+    <tr><td>40</td><td class="num">1,200</td><td class="num">$95,400</td><td class="num">3</td><td class="num">$39,000</td><td class="num"><span class="pos">$54,800</span></td><td class="num">0.6 meses</td></tr>
   </tbody>
 </table>
 <p class="tnote">*Ahorro neto mensual = ahorro de comisiones − presupuesto de repartidores − mensualidad del sistema. No incluye impuestos, promociones, empaques ni otros costos que existan en ambos canales.</p>
@@ -231,8 +245,8 @@ h2.sec{position:relative}
 <h2 class="sec"><span class="no">5</span>Ejemplo central: 10 pedidos migrados al día</h2>
 <div class="hero-num">
   <div>
-  <div class="big">$5,275 <span>de ahorro operativo estimado al mes</span></div>
-  <p>300 pedidos al mes × $66.25 de ahorro bruto = $19,875 MXN/mes. Restando un repartidor presupuestado en $13,000 y la mensualidad del sistema de $1,600, el ahorro operativo estimado sería de $5,275 MXN al mes. Bajo estos supuestos, la inversión inicial de $35,000 se recuperaría aproximadamente en <strong style="color:#fff">6.6 meses</strong>. A partir de 15 pedidos diarios la recuperación baja a poco más de 2 meses.</p>
+  <div class="big">$9,250 <span>de ahorro operativo estimado al mes</span></div>
+  <p>300 pedidos al mes × $79.50 de ahorro bruto = $23,850 MXN/mes. Restando un repartidor presupuestado en $13,000 y la mensualidad del sistema de $1,600, el ahorro operativo estimado sería de $9,250 MXN al mes. Bajo estos supuestos, la inversión inicial de $35,000 se recuperaría aproximadamente en <strong style="color:#fff">3.8 meses</strong>. A partir de 15 pedidos diarios la recuperación baja a menos de 2 meses.</p>
   </div>
 </div>
 
@@ -268,28 +282,27 @@ h2.sec{position:relative}
 
 <!-- 8 -->
 <h2 class="sec"><span class="no">8</span>Datos para convertir esta proyección en ROI real</h2>
-<p class="lead">Para una proyección definitiva se sustituyen los supuestos por cinco datos de The Choise:</p>
+<p class="lead">El ticket promedio ya está confirmado. Para una proyección definitiva faltan cuatro datos de The Choise:</p>
 <div class="cards">
-  <div class="bcard"><div class="n">01</div><p>Ticket promedio real</p></div>
-  <div class="bcard"><div class="n">02</div><p>Pedidos mensuales de Uber Eats y DiDi Food</p></div>
-  <div class="bcard"><div class="n">03</div><p>Comisión efectiva de cada plataforma</p></div>
-  <div class="bcard"><div class="n">04</div><p>% de pedidos a domicilio vs. para recoger</p></div>
-  <div class="bcard" style="grid-column:1/-1"><div class="n">05</div><p>Costo y estructura real de repartidores</p></div>
+  <div class="bcard"><div class="n">01</div><p>Pedidos mensuales de Uber Eats y DiDi Food</p></div>
+  <div class="bcard"><div class="n">02</div><p>Comisión efectiva de cada plataforma</p></div>
+  <div class="bcard"><div class="n">03</div><p>% de pedidos a domicilio vs. para recoger</p></div>
+  <div class="bcard"><div class="n">04</div><p>Costo y estructura real de repartidores</p></div>
 </div>
 <p>Con esos datos se calcula el ahorro mensual, el precio directo recomendado y el mes exacto de recuperación.</p>
 
 <!-- 9 -->
 <h2 class="sec"><span class="no">9</span>Pedido mínimo y tarifa de envío sugerida</h2>
 
-<p class="lead">Tomando un pedido de ejemplo con el menú actual de The Choise —dos smash burgers sencillas ($109 c/u) y una orden de papas sencillas ($39), subtotal $257— se diseña una política de entrega directa atractiva para el cliente sin trasladar todo el costo logístico al restaurante. Las tarifas de app son las típicas de estas plataformas y deben confirmarse contra un pedido real.</p>
+<p class="lead">Tomando el ticket promedio de $300 —por ejemplo, una smash doble ($154), una sencilla ($109) y una orden de papas ($39)— se diseña una política de entrega directa atractiva para el cliente sin trasladar todo el costo logístico al restaurante. Las tarifas de app son las típicas de estas plataformas y deben confirmarse contra un pedido real.</p>
 <table>
   <thead><tr><th>Concepto</th><th class="num">App de delivery</th><th class="num">Canal directo (ejemplo)</th></tr></thead>
   <tbody>
-    <tr><td>Subtotal de alimentos</td><td class="num">$257.00</td><td class="num">$231.30 <small class="muted">(−10%)</small></td></tr>
+    <tr><td>Subtotal de alimentos</td><td class="num">$302.00</td><td class="num">$271.80 <small class="muted">(−10%)</small></td></tr>
     <tr><td>Envío</td><td class="num">$12.00</td><td class="num">$30.00</td></tr>
     <tr><td>Tarifas adicionales</td><td class="num">$8.52</td><td class="num">$0.00</td></tr>
-    <tr class="total"><td>Total al cliente</td><td class="num">$277.52</td><td class="num">$261.30</td></tr>
-    <tr><td>Diferencia para el cliente</td><td class="num">—</td><td class="num"><span class="pos">$16.22 menos</span></td></tr>
+    <tr class="total"><td>Total al cliente</td><td class="num">$322.52</td><td class="num">$301.80</td></tr>
+    <tr><td>Diferencia para el cliente</td><td class="num">—</td><td class="num"><span class="pos">$20.72 menos</span></td></tr>
   </tbody>
 </table>
 <h3 class="sub">Tarifa de envío sugerida por subtotal</h3>
@@ -376,18 +389,18 @@ function barChart(id, data, opt){
 }
 
 barChart("ch-order",[
-  {v:75, color:INK, cat:"Marketplace\n(30%)", label:"$75.00"},
-  {v:8.75, color:PINK, vcolor:INK, cat:"Canal propio\n(pago 3.5%)", label:"$8.75"},
-  {v:66.25, color:RED, vcolor:RED, cat:"Ahorro por\npedido", label:"$66.25"},
+  {v:90, color:INK, cat:"Marketplace\n(30%)", label:"$90.00"},
+  {v:10.5, color:PINK, vcolor:INK, cat:"Canal propio\n(pago 3.5%)", label:"$10.50"},
+  {v:79.5, color:RED, vcolor:RED, cat:"Ahorro por\npedido", label:"$79.50"},
 ]);
 
 barChart("ch-net",[
-  {v:-4663, color:ALERT, vcolor:ALERT, cat:"5", label:"−$4,663"},
-  {v:5275, color:RED, cat:"10"},
-  {v:15213, color:RED, cat:"15"},
-  {v:12150, color:RED, cat:"20"},
-  {v:32025, color:RED, cat:"30"},
-  {v:38900, color:RED, cat:"40"},
+  {v:-2675, color:ALERT, vcolor:ALERT, cat:"5", label:"−$2,675"},
+  {v:9250, color:RED, cat:"10"},
+  {v:21175, color:RED, cat:"15"},
+  {v:20100, color:RED, cat:"20"},
+  {v:43950, color:RED, cat:"30"},
+  {v:54800, color:RED, cat:"40"},
 ],{h:250,w:660,gap:26});
 
 barChart("ch-log",[
