@@ -53,6 +53,7 @@ button.danger{background:var(--ink);color:var(--cream)}
   font-family:"Space Grotesk";font-weight:600;font-size:13px;padding:8px 14px;
   border-radius:20px;border:1.5px solid var(--ink);cursor:pointer;text-decoration:none;color:var(--ink)
 }
+.file .actions button.copy-access{background:var(--ink);color:#fff;box-shadow:none}
 .empty{color:#8a8085;font-size:14px;padding:20px 0}
 .crm-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-bottom:18px;width:100%;min-width:0}
 .crm-grid .wide{grid-column:1/-1}
@@ -284,54 +285,60 @@ button.danger{background:var(--ink);color:var(--cream)}
         <div class="file">
           <div>
             <div class="name">La Costumbre</div>
-            <div class="meta">Contraseña del cliente: costumbre2026</div>
+            <div class="meta">Enlace directo por 7 días · contraseña de respaldo: costumbre2026</div>
           </div>
           <div class="actions">
+            <button type="button" class="copy-access" data-client-slug="la-costumbre">Copiar enlace</button>
             <a href="/clientes/la-costumbre/" target="_blank" rel="noopener">Ver</a>
           </div>
         </div>
         <div class="file">
           <div>
             <div class="name">Vaquero SM</div>
-            <div class="meta">Contraseña del cliente: vaquerosm2026</div>
+            <div class="meta">Enlace directo por 7 días · contraseña de respaldo: vaquerosm2026</div>
           </div>
           <div class="actions">
+            <button type="button" class="copy-access" data-client-slug="vaquero-sm">Copiar enlace</button>
             <a href="/clientes/vaquero-sm/" target="_blank" rel="noopener">Ver</a>
           </div>
         </div>
         <div class="file">
           <div>
             <div class="name">Econow</div>
-            <div class="meta">Contraseña del cliente: econow2026</div>
+            <div class="meta">Enlace directo por 7 días · contraseña de respaldo: econow2026</div>
           </div>
           <div class="actions">
+            <button type="button" class="copy-access" data-client-slug="econow">Copiar enlace</button>
             <a href="/clientes/econow/" target="_blank" rel="noopener">Ver</a>
           </div>
         </div>
         <div class="file">
           <div>
             <div class="name">Herraidea</div>
-            <div class="meta">Contraseña del cliente: herraidea2026</div>
+            <div class="meta">Enlace directo por 7 días · contraseña de respaldo: herraidea2026</div>
           </div>
           <div class="actions">
+            <button type="button" class="copy-access" data-client-slug="herraidea">Copiar enlace</button>
             <a href="/clientes/herraidea/" target="_blank" rel="noopener">Ver</a>
           </div>
         </div>
         <div class="file">
           <div>
             <div class="name">Renta Carga</div>
-            <div class="meta">Contraseña del cliente: rentacarga2026</div>
+            <div class="meta">Enlace directo por 7 días · contraseña de respaldo: rentacarga2026</div>
           </div>
           <div class="actions">
+            <button type="button" class="copy-access" data-client-slug="renta-carga">Copiar enlace</button>
             <a href="/clientes/renta-carga/" target="_blank" rel="noopener">Ver</a>
           </div>
         </div>
         <div class="file">
           <div>
             <div class="name">BM Cúbica</div>
-            <div class="meta">Contraseña del cliente: bmcubica2026</div>
+            <div class="meta">Enlace directo por 7 días · contraseña de respaldo: bmcubica2026</div>
           </div>
           <div class="actions">
+            <button type="button" class="copy-access" data-client-slug="bm-cubica">Copiar enlace</button>
             <a href="/clientes/bm-cubica/" target="_blank" rel="noopener">Ver</a>
           </div>
         </div>
@@ -449,7 +456,52 @@ const CLIENT_NAMES = {
   'vaquero-sm': 'Vaquero SM',
   'econow': 'Econow',
   'herraidea': 'Herraidea',
+  'renta-carga': 'Renta Carga',
+  'bm-cubica': 'BM Cúbica',
 };
+
+async function copyPrivateLink(text) {
+  if (navigator.clipboard && window.isSecureContext) {
+    await navigator.clipboard.writeText(text);
+    return;
+  }
+
+  const input = document.createElement('textarea');
+  input.value = text;
+  input.setAttribute('readonly', '');
+  input.style.position = 'fixed';
+  input.style.opacity = '0';
+  document.body.appendChild(input);
+  input.select();
+  const copied = document.execCommand('copy');
+  input.remove();
+  if (!copied) throw new Error('No se pudo copiar el enlace');
+}
+
+document.querySelectorAll('[data-client-slug]').forEach((button) => {
+  button.addEventListener('click', async () => {
+    const originalLabel = button.textContent;
+    button.disabled = true;
+    button.textContent = 'Generando…';
+
+    try {
+      const slug = button.dataset.clientSlug;
+      const res = await fetch(`/api/client-login?action=link&slug=${encodeURIComponent(slug)}`);
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok || !data.path) throw new Error(data.error || 'No se pudo crear el enlace');
+
+      await copyPrivateLink(new URL(data.path, location.origin).href);
+      button.textContent = 'Enlace copiado';
+    } catch (error) {
+      button.textContent = 'Intenta de nuevo';
+    } finally {
+      window.setTimeout(() => {
+        button.disabled = false;
+        button.textContent = originalLabel;
+      }, 2200);
+    }
+  });
+});
 
 const eventForm = document.getElementById('eventForm');
 const eventErr = document.getElementById('eventErr');
