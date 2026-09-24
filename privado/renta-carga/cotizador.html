@@ -1,0 +1,673 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Landing + Sistema de cotizaciones — Renta Carga × ProcesaLab</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/check')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = '/privado.html';
+      }
+    })
+    .catch(function () { location.href = '/privado.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--pink:#F7B6C9;--pinkl:#FBE3EA;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--lavl:#F5F0F8;--muted:#5f565a;--line:#E7DED8}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.6;font-size:15px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 12px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+
+.pllogo{position:relative;display:inline-block;line-height:0;max-width:100%}
+.pllogo img{display:block;height:100%;width:auto;max-width:100%}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:plspin 9s linear infinite}
+.pllogo .gt{fill:var(--gear,var(--red))}
+.pllogo .gh{fill:var(--patch,#fff)}
+@keyframes plspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.pllogo .plgear{animation:none}}
+@media print{.pllogo .plgear{animation:none}}
+
+/* Renta Carga logo */
+.rc{display:inline-block;line-height:0;max-width:100%}
+.rc img{display:block;height:100%;width:auto;max-width:100%}
+.rc.plate{padding:0}
+
+.cover-top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding-bottom:13px;border-bottom:1.5px solid var(--line)}
+.cover-top .pllogo{height:40px;--patch:#fff}
+.cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:right}
+
+/* cover: cream slab */
+.hero{position:relative;background:var(--cream);border:2.5px solid var(--ink);padding:32px 34px 30px;margin-top:16px;overflow:hidden;color:var(--ink);display:grid;grid-template-columns:1fr 196px;gap:0 18px;align-items:end}
+.hero>div{position:relative}
+.hero-r{align-self:end}
+.hero-r img{display:block;width:100%;height:auto}
+.hero .rc{height:104px;margin-bottom:24px}
+.hero .ey{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.2em;text-transform:uppercase;color:var(--red)}
+.hero h1{font-size:44px;font-weight:700;margin:11px 0 0;color:var(--ink);max-width:15ch}
+.hero .sub{font-size:14.5px;margin-top:14px;color:var(--muted);max-width:430px;line-height:1.55}
+.hero .rail{display:flex;align-items:center;gap:0;margin-top:26px}
+.hero .rail i{height:3px;background:#e0d6d0;flex:1}
+.hero .rail i.on{background:var(--red)}
+.hero .rail b{width:11px;height:11px;border-radius:50%;background:var(--pink);flex:none;border:2px solid var(--ink)}
+.hero .rail b.s{background:var(--red)}
+.hero .rail b.e{background:var(--ink)}
+.hero .ver{display:inline-block;font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--red);color:#fff;padding:6px 12px;margin-top:22px}
+
+/* journey */
+.journey{display:grid;grid-template-columns:repeat(6,1fr);gap:0;margin:20px 0 4px;break-inside:avoid;background:var(--lavl);border:1.5px solid var(--line);padding:16px 10px 14px}
+.jn{position:relative;padding:26px 8px 0;text-align:center}
+.jn::before{content:"";position:absolute;left:0;right:0;top:9px;height:2.5px;background:var(--pink)}
+.jn:first-child::before{left:50%}
+.jn:last-child::before{right:50%}
+.jn::after{content:"";position:absolute;left:50%;top:3px;width:15px;height:15px;margin-left:-7.5px;border-radius:50%;background:var(--lavl);border:2.5px solid var(--red)}
+.jn.f::after{background:var(--red)}
+.jn:nth-child(3)::after{border-color:#8a2f3f}
+.jn:nth-child(4)::after{border-color:#8a2f3f}
+.jn:nth-child(5)::after,.jn:nth-child(6)::after{border-color:var(--ink)}
+.jn .n{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.jn .t{font-family:"Space Grotesk";font-weight:700;font-size:13px;margin-top:3px}
+
+h2.sec{font-size:25px;margin:32px 0 4px;display:flex;align-items:center;gap:14px;break-after:avoid}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:31px;color:transparent;-webkit-text-stroke:1.6px var(--red);flex:none;line-height:1}
+h2.sec::after{content:"";flex:1;height:2px;background:var(--pink)}
+.lead{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+h3.sub{font-family:"Space Grotesk";font-size:16.5px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:9px}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+
+ul.clean{margin:6px 0 14px;padding:0;list-style:none}
+ul.clean li{position:relative;padding-left:17px;margin-bottom:5px;font-size:13.5px;break-inside:avoid}
+ul.clean li::before{content:"";position:absolute;left:0;top:7px;width:6px;height:6px;background:var(--red);border-radius:1px}
+ul.cols{columns:2;column-gap:26px}
+ul.clean.soft li::before{background:var(--pink)}
+
+/* proposals: big numeral + rule */
+.prop{display:grid;grid-template-columns:96px 1fr;gap:0 20px;padding:18px 0;border-top:1.5px solid var(--line);break-inside:avoid}
+.prop .ic{display:block;width:100%;height:auto;margin-top:12px}
+.prop:first-of-type{border-top:2.5px solid var(--ink)}
+.prop .pn{font-family:"Space Grotesk";font-weight:700;font-size:46px;line-height:.85;color:var(--pink);letter-spacing:-.04em}
+.prop:nth-of-type(even) .pn{color:var(--red)}
+.prop:nth-of-type(3n) .pn{color:#c9a6b4}
+.prop .pk{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-top:7px}
+.prop h4{font-size:19px;margin:0 0 7px}
+.prop p{font-size:13.5px;margin:0 0 8px;color:#2e2a2b}
+.prop ul.clean{margin:8px 0 0}
+.prop ul.clean li{font-size:12.5px;margin-bottom:4px}
+.prop .ben{margin-top:11px;padding-top:9px;border-top:1.5px solid var(--line);font-size:12.5px;color:var(--muted)}
+.prop .ben b{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);display:block;margin-bottom:3px}
+
+/* growth cards */
+.grow{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;break-inside:avoid}
+.gc{border-top:3px solid var(--red);padding:13px 15px;background:var(--pinkl)}
+.gc:nth-child(even){border-top-color:var(--pink);background:var(--lavl)}
+.gc h4{font-size:14.5px;margin:0 0 5px}
+.gc p{font-size:12.5px;color:var(--muted);margin:0;line-height:1.5}
+
+/* stage ladder */
+.ladder{margin:16px 0;break-inside:avoid}
+.st{display:grid;grid-template-columns:auto 1fr;gap:0 18px;padding:14px 16px;border-bottom:1.5px solid var(--line);align-items:start}
+.st:nth-child(odd){background:var(--lavl)}
+.st:nth-child(even){background:var(--pinkl)}
+.st:first-child{border-top:2.5px solid var(--ink)}
+.st .sn{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:#fff;background:var(--ink);padding:5px 9px;height:max-content;white-space:nowrap}
+.st:nth-child(2) .sn{background:var(--red)}
+.st:nth-child(3) .sn{background:#8a2f3f}
+.st:nth-child(4) .sn{background:var(--pink);color:var(--ink)}
+.st h4{font-size:16px;margin:0 0 4px}
+.st p{font-size:13px;color:var(--muted);margin:0}
+
+/* example timeline */
+.tl{margin:14px 0;break-inside:avoid}
+.tl li{list-style:none;position:relative;padding:0 0 15px 30px;border-left:2px solid var(--pink);margin-left:6px}
+.tl li:last-child{border-left-color:transparent;padding-bottom:0}
+.tl li::before{content:"";position:absolute;left:-7px;top:4px;width:12px;height:12px;border-radius:50%;background:var(--cream);border:2.5px solid var(--red)}
+.tl li:nth-child(3)::before,.tl li:nth-child(4)::before{border-color:#8a2f3f}
+.tl li:nth-child(5)::before,.tl li:nth-child(6)::before{border-color:var(--ink)}
+.tl li:nth-child(3) b,.tl li:nth-child(4) b{color:#8a2f3f}
+.tl li:nth-child(5) b,.tl li:nth-child(6) b{color:var(--ink)}
+.tl li b{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);display:block}
+.tl li span{font-size:13.5px;display:block;margin-top:2px}
+.tl ul{padding:0;margin:0}
+
+.callout{border-top:1.5px solid var(--ink);padding:13px 16px;margin:18px 0;break-inside:avoid;background:var(--lavl)}
+.callout .lbl{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.callout p{font-size:13.5px}
+.callout p:last-child{margin-bottom:0}
+.callout.pk{border-top-color:var(--red);background:var(--pinkl)}
+.callout.pk .lbl{color:var(--ink)}
+
+.band{background:var(--pink);padding:28px 30px;margin:20px 0 0;break-inside:avoid;color:var(--ink)}
+.band .rc{height:78px;margin-bottom:18px}
+.band .big{font-family:"Space Grotesk";font-weight:700;font-size:28px;line-height:1.14;color:var(--ink)}
+.band .big span{color:#8a2f3f}
+.band p{color:#5a2733;font-size:13px;margin:12px 0 0;max-width:560px}
+
+.collab{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;margin:14px 0 0;padding:24px;background:var(--cream);border:2.5px solid var(--ink);break-inside:avoid;--patch:var(--cream)}
+.collab .pllogo{height:34px;--gear:var(--red)}
+.collab .rc{height:58px}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:30px;color:var(--red);line-height:1;flex:none}
+
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh .pllogo{height:13px;--patch:#fff}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+.rf b{color:var(--red)}
+
+.hero{grid-template-columns:1fr 210px;background:var(--cream)}
+.hero::after{content:"";position:absolute;left:0;top:0;bottom:0;width:10px;background:var(--red)}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:20px}
+.chip{font-family:"Space Grotesk";font-weight:700;font-size:11px;letter-spacing:.04em;padding:7px 12px;border:2px solid var(--ink);background:#fff}
+.chip.r{background:var(--red);color:#fff;border-color:var(--red)}
+.chip.p{background:var(--pink)}
+/* flow */
+.flow{display:grid;grid-template-columns:1fr 34px 1fr 34px 1fr;align-items:stretch;margin:16px 0;break-inside:avoid}
+.fb{border:2px solid var(--ink);padding:14px 14px 12px;background:#fff;position:relative}
+.fb.a{background:var(--pinkl)}.fb.c{background:var(--ink);color:#fff}
+.fb .k{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.fb h4{font-size:15px;margin:5px 0 4px}.fb p{font-size:12px;margin:0;color:var(--muted);line-height:1.45}
+.fb.c p{color:#d8d0d3}
+.fb img{position:absolute;right:8px;top:8px;width:40px}
+.far{display:flex;align-items:center;justify-content:center;font-family:"Space Grotesk";font-weight:700;color:var(--red);font-size:22px}
+.far span{display:inline-block;animation:nudge 1.4s ease-in-out infinite}
+@keyframes nudge{50%{transform:translateX(4px)}}
+/* form mock */
+.form{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:12px 0 14px;padding:14px;background:var(--lavl);border:1.5px solid var(--line);break-inside:avoid}
+.form .f{background:#fff;border:1.5px solid var(--ink);padding:7px 9px;font-size:11px;font-weight:600}
+.form .f small{display:block;font-family:"Space Grotesk";font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);font-weight:700}
+.form .f.w{grid-column:span 3}
+.form .btn{background:var(--red);color:#fff;font-family:"Space Grotesk";font-weight:700;font-size:11px;display:flex;align-items:center;justify-content:center;border:1.5px solid var(--ink)}
+/* status pipeline */
+.pipe{display:flex;gap:0;margin:14px 0 6px;break-inside:avoid}
+.ps{flex:1;padding:10px 6px;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:11px;border:2px solid var(--ink);margin-left:-2px;background:#fff;position:relative}
+.ps small{display:block;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.ps.s1{background:var(--lavl)}.ps.s2{background:var(--pinkl)}.ps.s3{background:var(--pink)}.ps.ok{background:var(--red);color:#fff}.ps.ok small{color:#ffe0db}
+.ps.no{background:var(--ink);color:#fff}.ps.no small{color:#bbb}
+.ps.vz{background:#d9d0d4}
+.pipe-n{font-size:11px;color:var(--muted);margin:0 0 12px}
+/* two cols */
+.two{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:14px 0;break-inside:avoid}
+.tc{border:2px solid var(--ink);padding:14px 16px;background:#fff}
+.tc .hd{display:flex;align-items:center;justify-content:space-between;gap:10px;border-bottom:1.5px solid var(--line);padding-bottom:8px;margin-bottom:8px}
+.tc .hd h4{font-size:17px}.tc .hd img{height:38px}
+.tc .tg{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.tc ul.clean li{font-size:12.5px;margin-bottom:4px}
+.tc.m{background:var(--pinkl)}
+/* quote mock */
+.qm{display:grid;grid-template-columns:1.25fr 1fr;gap:18px;margin:14px 0;break-inside:avoid;align-items:start}
+table.qt{width:100%;border-collapse:collapse;font-size:12px;border:2px solid var(--ink)}
+table.qt th{font-family:"Space Grotesk";font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;text-align:left;background:var(--ink);color:#fff;padding:7px 9px}
+table.qt td{padding:7px 9px;border-top:1px solid var(--line)}
+table.qt td.n,table.qt th.n{text-align:right}
+table.qt tr.tot td{background:var(--pink);font-family:"Space Grotesk";font-weight:700;border-top:2px solid var(--ink)}
+.qnote{font-size:10.5px;color:var(--muted);margin-top:6px}
+.pdf{border:2px solid var(--ink);background:#fff;box-shadow:6px 6px 0 var(--pink);padding:14px 14px 12px;font-size:11px}
+.pdf .ph{display:flex;align-items:center;justify-content:space-between;border-bottom:2px solid var(--red);padding-bottom:7px;margin-bottom:8px}
+.pdf .ph img{height:26px}
+.pdf .ph b{font-family:"Space Grotesk";font-size:10px;letter-spacing:.08em}
+.pdf .ln{display:flex;justify-content:space-between;gap:8px;padding:4px 0;border-bottom:1px dashed var(--line)}
+.pdf .ln span:first-child{color:var(--muted)}
+.pdf .ln b{font-family:"Space Grotesk"}
+.pdf .bar{height:6px;background:var(--lav);margin:6px 0 3px}
+.pdf .bar.s{width:70%}
+.pdf .tt{margin-top:8px;display:flex;justify-content:space-between;background:var(--ink);color:#fff;padding:6px 9px;font-family:"Space Grotesk";font-weight:700}
+.three{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;break-inside:avoid}
+.three .gc{background:var(--pinkl)}
+.three .gc:nth-child(2){background:var(--lavl);border-top-color:var(--pink)}
+.three .gc:nth-child(3){background:#fff;border:1.5px solid var(--line);border-top:3px solid var(--ink)}
+.dash{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:10px 0 4px}
+.dash div{border:1.5px solid var(--ink);padding:8px 10px;background:#fff}
+.dash b{display:block;font-family:"Space Grotesk";font-size:22px;line-height:1}
+.dash small{font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);font-family:"Space Grotesk";font-weight:700}
+.dash div:nth-child(3){background:var(--red);color:#fff;border-color:var(--red)}.dash div:nth-child(3) small{color:#ffe0db}
+.dash .sk{display:inline-block;width:26px;height:10px;background:var(--line)}
+.dash div:nth-child(3) .sk{background:#ff8c7d}
+/* steps grid */
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:0;margin:14px 0;border:2px solid var(--ink);break-inside:avoid}
+.sp{padding:12px 12px 13px;border-right:1.5px solid var(--line);border-bottom:1.5px solid var(--line)}
+.sp:nth-child(4n){border-right:0}.sp:nth-child(n+5){border-bottom:0}
+.sp:nth-child(odd){background:var(--lavl)}
+.sp b{font-family:"Space Grotesk";font-weight:700;font-size:24px;color:var(--red);line-height:1;display:block;margin-bottom:6px}
+.sp:nth-child(n+5) b{color:var(--ink)}
+.sp span{font-size:12px;line-height:1.4;display:block}
+/* investment */
+.inv{display:grid;grid-template-columns:1.1fr .9fr;gap:20px;margin:16px 0;align-items:stretch;break-inside:avoid}
+.bars{border:2px solid var(--ink);padding:18px 18px 14px;background:#fff}
+.br{margin-bottom:14px}
+.br .lb{display:flex;justify-content:space-between;font-size:12.5px;font-weight:600;margin-bottom:5px}
+.br .lb b{font-family:"Space Grotesk"}
+.br .tr{height:22px;background:var(--lavl);border:1.5px solid var(--ink)}
+.br .tr i{display:block;height:100%;background:var(--pink);width:0;animation:grow 1.2s cubic-bezier(.2,.8,.2,1) .3s forwards}
+.br.b2 .tr i{background:var(--red)}
+.br.b3 .tr i{background:var(--ink)}
+@keyframes grow{to{width:var(--w)}}
+.price{background:var(--ink);color:#fff;padding:22px 22px 20px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.price .k{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+.price .v{font-family:"Space Grotesk";font-weight:700;font-size:50px;line-height:1;letter-spacing:-.03em;margin:10px 0 2px}
+.price .v small{font-size:16px;color:var(--pink);margin-left:4px}
+.price p{font-size:12px;color:#d8d0d3;margin:8px 0 0}
+.price .tag{align-self:flex-start;background:var(--red);font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;margin-top:12px}
+.price svg{position:absolute;right:-34px;bottom:-34px;width:130px;opacity:.14;animation:plspin 16s linear infinite}
+table.dom{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0 8px;border:2px solid var(--ink);break-inside:avoid}
+table.dom th{font-family:"Space Grotesk";font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 11px;background:var(--pink)}
+table.dom td{padding:9px 11px;border-top:1px solid var(--line)}
+table.dom td:first-child{font-family:"Space Grotesk";font-weight:700}
+table.dom tr.rec td{background:var(--pinkl)}
+table.dom .badge{font-family:"Space Grotesk";font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;background:var(--red);color:#fff;padding:3px 6px;margin-left:6px;vertical-align:middle}
+.fine{font-size:10.5px;color:var(--muted);line-height:1.45}
+.amp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:14px 0;break-inside:avoid}
+.amp div{display:flex;align-items:center;gap:9px;font-size:12.5px;font-weight:600;padding:9px 11px;border:1.5px solid var(--line);background:#fff}
+.amp div::before{content:"+";font-family:"Space Grotesk";font-weight:700;color:#fff;background:var(--red);width:18px;height:18px;flex:none;display:flex;align-items:center;justify-content:center;font-size:13px}
+.amp div:nth-child(3n+2)::before{background:var(--ink)}
+.amp div:nth-child(3n)::before{background:var(--pink);color:var(--ink)}
+/* ===== animaciones ===== */
+.hero-r img{animation:floatU 4s ease-in-out infinite}
+@keyframes floatU{0%,100%{transform:translateY(0)}50%{transform:translateY(-7px)}}
+.chip.r{position:relative;overflow:hidden}
+.chip.r::after{content:"";position:absolute;top:0;bottom:0;width:40%;left:-60%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.55),transparent);animation:shine 2.8s ease-in-out infinite}
+@keyframes shine{60%,100%{left:130%}}
+.fb img{animation:bob 2.2s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-4px) rotate(-3deg)}}
+.fb.c{animation:glow 2.4s ease-in-out infinite}
+@keyframes glow{50%{box-shadow:0 0 0 5px rgba(255,78,58,.35)}}
+.ps{transition:transform .3s}
+.pipe.in .ps{animation:lit 5.4s ease-in-out infinite}
+.pipe.in .ps:nth-child(2){animation-delay:.9s}.pipe.in .ps:nth-child(3){animation-delay:1.8s}.pipe.in .ps:nth-child(4){animation-delay:2.7s}.pipe.in .ps:nth-child(5){animation-delay:3.6s}.pipe.in .ps:nth-child(6){animation-delay:4.5s}
+@keyframes lit{0%,14%,100%{transform:none;z-index:0}5%{transform:translateY(-6px);z-index:2;box-shadow:0 6px 0 var(--ink)}}
+.form .btn{animation:pulseB 1.8s ease-in-out infinite}
+@keyframes pulseB{50%{transform:scale(1.05);box-shadow:3px 3px 0 var(--ink)}}
+.form .f.w{position:relative;overflow:hidden}
+.form .f.w::after{content:"";position:absolute;left:0;bottom:0;height:3px;background:var(--red);width:0;animation:load 2.6s ease-in-out infinite}
+@keyframes load{70%,100%{width:100%}}
+.pdf{animation:floatU 5s ease-in-out infinite}
+.pdf .bar{transform-origin:left;transform:scaleX(0)}
+.pdf.in .bar{animation:draw .9s ease forwards .3s}
+.pdf.in .bar.s{animation-delay:.6s}
+@keyframes draw{to{transform:scaleX(1)}}
+.pdf .ln b{color:var(--red);opacity:0}
+.pdf.in .ln b{animation:pop .4s cubic-bezier(.34,1.6,.5,1) forwards}
+.pdf.in .ln:nth-of-type(2) b{animation-delay:.2s}.pdf.in .ln:nth-of-type(3) b{animation-delay:.4s}.pdf.in .ln:nth-of-type(4) b{animation-delay:.6s}.pdf.in .ln:nth-of-type(5) b{animation-delay:.8s}.pdf.in .ln:nth-of-type(6) b{animation-delay:1s}
+@keyframes pop{from{opacity:0;transform:scale(.3)}to{opacity:1;transform:none}}
+.dash .sk{animation:skel 1.6s ease-in-out infinite}
+.dash div:nth-child(2) .sk{animation-delay:.2s}.dash div:nth-child(3) .sk{animation-delay:.4s}.dash div:nth-child(4) .sk{animation-delay:.6s}
+@keyframes skel{50%{width:44px}}
+.sp b{display:inline-block}
+.steps.in .sp b{animation:pop .5s cubic-bezier(.34,1.6,.5,1) both}
+.steps.in .sp:nth-child(2) b{animation-delay:.1s}.steps.in .sp:nth-child(3) b{animation-delay:.2s}.steps.in .sp:nth-child(4) b{animation-delay:.3s}.steps.in .sp:nth-child(5) b{animation-delay:.4s}.steps.in .sp:nth-child(6) b{animation-delay:.5s}.steps.in .sp:nth-child(7) b{animation-delay:.6s}.steps.in .sp:nth-child(8) b{animation-delay:.7s}
+.sp{transition:background .2s}.sp:hover{background:var(--pink)!important}
+.br .tr i{animation:none;width:0;transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+.bars.in .br .tr i{width:var(--w)}
+.bars.in .br.b2 .tr i{transition-delay:.25s}.bars.in .br.b3 .tr i{transition-delay:.5s}
+.price .v{animation:beat 2.6s ease-in-out infinite;transform-origin:left}
+@keyframes beat{0%,100%{transform:none}8%{transform:scale(1.06)}16%{transform:none}}
+.amp div{opacity:0;transform:translateY(12px) scale(.96)}
+.amp.in div{animation:up .5s cubic-bezier(.34,1.5,.5,1) forwards}
+.amp.in div:nth-child(2){animation-delay:.06s}.amp.in div:nth-child(3){animation-delay:.12s}.amp.in div:nth-child(4){animation-delay:.18s}.amp.in div:nth-child(5){animation-delay:.24s}.amp.in div:nth-child(6){animation-delay:.3s}.amp.in div:nth-child(7){animation-delay:.36s}.amp.in div:nth-child(8){animation-delay:.42s}.amp.in div:nth-child(9){animation-delay:.48s}.amp.in div:nth-child(10){animation-delay:.54s}.amp.in div:nth-child(11){animation-delay:.6s}
+@keyframes up{to{opacity:1;transform:none}}
+.amp div{transition:transform .2s}.amp.in div:hover{transform:translateY(-3px)}
+table.dom .badge{animation:pulseB 2s ease-in-out infinite;display:inline-block}
+.rv{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.rv.in{opacity:1;transform:none}
+.collab .x{animation:spinX 3s ease-in-out infinite}
+@keyframes spinX{0%,70%{transform:none}85%{transform:rotate(180deg) scale(1.3)}100%{transform:rotate(360deg)}}
+@media print{*{animation:none!important;transition:none!important}.rv,.amp div{opacity:1!important;transform:none!important}.br .tr i{width:var(--w)!important}.pdf .bar{transform:none!important}.pdf .ln b{opacity:1!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.rv,.amp div{opacity:1;transform:none}.br .tr i{width:var(--w)}.pdf .bar{transform:none}.pdf .ln b{opacity:1}}
+@media (prefers-reduced-motion:reduce){.br .tr i{animation:none;width:var(--w)}}
+/* finale */
+.finale{margin-top:26px;border:2.5px solid var(--ink);border-radius:20px;overflow:hidden;background:linear-gradient(#FBE3EA,#FFFBF6 62%);break-inside:avoid;position:relative}
+.finale .fl{display:flex;align-items:center;justify-content:center;gap:22px;padding:24px 20px 6px;--patch:#FCEEF2}
+.finale .fl .pllogo{height:36px}
+.finale .fl .rc{height:62px}
+.finale .fl .x{font-family:"Space Grotesk";font-weight:700;font-size:32px;color:var(--red)}
+.finale .cap{text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:22px;margin:6px 0 0}
+.finale .cap span{color:var(--red)}
+.scene{position:relative;height:330px;margin-top:6px;overflow:hidden}
+.ground{position:absolute;left:0;right:0;bottom:0;height:120px;background:#d9d2cf}
+.ground::before{content:"";position:absolute;left:50%;top:0;width:260px;height:120px;transform:translateX(-50%);background:linear-gradient(#bfb7b3,#cfc8c4);clip-path:polygon(22% 0,78% 0,100% 100%,0 100%)}
+.ground::after{content:"";position:absolute;left:50%;top:14px;width:6px;height:100px;transform:translateX(-50%);background:repeating-linear-gradient(#fff 0 12px,transparent 12px 26px);clip-path:polygon(35% 0,65% 0,100% 100%,0 100%)}
+.bld{position:absolute;left:50%;bottom:120px;width:420px;height:170px;transform:translateX(-50%);background:var(--lav);border:2.5px solid var(--ink);border-bottom:0;border-radius:10px 10px 0 0}
+.bld::before{content:"";position:absolute;left:-14px;right:-14px;top:-16px;height:18px;background:var(--ink);border-radius:6px}
+.bld .sign{position:absolute;left:50%;top:10px;transform:translateX(-50%);background:#fff;border:2px solid var(--ink);border-radius:6px;padding:3px 10px;line-height:0}
+.bld .sign img{height:22px}
+.door{position:absolute;left:50%;bottom:0;width:170px;height:118px;transform:translateX(-50%);background:#2b2528;border:3px solid var(--ink);border-bottom:0;overflow:hidden}
+.door::after{content:"";position:absolute;inset:0;background:radial-gradient(60% 70% at 50% 100%,rgba(255,220,120,.35),transparent 70%)}
+.shutter{position:absolute;inset:0;z-index:3;background:repeating-linear-gradient(#c9c3c6 0 9px,#9d969a 9px 11px);transition:transform 1.6s cubic-bezier(.6,0,.3,1)}
+.shutter::after{content:"";position:absolute;left:50%;bottom:6px;width:26px;height:6px;margin-left:-13px;background:var(--ink);border-radius:3px}
+.drum{position:absolute;left:50%;bottom:118px;width:180px;height:14px;transform:translateX(-50%);background:#8f888c;border:2px solid var(--ink);border-radius:8px;z-index:4}
+.trk{position:absolute;left:50%;bottom:92px;width:150px;margin-left:-75px;transform-origin:50% 100%;transform:translate(0,-26px) scale(.36);opacity:0;z-index:5}
+.trk.c{z-index:7}
+.go .shutter{transform:translateY(-100%)}
+.go .trk{animation:drive 2.1s cubic-bezier(.3,.1,.25,1) forwards}
+.go .trk.l{animation-delay:1.4s}.go .trk.r{animation-delay:2.2s}.go .trk.c{animation-delay:3s}
+@keyframes drive{0%{opacity:0;transform:translate(0,-26px) scale(.36)}8%{opacity:1}100%{opacity:1;transform:translate(var(--x),var(--y)) scale(var(--s))}}
+.trk.l{--x:-170px;--y:40px;--s:.78}.trk.r{--x:170px;--y:40px;--s:.78}.trk.c{--x:0px;--y:78px;--s:1}
+.trk .bob{animation:bob .35s ease-in-out infinite alternate}
+@keyframes bob{to{transform:translateY(-2px)}}
+.tb{position:relative;height:84px;background:#fff;border:2.5px solid var(--ink);border-radius:10px 10px 4px 4px;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.tb::after{content:"";position:absolute;left:0;right:0;bottom:10px;height:5px;background:var(--red)}
+.tb img{width:78%;height:auto}
+.tb .lt{position:absolute;top:5px;width:6px;height:6px;border-radius:50%;background:#FFB43A}
+.tcab{position:relative;width:118px;height:64px;margin:-2px auto 0;background:#fff;border:2.5px solid var(--ink);border-top:0;border-radius:0 0 8px 8px}
+.tcab .ws{position:absolute;left:8px;right:8px;top:4px;height:22px;background:#2a3340;border-radius:6px 6px 3px 3px}
+.tcab .ws::after{content:"";position:absolute;left:10px;top:4px;width:26px;height:4px;background:rgba(255,255,255,.35);border-radius:3px;transform:rotate(-8deg)}
+.tcab .gr{position:absolute;left:30px;right:30px;top:32px;height:22px;background:var(--ink);border-radius:4px;background-image:repeating-linear-gradient(#141310 0 4px,#3a3537 4px 6px)}
+.tcab .gr::after{content:"";position:absolute;left:50%;top:7px;width:14px;height:7px;margin-left:-7px;background:#2f5da8;border-radius:50%;border:1px solid #fff}
+.tcab .hl{position:absolute;top:33px;width:20px;height:12px;background:#fffbe6;border:2px solid var(--ink);border-radius:4px}
+.tcab .hl::after{content:"";position:absolute;left:0;top:0;width:6px;height:8px;background:#FFB43A;border-radius:2px}
+.tcab .hl.a{left:6px}.tcab .hl.b{right:6px;transform:scaleX(-1)}
+.go .tcab .hl{box-shadow:0 0 14px 4px rgba(255,236,160,.8)}
+.tcab .mr{position:absolute;top:6px;width:10px;height:16px;background:var(--ink);border-radius:3px}
+.tcab .mr.a{left:-13px}.tcab .mr.b{right:-13px}
+.tbump{width:126px;height:10px;margin:0 auto;background:var(--ink);border-radius:0 0 6px 6px;position:relative}
+.tbump::before,.tbump::after{content:"";position:absolute;top:4px;width:22px;height:22px;background:var(--ink);border-radius:4px;z-index:-1}
+.tbump::before{left:6px}.tbump::after{right:6px}
+.shadow{height:12px;width:150px;margin:8px auto 0;background:radial-gradient(closest-side,rgba(0,0,0,.28),transparent);border-radius:50%}
+.replay{position:absolute;right:14px;bottom:12px;z-index:9;font-family:"Space Grotesk";font-weight:700;font-size:11px;letter-spacing:.08em;text-transform:uppercase;background:var(--ink);color:#fff;border:0;border-radius:30px;padding:8px 14px;cursor:pointer}
+.replay:hover{background:var(--red)}
+@media print{.replay{display:none}.shutter{transform:translateY(-100%)!important;transition:none}.trk{animation:none!important;opacity:1;transform:translate(var(--x),var(--y)) scale(var(--s))}.inv .bar div{width:var(--w)!important;transition:none}.kc i.anim,.trk .bob{animation:none}}
+@media (prefers-reduced-motion:reduce){.kc i.anim,.trk .bob{animation:none}}
+</style>
+</head>
+<body>
+<doc-page size="letter" margin="0.7in">
+<div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Landing + Sistema de cotizaciones · Renta Carga</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+<div class="cover-top"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><div class="for">Propuesta digital para<br><strong style="color:var(--ink);font-size:14px">Renta Carga</strong></div></div>
+
+<div class="hero">
+ <div class="hero-l">
+  <div class="rc plate"><img src="assets/rentacarga-logo.png" alt="Renta Carga"></div>
+  <div class="ey">Renta Carga × ProcesaLab</div>
+  <h1>Del primer contacto a la cotización aceptada</h1>
+  <div class="sub">Una landing page personalizada conectada a un sistema de cotizaciones de fletes y mudanzas con base de datos: recibir solicitudes, preparar propuestas profesionales y dar seguimiento a cada una hasta su aceptación.</div>
+  <div class="chips"><span class="chip p">Landing page</span><span class="chip">Sistema de cotizaciones</span></div>
+  <span class="ver">Propuesta · Septiembre 2026</span>
+ </div>
+ <div class="hero-r"><img src="assets/rc-unidad.png" alt="Unidad Renta Carga"></div>
+</div>
+
+<h2 class="sec"><span class="no">1</span>Cómo se conecta todo</h2>
+<p class="lead">Dos piezas que trabajan juntas: la página capta la solicitud y el sistema la convierte en una cotización con seguimiento.</p>
+<div class="flow">
+ <div class="fb a"><img src="assets/rc-truck.png" alt=""><div class="k">Pieza 1</div><h4>Landing page</h4><p>El cliente conoce los servicios y envía su solicitud.</p></div>
+ <div class="far"><span>→</span></div>
+ <div class="fb"><img src="assets/rc-route.png" alt=""><div class="k">Pieza 2</div><h4>Sistema de cotizaciones</h4><p>El equipo arma el presupuesto y genera el PDF.</p></div>
+ <div class="far"><span>→</span></div>
+ <div class="fb c"><div class="k">Resultado</div><h4>Cotización aceptada</h4><p>Todo queda en el historial del cliente.</p></div>
+</div>
+
+<h2 class="sec"><span class="no">2</span>Landing page personalizada</h2>
+<p class="lead">Diseñada con la identidad de Renta Carga y adaptada a computadora, tableta y celular.</p>
+<ul class="clean cols">
+ <li>Presentación de la empresa</li><li>Servicios de fletes, mudanzas y transporte</li><li>Cobertura y zonas de atención</li><li>Fotografías reales de la empresa</li><li>Diferenciadores y preguntas frecuentes</li><li>Botón de contacto por WhatsApp</li><li>Formulario conectado al sistema de cotizaciones</li>
+</ul>
+<h3 class="sub">Formulario de solicitud</h3>
+<div class="form">
+ <div class="f"><small>Nombre</small>Cliente</div><div class="f"><small>Teléfono</small>477 …</div><div class="f"><small>Servicio</small>Flete / Mudanza</div><div class="f"><small>Fecha</small>dd / mm</div>
+ <div class="f"><small>Origen</small>León, Gto.</div><div class="f"><small>Destino</small>Ciudad</div><div class="f" style="grid-column:span 2"><small>Descripción de la carga</small>Muebles, cajas, mercancía…</div>
+ <div class="f w"><small>Se registra en</small>Sistema de cotizaciones · automáticamente</div><div class="btn">Solicitar →</div>
+</div>
+<div class="callout">
+ <div class="lbl">Solicitudes por teléfono y WhatsApp</div>
+ <p style="margin-bottom:0">Las solicitudes del formulario se registran solas. Las que lleguen por teléfono o WhatsApp se capturan manualmente. El botón de WhatsApp abre una conversación; no incluye chatbot ni registro automático de mensajes.</p>
+</div>
+
+<h2 class="sec"><span class="no">3</span>Sistema de cotizaciones</h2>
+<p class="lead">Plataforma web privada con base de datos, accesible desde el navegador. Cada cotización tiene folio, se asocia a un cliente y avanza por estos estados:</p>
+<div class="pipe">
+ <div class="ps s1"><small>01</small>Borrador</div><div class="ps s2"><small>02</small>Enviada</div><div class="ps s3"><small>03</small>En seguimiento</div><div class="ps ok"><small>04</small>Aceptada</div><div class="ps no"><small>—</small>Rechazada</div><div class="ps vz"><small>—</small>Vencida</div>
+</div>
+<p class="pipe-n">Se pueden guardar borradores, modificar propuestas y generar el PDF en cualquier momento.</p>
+
+<div class="two">
+ <div class="tc"><div class="hd"><div><div class="tg">Cotización</div><h4>Fletes</h4></div><img src="assets/rc-truck.png" alt=""></div>
+  <ul class="clean"><li>Cliente y datos de contacto</li><li>Dirección de recolección y entrega</li><li>Fecha y horario solicitado</li><li>Tipo de mercancía y número de piezas</li><li>Peso y dimensiones estimadas</li><li>Tipo de unidad requerida</li><li>Carga, descarga y personal de apoyo</li><li>Instrucciones y condiciones especiales</li></ul></div>
+ <div class="tc m"><div class="hd"><div><div class="tg">Cotización</div><h4>Mudanzas</h4></div><img src="assets/rc-pin.png" alt=""></div>
+  <ul class="clean"><li>Cliente y datos de contacto</li><li>Dirección de origen y destino · fecha prevista</li><li>Muebles, electrodomésticos, cajas y otros objetos</li><li>Pisos, escaleras, elevador y accesos en ambos domicilios</li><li>Empaque, desmontaje, armado y maniobras</li><li>Personal de apoyo y unidad requerida</li><li>Objetos delicados o voluminosos</li></ul></div>
+</div>
+<p class="fine">Los campos y servicios adicionales se validarán con Renta Carga antes de configurar el sistema.</p>
+
+<h3 class="sub">Presupuesto y PDF</h3>
+<div class="qm">
+ <div>
+  <table class="qt"><thead><tr><th>Concepto</th><th class="n">Cant.</th><th class="n">P. unit.</th><th class="n">Importe</th></tr></thead>
+  <tbody><tr><td>Transporte</td><td class="n">1</td><td class="n">—</td><td class="n">—</td></tr><tr><td>Ayudantes</td><td class="n">2</td><td class="n">—</td><td class="n">—</td></tr><tr><td>Empaque</td><td class="n">1</td><td class="n">—</td><td class="n">—</td></tr><tr><td>Maniobras</td><td class="n">1</td><td class="n">—</td><td class="n">—</td></tr><tr class="tot"><td colspan="3">Total (desc. e impuestos según configuración)</td><td class="n">Auto</td></tr></tbody></table>
+  <p class="qnote">Cada concepto lleva descripción, cantidad y precio unitario; el sistema calcula importes y total. Los precios los captura y revisa el equipo; esta etapa no calcula tarifas automáticas por kilómetros, volumen, fotos o unidad.</p>
+ </div>
+ <div class="pdf">
+  <div class="ph"><img src="assets/rentacarga-logo.png" alt=""><b>FOLIO RC-0001</b></div>
+  <div class="ln"><span>Fecha · Vigencia</span><b>✓</b></div><div class="ln"><span>Datos del cliente</span><b>✓</b></div><div class="ln"><span>Servicio · Origen → Destino</span><b>✓</b></div><div class="ln"><span>Desglose de conceptos</span><b>✓</b></div>
+  <div class="bar"></div><div class="bar s"></div>
+  <div class="ln"><span>Condiciones y observaciones</span><b>✓</b></div>
+  <div class="tt"><span>Total</span><span>$ —</span></div>
+ </div>
+</div>
+
+<h3 class="sub">Clientes, usuarios y resumen</h3>
+<div class="three">
+ <div class="gc"><h4>Seguimiento comercial</h4><p>Historial de cotizaciones por cliente, responsables, notas y recordatorios internos. La aceptación se registra manualmente (sin firma electrónica en esta etapa).</p></div>
+ <div class="gc"><h4>Usuarios y permisos</h4><p>Cuentas individuales con permisos para administración y atención comercial. El administrador gestiona accesos y consulta la actividad.</p></div>
+ <div class="gc"><h4>Resumen comercial</h4><p>Cotizaciones elaboradas, pendientes, aceptadas y rechazadas. Los importes son actividad comercial, no ingresos cobrados.</p></div>
+</div>
+<div class="dash"><div><small>Elaboradas</small><b><span class="sk"></span></b></div><div><small>Pendientes</small><b><span class="sk"></span></b></div><div><small>Aceptadas</small><b><span class="sk"></span></b></div><div><small>Rechazadas</small><b><span class="sk"></span></b></div></div>
+<p class="fine">Vista de referencia del panel. Contabilidad y rentabilidad por viaje se consideran ampliaciones futuras.</p>
+
+<h2 class="sec"><span class="no">4</span>Ejemplo de funcionamiento</h2>
+<p class="lead">Un cliente solicita una mudanza desde la landing.</p>
+<ul class="tl">
+ <li><b>Paso 1 · Solicitud</b><span>La solicitud aparece en el sistema y se asigna a un responsable.</span></li>
+ <li><b>Paso 2 · Detalle</b><span>El asesor completa muebles, domicilios y accesos.</span></li>
+ <li><b>Paso 3 · Presupuesto</b><span>Captura conceptos y precios y genera la cotización en PDF.</span></li>
+ <li><b>Paso 4 · Seguimiento</b><span>Registra notas y una fecha de seguimiento.</span></li>
+ <li><b>Paso 5 · Aceptación</b><span>Cuando el cliente acepta, el equipo actualiza el estado.</span></li>
+ <li><b>Paso 6 · Historial</b><span>La información queda disponible en el historial del cliente.</span></li>
+</ul>
+
+<h2 class="sec"><span class="no">5</span>Implementación y entrega</h2>
+<div class="steps">
+ <div class="sp"><b>01</b><span>Validación del proceso y revisión de una cotización real</span></div>
+ <div class="sp"><b>02</b><span>Definición de campos, servicios, permisos y plantilla PDF</span></div>
+ <div class="sp"><b>03</b><span>Diseño de la landing y pantallas del sistema</span></div>
+ <div class="sp"><b>04</b><span>Desarrollo y conexión con la base de datos</span></div>
+ <div class="sp"><b>05</b><span>Pruebas de las funciones acordadas</span></div>
+ <div class="sp"><b>06</b><span>Puesta en marcha y configuración de accesos</span></div>
+ <div class="sp"><b>07</b><span>Capacitación básica</span></div>
+ <div class="sp"><b>08</b><span>Dos rondas de ajustes sobre el alcance</span></div>
+</div>
+<p class="fine">El calendario y el periodo de corrección de errores se establecerán en la cotización formal. Nuevas funciones o cambios de alcance se presupuestan por separado.</p>
+
+<h2 class="sec"><span class="no">6</span>Inversión</h2>
+<div class="inv">
+ <div class="bars">
+  <div class="br"><div class="lb"><span>Landing page personalizada</span><b>$8,000</b></div><div class="tr"><i style="--w:26.7%"></i></div></div>
+  <div class="br b2"><div class="lb"><span>Sistema de cotizaciones con base de datos</span><b>$22,000</b></div><div class="tr"><i style="--w:73.3%"></i></div></div>
+  <div class="br b3" style="margin-bottom:0"><div class="lb"><span>Contratación conjunta</span><b>$30,000</b></div><div class="tr"><i style="--w:100%"></i></div></div>
+ </div>
+ <div class="price">
+  <div><div class="k">Inversión total</div><div class="v">$30,000<small>MXN</small></div><p>Landing + sistema de cotizaciones, con todas las funciones descritas en esta propuesta. Los pagos pueden manejarse por avances del proyecto.</p></div>
+  <span class="tag">Precio especial · primera contratación</span>
+  <svg viewBox="0 0 100 100"><g fill="#F7B6C9"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g></svg>
+ </div>
+</div>
+<p class="fine">Dominio, infraestructura, mantenimiento y consumos de servicios externos se presupuestan por separado. IVA y condiciones de pago se especificarán en la cotización formal.</p>
+
+<h2 class="sec"><span class="no">7</span>Opciones de dominio</h2>
+<table class="dom"><thead><tr><th>Dominio</th><th>Primer año</th><th>Renovación anual</th><th>Uso sugerido</th></tr></thead>
+<tbody>
+<tr class="rec"><td>rentacargaleon.com<span class="badge">Recomendado</span></td><td>USD $11.25</td><td>USD $11.25</td><td>Página comercial</td></tr>
+<tr><td>rentacarga.net</td><td>USD $13.50</td><td>USD $13.50</td><td>—</td></tr>
+<tr><td>rentacarga.app</td><td>USD $9.99</td><td>USD $15.00</td><td>Plataforma digital</td></tr>
+</tbody></table>
+<div class="callout pk"><div class="lbl">Antes de comprar</div><p style="margin-bottom:0">Revisaremos si Renta Carga conserva acceso a <strong>rentacarga.mx</strong>. La landing y el sistema pueden compartir un dominio mediante un subdominio; no es necesario comprar dos.</p></div>
+<p class="fine">Precios y disponibilidad consultados en Vercel el 24 de septiembre de 2026, sujetos a cambios. Impuestos y total final se confirman al comprar.</p>
+
+<h2 class="sec"><span class="no">8</span>Ampliaciones futuras</h2>
+<p class="lead">La plataforma puede crecer con nuevas funciones. No están incluidas en los $30,000 MXN; cada una requerirá definir alcance, tiempos e inversión.</p>
+<div class="amp">
+ <div>Cálculo automático de tarifas</div><div>Agenda y asignación de unidades</div><div>Expediente con fotos e incidencias</div>
+ <div>Comprobantes de entrega</div><div>Portal para clientes</div><div>App para choferes (iPhone y Android)</div>
+ <div>Ubicación en viajes activos</div><div>Mantenimiento de unidades</div><div>Ingresos, gastos y rentabilidad</div>
+ <div>Facturación fiscal</div><div>Asistente y automatizaciones de WhatsApp</div>
+</div>
+<p class="fine">El seguimiento de ubicación usaría el teléfono del chofer, con autorización y durante el servicio; depende de permisos, señal y batería. El panel mostraría la última ubicación reportada y su hora.</p>
+
+<div class="band">
+ <div class="rc plate"><img src="assets/rentacarga-logo.png" alt="Renta Carga"></div>
+ <div class="big">Cada solicitud, cotizada y con seguimiento<br><span>hasta convertirse en servicio.</span></div>
+ <p>Landing page + sistema de cotizaciones de fletes y mudanzas.</p>
+</div>
+<div class="finale" id="finale">
+<div class="fl"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span class="x">×</span><div class="rc plate"><img src="assets/rentacarga-logo.png" alt="Renta Carga"></div></div>
+<p class="cap">Listos para <span>arrancar.</span></p>
+<div class="scene" id="scene3d" style="height:400px;margin-top:0"></div>
+<button class="replay" onclick="replay()">↻ Repetir</button>
+</div>
+</doc-page>
+<script>
+const fin=document.getElementById('finale');
+function replay(){fin.classList.remove('go');void fin.offsetWidth;setTimeout(()=>fin.classList.add('go'),250);}
+const fio=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){fin.classList.add('go');fio.unobserve(fin);}}),{threshold:.35});
+setTimeout(()=>fio.observe(fin),600);
+</script>
+<script>
+(()=>{
+const sel='.flow,.form,.pipe,.two,.qm,.three,.dash,.tl,.steps,.inv,table.dom,.band,.collab';
+const grp='.pipe,.pdf,.steps,.bars,.amp';
+const go=()=>{
+ const rv=[...document.querySelectorAll(sel)];rv.forEach(e=>e.classList.add('rv'));
+ const all=[...new Set([...rv,...document.querySelectorAll(grp)])];
+ if(!('IntersectionObserver' in window)){all.forEach(e=>e.classList.add('in'));return;}
+ const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target);}}),{threshold:.15});
+ all.forEach(e=>io.observe(e));
+ setTimeout(()=>all.forEach(e=>{const r=e.getBoundingClientRect();if(r.top<innerHeight&&r.bottom>0)e.classList.add('in')}),400);
+};
+window.addEventListener('beforeprint',()=>document.querySelectorAll('.rv,'+grp).forEach(e=>e.classList.add('in')));
+if(document.readyState==='complete')go();else addEventListener('load',go);
+})();
+</script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#141310"></rect><rect x="30" y="52" width="16" height="16" rx="3" fill="#FF4E3A"></rect><rect x="52" y="56" width="10" height="10" rx="2" fill="#F7B6C9"></rect><rect x="68" y="58" width="6" height="6" rx="1" fill="#FFFBF6"></rect></svg></template>
+<script type="importmap">{"imports":{"three":"https://unpkg.com/three@0.160.0/build/three.module.js","three/addons/":"https://unpkg.com/three@0.160.0/examples/jsm/"}}</script>
+<script type="module">
+import * as THREE from 'three';
+import {RoundedBoxGeometry} from 'three/addons/geometries/RoundedBoxGeometry.js';
+const host=document.getElementById('scene3d');
+const r=new THREE.WebGLRenderer({antialias:true,preserveDrawingBuffer:true});
+r.setPixelRatio(Math.min(devicePixelRatio,2));r.shadowMap.enabled=true;r.shadowMap.type=THREE.PCFSoftShadowMap;
+r.outputColorSpace=THREE.SRGBColorSpace;r.toneMapping=THREE.ACESFilmicToneMapping;r.toneMappingExposure=1.05;
+host.appendChild(r.domElement);r.domElement.style.display='block';
+const sc=new THREE.Scene();sc.background=new THREE.Color('#FCEEF2');sc.fog=new THREE.Fog('#FCEEF2',30,70);
+const cam=new THREE.PerspectiveCamera(30,1,.1,200);
+function size(){const w=host.clientWidth,h=host.clientHeight;r.setSize(w,h);cam.aspect=w/h;cam.updateProjectionMatrix();}
+size();new ResizeObserver(size).observe(host);
+sc.add(new THREE.HemisphereLight('#ffffff','#d8c6cc',1.15));
+const sun=new THREE.DirectionalLight('#fff3e8',2.4);sun.position.set(9,15,11);sun.castShadow=true;sun.shadow.mapSize.set(2048,2048);
+Object.assign(sun.shadow.camera,{left:-16,right:16,top:16,bottom:-10,far:60});sun.shadow.bias=-.0004;sun.shadow.normalBias=.03;sc.add(sun);
+const M=(c,o={})=>new THREE.MeshStandardMaterial({color:c,roughness:.55,metalness:.05,...o});
+const rb=(w,h,d,rad=.15)=>new RoundedBoxGeometry(w,h,d,3,rad);
+function mesh(g,m,x=0,y=0,z=0,p=sc){const o=new THREE.Mesh(g,m);o.position.set(x,y,z);o.castShadow=o.receiveShadow=true;p.add(o);return o;}
+// ground
+const gr=mesh(new THREE.PlaneGeometry(120,120),M('#eee3df',{roughness:.95}),0,0,0);gr.rotation.x=-Math.PI/2;
+const DX=[-5.2,0,5.2];
+DX.forEach(x=>{const ap=mesh(new THREE.PlaneGeometry(4.2,10),M('#d8cdc9',{roughness:.95}),x,.01,-1);ap.rotation.x=-Math.PI/2;
+ [-2.15,2.15].forEach(o=>{const l=mesh(new THREE.PlaneGeometry(.14,9),M('#F7B6C9',{roughness:.9}),x+o,.02,-.5);l.rotation.x=-Math.PI/2;});
+ const st=mesh(new THREE.PlaneGeometry(4.3,.16),M('#F7B6C9',{roughness:.9}),x,.02,4);st.rotation.x=-Math.PI/2;});
+// building
+const lav=M('#F3EDF7',{roughness:.8}),ink=M('#141310',{roughness:.7}),pink=M('#F7B6C9');
+const OW=3.8,OH=4.5,BW=21,BH=7.6,WZ=-6;
+const edges=[-BW/2];DX.forEach(x=>edges.push(x-OW/2,x+OW/2));edges.push(BW/2);
+for(let i=0;i<edges.length;i+=2){const w=edges[i+1]-edges[i],cx=(edges[i]+edges[i+1])/2;mesh(new THREE.BoxGeometry(w,BH,1),lav,cx,BH/2,WZ);mesh(new THREE.BoxGeometry(w-.1,.7,1.04),pink,cx,.35,WZ);}
+DX.forEach(x=>mesh(new THREE.BoxGeometry(OW,BH-OH,1),lav,x,OH+(BH-OH)/2,WZ));
+mesh(new THREE.BoxGeometry(BW+.8,.55,1.8),ink,0,BH+.27,WZ);
+DX.forEach((x,i)=>{[-1,1].forEach(sd=>mesh(new THREE.BoxGeometry(.25,OH,1.1),ink,x+sd*(OW/2+.12),OH/2,WZ));mesh(new THREE.BoxGeometry(OW+.5,.25,1.1),ink,x,OH+.12,WZ);
+});
+// interior
+const inM=M('#3b3337',{roughness:.9});
+mesh(new THREE.BoxGeometry(18,6,.3),inM,0,3,-19);mesh(new THREE.BoxGeometry(.3,6,13),inM,-9,3,-12.5);mesh(new THREE.BoxGeometry(.3,6,13),inM,9,3,-12.5);mesh(new THREE.BoxGeometry(18,.3,13),inM,0,6,-12.5);
+DX.forEach(x=>{const pl=new THREE.PointLight('#ffd6a0',30,14,1.6);pl.position.set(x,4.5,-10);sc.add(pl);});
+// shutters
+const cv=document.createElement('canvas');cv.width=8;cv.height=64;const cx=cv.getContext('2d');
+cx.fillStyle='#cfc8cb';cx.fillRect(0,0,8,64);cx.fillStyle='#968f93';cx.fillRect(0,52,8,12);cx.fillStyle='#e7e2e4';cx.fillRect(0,0,8,7);
+const drum=new THREE.CylinderGeometry(.42,.42,OW+.4,24);drum.rotateZ(Math.PI/2);
+const SH=DX.map(x=>{const t=new THREE.CanvasTexture(cv);t.wrapS=t.wrapT=THREE.RepeatWrapping;t.repeat.set(1,15);t.colorSpace=THREE.SRGBColorSpace;
+ const g=new THREE.Group();g.position.set(x,OH,WZ);sc.add(g);mesh(new THREE.PlaneGeometry(OW,OH),M('#ffffff',{map:t,metalness:.35,roughness:.4}),0,-OH/2,0,g);
+ const h=mesh(new THREE.BoxGeometry(.6,.12,.12),ink,x,.3,WZ+.08);mesh(drum,M('#8e878b',{metalness:.5,roughness:.35}),x,OH+.5,WZ+.55);return{g,t,h};});
+// truck
+const white=M('#fbfbfb',{roughness:.3}),dark=M('#1b1a1c',{roughness:.7}),glass=M('#1e2833',{roughness:.08,metalness:.4}),red=M('#FF4E3A'),chrome=M('#cfd2d6',{metalness:.85,roughness:.22}),tire=M('#151416',{roughness:.95});
+const hlM=M('#fffbe6',{emissive:'#fff0bf',emissiveIntensity:0}),amb=M('#FFB43A',{emissive:'#ff9a00',emissiveIntensity:.9});
+function truck(tex,asp){
+ const g=new THREE.Group(),b=new THREE.Group();g.add(b);
+ const gray=M('#2c2b2f',{roughness:.5,metalness:.2});
+ mesh(new THREE.BoxGeometry(1.7,.3,7),dark,0,.85,-.2,b);
+ mesh(rb(2.62,2.8,4.7,.2),white,0,2.63,-1.15,b);
+ mesh(rb(2.62,1.3,1.5,.2),white,0,3.38,1.9,b);
+ mesh(new THREE.BoxGeometry(2.66,.12,4.6),gray,0,1.28,-1.15,b);
+ mesh(rb(2.3,1.15,1.7,.3),white,0,2.05,2.05,b);
+ mesh(rb(2.24,1.1,1.6,.34),white,0,1.28,3.35,b);
+ const hood=mesh(rb(2.1,.3,1.35,.14),white,0,1.8,3.45,b);hood.rotation.x=.12;
+ const ws=mesh(rb(2.02,.95,.08,.06),glass,0,2.2,2.86,b);ws.rotation.x=-.5;
+ [-1,1].forEach(sd=>{mesh(rb(.06,.62,1.05,.05),glass,sd*1.15,2.28,2.1,b);mesh(new THREE.BoxGeometry(.02,.95,.02),gray,sd*1.155,1.55,1.55,b);mesh(new THREE.BoxGeometry(.03,.05,.22),gray,sd*1.16,1.85,1.75,b);});
+ mesh(rb(1.46,.78,.12,.06),gray,0,1.28,4.12,b);
+ for(let i=0;i<3;i++)mesh(new THREE.BoxGeometry(1.3,.07,.08),M('#141316'),0,1.04+i*.24,4.17,b);
+ mesh(new THREE.BoxGeometry(.06,.66,.08),M('#141316'),0,1.28,4.17,b);
+ const bd=mesh(new THREE.SphereGeometry(.13,20,10),M('#2f5da8',{metalness:.4,roughness:.25}),0,1.3,4.2,b);bd.scale.set(1.7,1,.35);
+ [-1,1].forEach(sd=>{mesh(rb(.34,.5,.1,.06),hlM,sd*.93,1.36,4.08,b);mesh(rb(.32,.12,.08,.03),amb,sd*.93,1.04,4.08,b);});
+ mesh(rb(2.4,.4,.42,.12),dark,0,.66,4.18,b);
+ mesh(new THREE.BoxGeometry(.5,.12,.06),M('#e9e9ee'),0,.66,4.4,b);
+ [-1,1].forEach(sd=>{mesh(new THREE.BoxGeometry(.28,.05,.05),dark,sd*1.26,2.02,2.62,b);mesh(rb(.12,.55,.28,.04),dark,sd*1.42,2.12,2.62,b);});
+ [[-1.05,2.73],[1.05,2.73],[-1.05,4.03],[1.05,4.03],[0,2.73]].forEach(([x,y])=>mesh(new THREE.SphereGeometry(.06,10,8),amb,x,y+(y>3?0:1.3)-(y>3?0:1.3),y>3?1.15:2.66,b));
+ [-.75,0,.75].forEach(x=>mesh(new THREE.SphereGeometry(.055,10,8),amb,x,4.05,2.66,b));
+ [-1.2,1.2].forEach(x=>mesh(new THREE.SphereGeometry(.06,10,8),amb,x,3.9,2.66,b));
+ const lm=new THREE.MeshBasicMaterial({map:tex,transparent:true,polygonOffset:true,polygonOffsetFactor:-2});
+ const fw=Math.min(2.3,1.05*asp);const f=new THREE.Mesh(new THREE.PlaneGeometry(fw,fw/asp),lm);f.position.set(0,3.4,2.66);b.add(f);
+ const sw=Math.min(4.2,2.3*asp);[-1,1].forEach(sd=>{const p=new THREE.Mesh(new THREE.PlaneGeometry(sw,sw/asp),lm);p.position.set(sd*1.315,2.75,-1.15);p.rotation.y=sd*Math.PI/2;b.add(p);});
+ [-1,1].forEach(sd=>{const fl=mesh(new THREE.TorusGeometry(.62,.1,8,20,Math.PI),dark,sd*1.1,.62,3.2,b);fl.rotation.y=Math.PI/2;const fr=mesh(new THREE.TorusGeometry(.62,.1,8,20,Math.PI),dark,sd*1.3,.62,-2.35,b);fr.rotation.y=Math.PI/2;});
+ const wg=new THREE.CylinderGeometry(.55,.55,.38,32);wg.rotateZ(Math.PI/2);const hg=new THREE.CylinderGeometry(.3,.3,.4,20);hg.rotateZ(Math.PI/2);const cg=new THREE.CylinderGeometry(.1,.1,.42,12);cg.rotateZ(Math.PI/2);
+ const wheels=[];[[1.02,3.2],[-1.02,3.2],[1.12,-2.35],[-1.12,-2.35],[.72,-2.35],[-.72,-2.35]].forEach(([x,z])=>{const w=new THREE.Group();w.position.set(x,.55,z);g.add(w);mesh(wg,tire,0,0,0,w);mesh(hg,chrome,0,0,0,w);mesh(cg,dark,0,0,0,w);for(let i=0;i<4;i++){const l=mesh(new THREE.BoxGeometry(.42,.05,.05),M('#8a8a8e',{metalness:.6}),0,Math.cos(i*Math.PI/2)*.19,Math.sin(i*Math.PI/2)*.19,w);}wheels.push(w);});
+ g.userData={b,wheels};sc.add(g);return g;
+}
+const tex=await new THREE.TextureLoader().loadAsync('assets/rentacarga-logo.png');tex.colorSpace=THREE.SRGBColorSpace;tex.anisotropy=8;
+const asp=tex.image.width/tex.image.height;
+// sign
+mesh(rb(Math.min(4.6,1.25*asp)+.5,1.6,.2,.1),M('#ffffff'),0,6.55,WZ+.55);
+const sg=new THREE.Mesh(new THREE.PlaneGeometry(Math.min(4.6,1.25*asp),Math.min(4.6,1.25*asp)/asp),new THREE.MeshBasicMaterial({map:tex,transparent:true}));sg.position.set(0,6.55,WZ+.67);sc.add(sg);
+const P=[{x:-5.2,z:1.6,t0:1.6,o:.2},{x:5.2,z:1.6,t0:2.5,o:1.1},{x:0,z:4.6,t0:3.4,o:2.0}];
+const trucks=P.map(p=>{const t=truck(tex,asp);const e=new THREE.Vector3(p.x,0,p.z);
+ p.curve=new THREE.LineCurve3(new THREE.Vector3(p.x,0,-11.6),e);p.len=p.curve.getLength();p.d=0;return t;});
+const DUR=3.4,END=P[2].t0+DUR+.2;
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+let T0=null,last=0;
+function setState(el){
+ SH.forEach((d,i)=>{const o=THREE.MathUtils.clamp((el-P[i].o)/1.5,0,1),s=1-eio(o)*.965;d.g.scale.y=s;d.t.repeat.y=15*s;d.h.position.y=OH-OH*s+.25;});
+ trucks.forEach((t,i)=>{const p=P[i];const k=THREE.MathUtils.clamp((el-p.t0)/DUR,0,1);t.visible=true;const u=eio(k);
+  const pos=p.curve.getPointAt(u),tan=p.curve.getTangentAt(Math.max(u,.001));t.position.copy(pos);t.rotation.y=0;
+  const d=u*p.len,dd=d-p.d;p.d=d;t.userData.wheels.forEach(w=>w.rotation.x+=dd/.48);
+  const mv=k>0&&k<1?1:0;t.userData.b.position.y=mv*Math.sin(el*22+i)*.025;t.userData.b.rotation.x=k>=1?Math.sin(Math.min((el-p.t0-DUR)*6,Math.PI))*-.015:0;});
+ hlM.emissiveIntensity=el>1.5?1.4:0;
+}
+function frame(now){
+ const el=T0==null?0:(now-T0)/1000;setState(el);
+ const tt=now/1000;cam.position.set(Math.sin(tt*.2)*1.6,7.8,25);cam.lookAt(0,2.4,-1);
+ r.render(sc,cam);requestAnimationFrame(frame);
+}
+requestAnimationFrame(frame);
+function play(){P.forEach(p=>p.d=0);T0=performance.now();}
+window.replay=play;
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting){play();o.disconnect();}}),{threshold:.4}).observe(host);
+addEventListener('beforeprint',()=>{T0=performance.now()-END*1000;setState(END);r.render(sc,cam);});
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
