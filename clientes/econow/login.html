@@ -32,6 +32,13 @@ button:hover{transform:translate(-2px,-2px)}
   </form>
 </div>
 <script>
+if (new URLSearchParams(location.search).get('error') === 'enlace') {
+  const linkError = document.getElementById('loginErr');
+  linkError.textContent = 'Este enlace privado caducó. Pide uno nuevo a ProcesaLab o entra con tu contraseña.';
+  linkError.style.display = 'block';
+  history.replaceState({}, '', location.pathname);
+}
+
 document.getElementById('loginForm').addEventListener('submit', async (e) => {
   e.preventDefault();
   const err = document.getElementById('loginErr');
