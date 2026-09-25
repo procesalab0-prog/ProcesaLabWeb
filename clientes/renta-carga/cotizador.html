@@ -250,7 +250,12 @@ table.qt tr.tot td{background:var(--pink);font-family:"Space Grotesk";font-weigh
 .br .lb b{font-family:"Space Grotesk"}
 .br .tr{height:22px;background:var(--lavl);border:1.5px solid var(--ink)}
 .br .tr i{display:block;height:100%;background:var(--pink);width:0;animation:grow 1.2s cubic-bezier(.2,.8,.2,1) .3s forwards}
-.br.b2 .tr i{background:var(--red)}
+.br.phase1{background:var(--pinkl);border:2px solid var(--ink);padding:12px;box-shadow:4px 4px 0 var(--pink)}
+.br.phase1 .lb{align-items:center;margin-top:7px}.br.phase1 .lb b{font-size:20px;color:var(--red)}
+.br.phase1 .tr i{background:var(--red)}
+.phase-badge{display:inline-block;background:var(--ink);color:#fff;font-family:"Space Grotesk";font-weight:700;font-size:9px;letter-spacing:.1em;text-transform:uppercase;padding:5px 8px}
+.phase-note{font-size:10.5px;line-height:1.4;color:var(--muted);margin:8px 0 0}
+.br.b2 .tr i{background:var(--pink)}
 .br.b3 .tr i{background:var(--ink)}
 @keyframes grow{to{width:var(--w)}}
 .price{background:var(--ink);color:#fff;padding:22px 22px 20px;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
@@ -260,6 +265,9 @@ table.qt tr.tot td{background:var(--pink);font-family:"Space Grotesk";font-weigh
 .price p{font-size:12px;color:#d8d0d3;margin:8px 0 0}
 .price .tag{align-self:flex-start;background:var(--red);font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.08em;text-transform:uppercase;padding:6px 10px;margin-top:12px}
 .price svg{position:absolute;right:-34px;bottom:-34px;width:130px;opacity:.14;animation:plspin 16s linear infinite}
+.price.first-payment{background:var(--red)}
+.price.first-payment .k{color:#fff}.price.first-payment .v small{color:#ffe0db}.price.first-payment p{color:#fff0ed;max-width:230px}
+.price.first-payment .tag{background:#fff;color:var(--ink)}
 table.dom{width:100%;border-collapse:collapse;font-size:13px;margin:12px 0 8px;border:2px solid var(--ink);break-inside:avoid}
 table.dom th{font-family:"Space Grotesk";font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:8px 11px;background:var(--pink)}
 table.dom td{padding:9px 11px;border-top:1px solid var(--line)}
@@ -490,15 +498,16 @@ table.dom .badge{animation:pulseB 2s ease-in-out infinite;display:inline-block}
 <p class="fine">El calendario y el periodo de corrección de errores se establecerán en la cotización formal. Nuevas funciones o cambios de alcance se presupuestan por separado.</p>
 
 <h2 class="sec"><span class="no">6</span>Inversión</h2>
+<p class="lead"><strong>La primera etapa recomendada es la landing page.</strong> Permite comenzar con una presencia comercial profesional y recibir solicitudes antes de desarrollar el sistema completo.</p>
 <div class="inv">
  <div class="bars">
-  <div class="br"><div class="lb"><span>Landing page personalizada</span><b>$8,000</b></div><div class="tr"><i style="--w:28.6%"></i></div></div>
-  <div class="br b2"><div class="lb"><span>Sistema de cotizaciones con base de datos</span><b>$20,000</b></div><div class="tr"><i style="--w:71.4%"></i></div></div>
-  <div class="br b3" style="margin-bottom:0"><div class="lb"><span>Contratación conjunta</span><b>$28,000</b></div><div class="tr"><i style="--w:100%"></i></div></div>
+  <div class="br phase1"><span class="phase-badge">Fase 1 · Empezamos aquí</span><div class="lb"><span>Landing page personalizada</span><b>$8,000</b></div><div class="tr"><i style="--w:28.6%"></i></div><p class="phase-note">Primer pago del proyecto. Es una entrega independiente y no requiere cuota de mantenimiento.</p></div>
+  <div class="br b2"><div class="lb"><span>Fase 2 · Sistema de cotizaciones</span><b>$20,000</b></div><div class="tr"><i style="--w:71.4%"></i></div></div>
+  <div class="br b3" style="margin-bottom:0"><div class="lb"><span>Proyecto completo · Fases 1 + 2</span><b>$28,000</b></div><div class="tr"><i style="--w:100%"></i></div></div>
  </div>
- <div class="price">
-  <div><div class="k">Inversión total</div><div class="v">$28,000<small>MXN</small></div><p>Landing + sistema de cotizaciones, con todas las funciones descritas en esta propuesta. Los pagos pueden manejarse por avances del proyecto.</p></div>
-  <span class="tag">Precio especial · primera contratación</span>
+ <div class="price first-payment">
+  <div><div class="k">Primera fase · Primer pago</div><div class="v">$8,000<small>MXN</small></div><p>Comenzamos con la landing. Al concluir esta fase, Renta Carga podrá decidir cuándo iniciar el sistema de cotizaciones de $20,000.</p></div>
+  <span class="tag">Fase recomendada para comenzar</span>
   <svg viewBox="0 0 100 100"><g fill="#F7B6C9"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g></svg>
  </div>
 </div>
