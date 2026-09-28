@@ -1,0 +1,567 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#0A0A0B">
+<title>Bomberos · El oficio, sus riesgos y su cuidado — Presentación académica</title>
+<meta name="description" content="Presentación académica sobre el trabajo de los bomberos: quiénes lo desempeñan, escolaridad, riesgos, lesiones, enfermedades, requisitos y medidas de seguridad.">
+<style>
+@font-face{font-family:"Oswald";src:url("fonts/oswald-latin-700-normal.woff2") format("woff2");font-weight:700;font-display:swap}
+@font-face{font-family:"Oswald";src:url("fonts/oswald-latin-600-normal.woff2") format("woff2");font-weight:600;font-display:swap}
+@font-face{font-family:"Oswald";src:url("fonts/oswald-latin-500-normal.woff2") format("woff2");font-weight:500;font-display:swap}
+@font-face{font-family:"Inter";src:url("fonts/inter-latin-400-normal.woff2") format("woff2");font-weight:400;font-display:swap}
+@font-face{font-family:"Inter";src:url("fonts/inter-latin-600-normal.woff2") format("woff2");font-weight:600;font-display:swap}
+
+/* Paleta del escudo: rojo de la estrella, dorado de la escalera, negro del
+   contorno; el naranja sale del fuego de sus fotos. */
+:root{--red:#D7261E;--red2:#FF3B2F;--gold:#E0BE3F;--ink:#0A0A0B;--ink2:#141416;--ink3:#1C1C1F;--fire:#F26B1D;--txt:#CFCFD3;--mut:#8E8E96}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;scroll-snap-type:y proximity;background:var(--ink)}
+body{font-family:"Inter",system-ui,sans-serif;color:#fff;background:var(--ink);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{max-width:100%;display:block}
+a{color:inherit}
+.o{font-family:"Oswald",sans-serif;text-transform:uppercase}
+
+/* barra de progreso y navegación por puntos */
+#progress{position:fixed;top:0;left:0;height:3px;width:0;background:linear-gradient(90deg,var(--red2),var(--gold));z-index:50;box-shadow:0 0 12px rgba(255,59,47,.7)}
+#dots{position:fixed;right:22px;top:50%;transform:translateY(-50%);z-index:40;display:flex;flex-direction:column;gap:12px}
+#dots a{position:relative;display:block;width:10px;height:10px;border-radius:50%;border:1.5px solid rgba(255,255,255,.55);text-decoration:none}
+#dots a.on{background:var(--red2);border-color:var(--red2);box-shadow:0 0 10px rgba(255,59,47,.8)}
+#dots a span{position:absolute;right:20px;top:50%;transform:translateY(-50%);white-space:nowrap;font-family:"Oswald";font-weight:500;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#fff;background:rgba(10,10,11,.85);padding:5px 10px;border-radius:3px;opacity:0;pointer-events:none;transition:opacity .2s}
+#dots a:hover span,#dots a.on span{opacity:1}
+#dots a.on span{opacity:.0}
+#dots a:hover span{opacity:1}
+
+/* secciones */
+section{position:relative;min-height:100vh;scroll-snap-align:start;overflow:hidden}
+.wrap{max-width:1240px;margin:0 auto;padding:110px 7vw 96px;position:relative;z-index:2}
+.kick{display:flex;align-items:center;gap:14px;font-family:"Oswald";font-weight:500;font-size:15px;letter-spacing:.3em;text-transform:uppercase;color:var(--gold)}
+.kick i{display:block;width:40px;height:2px;background:var(--gold)}
+.kick b{font-weight:700;color:var(--red2);letter-spacing:.1em;font-size:22px}
+h2{font-family:"Oswald";font-weight:700;text-transform:uppercase;line-height:.95;font-size:clamp(40px,5.4vw,84px);margin-top:16px;letter-spacing:-.005em}
+h2 .r{color:var(--red2)}
+.lead{font-size:clamp(16px,1.35vw,21px);line-height:1.6;color:var(--txt);max-width:760px;margin-top:22px}
+.bar{height:5px;width:110px;background:var(--red2);border-radius:3px;margin-top:22px;box-shadow:0 0 14px rgba(255,59,47,.6)}
+
+/* aparición */
+.rv{opacity:0;transform:translateY(34px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1);transition-delay:calc(var(--d,0) * 90ms)}
+.in .rv{opacity:1;transform:none}
+
+/* ============ HERO ============ */
+#inicio{height:100vh;min-height:620px;background:var(--ink);isolation:isolate}
+.h-photo{position:absolute;top:0;right:0;width:64%;height:100%;overflow:hidden;z-index:0}
+.h-photo img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:60% 40%;transform-origin:62% 60%;will-change:transform}
+.h-photo::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,var(--ink) 0%,rgba(10,10,11,.85) 16%,rgba(10,10,11,.25) 46%,rgba(10,10,11,0) 70%),linear-gradient(0deg,var(--ink) 0%,rgba(10,10,11,0) 30%)}
+.h-heat{position:absolute;inset:0;z-index:1;pointer-events:none;mix-blend-mode:screen;background:radial-gradient(ellipse 45% 60% at 72% 58%,rgba(242,107,29,.55),rgba(215,38,30,0) 70%)}
+canvas#embers{position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;mix-blend-mode:screen}
+.h-star{position:absolute;z-index:1;left:-8vh;top:50%;width:92vh;height:92vh;margin-top:-46vh;pointer-events:none;will-change:transform,opacity}
+.h-star svg{width:100%;height:100%;overflow:visible}
+.h-nav{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;align-items:center;justify-content:space-between;gap:20px;padding:22px 5vw}
+.brand{display:flex;align-items:center;gap:14px;text-decoration:none;color:#fff}
+.brand img{width:54px;height:54px;filter:drop-shadow(0 4px 14px rgba(0,0,0,.6))}
+.brand .bt{font-family:"Oswald";font-weight:600;font-size:15px;letter-spacing:.14em;line-height:1.15;text-transform:uppercase}
+.brand .bt small{display:block;font-weight:500;color:var(--gold);font-size:12px;letter-spacing:.24em}
+.tag-acad{font-family:"Oswald";font-weight:500;font-size:12px;letter-spacing:.2em;text-transform:uppercase;color:#ddd;border:1px solid rgba(255,255,255,.35);border-radius:30px;padding:8px 14px;white-space:nowrap}
+.h-copy{position:absolute;z-index:4;left:9vw;top:50%;transform:translateY(-46%);max-width:min(1000px,84vw)}
+.h-copy .eyebrow{font-family:"Oswald";font-weight:500;font-size:clamp(14px,1.25vw,20px);letter-spacing:.3em;text-transform:uppercase;color:var(--gold);display:flex;align-items:center;gap:14px}
+.h-copy .eyebrow i{display:block;height:2px;width:42px;background:var(--gold)}
+h1{font-family:"Oswald";font-weight:700;text-transform:uppercase;line-height:.92;font-size:clamp(40px,6.4vw,114px);margin-top:18px}
+h1 .ln{display:block;overflow:hidden;padding-bottom:.04em;white-space:nowrap}
+h1 .ln>span{display:inline-block;will-change:transform}
+h1 .r{color:var(--red2);text-shadow:0 0 34px rgba(255,59,47,.45)}
+.h-bar{height:6px;background:var(--red2);border-radius:3px;margin-top:26px;width:0;box-shadow:0 0 18px rgba(255,59,47,.7)}
+.h-lead{margin-top:26px;font-size:clamp(15px,1.15vw,19px);line-height:1.6;color:var(--txt);max-width:540px}
+.ctas{display:flex;gap:16px;margin-top:36px;flex-wrap:wrap}
+.btn{position:relative;display:inline-flex;align-items:center;gap:12px;font-family:"Oswald";font-weight:600;font-size:17px;letter-spacing:.12em;text-transform:uppercase;text-decoration:none;padding:17px 30px;border-radius:4px;transition:transform .2s}
+.btn:hover{transform:translateY(-2px)}
+.btn.primary{background:var(--red);color:#fff}
+.btn.primary .ring{position:absolute;inset:0;border-radius:4px;border:2px solid var(--red2);pointer-events:none}
+.btn.ghost{color:#fff;border:1.5px solid rgba(255,255,255,.55)}
+.ticker{position:absolute;left:0;right:0;bottom:0;z-index:5;background:var(--red);height:54px;overflow:hidden;display:flex;align-items:center;border-top:2px solid var(--gold)}
+.ticker .track{display:flex;white-space:nowrap;will-change:transform}
+.ticker span{font-family:"Oswald";font-weight:600;font-size:18px;letter-spacing:.2em;text-transform:uppercase;padding:0 26px;display:inline-flex;align-items:center;gap:26px}
+.ticker span::after{content:"";width:9px;height:9px;background:var(--gold);transform:rotate(45deg)}
+.fade{opacity:0}
+
+/* ============ EL OFICIO ============ */
+#oficio{display:flex;align-items:center}
+.bgphoto{position:absolute;inset:0;z-index:0}
+.bgphoto img{width:100%;height:100%;object-fit:cover;transform:scale(1.08);transition:transform 6s cubic-bezier(.16,1,.3,1)}
+.in .bgphoto img{transform:scale(1)}
+.bgphoto::after{content:"";position:absolute;inset:0;background:linear-gradient(90deg,rgba(10,10,11,.96) 0%,rgba(10,10,11,.86) 45%,rgba(10,10,11,.45) 100%)}
+.statement{font-family:"Oswald";font-weight:600;text-transform:uppercase;font-size:clamp(30px,3.6vw,56px);line-height:1.08;max-width:980px;margin-top:18px}
+.statement em{font-style:normal;color:var(--red2)}
+.pills{display:flex;flex-wrap:wrap;gap:12px;margin-top:34px}
+.pill{font-family:"Oswald";font-weight:500;font-size:16px;letter-spacing:.14em;text-transform:uppercase;padding:11px 20px;border:1.5px solid rgba(224,190,63,.6);color:#fff;border-radius:40px;background:rgba(10,10,11,.4)}
+
+/* ============ QUIÉNES ============ */
+#quienes{background:var(--ink2)}
+.grid5{display:grid;grid-template-columns:repeat(5,1fr);gap:16px;margin-top:44px}
+.card{background:var(--ink3);border:1px solid #2A2A2F;border-top:3px solid var(--red2);border-radius:6px;padding:26px 20px 24px}
+.card .num{font-family:"Oswald";font-weight:700;font-size:15px;color:var(--gold);letter-spacing:.14em}
+.card h3{font-family:"Oswald";font-weight:600;font-size:23px;text-transform:uppercase;margin-top:10px;letter-spacing:.02em}
+.card p{font-size:14.5px;color:var(--mut);margin-top:8px;line-height:1.5}
+.spec{margin-top:40px;display:grid;grid-template-columns:auto 1fr;gap:26px;align-items:start;border:1px solid #2A2A2F;border-radius:8px;padding:28px 30px;background:linear-gradient(135deg,rgba(215,38,30,.12),rgba(10,10,11,0) 60%)}
+.spec .tt{font-family:"Oswald";font-weight:600;font-size:20px;text-transform:uppercase;letter-spacing:.14em;color:var(--gold)}
+.spec ul{list-style:none;display:flex;flex-wrap:wrap;gap:10px 12px}
+.spec li{font-family:"Oswald";font-weight:500;font-size:17px;letter-spacing:.08em;text-transform:uppercase;background:#26262B;border-radius:4px;padding:8px 14px}
+.note{font-size:14.5px;color:var(--mut);margin-top:16px;line-height:1.55}
+
+/* ============ ESCOLARIDAD (línea de tiempo) ============ */
+#escolaridad{background:var(--ink)}
+.timeline{position:relative;margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr);gap:22px}
+.timeline::before{content:"";position:absolute;left:0;right:0;top:27px;height:3px;background:#2A2A2F}
+.timeline .fill{position:absolute;left:0;top:27px;height:3px;width:0;background:linear-gradient(90deg,var(--red2),var(--gold));transition:width 1.8s cubic-bezier(.16,1,.3,1) .3s;box-shadow:0 0 12px rgba(255,59,47,.7)}
+.in .timeline .fill{width:100%}
+.step{position:relative;padding-top:74px}
+.step .node{position:absolute;top:0;left:0;width:57px;height:57px;border-radius:50%;background:var(--ink);border:3px solid var(--red2);display:flex;align-items:center;justify-content:center;font-family:"Oswald";font-weight:700;font-size:22px;color:#fff;box-shadow:0 0 0 6px var(--ink)}
+.step .lbl{font-family:"Oswald";font-weight:500;font-size:13px;letter-spacing:.24em;text-transform:uppercase;color:var(--gold)}
+.step h3{font-family:"Oswald";font-weight:600;font-size:26px;text-transform:uppercase;margin-top:8px;line-height:1.05}
+.step p{font-size:15px;color:var(--txt);line-height:1.55;margin-top:10px}
+.step .chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:12px}
+.step .chips span{font-size:12.5px;background:#1F1F23;border:1px solid #2E2E34;border-radius:30px;padding:5px 11px;color:#ddd}
+
+/* ============ RIESGOS ============ */
+#riesgos{background:var(--ink2)}
+.split{display:grid;grid-template-columns:1.25fr .75fr;gap:46px;align-items:start}
+.risks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:40px}
+.risk{display:flex;gap:16px;align-items:flex-start;background:var(--ink3);border:1px solid #2A2A2F;border-radius:6px;padding:18px 18px}
+.risk svg{flex:none;width:34px;height:34px;stroke:var(--red2);stroke-width:1.8;fill:none;stroke-linecap:round;stroke-linejoin:round}
+.risk h4{font-family:"Oswald";font-weight:600;font-size:18px;text-transform:uppercase;letter-spacing:.04em}
+.risk p{font-size:14px;color:var(--mut);margin-top:4px;line-height:1.45}
+.sidephoto{position:relative;border-radius:8px;overflow:hidden;margin-top:48px;border:1px solid #2A2A2F}
+.sidephoto img{width:100%;height:560px;object-fit:cover;object-position:40% 70%}
+.sidephoto figcaption{position:absolute;left:0;right:0;bottom:0;padding:18px 20px;background:linear-gradient(0deg,rgba(10,10,11,.92),rgba(10,10,11,0));font-family:"Oswald";font-weight:500;font-size:14px;letter-spacing:.18em;text-transform:uppercase;color:var(--gold)}
+
+/* ============ LESIONES ============ */
+#lesiones{background:var(--ink)}
+.injuries{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:44px}
+.inj{position:relative;background:var(--ink3);border:1px solid #2A2A2F;border-radius:6px;padding:26px 22px;overflow:hidden}
+.inj .big{font-family:"Oswald";font-weight:700;font-size:46px;color:rgba(255,59,47,.18);position:absolute;right:14px;top:6px}
+.inj h3{font-family:"Oswald";font-weight:600;font-size:22px;text-transform:uppercase;position:relative}
+.inj p{font-size:14.5px;color:var(--mut);margin-top:8px;line-height:1.5;position:relative}
+.inj.top{border-top:3px solid var(--red2)}
+.also{margin-top:26px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.also .t{font-family:"Oswald";font-weight:500;font-size:14px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold);margin-right:6px}
+.also span{font-size:14.5px;border:1px solid #2E2E34;border-radius:30px;padding:7px 14px;color:#ddd}
+
+/* ============ ENFERMEDADES ============ */
+#enfermedades{background:var(--ink2)}
+.ill{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:44px}
+.ill .card{border-top-color:var(--gold)}
+.callout{margin-top:30px;border-left:4px solid var(--gold);background:rgba(224,190,63,.07);padding:18px 22px;border-radius:0 6px 6px 0;font-size:15.5px;color:var(--txt);line-height:1.6;max-width:880px}
+.callout b{color:#fff}
+
+/* ============ EDAD ============ */
+#edad{background:var(--ink);display:flex;align-items:center}
+.age{display:grid;grid-template-columns:minmax(0,1fr) minmax(360px,1fr);gap:56px;align-items:center;margin-top:40px}
+.agebig{font-family:"Oswald";font-weight:700;line-height:.85;font-size:clamp(96px,11vw,200px);color:#fff;white-space:nowrap}
+.agebig .dash{color:var(--red2)}
+.agebig small{display:block;font-size:.17em;letter-spacing:.18em;color:var(--gold);margin-top:18px;font-weight:500;white-space:normal;line-height:1.3;max-width:100%}
+.reqs{list-style:none;display:grid;gap:12px}
+.reqs li{display:flex;gap:16px;align-items:center;background:var(--ink3);border:1px solid #2A2A2F;border-radius:6px;padding:18px 20px;font-size:16.5px;line-height:1.45}
+.reqs li b{flex:none;width:34px;height:34px;border-radius:50%;background:var(--red);display:flex;align-items:center;justify-content:center;font-family:"Oswald";font-size:16px}
+
+/* ============ SEGURIDAD ============ */
+#seguridad{background:var(--ink2)}
+.epp{display:flex;flex-wrap:wrap;gap:10px;margin-top:30px}
+.epp span{font-family:"Oswald";font-weight:500;font-size:16px;letter-spacing:.1em;text-transform:uppercase;background:var(--red);border-radius:4px;padding:9px 16px}
+.checks{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin-top:30px}
+.check{display:flex;gap:16px;align-items:flex-start;background:var(--ink3);border:1px solid #2A2A2F;border-radius:6px;padding:18px 20px}
+.check .tk{flex:none;width:28px;height:28px;border-radius:4px;border:2px solid var(--gold);display:flex;align-items:center;justify-content:center;margin-top:2px}
+.check .tk svg{width:16px;height:16px;stroke:var(--gold);stroke-width:3;fill:none;stroke-dasharray:24;stroke-dashoffset:24;transition:stroke-dashoffset .5s ease;transition-delay:calc(var(--d,0) * 110ms + .4s)}
+.in .check .tk svg{stroke-dashoffset:0}
+.check p{font-size:15.5px;line-height:1.55;color:var(--txt)}
+.check p b{color:#fff}
+
+/* ============ DECÁLOGO ============ */
+#decalogo{background:var(--ink)}
+.dec{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,.85fr);gap:48px;align-items:center;margin-top:40px}
+.poster img{width:100%}
+.poster{border-radius:8px;overflow:hidden;border:1px solid #2A2A2F;box-shadow:0 30px 60px rgba(0,0,0,.5)}
+.poster figcaption{font-size:13px;color:var(--mut);padding:12px 16px;background:var(--ink3)}
+.declist{list-style:none;display:grid;gap:9px}
+.declist li{display:grid;grid-template-columns:58px 1fr;gap:14px;align-items:baseline;border-bottom:1px solid #222226;padding:6px 0 10px;font-size:17px;line-height:1.4;color:#eee}
+.declist li b{font-family:"Oswald";font-weight:700;font-size:22px;color:var(--red2);text-align:right}
+
+/* ============ CIERRE ============ */
+#cierre{display:flex;align-items:center;justify-content:center;text-align:center}
+#cierre .bgphoto::after{background:radial-gradient(ellipse at center,rgba(10,10,11,.72),rgba(10,10,11,.95) 70%)}
+#cierre .wrap{display:flex;flex-direction:column;align-items:center}
+.escudo{width:150px;height:150px;filter:drop-shadow(0 10px 30px rgba(215,38,30,.45))}
+.quote{font-family:"Oswald";font-weight:700;text-transform:uppercase;font-size:clamp(38px,5.6vw,88px);line-height:1.02;margin-top:34px;max-width:1100px;text-wrap:balance}
+.quote .r{color:var(--red2)}
+.foot{margin-top:40px;font-size:13.5px;color:var(--mut);max-width:680px;line-height:1.6}
+.foot b{color:#ddd}
+.totop{margin-top:30px}
+
+@media (max-width:1100px){
+  .grid5{grid-template-columns:repeat(3,1fr)}
+  .injuries{grid-template-columns:repeat(2,1fr)}
+  .split{grid-template-columns:1fr}
+  .sidephoto{margin-top:10px}.sidephoto img{height:340px}
+}
+@media (max-width:820px){
+  html{scroll-snap-type:none}
+  section{min-height:auto}
+  #inicio{height:100svh;min-height:600px}
+  #dots{display:none}
+  .wrap{padding:84px 6vw 72px}
+  .h-photo{width:100%;height:62%}
+  .h-photo img{object-position:70% 45%}
+  .h-photo::after{background:linear-gradient(0deg,var(--ink) 0%,rgba(10,10,11,.35) 45%,rgba(10,10,11,.15) 100%)}
+  .h-copy{left:6vw;right:6vw;top:auto;bottom:86px;transform:none}
+  .h-star{left:50%;width:120vw;height:120vw;margin-left:-60vw;margin-top:-80vw;top:38%}
+  h1{font-size:clamp(40px,12.5vw,72px)}
+  .h-copy .eyebrow{letter-spacing:.16em;font-size:12px}
+  .tag-acad{display:none}
+  .brand .bt{font-size:13px}
+  .btn{padding:15px 22px;font-size:15px}
+  .grid5,.ill,.checks,.risks,.timeline,.injuries{grid-template-columns:1fr}
+  .timeline::before,.timeline .fill{left:27px;right:auto;top:0;bottom:0;width:3px;height:auto}
+  .in .timeline .fill{width:3px;height:100%}
+  .timeline .fill{height:0;transition:height 1.8s cubic-bezier(.16,1,.3,1) .3s}
+  .step{padding:0 0 0 80px}
+  .step .node{left:0}
+  .spec{grid-template-columns:1fr}
+  .age,.dec{grid-template-columns:1fr;gap:30px}
+  .agebig{font-size:clamp(90px,28vw,150px)}
+  .declist li{grid-template-columns:44px 1fr;font-size:16px}
+  .escudo{width:120px;height:120px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .rv{opacity:1;transform:none;transition:none}
+  .fade{opacity:1}
+  .bgphoto img{transform:none;transition:none}
+}
+</style>
+</head>
+<body>
+<div id="progress"></div>
+<nav id="dots" aria-label="Láminas"></nav>
+
+<!-- ================= HERO ================= -->
+<section id="inicio" data-label="Inicio">
+  <div class="h-photo"><img id="hphoto" src="assets/hero.jpg" alt="Bomberos combatiendo un incendio de noche"></div>
+  <div class="h-heat" id="hheat"></div>
+  <div class="h-star" id="hstar">
+    <svg viewBox="-100 -100 200 200" aria-hidden="true">
+      <defs><linearGradient id="sg" x1="0" y1="-1" x2="0" y2="1"><stop offset="0" stop-color="#FF3B2F"/><stop offset="1" stop-color="#D7261E"/></linearGradient></defs>
+      <g id="starShape" fill="none" stroke="url(#sg)" stroke-width="1.6" stroke-linejoin="round" style="filter:drop-shadow(0 0 3px rgba(255,59,47,.9))">
+        <polygon points="0,-92 79.7,46 -79.7,46"/><polygon points="0,92 79.7,-46 -79.7,-46"/>
+      </g>
+      <g fill="none" stroke="#E0BE3F" stroke-width=".45" opacity=".55"><circle r="62"/><circle r="66" stroke-dasharray="2 5"/></g>
+    </svg>
+  </div>
+  <canvas id="embers"></canvas>
+  <div class="h-nav fade" id="hnav">
+    <a class="brand" href="#inicio"><img src="assets/escudo.png" alt="Escudo del Heroico Cuerpo de Bomberos de León"><span class="bt">H. Cuerpo de Bomberos<small>León, Gto.</small></span></a>
+    <span class="tag-acad">Presentación académica</span>
+  </div>
+  <div class="h-copy">
+    <div class="eyebrow fade" id="heyebrow"><i></i>Entrenados por los mejores</div>
+    <h1><span class="ln"><span id="hl1">Preparados</span></span><span class="ln"><span id="hl2">para <span class="r">lo peor</span></span></span></h1>
+    <div class="h-bar" id="hbar"></div>
+    <p class="h-lead fade" id="hlead">Quiénes son, cómo se forman, a qué se exponen y cómo se cuidan las personas que entran cuando todos los demás salen.</p>
+    <div class="ctas fade" id="hctas">
+      <a class="btn primary" href="#oficio">Comenzar<span class="ring" id="hring"></span></a>
+      <a class="btn ghost" href="#decalogo">Decálogo del bombero</a>
+    </div>
+  </div>
+  <div class="ticker fade" id="hticker"><div class="track" id="htrack"></div></div>
+</section>
+
+<!-- ================= EL OFICIO ================= -->
+<section id="oficio" data-label="El oficio">
+  <div class="bgphoto"><img src="assets/servicio.jpg" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <div class="kick rv"><i></i>El oficio</div>
+    <p class="statement rv" style="--d:1">Personal de respuesta a emergencias que protege <em>la vida</em>, <em>los bienes</em> y <em>el entorno</em>.</p>
+    <p class="lead rv" style="--d:2">Su trabajo incluye atender incendios, rescates, accidentes y otras situaciones de riesgo, además de realizar labores de prevención y capacitación comunitaria. En León, Guanajuato, el Heroico Cuerpo de Bomberos forma parte de los servicios municipales de atención de emergencias.</p>
+    <div class="pills">
+      <span class="pill rv" style="--d:3">Incendios</span><span class="pill rv" style="--d:4">Rescates</span><span class="pill rv" style="--d:5">Accidentes</span><span class="pill rv" style="--d:6">Prevención</span><span class="pill rv" style="--d:7">Capacitación comunitaria</span>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 1 · QUIÉNES ================= -->
+<section id="quienes" data-label="Quiénes">
+  <div class="wrap">
+    <div class="kick rv"><b>01</b><i></i>¿Quiénes desempeñan este trabajo?</div>
+    <h2 class="rv" style="--d:1">Mujeres y hombres <span class="r">capacitados</span></h2>
+    <p class="lead rv" style="--d:2">Pueden formar parte de distintos tipos de corporación, según la organización y el tipo de servicio.</p>
+    <div class="grid5">
+      <div class="card rv" style="--d:2"><div class="num">A</div><h3>Municipales</h3><p>Atienden las emergencias de la ciudad.</p></div>
+      <div class="card rv" style="--d:3"><div class="num">B</div><h3>Estatales</h3><p>Cobertura a nivel estado.</p></div>
+      <div class="card rv" style="--d:4"><div class="num">C</div><h3>Industriales</h3><p>Dentro de plantas y empresas.</p></div>
+      <div class="card rv" style="--d:5"><div class="num">D</div><h3>Aeroportuarios</h3><p>Protección en aeropuertos.</p></div>
+      <div class="card rv" style="--d:6"><div class="num">E</div><h3>Voluntarios</h3><p>Brigadas de voluntarios.</p></div>
+    </div>
+    <div class="spec rv" style="--d:4">
+      <div class="tt">Además del personal operativo</div>
+      <ul><li>Paramédicos</li><li>Operadores de vehículos de emergencia</li><li>Rescate</li><li>Prevención</li></ul>
+    </div>
+    <p class="note rv" style="--d:5">El ingreso y las funciones dependen de la convocatoria y las necesidades de cada institución.</p>
+  </div>
+</section>
+
+<!-- ================= 2 · ESCOLARIDAD ================= -->
+<section id="escolaridad" data-label="Escolaridad">
+  <div class="wrap">
+    <div class="kick rv"><b>02</b><i></i>Tipo de escolaridad</div>
+    <h2 class="rv" style="--d:1">Una formación que <span class="r">no termina</span></h2>
+    <div class="timeline">
+      <div class="fill"></div>
+      <div class="step rv" style="--d:2"><div class="node">1</div><div class="lbl">Nivel básico</div><h3>Preparatoria o bachillerato</h3><p>Concluido, es el estándar en la mayoría de las convocatorias oficiales en México.</p></div>
+      <div class="step rv" style="--d:3"><div class="node">2</div><div class="lbl">Obligatorio</div><h3>Academia de bomberos</h3><p>Tras el nivel escolar, se ingresa y aprueba un curso de formación inicial o academia en la estación local.</p></div>
+      <div class="step rv" style="--d:4"><div class="node">3</div><div class="lbl">Permanente</div><h3>Capacitación continua</h3><div class="chips"><span>Química</span><span>Física</span><span>Rescate vertical</span><span>Primeros auxilios</span><span>Normativas</span><span>Materiales peligrosos</span></div></div>
+      <div class="step rv" style="--d:5"><div class="node">4</div><div class="lbl">Opcional</div><h3>Estudios superiores</h3><p>Licenciatura en Tecnologías Bomberiles y de Emergencias: programas en línea de gestión integral de riesgos, de 9 cuatrimestres (≈3 años).</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 3 · RIESGOS ================= -->
+<section id="riesgos" data-label="Riesgos">
+  <div class="wrap">
+    <div class="split">
+      <div>
+        <div class="kick rv"><b>03</b><i></i>Riesgos a los que se exponen</div>
+        <h2 class="rv" style="--d:1">Cada emergencia es <span class="r">distinta</span></h2>
+        <p class="lead rv" style="--d:2">Cambian según el tipo de emergencia, el lugar y los materiales involucrados.</p>
+        <div class="risks">
+          <div class="risk rv" style="--d:2"><svg viewBox="0 0 24 24"><path d="M12 2c1 4 5 5 5 10a5 5 0 0 1-10 0c0-3 2-4 2-7 1 1 2 2 3 4 1-2 0-5 0-7z"/></svg><div><h4>Calor</h4><p>Quemaduras y estrés térmico.</p></div></div>
+          <div class="risk rv" style="--d:3"><svg viewBox="0 0 24 24"><path d="M4 14c2-2 4-2 6 0s4 2 6 0 3-1 4 0M4 9c2-2 4-2 6 0s4 2 6 0 3-1 4 0M4 19c2-2 4-2 6 0s4 2 6 0 3-1 4 0"/></svg><div><h4>Humo y gases</h4><p>Inhalación de humo, gases y partículas tóxicas.</p></div></div>
+          <div class="risk rv" style="--d:4"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21l3-9 4 3 3-8 4 14"/></svg><div><h4>Estructuras</h4><p>Derrumbes, caídas, golpes o atrapamientos.</p></div></div>
+          <div class="risk rv" style="--d:5"><svg viewBox="0 0 24 24"><path d="M3 16h18v-4l-3-5H8L5 12H3zM7 19a2 2 0 1 0 0-.01M17 19a2 2 0 1 0 0-.01"/></svg><div><h4>Tránsito</h4><p>Accidentes en el traslado o en la escena.</p></div></div>
+          <div class="risk rv" style="--d:6"><svg viewBox="0 0 24 24"><path d="M13 2 4 14h7l-1 8 9-12h-7z"/></svg><div><h4>Electricidad y químicos</h4><p>Contacto con electricidad o sustancias peligrosas.</p></div></div>
+          <div class="risk rv" style="--d:7"><svg viewBox="0 0 24 24"><path d="M6 20h12M9 20l1-8h4l1 8M8 8h8M12 4v4"/></svg><div><h4>Sobreesfuerzo</h4><p>Al cargar equipo o rescatar personas.</p></div></div>
+          <div class="risk rv" style="--d:8"><svg viewBox="0 0 24 24"><path d="M4 10v4h4l5 4V6L8 10zM16 9a4 4 0 0 1 0 6M19 6a8 8 0 0 1 0 12"/></svg><div><h4>Ruido intenso</h4><p>Sirenas, motores y equipo.</p></div></div>
+          <div class="risk rv" style="--d:9"><svg viewBox="0 0 24 24"><path d="M20 14A8 8 0 1 1 10 4a6 6 0 0 0 10 10z"/></svg><div><h4>Sueño y estrés</h4><p>Por turnos y experiencias traumáticas.</p></div></div>
+        </div>
+      </div>
+      <figure class="sidephoto rv" style="--d:3"><img src="assets/extincion.jpg" alt="Dos bomberos sofocando un incendio de pastizal con una manguera" loading="lazy"><figcaption>Protección y extinción de incendios</figcaption></figure>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 4 · LESIONES ================= -->
+<section id="lesiones" data-label="Lesiones">
+  <div class="wrap">
+    <div class="kick rv"><b>04</b><i></i>Lesiones más frecuentes</div>
+    <h2 class="rv" style="--d:1">Lo que reportan los <span class="r">estudios ocupacionales</span></h2>
+    <div class="injuries">
+      <div class="inj top rv" style="--d:2"><span class="big">01</span><h3>Esguinces y distensiones</h3><p>Lesiones musculares por esfuerzo y movimientos bruscos.</p></div>
+      <div class="inj top rv" style="--d:3"><span class="big">02</span><h3>Extremidades</h3><p>Brazos, manos, piernas y pies.</p></div>
+      <div class="inj top rv" style="--d:4"><span class="big">03</span><h3>Espalda</h3><p>Por cargar equipo y personas.</p></div>
+      <div class="inj top rv" style="--d:5"><span class="big">04</span><h3>Quemaduras</h3><p>Por contacto con fuego y superficies calientes.</p></div>
+    </div>
+    <div class="also rv" style="--d:6"><span class="t">También</span><span>Heridas</span><span>Contusiones</span><span>Fracturas</span><span>Caídas o golpes</span><span>Daños por calor</span></div>
+    <p class="note rv" style="--d:7">La frecuencia depende de las tareas, el equipo, el entrenamiento y las condiciones del incidente.</p>
+  </div>
+</section>
+
+<!-- ================= 5 · ENFERMEDADES ================= -->
+<section id="enfermedades" data-label="Enfermedades">
+  <div class="wrap">
+    <div class="kick rv"><b>05</b><i></i>Enfermedades relacionadas con el trabajo</div>
+    <h2 class="rv" style="--d:1">El riesgo que <span class="r">no se ve</span></h2>
+    <div class="ill">
+      <div class="card rv" style="--d:2"><div class="num">Humo y combustión</div><h3>Ciertos cánceres</h3><p>La exposición repetida puede contribuir a su riesgo.</p></div>
+      <div class="card rv" style="--d:3"><div class="num">Esfuerzo</div><h3>Cardiovasculares</h3><p>Riesgo identificado de enfermedades del corazón.</p></div>
+      <div class="card rv" style="--d:4"><div class="num">Contaminantes</div><h3>Respiratorias</h3><p>Por inhalación de contaminantes.</p></div>
+      <div class="card rv" style="--d:5"><div class="num">Ruido</div><h3>Pérdida auditiva</h3><p>Por exposición a ruido intenso.</p></div>
+      <div class="card rv" style="--d:6"><div class="num">Salud mental</div><h3>Estrés postraumático</h3><p>Y otros problemas de salud mental.</p></div>
+      <div class="card rv" style="--d:7"><div class="num">Calor extremo</div><h3>Agotamiento por calor</h3><p>Deshidratación o rabdomiólisis: daño muscular que puede afectar los riñones.</p></div>
+    </div>
+    <div class="callout rv" style="--d:8">La exposición al humo aumenta el riesgo, <b>pero no significa que todos los bomberos desarrollen estas enfermedades.</b> Por eso la vigilancia médica y la atención temprana son importantes.</div>
+  </div>
+</section>
+
+<!-- ================= 6 · EDAD ================= -->
+<section id="edad" data-label="Edad y requisitos">
+  <div class="wrap" style="width:100%;max-width:1240px">
+    <div class="kick rv"><b>06</b><i></i>Edad promedio para desempeñar el trabajo</div>
+    <div class="age">
+      <div class="agebig rv" style="--d:1"><span id="ageA">18</span><span class="dash">–</span><span id="ageB">35</span><small>años · según la corporación</small></div>
+      <ul class="reqs">
+        <li class="rv" style="--d:2"><b>1</b>Tener mayoría de edad.</li>
+        <li class="rv" style="--d:3"><b>2</b>Gozar de buena salud física y mental.</li>
+        <li class="rv" style="--d:4"><b>3</b>Aprobar evaluaciones físicas, médicas y psicométricas.</li>
+        <li class="rv" style="--d:5"><b>4</b>Cartilla del Servicio Militar Nacional liberada (en México, según la convocatoria).</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- ================= 7 · SEGURIDAD ================= -->
+<section id="seguridad" data-label="Seguridad">
+  <div class="wrap">
+    <div class="kick rv"><b>07</b><i></i>Medidas de seguridad que deben seguirse</div>
+    <h2 class="rv" style="--d:1">Volver a casa <span class="r">también es parte del trabajo</span></h2>
+    <div class="epp">
+      <span class="rv" style="--d:2">Casco</span><span class="rv" style="--d:3">Chaquetón</span><span class="rv" style="--d:4">Pantalón resistente al fuego</span><span class="rv" style="--d:5">Guantes</span><span class="rv" style="--d:6">Botas</span><span class="rv" style="--d:7">Protección ocular</span><span class="rv" style="--d:8">Equipo de respiración autónoma</span>
+    </div>
+    <div class="checks">
+      <div class="check rv" style="--d:1"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Revisar el equipo</b> de protección antes y después de cada servicio, y usarlo correctamente.</p></div>
+      <div class="check rv" style="--d:2"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Capacitación periódica</b> en combate de incendios, rescate, primeros auxilios, materiales peligrosos y procedimientos operativos.</p></div>
+      <div class="check rv" style="--d:3"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Trabajar en equipo</b>, respetar la cadena de mando y mantener comunicación constante; no ingresar a zonas peligrosas sin autorización ni respaldo.</p></div>
+      <div class="check rv" style="--d:4"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Evaluar la escena</b>, identificar riesgos, establecer rutas de salida y seguir el sistema de comando de incidentes.</p></div>
+      <div class="check rv" style="--d:5"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Cuidar el cuerpo:</b> hidratación, acondicionamiento físico, pausas de recuperación y vigilar signos de agotamiento por calor.</p></div>
+      <div class="check rv" style="--d:6"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Descontaminar</b> y lavar equipo y ropa después de incidentes con humo o sustancias peligrosas; no llevar contaminantes al hogar.</p></div>
+      <div class="check rv" style="--d:7"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Asegurar vehículos</b> y la zona de trabajo para prevenir atropellamientos y accidentes.</p></div>
+      <div class="check rv" style="--d:8"><span class="tk"><svg viewBox="0 0 16 16"><path d="M3 8.5l3.2 3L13 4.5"/></svg></span><p><b>Reportar de inmediato</b> lesiones, exposiciones y fallas del equipo.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ================= DECÁLOGO ================= -->
+<section id="decalogo" data-label="Decálogo">
+  <div class="wrap">
+    <div class="kick rv"><i></i>H. Cuerpo de Bomberos de León</div>
+    <h2 class="rv" style="--d:1">Decálogo del <span class="r">bombero</span></h2>
+    <div class="dec">
+      <figure class="poster rv" style="--d:2"><img src="assets/decalogo.jpg" alt="Cartel del Decálogo del Bombero con la estatua de un bombero frente a la estación" loading="lazy"><figcaption>Cartel del Decálogo del Bombero · H. Cuerpo de Bomberos de León, Gto.</figcaption></figure>
+      <ol class="declist">
+        <li class="rv" style="--d:2"><b>I</b>Son sus normas: la abnegación y el sacrificio.</li>
+        <li class="rv" style="--d:3"><b>II</b>Protector del pobre o del rico, del débil o fuerte.</li>
+        <li class="rv" style="--d:4"><b>III</b>Sin banderas políticas o religiosas.</li>
+        <li class="rv" style="--d:5"><b>IV</b>Amigo de la niñez y la juventud.</li>
+        <li class="rv" style="--d:6"><b>V</b>Respetuoso y acomedido con el anciano.</li>
+        <li class="rv" style="--d:7"><b>VI</b>Caballeroso y cortés con la mujer.</li>
+        <li class="rv" style="--d:8"><b>VII</b>Duro para el combate y fuerte para el peligro.</li>
+        <li class="rv" style="--d:9"><b>VIII</b>Leal a sus superiores y compañeros.</li>
+        <li class="rv" style="--d:10"><b>IX</b>Hombre gallardo, humilde. Incansable al trabajo.</li>
+        <li class="rv" style="--d:11"><b>X</b>Servir a la patria y humanidad es la razón de su vida.</li>
+      </ol>
+    </div>
+  </div>
+</section>
+
+<!-- ================= CIERRE ================= -->
+<section id="cierre" data-label="Cierre">
+  <div class="bgphoto"><img src="assets/servicio.jpg" alt="" loading="lazy"></div>
+  <div class="wrap">
+    <img class="escudo rv" src="assets/escudo.png" alt="Escudo del Heroico Cuerpo de Bomberos de León">
+    <p class="quote rv" style="--d:1">Ellos no te conocen,<br><span class="r">pero darían la&nbsp;vida&nbsp;por&nbsp;ti.</span></p>
+    <p class="foot rv" style="--d:2"><b>Presentación académica.</b> Contenido informativo sobre el oficio de bombero; no es un sitio oficial del Heroico Cuerpo de Bomberos de León. En una emergencia, llama al <b>911</b>.</p>
+    <a class="btn ghost totop rv" style="--d:3" href="#inicio">Volver al inicio</a>
+  </div>
+</section>
+
+<script>
+const $ = id => document.getElementById(id);
+const SECTIONS = [...document.querySelectorAll('section')];
+
+// ---------- navegación por puntos + progreso ----------
+$('dots').innerHTML = SECTIONS.map(s => `<a href="#${s.id}" aria-label="${s.dataset.label}"><span>${s.dataset.label}</span></a>`).join('');
+const DOTS = [...document.querySelectorAll('#dots a')];
+addEventListener('scroll', () => {
+  const max = document.documentElement.scrollHeight - innerHeight;
+  $('progress').style.width = (max > 0 ? scrollY / max * 100 : 0) + '%';
+}, {passive:true});
+
+// ---------- apariciones + sección activa ----------
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('in');
+      if (e.intersectionRatio > .35) DOTS.forEach((d,i) => d.classList.toggle('on', SECTIONS[i] === e.target));
+      if (e.target.id === 'edad') countAge();
+    }
+  });
+}, {threshold:[.18,.4]});
+SECTIONS.forEach(s => io.observe(s));
+
+// ---------- flechas del teclado: lámina anterior / siguiente ----------
+addEventListener('keydown', e => {
+  if (!['ArrowDown','ArrowUp','PageDown','PageUp'].includes(e.key)) return;
+  const down = e.key === 'ArrowDown' || e.key === 'PageDown';
+  const cur = SECTIONS.findIndex(s => s.getBoundingClientRect().top > -innerHeight*0.4);
+  const i = Math.max(0, Math.min(SECTIONS.length-1, (cur < 0 ? SECTIONS.length-1 : cur) + (down ? (SECTIONS[cur] && SECTIONS[cur].getBoundingClientRect().top < 40 ? 1 : 0) : -1)));
+  e.preventDefault();
+  SECTIONS[i].scrollIntoView({behavior:'smooth'});
+});
+
+// ---------- contador de edad ----------
+let aged = false;
+function countAge(){
+  if (aged) return; aged = true;
+  const t0 = performance.now();
+  (function step(now){
+    const p = Math.min(1, (now - t0) / 1400), e = 1 - Math.pow(1-p, 3);
+    $('ageA').textContent = Math.round(e*18); $('ageB').textContent = Math.round(e*35);
+    if (p < 1) requestAnimationFrame(step);
+  })(t0);
+}
+
+// ================= HERO =================
+const WORDS = ['Combate de incendios','Rescate','Atención a emergencias','Prevención','Capacitación','Protección civil'];
+$('htrack').innerHTML = WORDS.map(w => '<span>'+w+'</span>').join('').repeat(4);
+
+const cv = $('embers'), cx = cv.getContext('2d');
+let W=0, H=0, NE=140;
+function resize(){
+  const dpr = Math.min(2, devicePixelRatio || 1);
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = W*dpr; cv.height = H*dpr; cx.setTransform(dpr,0,0,dpr,0,0);
+  NE = Math.round(Math.min(140, Math.max(40, W/12)));   // densidad según el ancho
+}
+function rnd(i,k){ const x = Math.sin(i*127.1 + k*311.7)*43758.5453; return x - Math.floor(x); }
+function drawEmbers(t){
+  cx.clearRect(0,0,W,H); cx.globalCompositeOperation = 'lighter';
+  for (let i=0;i<NE;i++){
+    const speed = 40 + rnd(i,1)*110, life = (H+120)/speed, ph = (t + rnd(i,2)*life) % life;
+    const y = H + 60 - ph*speed;
+    const x = W*(0.25 + Math.pow(rnd(i,3),0.7)*0.8) + Math.sin(t*(0.6+rnd(i,4)) + i)*26*rnd(i,5) + ph*speed*0.12*(rnd(i,6)-0.35);
+    const a = Math.sin(Math.PI*ph/life) * (0.35 + rnd(i,7)*0.65), r = 0.7 + rnd(i,8)*2.3, hot = rnd(i,9);
+    const col = hot>.7 ? '255,214,120' : hot>.35 ? '255,140,50' : '255,70,40';
+    const g = cx.createRadialGradient(x,y,0,x,y,r*5);
+    g.addColorStop(0,'rgba('+col+','+a+')'); g.addColorStop(1,'rgba('+col+',0)');
+    cx.fillStyle = g; cx.beginPath(); cx.arc(x,y,r*5,0,Math.PI*2); cx.fill();
+  }
+  cx.globalCompositeOperation = 'source-over';
+}
+const Eo = t => 1-Math.pow(1-t,3), Eq = t => 1-Math.pow(1-t,5);
+const P = (t,a,b) => Math.max(0, Math.min(1, (t-a)/(b-a)));
+const STAR = [...$('starShape').children];
+STAR.forEach(pl => pl.setAttribute('stroke-dasharray', 553));
+function renderHero(t){
+  $('hphoto').style.transform = `scale(${1.06 + 0.06*Math.sin(t*0.12) + 0.02*Eq(P(t,0,2.5))}) translate(${Math.sin(t*0.4)*4}px,${Math.cos(t*0.33)*3}px)`;
+  $('hheat').style.opacity = (0.55 + 0.25*Math.sin(t*2.1) + 0.12*Math.sin(t*5.3+1)).toFixed(3);
+  const sp = Eq(P(t,0.2,2.2));
+  $('hstar').style.opacity = (sp*0.42).toFixed(3);
+  $('hstar').style.transform = `rotate(${t*4 - (1-sp)*30}deg) scale(${0.85+sp*0.15})`;
+  STAR.forEach((pl,k) => pl.setAttribute('stroke-dashoffset', (553*(1-Eq(P(t,0.2+k*0.25,2.0+k*0.25)))).toFixed(1)));
+  $('hnav').style.opacity = Eo(P(t,0.1,0.9));
+  const ey = Eo(P(t,0.35,1.1)); $('heyebrow').style.opacity = ey; $('heyebrow').style.transform = `translateX(${(1-ey)*-30}px)`;
+  $('hl1').style.transform = `translateY(${(1-Eq(P(t,0.5,1.5)))*110}%)`;
+  $('hl2').style.transform = `translateY(${(1-Eq(P(t,0.68,1.7)))*110}%)`;
+  $('hbar').style.width = (Eq(P(t,1.4,2.2))*140)+'px';
+  const ld = Eo(P(t,1.6,2.4)); $('hlead').style.opacity = ld; $('hlead').style.transform = `translateY(${(1-ld)*16}px)`;
+  const ct = Eo(P(t,1.85,2.6)); $('hctas').style.opacity = ct; $('hctas').style.transform = `translateY(${(1-ct)*16}px)`;
+  const pu = (t % 1.6)/1.6;
+  $('hring').style.transform = `scale(${1+pu*0.18},${1+pu*0.5})`; $('hring').style.opacity = (ct*(1-pu)).toFixed(3);
+  $('hticker').style.opacity = Eo(P(t,2.0,2.8));
+  $('htrack').style.transform = `translateX(${-((t*70) % ($('htrack').scrollWidth/4))}px)`;
+  drawEmbers(t);
+}
+resize(); addEventListener('resize', resize);
+
+// el hero sólo se anima mientras se ve; fuera de pantalla no gasta nada
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+let heroVisible = true, raf = 0, t0 = performance.now();
+function loop(now){ renderHero((now - t0)/1000); raf = heroVisible ? requestAnimationFrame(loop) : 0; }
+new IntersectionObserver(([e]) => {
+  heroVisible = e.isIntersecting;
+  if (heroVisible && !raf && !reduce) raf = requestAnimationFrame(loop);
+}).observe($('inicio'));
+if (reduce) renderHero(6); else raf = requestAnimationFrame(loop);
+
+// para renderizar cuadros exactos (vista previa)
+window.setTime = t => { heroVisible = false; cancelAnimationFrame(raf); raf = 0; renderHero(t); };
+</script>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
