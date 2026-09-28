@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Tienda en línea — Herraidea × ProcesaLab</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/check')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = '/privado.html';
+      }
+    })
+    .catch(function () { location.href = '/privado.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@1&family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--hred:#FF1F1F;--pink:#F7B6C9;--pinkl:#FBE3EA;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--lavl:#F5F0F8;--muted:#5f565a;--line:#E7DED8}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.6;font-size:15px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 12px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+
+.cover-top{display:flex;align-items:center;justify-content:space-between;gap:20px;border-bottom:2.5px solid var(--ink);padding-bottom:14px}
+.cover-top img.pl{height:30px;width:auto}
+.cover-top .pllogo{height:30px;--patch:#fff}
+.cover-top .for{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:right}
+
+/* animated Herraidea logo */
+.hlogo{position:relative;display:inline-block;line-height:0}
+.hlogo img{display:block;height:100%;width:auto}
+.hlogo .patch{position:absolute;left:60.2%;top:29.2%;width:4.1%;height:8.9%;background:var(--patch,var(--ink))}
+.hlogo .dot{position:absolute;left:60.77%;top:30.11%;width:2.99%;height:7.04%;background:var(--hred);animation:dotDrop 2.8s cubic-bezier(.5,0,.5,1) infinite;transform-origin:50% 100%}
+@keyframes dotDrop{
+  0%,58%{transform:translateY(0) scale(1,1)}
+  66%{transform:translateY(-260%) scale(.86,1.18)}
+  76%{transform:translateY(0) scale(1.22,.72)}
+  84%{transform:translateY(-70%) scale(.94,1.06)}
+  92%,100%{transform:translateY(0) scale(1,1)}
+}
+@media print{.hlogo .dot{animation:none}}
+
+/* animated ProcesaLab logo (spinning gear) */
+.pllogo{position:relative;display:inline-block;line-height:0}
+.pllogo img{display:block;height:100%;width:auto}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:plspin 9s linear infinite}
+.pllogo .gt{fill:var(--gear,var(--red))}
+.pllogo .gh{fill:var(--patch,#fff)}
+@keyframes plspin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion:reduce){.pllogo .plgear,.hlogo .dot{animation:none}}
+
+.hero{background:var(--ink);border-radius:18px;padding:30px;margin-top:20px;--patch:var(--ink)}
+.hero .hlogo{height:46px;margin-bottom:20px}
+.hero .ey{font-family:"Space Grotesk";font-weight:600;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.hero h1{font-size:37px;font-weight:700;margin:10px 0 0;color:#fff}
+.hero .sub{font-family:"Space Grotesk";font-weight:600;font-size:16px;margin-top:9px;color:#cfc3c7}
+.stat-row{display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-top:15px}
+.stat{border:2px solid var(--ink);border-radius:13px;padding:13px 15px;background:var(--cream)}
+.stat .k{font-family:"Space Grotesk";font-weight:600;font-size:10px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.stat .v{font-family:"Space Grotesk";font-weight:700;font-size:23px;line-height:1;margin-top:7px}
+.stat .v small{font-size:11.5px;font-weight:600;color:var(--red)}
+.stat.hl{background:var(--ink)}
+.stat.hl .k{color:#c9b9be}.stat.hl .v{color:#fff}.stat.hl .v small{color:var(--pink)}
+.stat:nth-child(2){background:var(--lavl)}
+.stat:nth-child(4){background:var(--pinkl)}
+
+.callout{border-left:5px solid var(--red);background:var(--lav);border-radius:0 12px 12px 0;padding:15px 19px;margin:18px 0;break-inside:avoid}
+.callout .lbl{font-family:"Space Grotesk";font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-bottom:6px}
+.callout p:last-child{margin-bottom:0}
+.callout.dark{background:var(--ink);color:#ddd4d6}
+.callout.dark .lbl{color:var(--pink)}
+.callout.dark strong{color:#fff}
+
+h2.sec{font-size:24px;margin:32px 0 4px;padding-top:20px;border-top:2px solid var(--pink);display:flex;align-items:baseline;gap:12px;break-after:avoid}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:13px;color:#fff;background:var(--red);min-width:29px;height:29px;padding:0 7px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;flex:none;transform:translateY(2px)}
+.lead{color:var(--muted);font-size:14.5px;margin:8px 0 14px}
+h3.sub{font-family:"Space Grotesk";font-size:16.5px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:9px}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+
+ul.clean{margin:6px 0 14px;padding:0;list-style:none}
+ul.clean li{position:relative;padding-left:20px;margin-bottom:7px;font-size:14px}
+ul.clean li::before{content:"";position:absolute;left:0;top:8px;width:8px;height:8px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+ul.cols{columns:2;column-gap:26px}
+ul.cols.three{columns:3;column-gap:20px}
+ul.cols li{break-inside:avoid}
+
+table{width:100%;border-collapse:collapse;margin:6px 0 12px;font-size:13.5px;break-inside:avoid}
+thead th{background:var(--ink);color:var(--cream);font-family:"Space Grotesk";font-weight:600;font-size:12px;text-align:left;padding:9px 12px}
+thead th.c{text-align:center}
+tbody td{padding:7px 12px;border-bottom:1px solid var(--line)}
+tbody td.c{text-align:center;font-family:"Space Grotesk";font-weight:700}
+tbody tr:nth-child(even){background:var(--lavl)}
+.yes{color:var(--red)}.no{color:#c9bfc2}
+.bas{font-size:11px;color:var(--muted)}
+.tnote{font-size:11.5px;color:var(--muted);margin:-6px 0 14px}
+
+.chain{display:flex;align-items:center;gap:7px;flex-wrap:wrap;background:var(--ink);border-radius:14px;padding:15px 17px;margin:14px 0;break-inside:avoid}
+.chain span{font-family:"Space Grotesk";font-weight:600;font-size:12px;color:var(--cream);background:#262022;border:1.5px solid #38302f;border-radius:9px;padding:6px 11px}
+.chain i{color:var(--red);font-style:normal;font-weight:700}
+.chain span.on{background:var(--red);border-color:var(--red)}
+
+.cards{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:11px 0}
+.cards.three{grid-template-columns:repeat(3,1fr)}
+.bcard{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;break-inside:avoid;background:var(--lavl)}
+.bcard:nth-child(even){background:var(--pinkl)}
+.bcard:nth-child(3n){background:var(--cream)}
+.bcard .n{font-family:"Space Grotesk";font-weight:700;color:var(--red);font-size:11.5px;letter-spacing:.04em;text-transform:uppercase}
+.bcard h4{font-size:14.5px;margin:4px 0 0}
+.bcard p{margin:5px 0 0;font-size:12.5px;color:var(--muted)}
+
+.chart{border:2px solid var(--ink);border-radius:14px;padding:18px 20px 14px;margin:14px 0;background:var(--cream);break-inside:avoid}
+.chart .ct{font-family:"Space Grotesk";font-weight:600;font-size:14px}
+.chart .cs{font-size:12px;color:var(--muted);margin-bottom:12px}
+.chart svg{display:block;width:100%;height:auto;overflow:visible}
+.b-cat{font-family:"Instrument Sans",sans-serif;font-size:11.5px;fill:var(--ink)}
+.b-val{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:12.5px;fill:var(--ink)}
+.twoup{display:grid;grid-template-columns:1fr 1fr;gap:16px;align-items:start}
+
+.plans{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:14px 0}
+.plan{border:2px solid var(--ink);border-radius:16px;padding:18px;background:var(--cream);position:relative;break-inside:avoid}
+.plan:nth-child(2){background:var(--lavl)}
+.plan .pn{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--red)}
+.plan .pv{font-family:"Space Grotesk";font-weight:700;font-size:30px;line-height:1;margin-top:7px}
+.plan .pv small{font-size:11.5px;font-weight:600;color:var(--muted);display:block;margin-top:4px;letter-spacing:0}
+.plan .pd{font-size:12.5px;color:var(--muted);margin:9px 0 11px;border-bottom:1px solid var(--line);padding-bottom:10px}
+.plan ul{margin:0;padding:0;list-style:none;columns:2;column-gap:16px}
+.plan li{font-size:11.5px;padding-left:14px;position:relative;margin-bottom:4px;line-height:1.38;break-inside:avoid}
+.plan li::before{content:"";position:absolute;left:0;top:5.5px;width:6px;height:6px;background:var(--red);border-radius:2px;transform:rotate(45deg)}
+.plan .inc{font-family:"Space Grotesk";font-weight:600;font-size:11px;background:var(--lav);border-radius:7px;padding:5px 9px;margin-bottom:9px}
+.plan.best{background:var(--pink);border-width:2.5px}
+.plan.best .pn{color:#8a2f3f}
+.plan.best .inc{background:#fff}
+.plan .tagd{position:absolute;top:-11px;right:14px;font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.06em;text-transform:uppercase;background:var(--red);color:#fff;border-radius:20px;padding:4px 10px}
+.plan.dark{background:var(--ink)}
+.plan.dark .pn{color:var(--pink)}
+.plan.dark .pv{color:#fff}
+.plan.dark .pv small{color:#a99ba0}
+.plan.dark .pd{color:#cfc3c7;border-bottom-color:#38302f}
+.plan.dark .inc{background:#262022;color:var(--pink)}
+.plan.dark li{color:#ddd4d6}
+.plan.dark li::before{background:var(--pink)}
+
+.stages{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:14px 0;break-inside:avoid}
+.stg{border:1.5px solid var(--line);border-radius:12px;padding:13px 15px;background:var(--cream)}
+.stg:nth-child(3n+2){background:var(--lavl)}
+.stg:nth-child(3n){background:var(--pinkl)}
+.stg .sn{font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--red)}
+.stg h4{font-size:14px;margin:3px 0 0}
+.stg p{margin:5px 0 0;font-size:12px;color:var(--muted)}
+
+.funnel{display:flex;align-items:stretch;gap:6px;margin:14px 0;break-inside:avoid}
+.fn{flex:1;background:var(--pink);border:2px solid var(--ink);border-radius:12px;padding:14px 10px;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:12.5px;letter-spacing:.04em}
+.fn:nth-child(2){background:#FBD9E3}
+.fn:nth-child(3){background:var(--lav)}
+.fn:nth-child(4){background:#fff}
+.fn:last-child{background:var(--ink);color:#fff;border-color:var(--ink)}
+
+.band{background:var(--ink);border-radius:16px;padding:26px;margin:16px 0;break-inside:avoid;--patch:var(--ink)}
+.band .hlogo{height:34px;margin-bottom:16px}
+.band .big{font-family:"Space Grotesk";font-weight:700;font-size:31px;line-height:1.08;color:var(--pink)}
+.band .big span{color:#fff;font-size:.5em}
+.band p{color:#cfc3c7;font-size:13.5px;margin:11px 0 0;max-width:560px}
+
+.collab{display:flex;align-items:center;justify-content:center;gap:30px;margin:18px 0 0;padding:26px;border-radius:16px;background:var(--ink);break-inside:avoid;--patch:var(--ink)}
+.collab img.pl{height:32px;width:auto;filter:brightness(0) invert(1)}
+.collab .pllogo{height:32px;--patch:var(--ink);--gear:#fff}
+.collab .hlogo{height:30px}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:28px;color:var(--red);line-height:1}
+
+.close{border:2.5px solid var(--ink);border-radius:16px;padding:24px;background:var(--cream);text-align:center;margin-top:12px;break-inside:avoid}
+.close img{height:34px;width:auto;margin-bottom:10px}
+.close .pllogo{height:34px;--patch:var(--cream);margin-bottom:10px}
+.close p{font-family:"Space Grotesk";font-weight:600;font-size:14.5px;margin:0;color:var(--muted);max-width:540px;margin:0 auto}
+
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh img{height:13px}
+.rh .pllogo{height:13px;--patch:#fff}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
+.rf b{color:var(--red)}
+
+.cover{margin-top:18px;border-radius:20px;overflow:hidden;position:relative;border:2.5px solid var(--ink);break-inside:avoid}
+.cover .ph{height:250px;background:#ddd url(https://www.herraidea.com/assets/hero-barandal-v2-day.png?v=1161) center/cover}
+.cover .ph::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(20,19,16,.1) 10%,rgba(20,19,16,.92) 72%)}
+.cover .in{position:absolute;inset:auto 0 0 0;padding:26px 28px;color:#fff;--patch:#191715}
+.cover .hlogo{height:48px;margin-bottom:12px;filter:none}
+.cover .ey{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.cover h1{font-size:40px;font-weight:700;margin-top:6px;color:#fff}
+.cover h1 em,.sw h3 em,.sw .hh em{font-family:"Instrument Serif";font-style:italic;font-weight:400;letter-spacing:0}
+.cover .sub{font-size:14px;color:#e2d9dc;margin-top:8px;max-width:520px}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0 4px;break-inside:avoid}
+.fs{border:2px solid var(--ink);border-radius:12px;padding:10px 12px;background:var(--cream);position:relative}
+.fs b{font-family:"Space Grotesk";font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--red)}
+.fs div{font-family:"Space Grotesk";font-weight:700;font-size:15px;line-height:1.15;margin-top:3px}
+.fs span{font-size:11.5px;color:var(--muted)}
+.fs.sh{background:var(--ink);color:#fff}.fs.sh span{color:#cfc3c7}.fs.sh b{color:var(--pink)}
+.fs:not(:last-child)::after{content:"→";position:absolute;right:-9px;top:50%;transform:translateY(-50%);font-weight:700;color:var(--red);background:#fff;font-size:13px}
+/* site mock */
+.browser{border:2.5px solid var(--ink);border-radius:14px;overflow:hidden;background:#fff;margin:14px 0;break-inside:avoid;box-shadow:6px 6px 0 var(--pink)}
+.bbar{display:flex;align-items:center;gap:6px;padding:8px 12px;background:var(--lavl);border-bottom:2px solid var(--ink)}
+.bbar i{width:9px;height:9px;border-radius:50%;background:#d6cbd0}.bbar i:first-child{background:var(--red)}
+.bbar .url{flex:1;margin-left:8px;background:#fff;border-radius:20px;padding:3px 12px;font-size:11px;color:var(--muted);font-family:"Space Grotesk"}
+.bbar .url b{color:var(--ink)}
+.sw{font-family:"Instrument Sans";color:#2a2a2a}
+.snav{display:flex;align-items:center;justify-content:space-between;padding:10px 16px;border-bottom:1px solid #eee}
+.snav img{height:20px}
+.snav .lk{display:flex;gap:14px;font-size:11px;color:#6b6b6b}
+.cartbtn{position:relative;border:1.5px solid #2a2a2a;border-radius:30px;padding:4px 12px;font-size:11px;font-weight:600;background:#fff;cursor:pointer;display:flex;gap:6px;align-items:center;font-family:inherit}
+.cartbtn .n{background:var(--hred);color:#fff;border-radius:20px;min-width:18px;height:18px;display:inline-flex;align-items:center;justify-content:center;font-size:10px;transition:transform .25s}
+.cartbtn .n.pop{transform:scale(1.4)}
+.shop{display:grid;grid-template-columns:1fr 210px;min-height:300px}
+.grid{padding:14px 16px}
+.sw .hh{font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:#8a8a8a;font-weight:600}
+.sw h3{font-family:"Space Grotesk";font-size:21px;font-weight:700;margin:3px 0 10px;color:#1c1c1c}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.pc{border:1px solid #e6e6e6;border-radius:10px;overflow:hidden;background:#fafafa;display:flex;flex-direction:column}
+.pc .im{height:170px;background:#fff center/contain no-repeat;background-origin:content-box;padding:8px 0}
+.pc .bd{padding:8px 9px;display:flex;flex-direction:column;gap:3px;flex:1}
+.pc .cd{font-size:9px;letter-spacing:.1em;color:#8a8a8a;font-weight:600}
+.pc .nm{font-family:"Space Grotesk";font-weight:700;font-size:12px;line-height:1.15;color:#1c1c1c}
+.pc .pr{font-size:12px;font-weight:600;margin-top:auto}
+.pc .rw{display:flex;gap:5px;align-items:center;margin-top:4px}
+.qty{display:flex;align-items:center;border:1px solid #d5d5d5;border-radius:20px;font-size:11px}
+.qty button{border:0;background:none;width:20px;height:22px;cursor:pointer;font-size:13px;color:#444}
+.qty span{min-width:14px;text-align:center;font-weight:600}
+.add{flex:1;border:0;background:#1c1c1c;color:#fff;border-radius:20px;height:24px;font-size:10.5px;font-weight:600;cursor:pointer;font-family:inherit;transition:background .2s}
+.add:hover,.add.ok{background:var(--hred)}
+.drawer{border-left:1px solid #eee;background:#fcfcfc;padding:14px 13px;display:flex;flex-direction:column;gap:8px}
+.drawer .t{font-family:"Space Grotesk";font-weight:700;font-size:13px;display:flex;justify-content:space-between}
+.li{display:flex;gap:7px;align-items:center;font-size:10.5px;animation:inl .35s ease-out}
+@keyframes inl{from{opacity:0;transform:translateX(12px)}}
+.li i{width:30px;height:30px;border-radius:6px;background:#eee center/cover;flex:none}
+.li div{flex:1;line-height:1.2}.li b{display:block;font-size:10.5px}
+.drawer .emp{font-size:11px;color:#9a9a9a;text-align:center;padding:26px 0}
+.drawer .sum{margin-top:auto;border-top:1px dashed #d5d5d5;padding-top:8px;font-size:11px;display:flex;justify-content:space-between}
+.drawer .sum b{font-family:"Space Grotesk";font-size:15px}
+.pay{border:0;border-radius:8px;background:#5a31f4;color:#fff;font-weight:700;font-size:11px;padding:9px;cursor:pointer;font-family:inherit}
+.pay:disabled{opacity:.35;cursor:default}
+.mnote{font-size:11px;color:var(--muted);text-align:center;margin:-4px 0 12px}
+/* checkout steps */
+.tabs{display:flex;gap:6px;margin:12px 0 0;flex-wrap:wrap}
+.tabs button{font-family:"Space Grotesk";font-weight:700;font-size:11px;letter-spacing:.06em;text-transform:uppercase;border:2px solid var(--ink);background:#fff;border-radius:30px;padding:6px 12px;cursor:pointer;color:var(--ink)}
+.tabs button.on{background:var(--ink);color:#fff}
+.stage{position:relative;min-height:236px}
+.pane{display:none;animation:fade .35s ease}
+.pane.on{display:block}
+@keyframes fade{from{opacity:0;transform:translateY(6px)}}
+.co{display:grid;grid-template-columns:1.3fr 1fr;min-height:236px}
+.co .l{padding:16px 18px}
+.co .r{background:#f6f6f7;border-left:1px solid #e6e6e6;padding:16px}
+.fld{border:1px solid #d9d9d9;border-radius:6px;padding:7px 9px;font-size:11px;color:#6b6b6b;margin-bottom:7px;background:#fff}
+.fld.two{display:grid;grid-template-columns:1fr 1fr;gap:7px;border:0;padding:0;background:none}
+.fld.two span{border:1px solid #d9d9d9;border-radius:6px;padding:7px 9px;background:#fff}
+.opt{display:flex;justify-content:space-between;border:1.5px solid #d9d9d9;border-radius:6px;padding:8px 10px;font-size:11px;margin-bottom:6px}
+.opt.sel{border-color:#5a31f4;background:#f3f0ff}
+.co .ct{font-family:"Space Grotesk";font-weight:700;font-size:14px;margin-bottom:10px;color:#1c1c1c}
+.ok{display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:26px;min-height:236px;gap:6px}
+.ok .ck{width:48px;height:48px;border-radius:50%;background:#1f9d55;color:#fff;font-size:24px;display:flex;align-items:center;justify-content:center;animation:popin .5s cubic-bezier(.3,1.6,.5,1)}
+@keyframes popin{from{transform:scale(0)}}
+.ok h4{font-size:18px}.ok p{font-size:12px;color:#6b6b6b;margin:0}
+.adm{display:grid;grid-template-columns:130px 1fr;min-height:236px}
+.adm .sb{background:#1a1a1a;color:#bbb;padding:12px;font-size:11px;display:flex;flex-direction:column;gap:6px}
+.adm .sb b{color:#fff;font-family:"Space Grotesk";margin-bottom:6px}
+.adm .sb span.on{color:#fff;background:#333;border-radius:5px;padding:3px 6px;margin:0 -6px}
+.adm .mn{padding:14px 16px}
+.kp{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:10px}
+.kp div{border:1px solid #e6e6e6;border-radius:8px;padding:8px 10px;font-size:10px;color:#777}
+.kp b{display:block;font-family:"Space Grotesk";font-size:17px;color:#1c1c1c}
+.ord{font-size:11px;width:100%;border-collapse:collapse;margin:0}
+.ord td,.ord th{padding:5px 6px;border-bottom:1px solid #eee;text-align:left;background:none!important;color:#333;font-family:inherit;font-size:11px}
+.ord th{color:#8a8a8a;font-weight:600}
+.bdg{font-size:9.5px;font-weight:700;padding:2px 7px;border-radius:20px;background:#e6f4ea;color:#1f7a45}
+.bdg.y{background:#fff4d6;color:#8a6200}
+/* money */
+.cmp{margin:12px 0;break-inside:avoid}
+.cr{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;margin-bottom:8px}
+.cr .lb{font-family:"Space Grotesk";font-weight:700;font-size:12px}
+.cr .lb small{display:block;font-weight:500;color:var(--muted);font-size:10.5px}
+.tr{height:36px;background:var(--lavl);border-radius:9px;overflow:hidden}
+.tr i{display:flex;align-items:center;justify-content:flex-end;height:100%;width:0;padding-right:12px;font-style:normal;font-family:"Space Grotesk";font-weight:700;font-size:13px;white-space:nowrap;border-radius:9px;transition:width 1.3s cubic-bezier(.2,.8,.2,1)}
+.tr .ref{background:#cfc3c7;color:var(--ink)}.tr .pro{background:var(--red);color:#fff}
+.on .tr i{width:var(--w)}
+.save{display:inline-flex;align-items:center;gap:8px;background:var(--ink);color:#fff;border-radius:30px;padding:6px 14px;font-family:"Space Grotesk";font-weight:700;font-size:12px;margin-top:4px}
+.save b{color:var(--pink)}
+.payp{display:flex;height:64px;border:2.5px solid var(--ink);border-radius:14px;overflow:hidden;margin:12px 0 6px;break-inside:avoid}
+.payp div{display:flex;flex-direction:column;justify-content:center;padding:0 12px;font-size:10.5px;line-height:1.25;border-right:2px solid var(--ink);cursor:default;transition:filter .2s}
+.payp div:last-child{border-right:0}
+.payp div:hover{filter:brightness(.93)}
+.payp b{font-family:"Space Grotesk";font-size:18px}
+.payp .p1{flex:40;background:var(--red);color:#fff}.payp .p2{flex:30;background:var(--pink)}.payp .p3{flex:20;background:var(--lav)}.payp .p4{flex:10;background:var(--cream);padding:0 8px}
+.payp .p4 b{font-size:15px}
+.pamt{display:grid;grid-template-columns:40fr 30fr 20fr 10fr;font-family:"Space Grotesk";font-weight:700;font-size:11.5px;color:var(--muted);margin-bottom:14px}
+.pamt span{padding-left:12px}
+.duo{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin:12px 0;break-inside:avoid}
+.card{border:2px solid var(--ink);border-radius:14px;padding:16px 18px;background:var(--cream)}
+.card.dk{background:var(--ink);color:#e7dfe1}
+.card .k{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--red)}
+.card.dk .k{color:var(--pink)}
+.card .v{font-family:"Space Grotesk";font-weight:700;font-size:30px;line-height:1.05;margin:6px 0 2px}
+.card .v small{font-size:12px;font-weight:600}
+.card.dk .v{color:#fff}
+.card .st{font-size:12px;color:var(--muted);text-decoration:line-through}
+.card.dk .st{color:#a99ea2}
+.card ul.clean li{font-size:12.5px;margin-bottom:4px}
+.card.dk ul.clean li::before{background:var(--pink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin:8px 0 14px}
+.chips span{font-size:12px;font-weight:600;background:var(--lavl);border:1.5px solid var(--line);padding:4px 10px;border-radius:20px;transition:background .2s,transform .2s}
+.chips span:hover{background:var(--pink);transform:translateY(-2px)}
+.chips.x span{background:#fff;color:var(--muted);text-decoration:line-through;text-decoration-color:var(--red)}
+.weeks{display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin:12px 0 4px;break-inside:avoid}
+.weeks div{height:30px;border-radius:6px;background:var(--lavl);display:flex;align-items:center;justify-content:center;font-family:"Space Grotesk";font-weight:700;font-size:10px;color:var(--muted);position:relative;overflow:hidden}
+.weeks div::before{content:"";position:absolute;inset:0;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .5s}
+.weeks div span{position:relative}
+.on .weeks div::before,.weeks.on div::before{transform:scaleX(1)}
+.weeks.on div{color:#fff}
+.weeks div:nth-child(n+7)::before{background:var(--pink)}.weeks.on div:nth-child(n+7){color:var(--ink)}
+.wl{display:flex;justify-content:space-between;font-size:11px;color:var(--muted);margin-bottom:12px}
+.grow{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;break-inside:avoid}
+.grow div{border-radius:12px;padding:10px 12px;font-size:12.5px;font-weight:600;background:var(--lavl);display:flex;gap:8px}
+.grow div::before{content:"+";font-family:"Space Grotesk";font-weight:700;color:var(--red)}
+.grow div:nth-child(3n+2){background:var(--pinkl)}
+table.res td:last-child{font-family:"Space Grotesk";font-weight:700;color:var(--red)}
+table.res tr.big td{background:var(--ink)!important;color:#fff;font-family:"Space Grotesk";font-weight:700}
+table.res tr.big td:last-child{color:var(--pink)}
+.fin{margin-top:24px;border-radius:20px;overflow:hidden;position:relative;border:2.5px solid var(--ink);break-inside:avoid}
+.fin .ph{height:210px;background:#222 url(https://www.herraidea.com/assets/hero-barandal-v2-night.png?v=1161) center/cover}
+.fin .ph::after{content:"";position:absolute;inset:0;background:rgba(20,19,16,.72)}
+.fin .in{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;color:#fff;text-align:center;padding:20px;--patch:#2a2724}
+.fin .lg{display:flex;align-items:center;gap:22px}
+.fin .pllogo{height:36px;--patch:#2a2724}
+.fin .hlogo{height:54px}
+.fin .x{font-family:"Space Grotesk";font-weight:700;font-size:30px;color:var(--pink)}
+.fin .q{font-family:"Space Grotesk";font-weight:700;font-size:22px}
+.fin .q em{font-family:"Instrument Serif";font-weight:400;color:var(--pink)}
+@media print{.tabs{display:none}.pane{display:block!important;margin-bottom:10px}.tr i{width:var(--w)!important;transition:none}.weeks div::before{transform:scaleX(1)}}
+
+.rv2{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s cubic-bezier(.2,.8,.2,1)}
+.rv2.in{opacity:1;transform:none}
+.cover .ph{animation:kb 18s ease-in-out infinite alternate}
+.cover .ph2{position:absolute;inset:0;height:250px;background:#222 url(https://www.herraidea.com/assets/hero-barandal-v2-night.png?v=1161) center/cover;animation:dn 10s ease-in-out infinite,kb 18s ease-in-out infinite alternate}
+@keyframes kb{from{transform:scale(1)}to{transform:scale(1.08)}}
+@keyframes dn{0%,40%{opacity:0}50%,90%{opacity:1}100%{opacity:0}}
+.cover .in>*{animation:up .8s cubic-bezier(.2,.8,.2,1) both}
+.cover .in>*:nth-child(2){animation-delay:.15s}.cover .in>*:nth-child(3){animation-delay:.3s}.cover .in>*:nth-child(4){animation-delay:.45s}
+@keyframes up{from{opacity:0;transform:translateY(18px)}}
+.flow .fs{opacity:0;transform:translateY(14px) scale(.96);transition:all .5s cubic-bezier(.3,1.4,.5,1)}
+.flow.in .fs{opacity:1;transform:none}
+.flow.in .fs:nth-child(2){transition-delay:.15s}.flow.in .fs:nth-child(3){transition-delay:.3s}.flow.in .fs:nth-child(4){transition-delay:.45s}
+.fs.sh::before{content:"";position:absolute;inset:-3px;border-radius:14px;border:2px solid var(--red);animation:ring 2s ease-out infinite;pointer-events:none}
+@keyframes ring{from{opacity:1;transform:scale(1)}to{opacity:0;transform:scale(1.08)}}
+.pc{transition:transform .25s,box-shadow .25s}
+.pc:hover{transform:translateY(-4px);box-shadow:0 10px 20px rgba(0,0,0,.08)}
+.pc .im{transition:transform .4s}.pc:hover .im{transform:scale(1.05)}
+.fly{position:fixed;width:34px;height:34px;border-radius:50%;background:#fff center/contain no-repeat;border:2px solid var(--hred);z-index:999;pointer-events:none;transition:transform .7s cubic-bezier(.5,-.3,.7,1),opacity .7s}
+.chips.stg span{opacity:0;transform:scale(.8);transition:opacity .35s,transform .35s cubic-bezier(.3,1.6,.5,1),background .2s}
+.chips.stg.in span{opacity:1;transform:none}
+.grow div{opacity:0;transform:translateX(-12px);transition:all .45s}
+.grow.in div{opacity:1;transform:none}
+.payp div{transform:scaleX(0);transform-origin:left;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .2s}
+.payp.in div{transform:none}
+.card.dk{position:relative;overflow:hidden}
+.card.dk::after{content:"";position:absolute;top:0;left:-60%;width:40%;height:100%;background:linear-gradient(100deg,transparent,rgba(255,255,255,.12),transparent);animation:shine 3.5s ease-in-out infinite}
+@keyframes shine{0%,60%{left:-60%}100%{left:130%}}
+.save{animation:pulse 1.8s ease-in-out infinite}
+@keyframes pulse{50%{transform:scale(1.05)}}
+.tabs button{position:relative;overflow:hidden}
+.tabs button.on::after{content:"";position:absolute;left:0;bottom:0;height:3px;background:var(--red);animation:prog 3.6s linear forwards}
+.tabs.man button.on::after{display:none}
+@keyframes prog{from{width:0}to{width:100%}}
+.opt.sel{animation:sel 1.6s ease-in-out infinite}
+@keyframes sel{50%{box-shadow:0 0 0 3px rgba(90,49,244,.18)}}
+.fld{position:relative;overflow:hidden}
+.pane.on .fld::after{content:"";position:absolute;left:0;bottom:0;height:2px;background:#5a31f4;animation:type 1s ease forwards}
+.pane.on .fld:nth-child(3)::after{animation-delay:.3s;width:0}.pane.on .fld:nth-child(4)::after{animation-delay:.6s;width:0}
+@keyframes type{from{width:0}to{width:100%}}
+.ord tr{animation:inl .4s ease-out both}.ord tr:nth-child(3){animation-delay:.12s}.ord tr:nth-child(4){animation-delay:.24s}
+table.res tbody tr{opacity:0;transform:translateX(-14px);transition:all .45s}
+table.res.in tbody tr{opacity:1;transform:none}
+.fin .hlogo,.fin .pllogo{animation:float 3.2s ease-in-out infinite}.fin .pllogo{animation-delay:-1.6s}
+@keyframes float{50%{transform:translateY(-6px)}}
+.fin .ph{animation:kb 16s ease-in-out infinite alternate}
+@media print{.rv2,.flow .fs,.chips.stg span,.grow div,.payp div,table.res tbody tr{opacity:1!important;transform:none!important}.cover .ph2,.fly{display:none}.card.dk::after,.fs.sh::before{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+</style>
+</head>
+<body><doc-page size="letter" margin="0.7in">
+<div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Propuesta tienda en línea · Herraidea</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+<div class="cover-top"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><div class="for">Propuesta preparada para<br><strong style="color:var(--ink);font-size:14px">Herraidea</strong></div></div>
+<div class="cover"><div class="ph"></div><div class="ph2"></div><div class="in"><div class="hlogo"><img src="assets/herraidea-logo.png" alt="Herraidea"><span class="patch"></span><span class="dot"></span></div><div class="ey">Tienda en línea · Herraidea × ProcesaLab</div><h1>Tu catálogo, ahora <em>se puede comprar.</em></h1><div class="sub">Comercio electrónico dentro de la página actual, conservando su diseño, catálogo, calculadora, animaciones y posicionamiento en Google.</div></div></div>
+<div class="flow">
+<div class="fs"><b>01</b><div>herraidea.com</div><span>Mismo diseño y catálogo</span></div>
+<div class="fs"><b>02</b><div>Carrito</div><span>Productos y cantidades</span></div>
+<div class="fs sh"><b>03</b><div>Checkout Shopify</div><span>Pago seguro</span></div>
+<div class="fs"><b>04</b><div>Pedido</div><span>Confirmación e historial</span></div>
+</div>
+<h2 class="sec"><span class="no">1</span>Así se verá en la página</h2>
+<p class="lead">Shopify administra productos, carrito, pagos y pedidos; el cliente sigue navegando en www.herraidea.com. Prueba el ejemplo: cambia cantidades y agrega productos.</p>
+<div class="browser"><div class="bbar"><i></i><i></i><i></i><div class="url"><b>www.herraidea.com</b>/catalogo</div></div>
+<div class="sw"><div class="snav"><img src="https://www.herraidea.com/assets/logo-gray-nodot.png" alt="Herraidea"><div class="lk"><span>Sistemas</span><span>Calculadora</span><span>Catálogo</span><span>Contacto</span></div><button class="cartbtn" onclick="document.getElementById('drw').animate([{background:'#fff3f3'},{background:'#fcfcfc'}],600)">Carrito <span class="n" id="cn">0</span></button></div><div class="shop"><div class="grid"><div class="hh">Catálogo · Postes</div><h3>Agrega tu solución <em>al carrito.</em></h3><div class="cards"><div class="pc"><div class="im" style="background-image:url('https://www.herraidea.com/content/catalog/images/postes-hrd-1525-inicio-final-v2.jpg')"></div><div class="bd"><div class="cd">HRD 1525</div><div class="nm">Poste con 2 clips inox</div><div class="pr">$1,850 MXN</div><div class="rw"><div class="qty"><button onclick="q(0,-1)">−</button><span id="q0">1</span><button onclick="q(0,1)">+</button></div><button class="add" onclick="add(0,this)">Agregar</button></div></div></div><div class="pc"><div class="im" style="background-image:url('https://www.herraidea.com/content/catalog/images/postes-hrd-1518-intermedio-3-pines-v2.jpg')"></div><div class="bd"><div class="cd">HRD 1518</div><div class="nm">Poste intermedio 3 pines</div><div class="pr">$1,420 MXN</div><div class="rw"><div class="qty"><button onclick="q(1,-1)">−</button><span id="q1">1</span><button onclick="q(1,1)">+</button></div><button class="add" onclick="add(1,this)">Agregar</button></div></div></div><div class="pc"><div class="im" style="background-image:url('https://www.herraidea.com/content/catalog/images/postes-hrd-1616.jpg')"></div><div class="bd"><div class="cd">HRD 1616</div><div class="nm">Poste rectangular</div><div class="pr">$2,150 MXN</div><div class="rw"><div class="qty"><button onclick="q(2,-1)">−</button><span id="q2">1</span><button onclick="q(2,1)">+</button></div><button class="add" onclick="add(2,this)">Agregar</button></div></div></div></div></div>
+<div class="drawer" id="drw"><div class="t"><span>Tu carrito</span><span id="ci">0 piezas</span></div><div id="items"><div class="emp">Aún no agregas productos</div></div><div class="sum"><span>Total</span><b id="tot">$0</b></div><button class="pay" id="payb" disabled onclick="go(0)">Pagar con Shopify →</button></div></div></div></div>
+<p class="mnote">Ejemplo ilustrativo · precios de muestra, no reales</p>
+<h2 class="sec"><span class="no">2</span>Experiencia del cliente</h2>
+<p class="lead">Del carrito al pedido confirmado, en el checkout seguro de Shopify.</p>
+<div class="tabs" id="tabs"><button class="on" onclick="go(0)">Envío</button><button onclick="go(1)">Pago</button><button onclick="go(2)">Confirmación</button><button onclick="go(3)">Panel Herraidea</button></div>
+<div class="browser" style="margin-top:8px"><div class="bbar"><i></i><i></i><i></i><div class="url" id="curl"><b>checkout.herraidea.com</b>/envio</div></div>
+<div class="sw stage">
+<div class="pane on"><div class="co"><div class="l"><div class="ct">Datos de envío</div><div class="fld">Nombre completo</div><div class="fld">Correo electrónico</div><div class="fld">Dirección</div><div class="fld two"><span>Ciudad</span><span>C.P.</span></div><div class="opt sel"><span>Envío por paquetería</span><b>Calculado</b></div><div class="opt"><span>Recolección en planta · León</span><b>Gratis</b></div></div><div class="r"><div class="ct">Resumen</div><div id="sumco" style="font-size:11px;color:#555">3 productos</div></div></div></div>
+<div class="pane"><div class="co"><div class="l"><div class="ct">Método de pago</div><div class="opt sel"><span>Tarjeta de crédito o débito</span><b>●</b></div><div class="fld">Número de tarjeta</div><div class="fld two"><span>Vencimiento</span><span>CVV</span></div><div class="opt"><span>Otros métodos configurados</span><b>○</b></div></div><div class="r"><div class="ct">Pago seguro</div><p style="font-size:11px;color:#555">Procesado por Shopify. Herraidea no almacena datos de tarjetas.</p></div></div></div>
+<div class="pane"><div class="ok"><div class="ck">✓</div><h4>¡Pedido confirmado!</h4><p>Pedido #HRD-1043 · Te enviamos la confirmación por correo.</p><p>Consulta tu historial en “Mi cuenta”.</p></div></div>
+<div class="pane"><div class="adm"><div class="sb"><b>Herraidea · Admin</b><span>Inicio</span><span class="on">Pedidos</span><span>Productos (81)</span><span>Clientes</span><span>Reportes</span></div><div class="mn"><div class="kp"><div>Pedidos hoy<b data-c="12">12</b></div><div>Por preparar<b data-c="5">5</b></div><div>Productos<b data-c="81">81</b></div></div><table class="ord"><tr><th>Pedido</th><th>Cliente</th><th>Estado</th></tr><tr><td>#HRD-1043</td><td>Instalador · León</td><td><span class="bdg y">Por preparar</span></td></tr><tr><td>#HRD-1042</td><td>Cliente · Querétaro</td><td><span class="bdg">Pagado</span></td></tr><tr><td>#HRD-1041</td><td>Cliente · CDMX</td><td><span class="bdg">Enviado</span></td></tr></table></div></div></div>
+</div></div>
+<p class="mnote">Pantallas ilustrativas · datos de ejemplo</p>
+<h3 class="sub">El visitante podrá</h3>
+<ul class="clean cols"><li>Consultar soluciones y productos</li><li>Seleccionar cantidades</li><li>Agregar productos al carrito</li><li>Revisar productos, cantidades y total</li><li>Capturar sus datos de envío</li><li>Realizar el pago</li><li>Recibir la confirmación del pedido</li><li>Consultar su historial de compras</li></ul>
+<h2 class="sec"><span class="no">3</span>Alcance de la implementación</h2>
+<ul class="clean cols"><li>Creación y configuración de Shopify</li><li>Integración con la página actual</li><li>Botones para agregar al carrito</li><li>Carrito conectado con Shopify</li><li>Configuración inicial de métodos de pago</li><li>Envíos o recolección (básico)</li><li>Configuración de impuestos</li><li>Cuentas de clientes</li><li>Correos automáticos de confirmación</li><li>Panel de productos y pedidos</li><li>Importación inicial de hasta 81 productos</li><li>Organización por categorías</li><li>Pruebas en computadora y teléfono</li><li>Capacitación para administrar la tienda</li><li>Publicación</li><li>30 días de soporte después del lanzamiento</li></ul>
+<h3 class="sub">Información requerida por producto</h3>
+<div class="chips"><span>Código o SKU</span><span>Nombre</span><span>Precio</span><span>Descripción</span><span>Fotografías</span><span>Categoría</span><span>Existencias</span><span>Peso y dimensiones</span><span>Acabados o variantes</span><span>Cantidad mínima</span><span>Tiempo de entrega</span><span>Condiciones de envío</span></div>
+<div class="callout"><div class="lbl">Importación incluida</div><p>La importación inicial está incluida cuando la información se entrega completa y organizada en el formato solicitado.</p></div>
+<h2 class="sec"><span class="no">4</span>Inversión de implementación</h2>
+<div class="cmp rv"><div class="cr"><div class="lb">Precio de referencia<small>Mercado, alcance similar</small></div><div class="tr"><i class="ref" style="--w:100%"><span data-c="65000" data-p="$">$65,000</span> + IVA</i></div></div>
+<div class="cr"><div class="lb">ProcesaLab<small>Precio propuesto</small></div><div class="tr"><i class="pro" style="--w:76.9%"><span data-c="50000" data-p="$">$50,000</span> + IVA</i></div></div>
+<div style="padding-left:160px"><span class="save">Ahorro de <b>$15,000 MXN</b></span></div></div>
+<h3 class="sub">Forma de pago</h3>
+<div class="payp"><div class="p1"><b>40%</b>Al iniciar</div><div class="p2"><b>30%</b>Tienda y catálogo completos</div><div class="p3"><b>20%</b>Pruebas de compra aprobadas</div><div class="p4"><b>10%</b>Publicar</div></div>
+<div class="pamt"><span>$20,000</span><span>$15,000</span><span>$10,000</span><span>$5,000</span></div>
+<h2 class="sec"><span class="no">5</span>Soporte mensual</h2>
+<div class="duo">
+<div class="card"><div class="k">Referencia · administración activa</div><div class="v">$2,500 <small>+ IVA / mes</small></div><p style="font-size:12.5px;color:var(--muted);margin:6px 0 0">Carga frecuente de productos, cambios, reportes y varias horas de trabajo.</p></div>
+<div class="card dk"><div class="k">ProcesaLab · soporte básico</div><div class="v">$1,600 <small>+ IVA / mes</small></div><ul class="clean"><li>Revisión mensual del funcionamiento</li><li>Soporte ante errores del carrito o checkout</li><li>Hasta 1 hora mensual de ajustes menores</li><li>Cambios de textos, precios o imágenes existentes</li><li>Correo o WhatsApp en horario laboral</li><li>Revisión básica de la conexión con Shopify</li></ul></div>
+</div>
+<p class="lead" style="margin-top:0">Las horas no utilizadas no se acumulan. Trabajo adicional: <strong style="color:var(--ink)">$750 MXN + IVA por hora</strong>, con autorización previa.</p>
+<h2 class="sec"><span class="no">6</span>Costos de Shopify</h2>
+<p class="lead">La suscripción se contrata y paga directamente por Herraidea. Como referencia, Shopify publica planes desde aproximadamente USD 14 mensuales con pago anual; el precio depende del plan, promociones y funciones. <a href="https://www.shopify.com/mx/precios">Consultar precios oficiales</a></p>
+<h3 class="sub">Se pagan por separado</h3>
+<div class="chips"><span>Comisiones del proveedor de pagos</span><span>Aplicaciones adicionales</span><span>Paquetería</span><span>Facturación electrónica</span><span>Funciones B2B avanzadas</span></div>
+<p class="note" style="font-size:12px;color:var(--muted)">No forman parte de los $50,000 de implementación ni de los $1,600 de soporte mensual.</p>
+<h2 class="sec"><span class="no">7</span>Tiempo estimado</h2>
+<div class="weeks" id="wk"><div style="transition-delay:0.12s"><span>S1</span></div><div style="transition-delay:0.24s"><span>S2</span></div><div style="transition-delay:0.36s"><span>S3</span></div><div style="transition-delay:0.48s"><span>S4</span></div><div style="transition-delay:0.6s"><span>S5</span></div><div style="transition-delay:0.72s"><span>S6</span></div><div style="transition-delay:0.84s"><span>S7</span></div><div style="transition-delay:0.96s"><span>S8</span></div></div>
+<div class="wl"><span>6 a 8 semanas una vez recibida la información</span><span>● rosa = margen</span></div>
+<div class="chips"><span>Catálogo definitivo</span><span>Precios</span><span>Fotografías</span><span>Pesos y dimensiones</span><span>Existencias</span><span>Condiciones de venta y envío</span><span>Accesos necesarios</span></div>
+<h2 class="sec"><span class="no">8</span>Fuera del alcance</h2>
+<div class="chips x"><span>CRM propio</span><span>Administración diaria de pedidos</span><span>Atención a compradores</span><span>Captura extensa de productos</span><span>ERP o CONTPAQi</span><span>Facturación automática SAT</span><span>Inventario entre sucursales</span><span>Crédito y cobranza B2B</span><span>Precios por empresa</span><span>Secciones nuevas complejas</span><span>Fotografía o 3D adicional</span><span>Campañas publicitarias</span><span>App móvil</span></div>
+<p class="lead" style="margin-top:0">Podrán cotizarse como fases posteriores.</p>
+<h2 class="sec"><span class="no">9</span>Crecimiento futuro</h2>
+<div class="grow"><div>Precios para instaladores y distribuidores</div><div>Cuentas profesionales</div><div>Pedidos recurrentes</div><div>Listas de precios B2B</div><div>CRM propio</div><div>Clientes por vendedor</div><div>Prospectos y cotizaciones</div><div>Integración administrativa</div><div>Inventario y facturación automáticos</div></div>
+<h2 class="sec"><span class="no">10</span>Resumen económico</h2>
+<table class="res"><thead><tr><th>Concepto</th><th>Referencia</th><th>Propuesta ProcesaLab</th></tr></thead><tbody>
+<tr class="big"><td>Implementación de la tienda</td><td>$65,000 + IVA</td><td>$50,000 + IVA</td></tr>
+<tr><td>Administración mensual activa</td><td>$2,500 + IVA</td><td>—</td></tr>
+<tr><td>Soporte mensual básico</td><td>—</td><td>$1,600 + IVA</td></tr>
+<tr><td>Trabajo adicional</td><td>—</td><td>$750 + IVA por hora</td></tr>
+<tr><td>Shopify y aplicaciones</td><td>Según el plan</td><td>Pago directo por Herraidea</td></tr></tbody></table>
+<div class="fin"><div class="ph"></div><div class="in"><div class="lg"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab" style="filter:brightness(0) invert(1)"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span class="x">×</span><div class="hlogo"><img src="assets/herraidea-logo.png" alt="Herraidea"><span class="patch"></span><span class="dot"></span></div></div><div class="q">Del catálogo <em>a la compra.</em></div></div></div>
+</doc-page>
+<script>
+const P=[{"c":"HRD 1525","n":"Poste con 2 clips inox","p":1850,"img":"https://www.herraidea.com/content/catalog/images/postes-hrd-1525-inicio-final-v2.jpg"},{"c":"HRD 1518","n":"Poste tubo de 1/2\"","p":1420,"img":"https://www.herraidea.com/content/catalog/images/postes-hrd-1518-intermedio-3-pines-v2.jpg"},{"c":"HRD 1616","n":"Poste rectangular","p":2150,"img":"https://www.herraidea.com/content/catalog/images/postes-hrd-1616.jpg"}];const Q=[1,1,1],C={};
+const f=n=>'$'+n.toLocaleString('en-US');
+function q(i,d){Q[i]=Math.max(1,Q[i]+d);document.getElementById('q'+i).textContent=Q[i];}
+function add(i,b){C[i]=(C[i]||0)+Q[i];b.classList.add('ok');b.textContent='✓ Agregado';setTimeout(()=>{b.classList.remove('ok');b.textContent='Agregar'},1200);render();const n=document.getElementById('cn');n.classList.add('pop');setTimeout(()=>n.classList.remove('pop'),250);}
+function render(){const k=Object.keys(C);let t=0,c=0;document.getElementById('items').innerHTML=k.length?k.map(i=>{const p=P[i];t+=p.p*C[i];c+=C[i];return '<div class="li"><i style="background-image:url(\''+p.img+'\')"></i><div><b>'+p.c+'</b>'+C[i]+' × '+f(p.p)+'</div></div>'}).join(''):'<div class="emp">Aún no agregas productos</div>';
+document.getElementById('tot').textContent=f(t)+' MXN';document.getElementById('cn').textContent=c;document.getElementById('ci').textContent=c+' piezas';document.getElementById('payb').disabled=!c;document.getElementById('sumco').innerHTML=c?k.map(i=>C[i]+' × '+P[i].c).join('<br>')+'<br><b style="font-size:13px;color:#1c1c1c">Total '+f(t)+' MXN</b>':'Agrega productos en el catálogo';}
+const U=['/envio','/pago','/confirmacion','/admin/pedidos'],H=['checkout.herraidea.com','checkout.herraidea.com','checkout.herraidea.com','admin.shopify.com'];
+function go(i){document.querySelectorAll('.pane').forEach((p,j)=>p.classList.toggle('on',j===i));document.querySelectorAll('#tabs button').forEach((b,j)=>b.classList.toggle('on',j===i));document.getElementById('curl').innerHTML='<b>'+H[i]+'</b>'+U[i];}
+const io=new IntersectionObserver(es=>es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('on');io.unobserve(e.target)}}),{threshold:.4});
+setTimeout(()=>document.querySelectorAll('.rv,#wk').forEach(el=>io.observe(el)),600);
+</script>
+<script>
+(function(){
+const addC=(s,c)=>document.querySelectorAll(s).forEach(e=>e.classList.add(c));
+addC('h2.sec,.lead,.browser,.duo,ul.clean,.callout,.cmp,.pamt,h3.sub,.fin','rv2');
+addC('.chips','stg');
+document.querySelectorAll('.chips span,.grow div,table.res tbody tr').forEach(e=>{const i=[...e.parentNode.children].indexOf(e);e.style.transitionDelay=(i*.05)+'s'});
+document.querySelectorAll('.payp div').forEach((e,i)=>e.style.transitionDelay=(i*.18)+'s');
+const cnt=el=>{const t=+el.dataset.c,p=el.dataset.p||'',s=performance.now();const f=n=>{const k=Math.min((n-s)/1200,1),v=Math.round(t*(1-Math.pow(1-k,3)));el.textContent=p+v.toLocaleString('en-US');if(k<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
+const obs=new IntersectionObserver(es=>es.forEach(e=>{if(!e.isIntersecting)return;e.target.classList.add('in');e.target.querySelectorAll('[data-c]').forEach(cnt);obs.unobserve(e.target)}),{threshold:.2});
+setTimeout(()=>document.querySelectorAll('.rv2,.flow,.chips,.grow,.payp,table.res,.adm').forEach(e=>obs.observe(e)),500);
+// fly to cart
+const oa=window.add;window.add=function(i,b){const im=b.closest('.pc').querySelector('.im'),r=im.getBoundingClientRect(),t=document.getElementById('cn').getBoundingClientRect();const d=document.createElement('div');d.className='fly';d.style.backgroundImage=getComputedStyle(im).backgroundImage;d.style.left=(r.left+r.width/2-17)+'px';d.style.top=(r.top+r.height/2-17)+'px';document.body.appendChild(d);requestAnimationFrame(()=>{d.style.transform='translate('+(t.left-r.left-r.width/2+17)+'px,'+(t.top-r.top-r.height/2+10)+'px) scale(.4)';d.style.opacity='.3'});setTimeout(()=>{d.remove();oa(i,b)},700);};
+// autoplay tabs
+const og=window.go;let cur=0,tm=null,man=false;const tabs=document.getElementById('tabs');
+window.go=function(i,auto){og(i);cur=i;const b=tabs.querySelectorAll('button')[i];b.classList.remove('on');void b.offsetWidth;b.classList.add('on');if(i===3)document.querySelectorAll('.adm [data-c]').forEach(cnt);if(!auto){man=true;tabs.classList.add('man');clearInterval(tm)}};
+tabs.querySelectorAll('button').forEach((b,i)=>b.onclick=()=>window.go(i));
+document.getElementById('payb').onclick=()=>window.go(0);
+new IntersectionObserver((es,o)=>es.forEach(e=>{if(e.isIntersecting&&!man){window.go(0,true);tm=setInterval(()=>{if(!man)window.go((cur+1)%4,true)},3600);o.disconnect()}}),{threshold:.5}).observe(document.querySelector('.stage'));
+})();
+</script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#141310"></rect><rect x="52" y="30" width="16" height="16" fill="#FF1F1F"></rect><rect x="52" y="54" width="16" height="36" fill="#fff"></rect></svg></template>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
