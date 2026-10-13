@@ -122,29 +122,50 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 .sc h4{font-size:12.5px;margin:6px 0 4px;line-height:1.2}
 .sc p{font-size:10.5px;line-height:1.42;color:var(--muted);margin:0}
 
-/* big animated cancel */
-.cancel-wrap{display:grid;grid-template-columns:1fr 210px;gap:18px;align-items:center;border:2px solid var(--ink);padding:18px;margin:16px 0;break-inside:avoid;background:var(--cream)}
-.cancel{width:100%;height:auto;display:block}
-.cancel .frame{fill:none;stroke:var(--ink);stroke-width:5}
-.cancel .glass{fill:var(--glass);opacity:.62}
-.cancel .mull{stroke:var(--ink);stroke-width:4}
-.cancel .door{transform-box:fill-box;transform-origin:left center;animation:swing 6s ease-in-out infinite}
-.cancel .hinge{fill:var(--bm)}
-.cancel .dimline{stroke:var(--red);stroke-width:1.6}
-.cancel .dimtxt{font-family:"Space Grotesk";font-size:13px;font-weight:700;fill:var(--red)}
-.cancel .arc{fill:none;stroke:var(--red);stroke-width:1.5;stroke-dasharray:5 4;opacity:.75}
-@keyframes swing{0%,14%{transform:perspective(520px) rotateY(0deg)}46%,62%{transform:perspective(520px) rotateY(-62deg)}94%,100%{transform:perspective(520px) rotateY(0deg)}}
+/* cotizador animado */
+.cotz{--hw:#A9AFB3;display:grid;grid-template-columns:1fr 236px;gap:18px;align-items:center;border:2px solid var(--ink);padding:18px;margin:16px 0;break-inside:avoid;background:var(--cream)}
+.cotz svg{width:100%;height:auto;display:block}
+.cotz .glass{fill:var(--glass);opacity:.62}
+.cotz .hw{fill:var(--hw);transition:fill .6s}
+.cotz .frame{fill:none;stroke:var(--hw);stroke-width:6;transition:stroke .6s}
+.cotz .mull{stroke:var(--hw);stroke-width:4;transition:stroke .6s}
+.cotz .rail{stroke:var(--hw);stroke-width:7;stroke-linecap:round;transition:stroke .6s,opacity .4s}
+.cotz .hinge{transition:opacity .4s}
+.cotz.bat .rail{opacity:0}
+.cotz.cor .hinge{opacity:0}
+.cotz .door{transform-box:fill-box;transform-origin:left center}
+.cotz.bat .door{animation:cbat 3.2s ease-in-out infinite}
+.cotz.cor .door{animation:ccor 3.2s ease-in-out infinite}
+@keyframes cbat{0%,15%{transform:scaleX(1)}45%,65%{transform:scaleX(.4)}95%,100%{transform:scaleX(1)}}
+@keyframes ccor{0%,15%{transform:translateX(0)}45%,65%{transform:translateX(-122px)}95%,100%{transform:translateX(0)}}
+.cotz .dimline{stroke:var(--red);stroke-width:1.6}
+.cotz .dimtxt{font-family:"Space Grotesk";font-size:13px;font-weight:700;fill:var(--red)}
 .ctrl .lbl{font-family:"Space Grotesk";font-weight:700;font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--muted);margin:0 0 5px}
-.ctrl .fld{border:1.5px solid var(--ink);padding:6px 9px;font-family:"Space Grotesk";font-weight:600;font-size:12px;margin-bottom:10px;background:#fff;display:flex;justify-content:space-between}
-.ctrl .fld span{color:var(--muted);font-weight:500}
+.ctrl .fld{border:1.5px solid var(--ink);padding:5px 9px;font-family:"Space Grotesk";font-weight:600;font-size:11.5px;margin-bottom:6px;background:#fff;display:flex;justify-content:space-between}
+.ctrl .fld span{color:var(--ink);font-weight:700}
 .ctrl .seg{display:flex;border:1.5px solid var(--ink);margin-bottom:11px}
-.ctrl .seg b{flex:1;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:9.5px;padding:6px 2px;letter-spacing:.04em}
+.ctrl .seg b{flex:1;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:9px;padding:6px 2px;letter-spacing:.02em;transition:background .3s,color .3s}
 .ctrl .seg b.on{background:var(--ink);color:#fff}
-.bars{display:flex;gap:5px;align-items:flex-end;height:34px;margin-bottom:11px}
-.bars i{flex:1;background:var(--pink);border:1.5px solid var(--ink);border-bottom:0;animation:grow 4.5s ease-in-out infinite}
-.bars i:nth-child(2){animation-delay:.25s}.bars i:nth-child(3){animation-delay:.5s}.bars i:nth-child(4){animation-delay:.75s}
-.bars i.on{background:var(--bm)}
-@keyframes grow{0%,100%{height:38%}50%{height:100%}}
+.hws{display:grid;grid-template-columns:1fr 1fr;gap:5px;margin-bottom:11px}
+.hws b{display:flex;align-items:center;gap:6px;border:1.5px solid var(--line);background:#fff;padding:4px 6px;font-family:"Space Grotesk";font-weight:600;font-size:10px;transition:border-color .3s,background .3s}
+.hws b i{width:13px;height:13px;border-radius:50%;border:1px solid rgba(0,0,0,.25);flex:none}
+.hws b.on{border-color:var(--bm);background:var(--pinkl)}
+.rchip{font-family:"Space Grotesk";font-size:10px;font-weight:600;color:var(--muted);margin:2px 0 11px}
+.rchip b{color:var(--bm);font-weight:700}
+.price{background:var(--ink);color:#fff;padding:10px 12px}
+.price small{display:block;font-family:"Space Grotesk";font-weight:700;font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink)}
+.price b{display:block;font-family:"Space Grotesk";font-weight:700;font-size:24px;line-height:1.1;margin-top:3px}
+.price span{display:block;font-size:9.5px;color:#c9c2c4;margin-top:2px}
+
+/* tabla de rangos */
+.rng{width:100%;border-collapse:collapse;margin:10px 0 4px;font-size:12.5px;break-inside:avoid}
+.rng th{background:var(--ink);color:#fff;font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;padding:8px 10px;text-align:left}
+.rng td{padding:8px 10px;border-bottom:1.5px solid var(--line);background:#fff;transition:background .4s,color .4s}
+.rng td:first-child{font-family:"Space Grotesk";font-weight:700}
+.rng td.pz{color:var(--muted);font-style:italic}
+.rng tr.on td{background:var(--pinkl)}
+.rng tr.on td:first-child{color:var(--bm)}
+.rng tr.out td{background:var(--lavl);color:var(--muted);font-size:11.5px}
 
 /* what changes: 3 states */
 .states{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:14px 0;break-inside:avoid}
@@ -157,10 +178,12 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 .mini .m{stroke:var(--ink);stroke-width:3}
 .mini .w{animation:widen 4s ease-in-out infinite}
 @keyframes widen{0%,100%{transform:scaleX(1)}50%{transform:scaleX(.74)}}
-.mini .sw1{animation:mswing 4s ease-in-out infinite;transform-box:fill-box;transform-origin:left center}
-@keyframes mswing{0%,20%{transform:perspective(300px) rotateY(0)}55%,75%{transform:perspective(300px) rotateY(-55deg)}100%{transform:perspective(300px) rotateY(0)}}
-.mini .fin{animation:fin 5s steps(1) infinite}
-@keyframes fin{0%,32%{fill:#CFE0E6}33%,65%{fill:#B9C3C6}66%,100%{fill:#8F9BA0}}
+.mini .sl{animation:mslide 4s ease-in-out infinite}
+@keyframes mslide{0%,20%{transform:translateX(0)}55%,75%{transform:translateX(-44px)}100%{transform:translateX(0)}}
+.mini .hc{color:#A9AFB3;animation:hwc 6s linear infinite}
+.mini .hc .f{stroke:currentColor;stroke-width:6}
+.mini .hc .hd{fill:currentColor}
+@keyframes hwc{0%,22%{color:#A9AFB3}25%,47%{color:#C3C9CD}50%,72%{color:#1E1F21}75%,97%{color:#C9A04A}100%{color:#A9AFB3}}
 
 .sumcard{border:2px solid var(--ink);background:#fff;padding:0;margin:14px 0;break-inside:avoid}
 .sumcard .hd{background:var(--ink);color:#fff;padding:9px 14px;font-family:"Space Grotesk";font-weight:700;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase}
@@ -171,17 +194,21 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 .sumcard .r span{font-family:"Space Grotesk";font-weight:700;font-size:13px}
 
 /* phone */
-.phone-row{display:grid;grid-template-columns:168px 1fr;gap:22px;align-items:center;margin:14px 0;break-inside:avoid}
+.phone-row{display:grid;grid-template-columns:196px 1fr;gap:22px;align-items:center;margin:14px 0;break-inside:avoid}
 .phone{border:2.5px solid var(--ink);border-radius:20px;padding:7px;background:var(--ink)}
 .phone .scr{background:var(--cream);border-radius:13px;padding:12px 11px;min-height:250px;position:relative;overflow:hidden}
 .phone .pb{height:3px;background:var(--line);margin-bottom:12px;position:relative}
 .phone .pb i{position:absolute;left:0;top:0;bottom:0;background:var(--bm);animation:prog 6s ease-in-out infinite}
-@keyframes prog{0%{width:20%}25%{width:40%}50%{width:60%}75%{width:80%}100%{width:20%}}
+@keyframes prog{0%,15%{width:20%}25%,40%{width:40%}50%,65%{width:60%}75%,95%{width:80%}95.5%,100%{width:20%}}
 .phone .q{font-family:"Space Grotesk";font-weight:700;font-size:12.5px;line-height:1.2;margin-bottom:10px}
 .phone .opt{border:1.5px solid var(--ink);padding:8px 9px;font-size:10.5px;margin-bottom:7px;background:#fff;display:flex;align-items:center;gap:7px}
 .phone .opt i{width:11px;height:11px;border:1.5px solid var(--ink);border-radius:50%;flex:none}
 .phone .opt.on{background:var(--pinkl)}
 .phone .opt.on i{background:var(--bm);box-shadow:inset 0 0 0 2px #fff}
+.phone .chipg{display:grid;grid-template-columns:1fr 1fr;gap:5px}
+.phone .chipg .opt{margin-bottom:0;padding:6px 5px;gap:5px;font-size:9.5px;white-space:nowrap}
+.phone .chipg .opt i{border-radius:50%;border:1px solid rgba(0,0,0,.3)}
+.phone .chipg .opt.on i{box-shadow:0 0 0 2px #fff,0 0 0 3.5px var(--bm)}
 .phone .alt{font-size:9.5px;color:var(--muted);text-decoration:underline;margin-top:9px;display:block}
 
 /* pwa */
@@ -209,11 +236,11 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 .funnel .fr{display:grid;grid-template-columns:150px 1fr;gap:12px;align-items:center;margin-bottom:11px}
 .funnel .fr:last-child{margin-bottom:0}
 .funnel .fl{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;text-align:right}
-.funnel .fb{height:26px;background:var(--red);display:flex;align-items:center;justify-content:flex-end;padding-right:9px;font-family:"Space Grotesk";font-weight:700;font-size:10px;color:#fff;letter-spacing:.09em;animation:fbar 2.2s cubic-bezier(.3,1,.4,1) both}
-.funnel .fr:nth-child(2) .fb{background:#e03a3f;animation-delay:.18s}
-.funnel .fr:nth-child(3) .fb{background:#c8283f;animation-delay:.36s}
-.funnel .fr:nth-child(4) .fb{background:#8a2f3f;animation-delay:.54s}
-@keyframes fbar{from{transform:scaleX(.03);transform-origin:left}to{transform:scaleX(1);transform-origin:left}}
+.funnel .fb{height:26px;background:var(--red);display:flex;align-items:center;justify-content:flex-end;padding-right:9px;font-family:"Space Grotesk";font-weight:700;font-size:10px;color:#fff;letter-spacing:.09em;clip-path:inset(0 100% 0 0);transition:clip-path 1.4s cubic-bezier(.3,1,.4,1)}
+.funnel.in .fb{clip-path:inset(0 0 0 0)}
+.funnel .fr:nth-child(2) .fb{background:#e03a3f;transition-delay:.18s}
+.funnel .fr:nth-child(3) .fb{background:#c8283f;transition-delay:.36s}
+.funnel .fr:nth-child(4) .fb{background:#8a2f3f;transition-delay:.54s}
 .funnel .note{font-size:11px;color:var(--muted);margin:13px 0 0;font-style:italic}
 
 .callout{border-top:1.5px solid var(--ink);padding:13px 16px;margin:18px 0;break-inside:avoid;background:var(--lavl)}
@@ -245,11 +272,16 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 .rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}
 .rf b{color:var(--red)}
 
-@media (prefers-reduced-motion:reduce){*{animation:none!important}}
-@media print{.pllogo .plgear,.jdot,.shot .gl,.cancel .door,.bars i,.mini .w,.mini .sw1,.mini .fin,.phone .pb i,.funnel .fb{animation:none!important}.funnel .fb{transform:none!important}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}.funnel .fb{clip-path:none}}
+@media print{.pllogo .plgear,.jdot,.shot .gl,.cotz .door,.mini .w,.mini .sl,.mini .hc,.phone .pb i{animation:none!important}.funnel .fb{clip-path:none!important}}
+#docFit{width:100%;overflow:hidden}
+.pl-back{position:fixed;top:14px;left:14px;z-index:999;display:inline-flex;align-items:center;gap:6px;background:#111111;color:#fff;font-family:"Space Grotesk",sans-serif;font-weight:600;font-size:13px;padding:9px 16px 9px 14px;border-radius:30px;text-decoration:none;box-shadow:0 4px 14px rgba(0,0,0,.25)}
+@media print{.pl-back{display:none}}
 </style>
 </head>
 <body>
+<a href="/privado.html" class="pl-back">&larr; Volver</a>
+<div id="docFit">
 <doc-page size="letter" margin="0.7in">
 
 <div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Propuesta digital · BM Cúbica</span></div>
@@ -266,28 +298,28 @@ ul.q li::before{background:var(--bm);border-radius:50%}
   <span class="bm"><img src="assets/bmcubica-logo.png" alt="BM Cúbica"></span>
   <div class="ey">BM Cúbica × ProcesaLab</div>
   <h1>Una experiencia digital a la medida de sus proyectos</h1>
-  <div class="sub">Una web que permita descubrir soluciones, entender sus diferencias y preparar una solicitud de cotización — desde la primera idea hasta el contacto con un asesor.</div>
-  <span class="ver">Propuesta · Septiembre 2026</span>
+  <div class="sub">Una web con cotizador de canceles: el cliente elige herraje, sistema y medida, y recibe un presupuesto estimado al instante — desde la primera idea hasta el contacto con un asesor.</div>
+  <span class="ver">Propuesta · Octubre 2026</span>
 </div>
 
 <h2 class="sec"><span class="no">1</span>El punto de partida</h2>
 <p class="lead">Herraidea abrió esta conversación. Su experiencia combina presentación visual, exploración de productos y herramientas que ayudan a entender una solución.</p>
 <p>Para BM Cúbica proponemos aplicar ese enfoque a sus propios productos, materiales y procesos, con una identidad y un recorrido diseñados para su negocio.</p>
 
-<h3 class="sub">De la inspiración a la cotización</h3>
+<h3 class="sub">De la inspiración al presupuesto</h3>
 <div class="journey">
   <div class="jdot"></div>
   <div class="jn"><div class="n">01</div><div class="t">Descubrir</div></div>
-  <div class="jn"><div class="n">02</div><div class="t">Comparar</div></div>
-  <div class="jn"><div class="n">03</div><div class="t">Configurar</div></div>
-  <div class="jn"><div class="n">04</div><div class="t">Solicitar asesoría</div></div>
+  <div class="jn"><div class="n">02</div><div class="t">Configurar</div></div>
+  <div class="jn"><div class="n">03</div><div class="t">Cotizar</div></div>
+  <div class="jn"><div class="n">04</div><div class="t">Contactar asesor</div></div>
 </div>
 <p class="lead" style="margin-top:12px">La web ayudará al visitante a responder:</p>
 <ul class="clean q">
   <li>¿Qué solución puede funcionar en mi espacio?</li>
   <li>¿Cómo se verá y cómo abrirá?</li>
   <li>¿Qué cambia entre materiales y acabados?</li>
-  <li>¿Qué información necesitan para cotizar?</li>
+  <li>¿Cuánto me cuesta lo que necesito?</li>
 </ul>
 
 <h2 class="sec"><span class="no">2</span>Un showroom digital que se pueda explorar</h2>
@@ -315,100 +347,127 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 </div>
 <p class="cap">Visual conceptual: página de solución con fotografía principal, detalles ampliados, muestras de acabados y el botón “Configurar uno similar”.</p>
 
-<h2 class="sec"><span class="no">3</span>La pieza central: calculadora visual de canceles</h2>
-<p class="lead">Una herramienta para que el cliente comience por su espacio y construya una configuración que el equipo pueda revisar. Proponemos iniciar con una familia de canceles de baño seleccionada junto con BM Cúbica.</p>
+<h2 class="sec"><span class="no">3</span>La pieza central: cotizador de canceles de baño</h2>
+<p class="lead">El cliente entra, elige su cancel de baño y en cuatro pasos recibe un presupuesto estimado al instante, sin esperar a que alguien le conteste.</p>
 
 <div class="steps">
-  <div class="sc"><div class="n">1</div><h4>Describe tu espacio</h4><p>Distribución frontal o en esquina, con ilustraciones claras.</p></div>
-  <div class="sc"><div class="n">2</div><h4>Agrega medidas</h4><p>Ancho, alto y segundo lado, con guía visual de cada medida.</p></div>
-  <div class="sc"><div class="n">3</div><h4>Explora la apertura</h4><p>Opciones compatibles según las reglas que valide BM Cúbica.</p></div>
-  <div class="sc"><div class="n">4</div><h4>Elige acabados</h4><p>Compara cristales y herrajes del sistema seleccionado.</p></div>
-  <div class="sc"><div class="n">5</div><h4>Revisa y solicita</h4><p>Resumen de la configuración y solicitud de cotización.</p></div>
+  <div class="sc"><div class="n">1</div><h4>Elige el producto</h4><p>Cancel de baño, con fotografías de cada sistema.</p></div>
+  <div class="sc"><div class="n">2</div><h4>Elige el herraje</h4><p>Satinado, brillante, negro u oro.</p></div>
+  <div class="sc"><div class="n">3</div><h4>Elige el sistema</h4><p>Fijo + corredizo o fijo + puerta batiente.</p></div>
+  <div class="sc"><div class="n">4</div><h4>Escribe tu medida</h4><p>Ancho y alto; el cotizador la ubica en su rango.</p></div>
+  <div class="sc"><div class="n">5</div><h4>Recibe tu presupuesto</h4><p>Estimado al instante, en PDF o por WhatsApp.</p></div>
 </div>
 
-<div class="cancel-wrap">
-  <svg class="cancel" viewBox="0 0 420 260" aria-label="Cancel con apertura animada">
-    <path class="dimline" d="M40 24 H380"></path>
-    <path class="dimline" d="M40 18 V30 M380 18 V30"></path>
-    <text class="dimtxt" x="210" y="16" text-anchor="middle">ancho aprox.</text>
-    <path class="arc" d="M210 236 A 150 150 0 0 0 96 100"></path>
-    <rect class="glass" x="42" y="42" width="168" height="194"></rect>
-    <g class="door"><rect class="glass" x="210" y="42" width="168" height="194"></rect><line class="mull" x1="366" y1="52" x2="366" y2="226"></line><rect class="hinge" x="204" y="120" width="12" height="38" rx="3"></rect></g>
+<div class="cotz bat" id="cotz">
+  <svg viewBox="0 0 420 268" aria-label="Cancel de baño que cambia de herraje y sistema">
+    <path class="dimline" d="M40 22 H380"></path>
+    <path class="dimline" d="M40 16 V28 M380 16 V28"></path>
+    <text class="dimtxt" x="210" y="13" text-anchor="middle" id="cdim">ancho 110 cm</text>
+    <line class="rail" x1="42" y1="38" x2="378" y2="38"></line>
+    <rect class="glass" x="44" y="44" width="164" height="190"></rect>
+    <g class="door">
+      <rect class="glass" x="212" y="44" width="164" height="190"></rect>
+      <rect class="hw" x="350" y="114" width="9" height="52" rx="4"></rect>
+    </g>
+    <g class="hinge"><rect class="hw" x="203" y="72" width="14" height="26" rx="3"></rect><rect class="hw" x="203" y="182" width="14" height="26" rx="3"></rect></g>
+    <rect x="36.5" y="36.5" width="347" height="205" fill="none" stroke="#141310" stroke-width="1" opacity=".55"></rect>
     <rect class="frame" x="40" y="40" width="340" height="198"></rect>
     <line class="mull" x1="210" y1="40" x2="210" y2="238"></line>
     <path class="dimline" d="M396 40 V238 M390 40 H402 M390 238 H402"></path>
-    <text class="dimtxt" x="404" y="145" transform="rotate(90 404 145)" text-anchor="middle">alto</text>
+    <text class="dimtxt" x="404" y="139" transform="rotate(90 404 139)" text-anchor="middle">alto 200 cm</text>
   </svg>
   <div class="ctrl">
-    <div class="lbl">Distribución</div>
-    <div class="seg"><b class="on">Frontal</b><b>Esquina</b></div>
-    <div class="lbl">Medidas aprox.</div>
-    <div class="fld">Ancho <span>cm</span></div>
-    <div class="fld">Alto <span>cm</span></div>
-    <div class="lbl">Apertura compatible</div>
-    <div class="bars"><i class="on"></i><i></i><i></i><i></i></div>
-    <div class="lbl">Acabado</div>
-    <div class="sw-row"><b style="background:#CFE0E6" class="on"></b><b style="background:#B9C3C6"></b><b style="background:#8F9BA0"></b></div>
+    <div class="lbl">Herraje</div>
+    <div class="hws" id="chw"><b><i style="background:#A9AFB3"></i>Satinado</b><b><i style="background:#C3C9CD"></i>Brillante</b><b><i style="background:#1E1F21"></i>Negro</b><b><i style="background:#C9A04A"></i>Oro</b></div>
+    <div class="lbl">Sistema</div>
+    <div class="seg" id="csys"><b>Fijo + corredizo</b><b>Fijo + batiente</b></div>
+    <div class="lbl">Medida</div>
+    <div class="fld">Ancho <span id="cw">110 cm</span></div>
+    <div class="fld">Alto <span>200 cm</span></div>
+    <div class="rchip">Rango de precio: <b id="crg">95–120 cm</b></div>
+    <div class="price"><small>Presupuesto estimado</small><b>$X,XXX</b><span>MXN + IVA · sujeto a medición en obra</span></div>
   </div>
 </div>
-<p class="cap">Visual conceptual: el cancel como protagonista, acompañado de controles de medidas, apertura y acabados. En celular, los controles se organizan por pasos.</p>
+<p class="cap">Visual conceptual: al cambiar herraje, sistema o medida, el cancel y el presupuesto se actualizan solos. Las cifras saldrán de la tabla de precios de BM Cúbica.</p>
+
+<h3 class="sub">La tabla de rangos</h3>
+<p>Para que el precio salga solo, el cliente escribe su medida y el cotizador la acomoda en el rango que le corresponde. Así BM Cúbica define un precio por rango, sin fórmulas por metro cuadrado.</p>
+<table class="rng" id="crng">
+  <thead><tr><th>Ancho del cancel</th><th>Fijo + corredizo</th><th>Fijo + puerta batiente</th></tr></thead>
+  <tbody>
+    <tr data-r="95–120 cm"><td>95 a 120 cm</td><td class="pz">Precio por herraje</td><td class="pz">Precio por herraje</td></tr>
+    <tr data-r="120–150 cm"><td>120 a 150 cm</td><td class="pz">Precio por herraje</td><td class="pz">Precio por herraje</td></tr>
+    <tr data-r="150–180 cm"><td>150 a 180 cm</td><td class="pz">Precio por herraje</td><td class="pz">Precio por herraje</td></tr>
+    <tr class="out"><td>Menos de 95 o más de 180 cm</td><td colspan="2">Cotización personalizada con un asesor</td></tr>
+  </tbody>
+</table>
+<p class="cap">Cada celda lleva un precio por herraje (satinado, brillante, negro y oro): 3 rangos × 2 sistemas × 4 herrajes = 24 precios.</p>
+
 <div class="callout pk">
   <div class="lbl">Siempre una salida</div>
-  <p style="margin-bottom:0">En todo momento habrá una alternativa disponible: <strong>“No tengo las medidas / necesito asesoría”.</strong></p>
+  <p style="margin-bottom:0">En todo momento habrá una alternativa disponible: <strong>“No tengo las medidas / necesito asesoría”</strong>, y las medidas fuera de la tabla pasan directo con un asesor.</p>
 </div>
 
 <h2 class="sec"><span class="no">4</span>Ver qué cambia con cada elección</h2>
-<p class="lead">La calculadora debe responder visualmente a las decisiones del usuario.</p>
+<p class="lead">El cotizador responde visualmente a cada decisión del cliente.</p>
 <div class="states">
   <div class="stc">
-    <div class="t">Medidas</div>
+    <div class="t">Medida</div>
     <svg class="mini" viewBox="0 0 150 120"><g class="w" style="transform-box:fill-box;transform-origin:center"><rect class="g" x="16" y="20" width="118" height="86"></rect><rect class="f" x="14" y="18" width="122" height="90"></rect><line class="m" x1="75" y1="18" x2="75" y2="108"></line></g></svg>
-    <p>Las proporciones se ajustan al cambiar ancho y alto.</p>
+    <p>Las proporciones y el rango de precio se ajustan al escribir el ancho.</p>
   </div>
   <div class="stc">
-    <div class="t">Apertura</div>
-    <svg class="mini" viewBox="0 0 150 120"><rect class="g" x="16" y="20" width="57" height="86"></rect><g class="sw1"><rect class="g" x="75" y="20" width="59" height="86"></rect></g><rect class="f" x="14" y="18" width="122" height="90"></rect><line class="m" x1="75" y1="18" x2="75" y2="108"></line></svg>
-    <p>Se muestra el movimiento de apertura de cada sistema.</p>
+    <div class="t">Sistema</div>
+    <svg class="mini" viewBox="0 0 150 120"><rect class="g" x="16" y="20" width="57" height="86"></rect><g class="sl"><rect class="g" x="75" y="20" width="59" height="86"></rect><line class="m" x1="77" y1="20" x2="77" y2="106"></line></g><rect class="f" x="14" y="18" width="122" height="90"></rect></svg>
+    <p>Se muestra cómo abre: puerta corrediza o batiente.</p>
   </div>
   <div class="stc">
-    <div class="t">Acabados</div>
-    <svg class="mini" viewBox="0 0 150 120"><rect class="fin" x="16" y="20" width="118" height="86"></rect><rect class="f" x="14" y="18" width="122" height="90"></rect><line class="m" x1="75" y1="18" x2="75" y2="108"></line></svg>
-    <p>Los cristales y herrajes se comparan sobre el mismo modelo.</p>
+    <div class="t">Herraje</div>
+    <svg class="mini" viewBox="0 0 150 120"><rect class="g" x="16" y="20" width="118" height="86"></rect><g class="hc"><rect class="f" x="14" y="18" width="122" height="90"></rect><rect class="hd" x="112" y="48" width="7" height="30" rx="3"></rect></g></svg>
+    <p>Satinado, brillante, negro u oro sobre el mismo cancel.</p>
   </div>
 </div>
 <p>Las combinaciones estarán limitadas a las opciones autorizadas por BM Cúbica. La visualización puede comenzar con esquemas interactivos; el alcance de una versión 3D se definirá según los modelos y recursos disponibles.</p>
 
 <div class="sumcard">
-  <div class="hd">El resultado reúne</div>
+  <div class="hd">El presupuesto reúne</div>
   <div class="rows">
-    <div class="r"><b>Vista</b><span>Del cancel</span></div>
-    <div class="r"><b>Medidas</b><span>Aproximadas</span></div>
-    <div class="r"><b>Sistema</b><span>Apertura</span></div>
-    <div class="r"><b>Acabados</b><span>Cristal + herraje</span></div>
-    <div class="r"><b>Acción</b><span>Solicitar cotización</span></div>
+    <div class="r"><b>Producto</b><span>Cancel de baño</span></div>
+    <div class="r"><b>Herraje</b><span>Acabado elegido</span></div>
+    <div class="r"><b>Sistema</b><span>Corredizo o batiente</span></div>
+    <div class="r"><b>Medida</b><span>Y su rango</span></div>
+    <div class="r"><b>Resultado</b><span>Precio estimado</span></div>
   </div>
 </div>
 
-<h3 class="sub">¿Puede mostrar un precio?</h3>
-<p>Podremos incorporar una estimación cuando BM Cúbica proporcione y valide las tarifas, reglas de configuración, instalación y cargos aplicables. La cotización definitiva dependerá de la revisión del proyecto y las medidas en obra.</p>
+<h3 class="sub">Un presupuesto que también trabaja para BM Cúbica</h3>
+<ul class="clean">
+  <li><strong>Estimado, sujeto a medición en obra.</strong> El presupuesto lo dice claramente; el precio final se confirma al medir.</li>
+  <li><strong>Datos antes del total.</strong> Nombre y teléfono se piden antes de mostrar el precio, así cada cotización llega como prospecto.</li>
+  <li><strong>Con todo el contexto.</strong> El asesor recibe herraje, sistema, medida y rango, y continúa la conversación sin volver a preguntar.</li>
+  <li><strong>Precios fáciles de actualizar.</strong> Si cambian los costos, se actualiza la tabla y el cotizador cambia en automático.</li>
+</ul>
 
 <h2 class="sec"><span class="no">5</span>Una experiencia sencilla desde el celular</h2>
 <div class="phone-row">
   <div class="phone"><div class="scr">
     <div class="pb"><i></i></div>
-    <div class="q">¿Cómo es tu espacio?</div>
-    <div class="opt on"><i></i>Frontal</div>
-    <div class="opt"><i></i>En esquina</div>
-    <div class="q" style="margin-top:14px">Apertura</div>
-    <div class="opt"><i></i>Corrediza</div>
-    <div class="opt on"><i></i>Batiente</div>
+    <div class="q">¿Qué herraje prefieres?</div>
+    <div class="chipg"><div class="opt on"><i style="background:#A9AFB3"></i>Satinado</div><div class="opt"><i style="background:#C3C9CD"></i>Brillante</div><div class="opt"><i style="background:#1E1F21"></i>Negro</div><div class="opt"><i style="background:#C9A04A"></i>Oro</div></div>
+    <div class="q" style="margin-top:14px">¿Qué sistema?</div>
+    <div class="opt"><i></i>Fijo + corredizo</div>
+    <div class="opt on"><i></i>Fijo + batiente</div>
     <span class="alt">No tengo las medidas / necesito asesoría</span>
   </div></div>
   <div>
-    <p>El cliente podrá explorar y configurar <strong>sin crear una cuenta</strong>. Cada paso tendrá preguntas cortas, imágenes de apoyo y opciones claras.</p>
-    <p>Podrá regresar, ajustar sus elecciones y continuar sin perder lo capturado durante el recorrido. Los datos de contacto se solicitarán al finalizar.</p>
+    <p>El cliente podrá cotizar <strong>sin crear una cuenta</strong>. Cada paso tendrá una pregunta corta, imágenes de apoyo y opciones claras: herraje, sistema y medida.</p>
+    <p>Podrá regresar, ajustar sus elecciones y ver cómo cambia el precio sin perder lo capturado. Antes de mostrar el total se piden nombre y teléfono, y el presupuesto también le llega por WhatsApp.</p>
     <p style="margin-bottom:0">La solicitud preparará un resumen con la configuración y la zona del proyecto para compartirlo con el equipo comercial, facilitando que el asesor continúe la conversación con contexto.</p>
   </div>
+</div>
+<div class="callout">
+  <div class="lbl">¿Aplicación o página web?</div>
+  <p style="margin-bottom:0">Empezamos en la web. El cliente abre el cotizador desde un enlace por WhatsApp, Instagram o Google, sin descargar nada, y en el celular se usa como una aplicación. La versión instalable queda para la segunda fase, pensada para quienes la usarán todos los días.</p>
 </div>
 
 <h2 class="sec"><span class="no">6</span>Segunda fase: una PWA para retomar y dar seguimiento</h2>
@@ -436,31 +495,31 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 <p style="font-size:12.5px;color:var(--muted)">Desde el inicio quedarán definidos alcance, responsables, entregables y criterios de aprobación.</p>
 
 <h2 class="sec"><span class="no">8</span>Un primer alcance concreto</h2>
-<p class="lead">La primera fase propuesta contempla una identidad visual propia, presentación de servicios y proyectos, calculadora para una familia prioritaria de canceles y solicitud de cotización con resumen.</p>
+<p class="lead">La primera fase propuesta contempla una identidad visual propia, presentación de servicios y proyectos, el cotizador automático de canceles de baño y el envío del presupuesto con resumen al equipo comercial.</p>
 <h3 class="sub">Y medir el recorrido</h3>
 <div class="funnel">
-  <div class="fr"><div class="fl">Visitan una solución</div><div class="fb" style="width:100%">Base</div></div>
-  <div class="fr"><div class="fl">Comienzan una configuración</div><div class="fb" style="width:74%">Inician</div></div>
-  <div class="fr"><div class="fl">Terminan la configuración</div><div class="fb" style="width:48%">Completan</div></div>
-  <div class="fr"><div class="fl">Solicitan asesoría</div><div class="fb" style="width:29%">Solicitan</div></div>
+  <div class="fr"><div class="fl">Abren el cotizador</div><div class="fb" style="width:100%">Base</div></div>
+  <div class="fr"><div class="fl">Eligen herraje y sistema</div><div class="fb" style="width:74%">Eligen</div></div>
+  <div class="fr"><div class="fl">Reciben su presupuesto</div><div class="fb" style="width:48%">Cotizan</div></div>
+  <div class="fr"><div class="fl">Contactan a un asesor</div><div class="fb" style="width:29%">Contactan</div></div>
   <p class="note">Ilustrativo: las proporciones reales se conocerán al medir el recorrido una vez publicado.</p>
 </div>
 <p>La segunda fase se definirá a partir de las necesidades operativas y del uso observado.</p>
 
 <h2 class="sec"><span class="no">9</span>El siguiente paso</h2>
-<p class="lead">Seleccionar juntos el primer sistema de cancel y preparar un prototipo que permita recorrer la experiencia completa.</p>
+<p class="lead">Armar juntos la tabla de precios y preparar un prototipo del cotizador que puedan probar desde su celular.</p>
 <p>Para hacerlo necesitaremos de BM Cúbica:</p>
 <div class="need">
-  <div><b>01</b>Fotografías</div>
-  <div><b>02</b>Modelos prioritarios</div>
-  <div><b>03</b>Acabados disponibles</div>
-  <div><b>04</b>Reglas de configuración</div>
-  <div><b>05</b>Proceso actual de cotización</div>
+  <div><b>01</b>Tabla de precios: 24 combinaciones</div>
+  <div><b>02</b>Bordes de rangos y altura máxima</div>
+  <div><b>03</b>Cristal e instalación incluidos</div>
+  <div><b>04</b>Fotografías de sus canceles</div>
+  <div><b>05</b>WhatsApp para recibir solicitudes</div>
 </div>
 
 <div class="band">
   <span class="bm"><img src="assets/bmcubica-logo.png" alt="BM Cúbica"></span>
-  <div class="big">Del showroom al configurador:<br><span>que el cliente llegue con su proyecto ya armado.</span></div>
+  <div class="big">Del showroom al cotizador:<br><span>que el cliente llegue con su presupuesto en la mano.</span></div>
   <p>Cada fase se define, se valida y se entrega antes de avanzar a la siguiente.</p>
 </div>
 
@@ -471,8 +530,55 @@ ul.q li::before{background:var(--bm);border-radius:50%}
 </div>
 
 </doc-page>
+</div>
+<script>
+// Cotizador de demostración: rota herraje, sistema y medida para mostrar
+// cómo responde el cancel. Los precios reales saldrán de la tabla de BM Cúbica.
+(function(){
+  const z = document.getElementById('cotz'); if (!z) return;
+  const HW = ['#A9AFB3','#C3C9CD','#1E1F21','#C9A04A'];
+  const W = [110, 135, 165, 140];
+  const rango = w => w <= 120 ? '95–120 cm' : w <= 150 ? '120–150 cm' : '150–180 cm';
+  const sw = [...document.querySelectorAll('#chw b')], sy = [...document.querySelectorAll('#csys b')];
+  const rows = [...document.querySelectorAll('#crng tbody tr[data-r]')];
+  let i = 0;
+  function step(){
+    const h = i % 4, cor = i % 2 === 1, w = W[i % 4], r = rango(w);
+    z.style.setProperty('--hw', HW[h]);
+    z.classList.toggle('cor', cor); z.classList.toggle('bat', !cor);
+    sw.forEach((b,k) => b.classList.toggle('on', k === h));
+    sy[0].classList.toggle('on', cor); sy[1].classList.toggle('on', !cor);
+    document.getElementById('cw').textContent = w + ' cm';
+    document.getElementById('cdim').textContent = 'ancho ' + w + ' cm';
+    document.getElementById('crg').textContent = r;
+    rows.forEach(t => t.classList.toggle('on', t.dataset.r === r));
+    i++;
+  }
+  step();
+  if (!matchMedia('(prefers-reduced-motion: reduce)').matches && !matchMedia('print').matches) setInterval(step, 3200);
+})();
+// El embudo se dibuja cuando aparece en pantalla, no al cargar la página.
+(function(){
+  const f = document.querySelector('.funnel'); if (!f) return;
+  new IntersectionObserver((es, o) => es.forEach(e => { if (e.isIntersecting) { f.classList.add('in'); o.disconnect(); } }), {threshold:.4}).observe(f);
+  addEventListener('beforeprint', () => f.classList.add('in'));
+})();
+// En celular la hoja carta conserva su ancho; se escala al de la pantalla.
+function fitDocToViewport() {
+  const dp = document.querySelector('doc-page'), wrap = document.getElementById('docFit');
+  if (!dp || !wrap) return;
+  dp.style.transform = 'none';
+  const r = dp.getBoundingClientRect(), avail = wrap.clientWidth;
+  if (r.width > avail && r.width > 0) {
+    const sc = avail / r.width;
+    dp.style.transformOrigin = 'top left'; dp.style.transform = 'scale(' + sc + ')';
+    wrap.style.height = (r.height * sc) + 'px';
+  } else { dp.style.transform = 'none'; wrap.style.height = 'auto'; }
+}
+addEventListener('load', () => setTimeout(fitDocToViewport, 200));
+addEventListener('resize', fitDocToViewport);
+</script>
 
-<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#141310"></rect><path d="M24 44 60 26 96 44 96 86 60 104 24 86Z" fill="none" stroke="#E10E33" stroke-width="4"></path></svg></template>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
