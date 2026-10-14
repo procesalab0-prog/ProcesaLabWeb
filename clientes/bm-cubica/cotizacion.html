@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Cotización web y cotizador — BM Cúbica × ProcesaLab</title>
+<script>
+(function () {
+  document.documentElement.style.visibility = 'hidden';
+  fetch('/api/client-check?slug=bm-cubica')
+    .then(function (r) { return r.json(); })
+    .then(function (d) {
+      if (d.authenticated) {
+        document.documentElement.style.visibility = 'visible';
+      } else {
+        location.href = './login.html';
+      }
+    })
+    .catch(function () { location.href = './login.html'; });
+})();
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<script src="doc-page.js"></script>
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--bm:#E10E33;--pink:#F7B6C9;--pinkl:#FBE3EA;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--lavl:#F5F0F8;--muted:#5f565a;--line:#E7DED8;--glass:#CFE0E6;--wine:#8a2f3f;--rose:#c8283f}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.55;font-size:14.5px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 11px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+.pllogo{position:relative;display:inline-block;line-height:0;align-self:flex-start;flex:none}
+.pllogo img{display:block;height:100%;width:auto}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:plspin 9s linear infinite}
+.pllogo .gt{fill:var(--gear,var(--red))}.pllogo .gh{fill:var(--patch,#fff)}
+@keyframes plspin{to{transform:rotate(360deg)}}
+.bm{display:inline-block;line-height:0;max-width:100%}.bm img{display:block;height:100%;width:auto;max-width:100%}
+.rh{display:flex;align-items:center;justify-content:space-between;font-family:"Space Grotesk";font-size:10.5px;color:var(--muted);padding:0 2px 6px;border-bottom:1px solid var(--line)}
+.rh .pllogo{height:13px;--patch:#fff}
+.rf{display:flex;align-items:center;justify-content:space-between;font-size:10px;color:var(--muted);padding-top:6px;border-top:1px solid var(--line)}.rf b{color:var(--red)}
+
+/* cover */
+.cv{display:grid;grid-template-columns:1fr 1fr;border:2px solid var(--ink);overflow:hidden}
+.cv-l{padding:24px 24px 22px;display:flex;flex-direction:column;gap:14px;background:var(--cream)}
+.cv-l .pllogo{height:30px;--patch:var(--cream)}
+.cv-l .tag{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--bm)}
+.cv-l h1{font-size:35px;font-weight:700}
+.cv-l h1 span{color:var(--red)}
+.cv-l .sub{font-size:13px;color:var(--muted);line-height:1.5}
+.cv-l .date{font-family:"Space Grotesk";font-weight:600;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase;border-top:1.5px solid var(--line);padding-top:11px;margin-top:auto}
+.cv-r{background:var(--ink);position:relative;display:flex;flex-direction:column;align-items:center;justify-content:space-between;padding:22px 18px 18px;overflow:hidden}
+.cv-r .grid-bg{position:absolute;inset:0;background-image:linear-gradient(rgba(255,255,255,.06) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.06) 1px,transparent 1px);background-size:28px 28px}
+.cv-r .bm{height:84px;position:relative}
+.scene{width:150px;height:150px;perspective:600px;position:relative;margin:18px 0}
+.cube{position:absolute;inset:0;transform-style:preserve-3d;animation:cuberot 12s linear infinite}
+.cube i{position:absolute;inset:0;border:2.5px solid var(--bm);background:rgba(207,224,230,.13)}
+.cube i:nth-child(1){transform:translateZ(75px)}.cube i:nth-child(2){transform:rotateY(180deg) translateZ(75px)}
+.cube i:nth-child(3){transform:rotateY(90deg) translateZ(75px);border-color:#fff}.cube i:nth-child(4){transform:rotateY(-90deg) translateZ(75px);border-color:#fff}
+.cube i:nth-child(5){transform:rotateX(90deg) translateZ(75px);background:rgba(255,78,58,.18)}.cube i:nth-child(6){transform:rotateX(-90deg) translateZ(75px)}
+.cube i::after{content:"";position:absolute;left:50%;top:0;bottom:0;width:2px;background:rgba(255,255,255,.45)}
+@keyframes cuberot{from{transform:rotateX(-24deg) rotateY(0)}to{transform:rotateX(-24deg) rotateY(360deg)}}
+.chips{display:grid;grid-template-columns:1fr 1fr;gap:8px;width:100%;position:relative}
+.chip{border:1.5px solid #3a3335;padding:9px 10px;color:#fff}
+.chip b{display:block;font-family:"Space Grotesk";font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--pink);margin-bottom:3px}
+.chip span{font-family:"Space Grotesk";font-weight:700;font-size:17px}
+.chip small{font-size:9.5px;color:#b8afb2;margin-left:3px}
+.chip.hl{background:var(--bm);border-color:var(--bm)}.chip.hl b{color:#fff}.chip.hl small{color:#ffd6dc}
+
+h2.sec{font-size:23px;margin:30px 0 4px;display:flex;align-items:center;gap:13px;break-after:avoid}
+h2.sec .no{font-family:"Space Grotesk";font-weight:700;font-size:29px;color:transparent;-webkit-text-stroke:1.6px var(--red);flex:none;line-height:1}
+h2.sec::after{content:"";flex:1;height:2px;background:var(--pink)}
+.lead{color:var(--muted);font-size:14px;margin:8px 0 13px}
+h3.sub{font-family:"Space Grotesk";font-size:15.5px;font-weight:600;margin:18px 0 8px;display:flex;align-items:center;gap:9px;break-after:avoid}
+h3.sub::before{content:"";width:9px;height:9px;background:var(--red);border-radius:2px;transform:rotate(45deg);flex:none}
+.cap{font-size:10.5px;color:var(--muted);margin:6px 0 0;font-style:italic}
+
+/* house build */
+.build{display:grid;grid-template-columns:250px 1fr;gap:20px;align-items:center;border:2px solid var(--ink);background:var(--lavl);padding:14px 18px;break-inside:avoid;margin:12px 0}
+.house{width:100%;height:auto;display:block;overflow:visible}
+.house .pc{animation:assemble 7.5s cubic-bezier(.3,1.2,.5,1) infinite;opacity:0}
+.house .pc:nth-child(2){animation-delay:.3s}.house .pc:nth-child(3){animation-delay:.6s}.house .pc:nth-child(4){animation-delay:.9s}.house .pc:nth-child(5){animation-delay:1.2s}.house .pc:nth-child(6){animation-delay:1.5s}
+@keyframes assemble{0%{opacity:0;transform:translateY(-38px)}12%,62%{opacity:1;transform:none}76%,100%{opacity:0;transform:translateY(-38px)}}
+.house .s1{fill:#fff;stroke:var(--ink);stroke-width:2}.house .s2{fill:var(--pink);stroke:var(--ink);stroke-width:2}.house .s3{fill:var(--lav);stroke:var(--ink);stroke-width:2}
+.house .gl{fill:var(--glass);fill-opacity:.75;stroke:var(--ink);stroke-width:2}
+.house .rf1{fill:var(--ink)}.house .ac{stroke:var(--red);stroke-width:3;fill:none}
+.scroll{display:flex;align-items:center;gap:8px;font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);margin-top:6px}
+.mouse{width:14px;height:21px;border:2px solid var(--red);border-radius:8px;position:relative}
+.mouse::after{content:"";position:absolute;left:50%;top:4px;width:2px;height:5px;margin-left:-1px;background:var(--red);border-radius:1px;animation:wheel 1.6s ease-in-out infinite}
+@keyframes wheel{0%{transform:translateY(0);opacity:1}100%{transform:translateY(7px);opacity:0}}
+.build h4{font-size:16px;margin-bottom:6px}.build p{font-size:12.5px;color:var(--muted);margin-bottom:6px}
+
+/* three cotizadores */
+.trio{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:12px 0;break-inside:avoid}
+.tc{border:1.5px solid var(--ink);background:#fff;padding:12px 12px 13px}
+.tc svg{width:100%;height:80px;display:block;margin-bottom:8px;background:var(--cream);border:1.5px solid var(--line)}
+.tc h4{font-size:14px;margin-bottom:3px}.tc p{font-size:11px;color:var(--muted);margin:0;line-height:1.4}
+.tc .n{font-family:"Space Grotesk";font-weight:700;font-size:9px;letter-spacing:.14em;color:var(--red);text-transform:uppercase;margin-bottom:4px}
+.ic .f{fill:none;stroke:var(--ink);stroke-width:3}.ic .g{fill:var(--glass);opacity:.75}
+.ic .door{transform-box:fill-box;transform-origin:left center;animation:swing 4.5s ease-in-out infinite}
+@keyframes swing{0%,15%{transform:perspective(260px) rotateY(0)}45%,65%{transform:perspective(260px) rotateY(-60deg)}95%,100%{transform:perspective(260px) rotateY(0)}}
+.ic .slat{fill:var(--red);transform-box:fill-box;transform-origin:center;animation:slat 3.6s ease-in-out infinite}
+.ic .slat:nth-of-type(2){animation-delay:.15s}.ic .slat:nth-of-type(3){animation-delay:.3s}.ic .slat:nth-of-type(4){animation-delay:.45s}.ic .slat:nth-of-type(5){animation-delay:.6s}.ic .slat:nth-of-type(6){animation-delay:.75s}
+@keyframes slat{0%,100%{transform:scaleY(1)}50%{transform:scaleY(.25)}}
+.ic .post{fill:var(--ink);transform-box:fill-box;transform-origin:bottom;animation:rise 3.8s cubic-bezier(.3,1.3,.5,1) infinite}
+.ic .post:nth-of-type(2){animation-delay:.2s}.ic .post:nth-of-type(3){animation-delay:.4s}.ic .post:nth-of-type(4){animation-delay:.6s}
+@keyframes rise{0%{transform:scaleY(0)}25%,80%{transform:scaleY(1)}100%{transform:scaleY(0)}}
+.ic .rglass{fill:var(--glass);opacity:.7;animation:fadein 3.8s ease infinite}
+@keyframes fadein{0%,30%{opacity:0}45%,80%{opacity:.75}100%{opacity:0}}
+
+/* price privacy rail */
+.rail{position:relative;display:grid;grid-template-columns:repeat(4,1fr);background:var(--ink);color:#fff;padding:18px 10px 14px;margin:12px 0;break-inside:avoid;overflow:hidden}
+.rn{position:relative;padding:30px 6px 0;text-align:center}
+.rn::before{content:"";position:absolute;left:0;right:0;top:11px;height:2px;background:#3a3335}
+.rn:first-child::before{left:50%}.rn:last-child::before{right:50%}
+.rn .dot{position:absolute;left:50%;top:2px;width:20px;height:20px;margin-left:-10px;border-radius:50%;background:var(--ink);border:2px solid var(--pink);display:grid;place-items:center}
+.rn .dot svg{width:10px;height:10px}
+.rn.lock .dot{border-color:var(--red);background:var(--red)}
+.rn .t{font-family:"Space Grotesk";font-weight:700;font-size:12.5px;line-height:1.2}
+.rn .d{font-size:10px;color:#b8afb2;margin-top:3px;line-height:1.35}
+.rdot{position:absolute;z-index:3;top:26px;left:12.5%;width:9px;height:9px;margin-left:-4.5px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.18);animation:rride 6s cubic-bezier(.65,0,.35,1) infinite}
+@keyframes rride{0%,10%{left:calc(10px + (100% - 20px)*.125)}25%,35%{left:calc(10px + (100% - 20px)*.375)}50%,60%{left:calc(10px + (100% - 20px)*.625)}75%,90%{left:calc(10px + (100% - 20px)*.875)}100%{left:calc(10px + (100% - 20px)*.125)}}
+
+/* checklist */
+.checks{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px;margin:10px 0;break-inside:avoid}
+.ck{display:grid;grid-template-columns:20px 1fr;gap:9px;align-items:start;font-size:12.5px;padding:7px 9px;background:#fff;border:1.5px solid var(--line)}
+.ck:nth-child(4n+1),.ck:nth-child(4n+2){background:var(--lavl)}
+.ck svg{width:18px;height:18px}
+.ck .bx{fill:var(--red)}
+.ck .tk{fill:none;stroke:#fff;stroke-width:3;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:20;stroke-dashoffset:20;animation:tick 5s ease infinite}
+@keyframes tick{0%,8%{stroke-dashoffset:20}22%,88%{stroke-dashoffset:0}100%{stroke-dashoffset:20}}
+.note{border-left:0;border-top:1.5px solid var(--ink);background:var(--pinkl);padding:10px 14px;font-size:12px;margin:10px 0;break-inside:avoid}
+.note b{font-family:"Space Grotesk";font-size:9.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--bm);display:block;margin-bottom:3px}
+
+/* options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;align-items:stretch}
+.op{border:2px solid var(--ink);background:#fff;display:flex;flex-direction:column;break-inside:avoid}
+.op .hd{padding:13px 14px 12px;background:var(--lavl);border-bottom:2px solid var(--ink)}
+.op .k{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.16em;text-transform:uppercase;color:var(--red)}
+.op h3{font-size:16px;margin:5px 0 9px;line-height:1.15}
+.op .pr{font-family:"Space Grotesk";font-weight:700;font-size:30px;line-height:1}
+.op .pr small{font-size:12px;color:var(--muted);font-weight:600;margin-left:4px}
+.op .mo{font-family:"Space Grotesk";font-weight:600;font-size:11.5px;margin-top:6px;color:var(--bm)}
+.op .bd{padding:12px 14px;flex:1}
+.op .bd p{font-size:11.5px;color:var(--muted)}
+.op ul{list-style:none;margin:0;padding:0}
+.op li{position:relative;padding-left:15px;font-size:11.5px;margin-bottom:5px;line-height:1.4}
+.op li::before{content:"";position:absolute;left:0;top:6px;width:6px;height:6px;background:var(--red);border-radius:1px}
+.op .lim{font-size:10.5px;color:var(--muted);border-top:1.5px dashed var(--line);margin-top:9px;padding-top:8px;font-style:italic}
+.op.two{border-color:var(--bm)}
+.op.two .hd{background:var(--ink);color:#fff;border-bottom-color:var(--bm);position:relative;overflow:hidden}
+.op.two .k{color:var(--pink)}.op.two .pr small{color:#b8afb2}.op.two .mo{color:var(--pink)}
+.op.two .hd::after{content:"";position:absolute;top:-30%;left:-40%;width:30%;height:160%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);transform:rotate(16deg);animation:sheen 5s ease-in-out infinite}
+@keyframes sheen{0%{left:-40%}55%,100%{left:130%}}
+.op.two li::before{background:var(--bm)}
+.op.two .hd{padding-top:32px}.badge{position:absolute;top:10px;right:12px;font-family:"Space Grotesk";font-weight:700;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;background:var(--bm);color:#fff;padding:4px 8px;z-index:2}
+
+/* matrix */
+.mx{width:100%;border-collapse:collapse;margin:12px 0;font-size:12px;break-inside:avoid}
+.mx th{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;text-align:center;padding:8px;background:var(--ink);color:#fff}
+.mx th:first-child{text-align:left}
+.mx th.o2{background:var(--bm)}
+.mx td{padding:7px 9px;border-bottom:1px solid var(--line)}
+.mx td:not(:first-child){text-align:center;width:90px}
+.mx tr:nth-child(even) td{background:var(--lavl)}
+.yes{display:inline-block;width:16px;height:16px;border-radius:50%;background:var(--red);position:relative;vertical-align:middle;animation:pop 4s ease infinite}
+.yes::after{content:"";position:absolute;left:5px;top:3px;width:4px;height:7px;border:solid #fff;border-width:0 2px 2px 0;transform:rotate(45deg)}
+.mx .nn{display:inline-block;width:12px;height:2px;background:#bfb4b8;vertical-align:middle}
+.mx tr:nth-child(2) .yes{animation-delay:.1s}.mx tr:nth-child(3) .yes{animation-delay:.2s}.mx tr:nth-child(4) .yes{animation-delay:.3s}.mx tr:nth-child(5) .yes{animation-delay:.4s}.mx tr:nth-child(6) .yes{animation-delay:.5s}.mx tr:nth-child(7) .yes{animation-delay:.6s}.mx tr:nth-child(8) .yes{animation-delay:.7s}.mx tr:nth-child(9) .yes{animation-delay:.8s}.mx tr:nth-child(10) .yes{animation-delay:.9s}
+@keyframes pop{0%,70%,100%{transform:scale(1)}80%{transform:scale(1.25)}}
+
+/* pipeline */
+.pipe{border:2px solid var(--ink);padding:16px 16px 14px;margin:12px 0;break-inside:avoid;background:var(--cream)}
+.lanes{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;position:relative}
+.lane{border:1.5px solid var(--line);background:#fff;min-height:96px;padding:8px}
+.lane .lt{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.12em;text-transform:uppercase;display:flex;align-items:center;gap:6px;margin-bottom:8px}
+.lane .lt i{width:8px;height:8px;border-radius:50%}
+.lane .ghost{height:30px;border:1.5px dashed var(--line);margin-top:6px}
+.qcard{position:absolute;top:30px;left:0;width:calc((100% - 24px)/4 - 16px);margin-left:8px;height:52px;background:#fff;border:2px solid var(--ink);box-shadow:3px 3px 0 var(--ink);padding:6px 8px;animation:move 9s cubic-bezier(.65,0,.35,1) infinite;z-index:2}
+.qcard b{display:block;font-family:"Space Grotesk";font-size:10.5px}
+.qcard span{font-size:9px;color:var(--muted)}
+.qcard .bar{height:4px;margin-top:5px;background:var(--line);position:relative;overflow:hidden}
+.qcard .bar::after{content:"";position:absolute;inset:0;background:var(--red);animation:fillbar 9s steps(1) infinite}
+@keyframes move{0%,16%{left:0}25%,41%{left:calc((100% - 24px)/4 + 8px)}50%,66%{left:calc((100% - 24px)/2 + 16px)}75%,91%{left:calc((100% - 24px)*.75 + 24px)}100%{left:0}}
+@keyframes fillbar{0%{width:25%}25%{width:50%}50%{width:75%}75%{width:100%;background:var(--bm)}}
+.flow{display:flex;flex-wrap:wrap;align-items:center;gap:6px;margin-top:13px;font-family:"Space Grotesk";font-weight:600;font-size:11px}
+.flow span{background:var(--lavl);border:1.5px solid var(--ink);padding:5px 9px}
+.flow span:last-child{background:var(--ink);color:#fff}
+.flow em{font-style:normal;color:var(--red);font-weight:700}
+
+/* decision */
+.dec{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin:12px 0;break-inside:avoid}
+.dc{padding:12px 14px;background:var(--lavl);border-top:3px solid var(--red)}
+.dc.b{background:var(--pinkl);border-top-color:var(--bm)}
+.dc h4{font-size:13.5px;margin-bottom:7px}
+.dc ul{margin:0;padding:0 0 0 15px;font-size:11.5px}.dc li{margin-bottom:4px}
+
+/* compare chart */
+.cmp{border:2px solid var(--ink);padding:16px 18px 12px;margin:12px 0;break-inside:avoid;background:#fff}
+.cr{margin-bottom:16px}
+.cr .ttl{display:flex;justify-content:space-between;align-items:baseline;font-family:"Space Grotesk";font-weight:700;font-size:12.5px;margin-bottom:6px}
+.cr .ttl small{font-weight:500;font-size:9.5px;color:var(--muted);letter-spacing:.05em}
+.track{position:relative;height:44px;background:repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 10%);border-bottom:1.5px solid var(--ink)}
+.track .us{position:absolute;left:0;top:4px;height:16px;background:var(--red);transform-origin:left;animation:gbar 4.5s cubic-bezier(.3,1,.4,1) infinite}
+.track .them{position:absolute;top:24px;height:16px;background:repeating-linear-gradient(45deg,var(--pink) 0 5px,var(--pinkl) 5px 10px);border:1.5px solid var(--wine);transform-origin:left;animation:gbar 4.5s cubic-bezier(.3,1,.4,1) .3s infinite}
+.track .them.open{border-right:0;-webkit-mask:linear-gradient(90deg,#000 70%,transparent);mask:linear-gradient(90deg,#000 70%,transparent)}
+.track .lb{position:absolute;font-family:"Space Grotesk";font-weight:700;font-size:10px;white-space:nowrap;line-height:16px}
+@keyframes gbar{0%{transform:scaleX(0)}30%,85%{transform:scaleX(1)}100%{transform:scaleX(0)}}
+.legend{display:flex;gap:16px;font-size:10.5px;color:var(--muted);margin-top:4px}
+.legend i{display:inline-block;width:12px;height:10px;margin-right:5px;vertical-align:-1px}
+.src{font-size:10px;color:var(--muted);margin-top:8px;font-style:italic}
+
+/* payment */
+.pay{margin:12px 0;break-inside:avoid}
+.stack{display:flex;height:40px;border:2px solid var(--ink);overflow:hidden}
+.stack div{display:flex;align-items:center;justify-content:center;font-family:"Space Grotesk";font-weight:700;font-size:13px;color:#fff;animation:seg 6s ease infinite;transform-origin:left;border-right:2px solid var(--ink)}
+.stack div:last-child{border-right:0}
+.stack div:nth-child(1){flex:30;background:var(--red)}.stack div:nth-child(2){flex:20;background:var(--rose);animation-delay:.3s}.stack div:nth-child(3){flex:20;background:var(--wine);animation-delay:.6s}.stack div:nth-child(4){flex:30;background:var(--ink);animation-delay:.9s}
+@keyframes seg{0%{opacity:.15}12%,85%{opacity:1}100%{opacity:.15}}
+.ptab{width:100%;border-collapse:collapse;font-size:11.5px;margin-top:10px}
+.ptab th{font-family:"Space Grotesk";font-size:9.5px;letter-spacing:.1em;text-transform:uppercase;text-align:left;padding:7px 8px;border-bottom:2px solid var(--ink)}
+.ptab th.r,.ptab td.r{text-align:right;white-space:nowrap}
+.ptab td{padding:8px;border-bottom:1px solid var(--line);vertical-align:top}
+.ptab td:first-child{font-family:"Space Grotesk";font-weight:700;white-space:nowrap}
+.ptab td:first-child i{display:inline-block;width:9px;height:9px;margin-right:6px}
+.ptab tr.tot td{border-top:2px solid var(--ink);border-bottom:0;font-family:"Space Grotesk";font-weight:700;font-size:13px;background:var(--pinkl)}
+.ptab td.r{font-family:"Space Grotesk";font-weight:600}
+
+/* needs + separate */
+.need{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0;break-inside:avoid}
+.nd{border:1.5px solid var(--ink);padding:10px;background:#fff;font-size:11.5px;line-height:1.35}
+.nd b{display:block;font-family:"Space Grotesk";font-size:17px;color:var(--bm);margin-bottom:4px;line-height:1}
+.sep{display:grid;grid-template-columns:1fr 1fr;gap:6px 12px;margin:10px 0;break-inside:avoid}
+.sep div{font-size:11.5px;padding:7px 10px 7px 26px;position:relative;background:var(--lavl)}
+.sep div::before{content:"+";position:absolute;left:9px;top:5px;font-family:"Space Grotesk";font-weight:700;color:var(--red);font-size:14px}
+
+/* support */
+.sup{display:grid;grid-template-columns:150px 1fr;gap:22px;align-items:center;background:var(--ink);color:#fff;padding:22px 24px;margin:14px 0;break-inside:avoid}
+.ring{width:150px;height:150px;position:relative}
+.ring svg{width:100%;height:100%;transform:rotate(-90deg)}
+.ring .bg{fill:none;stroke:#3a3335;stroke-width:10}
+.ring .fg{fill:none;stroke:var(--red);stroke-width:10;stroke-linecap:round;stroke-dasharray:377;stroke-dashoffset:377;animation:ring 5s ease-in-out infinite}
+@keyframes ring{0%{stroke-dashoffset:377}45%,85%{stroke-dashoffset:0}100%{stroke-dashoffset:377}}
+.ring .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ring .c b{font-family:"Space Grotesk";font-size:44px;line-height:1}
+.ring .c span{font-family:"Space Grotesk";font-size:9px;letter-spacing:.16em;text-transform:uppercase;color:var(--pink)}
+.sup h4{font-size:18px;margin-bottom:8px}
+.sup p{color:#d3cccd;font-size:12.5px}
+.sup p:last-child{margin:0}
+
+.collab{display:flex;align-items:center;justify-content:center;gap:26px;flex-wrap:wrap;margin:16px 0 0;padding:26px;background:var(--ink);break-inside:avoid}
+.collab{gap:16px!important}.collab .pllogo{align-self:center;height:36px;--gear:var(--red);--patch:var(--ink)}
+.collab .bm{height:96px}
+.collab .x{font-family:"Space Grotesk";font-weight:700;font-size:32px;color:var(--bm);line-height:1;animation:xpulse 2.4s ease-in-out infinite}
+@keyframes xpulse{0%,100%{transform:scale(1) rotate(0)}50%{transform:scale(1.25) rotate(90deg)}}
+.closing{text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:20px;margin:18px 0 0;line-height:1.2;break-inside:avoid}
+.closing span{color:var(--red)}
+
+@media (prefers-reduced-motion:reduce){*{animation:none!important}}
+@media print{*{animation:none!important}.house .pc{opacity:1}.ck .tk{stroke-dashoffset:0}.ring .fg{stroke-dashoffset:0}.stack div{opacity:1}.qcard{left:calc((100% - 24px)/4 + 8px)}}
+</style>
+</head>
+<body>
+<doc-page size="letter" margin="0.7in">
+<div class="rh" slot="header"><span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span>Cotización web y cotizador · BM Cúbica</span></div>
+<div class="rf" slot="footer"><span>ProcesaLab · procesalab0@gmail.com</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+<div class="cv">
+<div class="cv-l">
+<span class="pllogo"><img src="assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+<div class="tag">Propuesta web y cotizador</div>
+<h1>Su catálogo, <span>configurable en 3D.</span></h1>
+<div class="sub">Desarrollaremos la web final sobre la propuesta que ya presentamos: una experiencia visual que refleje la calidad de los productos de BM y facilite la solicitud de cotizaciones.</div>
+<div class="sub">El cliente configura su proyecto, elige opciones y da medidas. <strong style="color:var(--ink)">Los precios permanecen privados</strong> hasta que BM revisa y autoriza.</div>
+<div class="date">ProcesaLab · 14 de octubre de 2026</div>
+</div>
+<div class="cv-r">
+<div class="grid-bg"></div>
+<span class="bm"><img src="assets/bmcubica-logo.png" alt="BM Cúbica"></span>
+<div class="scene"><div class="cube"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+<div class="chips">
+<div class="chip"><b>Opción 1</b><span>$24,000</span><small>+ IVA</small></div>
+<div class="chip hl"><b>Opción 2</b><span>$34,000</span><small>+ IVA</small></div>
+</div>
+</div>
+</div>
+
+<h2 class="sec"><span class="no">1</span>Lo que vamos a construir</h2>
+<p class="lead">Una web que se recorre como un showroom: una casa en 3D que se arma con el scroll, cotizadores por producto y un catálogo de herrajes junto al modelo.</p>
+<div class="build">
+<svg class="house" viewBox="40 0 240 200" aria-label="Casa 3D armándose">
+<g class="pc"><polygon class="s1" points="160,186 260,136 160,86 60,136"></polygon><polygon class="s3" points="60,136 160,186 160,194 60,144"></polygon><polygon class="s2" points="160,186 260,136 260,144 160,194"></polygon></g>
+<g class="pc"><polygon class="s3" points="70,131 160,86 160,26 70,71"></polygon></g>
+<g class="pc"><polygon class="s1" points="160,86 250,131 250,71 160,26"></polygon></g>
+<g class="pc"><polygon class="gl" points="160,176 250,131 250,71 160,116"></polygon><line class="ac" x1="205" y1="153" x2="205" y2="93"></line></g>
+<g class="pc"><polygon class="rf1" points="160,122 262,71 160,20 58,71"></polygon><polygon class="s2" points="58,71 160,122 160,130 58,79"></polygon></g>
+<g class="pc"><line class="ac" x1="96" y1="66" x2="96" y2="46"></line><line class="ac" x1="128" y1="82" x2="128" y2="62"></line><line class="ac" x1="160" y1="98" x2="160" y2="78"></line><line class="ac" x1="96" y1="46" x2="160" y2="78"></line></g>
+</svg>
+<div>
+<h4>Casa 3D que se arma y desarma</h4>
+<p>Al bajar por la página, la casa se construye pieza por pieza y muestra dónde vive cada producto de BM: canceles, pérgolas y barandales.</p>
+<p>Botones y paneles de cristal, adaptables a computadora, tablet y celular.</p>
+<div class="scroll"><span class="mouse"></span>Scroll para armar</div>
+</div>
+</div>
+
+<h3 class="sub">Tres cotizadores, un mismo recorrido</h3>
+<div class="trio">
+<div class="tc"><svg class="ic" viewBox="0 0 160 80"><rect class="g" x="40" y="12" width="40" height="56"></rect><g class="door"><rect class="g" x="80" y="12" width="40" height="56"></rect></g><rect class="f" x="38" y="10" width="84" height="60"></rect><line class="f" x1="80" y1="10" x2="80" y2="70"></line></svg><div class="n">Cotizador 01</div><h4>Canceles de baño</h4><p>Distribución, medidas, apertura, cristal y herrajes.</p></div>
+<div class="tc"><svg class="ic" viewBox="0 0 160 80"><rect class="slat" x="34" y="14" width="10" height="8"></rect><rect class="slat" x="50" y="14" width="10" height="8"></rect><rect class="slat" x="66" y="14" width="10" height="8"></rect><rect class="slat" x="82" y="14" width="10" height="8"></rect><rect class="slat" x="98" y="14" width="10" height="8"></rect><rect class="slat" x="114" y="14" width="10" height="8"></rect><line class="f" x1="28" y1="24" x2="132" y2="24"></line><line class="f" x1="34" y1="24" x2="34" y2="70"></line><line class="f" x1="126" y1="24" x2="126" y2="70"></line></svg><div class="n">Cotizador 02</div><h4>Pérgolas</h4><p>Modelo, dimensiones, lamas y acabado de la estructura.</p></div>
+<div class="tc"><svg class="ic" viewBox="0 0 160 80"><rect class="rglass" x="34" y="26" width="92" height="38"></rect><rect class="post" x="30" y="22" width="6" height="46"></rect><rect class="post" x="61" y="22" width="6" height="46"></rect><rect class="post" x="93" y="22" width="6" height="46"></rect><rect class="post" x="124" y="22" width="6" height="46"></rect><line class="f" x1="24" y1="70" x2="136" y2="70"></line></svg><div class="n">Cotizador 03</div><h4>Barandales</h4><p>Longitud, tipo de poste, cristal y componentes.</p></div>
+</div>
+
+<h3 class="sub">El precio nunca se muestra antes de tiempo</h3>
+<div class="rail">
+<div class="rdot"></div>
+<div class="rn"><div class="dot"></div><div class="t">El cliente configura</div><div class="d">Modelo, medidas y acabados.</div></div>
+<div class="rn lock"><div class="dot"><svg viewBox="0 0 10 10"><rect x="1.5" y="4.5" width="7" height="5" fill="#fff"></rect><path d="M3 4.5V3a2 2 0 0 1 4 0v1.5" stroke="#fff" stroke-width="1.3" fill="none"></path></svg></div><div class="t">Cálculo interno</div><div class="d">Con las reglas del Excel de BM, fuera del navegador.</div></div>
+<div class="rn"><div class="dot"></div><div class="t">BM revisa</div><div class="d">Ajusta y autoriza la cotización.</div></div>
+<div class="rn"><div class="dot"></div><div class="t">Cotización al cliente</div><div class="d">El asesor la envía por WhatsApp.</div></div>
+</div>
+
+<h2 class="sec"><span class="no">2</span>Alcance incluido en ambas opciones</h2>
+<div class="checks">
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.00s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Diseño adaptable a computadora, tablet y celular.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.12s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Interfaz con botones y paneles de cristal.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.24s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Animación de la casa 3D con armado y desarmado mediante scroll.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.36s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Cotizadores de canceles de baño, pérgolas y barandales.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.48s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Selección de modelos, medidas, acabados y componentes.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.60s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Catálogo visual de herrajes junto al modelo 3D.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.72s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Ajuste de los modelos a las referencias, medidas y productos que entregue BM.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.84s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Reglas de cálculo configuradas a partir del Excel de BM.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:0.96s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Administración protegida para actualizar precios e información básica.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:1.08s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Títulos, descripciones y contenido básico para buscadores.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:1.20s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>Pruebas, publicación y capacitación.</span></div>
+<div class="ck"><svg viewBox="0 0 18 18"><rect class="bx" width="18" height="18" rx="4"></rect><path class="tk" style="animation-delay:1.32s" d="M4.5 9.5 7.5 12.5 13.5 5.5"></path></svg><span>30 días de corrección de errores después de la entrega.</span></div>
+</div>
+<div class="note"><b>Antes de comenzar</b>Los modelos, herrajes y campos editables incluidos se enumerarán en un anexo. Ventanas y puertas quedan para una etapa posterior.</div>
+
+<h2 class="sec"><span class="no">3</span>Dos opciones de inversión</h2>
+<p class="lead">Las dos comparten la web, los cotizadores y la administración de precios. La diferencia está en qué pasa con cada solicitud después de que el cliente la envía.</p>
+<div class="opts">
+<div class="op">
+<div class="hd"><div class="k">Opción 1</div><h3>Web y cotizador con administración básica</h3><div class="pr">$24,000<small>MXN + IVA</small></div><div class="mo">Sin mensualidad de base de datos</div></div>
+<div class="bd">
+<p>Para recibir solicitudes y mantener actualizados los precios, con la revisión comercial en el proceso actual de BM.</p>
+<ul>
+<li>Todo el alcance compartido.</li>
+<li>Actualización de precios desde el panel, sin depender de ProcesaLab.</li>
+<li>Cálculo automático interno, sin exponer precios en el navegador del cliente.</li>
+<li>Envío de la configuración del cliente por WhatsApp.</li>
+<li>Borrador calculado al equipo de BM por el canal que se acuerde.</li>
+<li>Cotización final preparada fuera de la web, con apoyo de Excel.</li>
+</ul>
+<div class="lim">No incluye registro central de clientes, historial ni bandeja de aprobación. Catálogo y precios se guardan en archivos del proyecto.</div>
+</div>
+</div>
+<div class="op two">
+<div class="hd"><span class="badge">Más completa</span><div class="k">Opción 2</div><h3>Web, cotizador y gestión de cotizaciones</h3><div class="pr">$34,000<small>MXN + IVA</small></div><div class="mo">+ $1,400 MXN mensuales + IVA · base de datos</div></div>
+<div class="bd">
+<ul>
+<li>Todo el alcance compartido.</li>
+<li>Registro de clientes y datos de contacto.</li>
+<li>Almacenamiento de solicitudes y configuraciones.</li>
+<li>Borrador automático con los precios vigentes.</li>
+<li>Bandeja de cotizaciones pendientes.</li>
+<li>Revisión y modificación de medidas, conceptos, importes y observaciones.</li>
+<li>Aprobación desde el panel administrativo.</li>
+<li>Estados: pendiente, en revisión, aprobada y enviada.</li>
+<li>Historial de cotizaciones.</li>
+<li>PDF de la cotización aprobada, listo para que el asesor lo envíe por WhatsApp.</li>
+</ul>
+</div>
+</div>
+</div>
+
+<h3 class="sub">Comparativo lado a lado</h3>
+<table class="mx">
+<tr><th>Función</th><th>Opción 1</th><th class="o2">Opción 2</th></tr>
+<tr><td>Web, casa 3D y tres cotizadores</td><td><span class="yes"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>Precios editables desde el panel</td><td><span class="yes"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>Cálculo interno y precios privados</td><td><span class="yes"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>Configuración enviada por WhatsApp</td><td><span class="yes"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>Registro de clientes</td><td><span class="nn"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>Bandeja de cotizaciones y estados</td><td><span class="nn"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>Edición y aprobación dentro del panel</td><td><span class="nn"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>Historial de cotizaciones</td><td><span class="nn"></span></td><td><span class="yes"></span></td></tr>
+<tr><td>PDF de cotización aprobada</td><td><span style="display:inline-block;font-size:9.5px;line-height:1.25;color:var(--muted);font-style:italic">Sí, guardando el PDF manualmente desde la computadora</span></td><td><span class="yes"></span></td></tr>
+</table>
+
+<h2 class="sec"><span class="no">4</span>Así se mueve una cotización en la Opción 2</h2>
+<p class="lead">Cada solicitud entra a una bandeja y avanza por estados hasta llegar al cliente. Nada se pierde entre mensajes.</p>
+<div class="pipe">
+<div class="lanes">
+<div class="qcard"><b>Cancel frontal</b><span>Folio · Zona León</span><div class="bar"></div></div>
+<div class="lane"><div class="lt"><i style="background:var(--red)"></i>Pendiente</div><div class="ghost"></div></div>
+<div class="lane"><div class="lt"><i style="background:var(--rose)"></i>En revisión</div><div class="ghost"></div></div>
+<div class="lane"><div class="lt"><i style="background:var(--wine)"></i>Aprobada</div><div class="ghost"></div></div>
+<div class="lane"><div class="lt"><i style="background:var(--ink)"></i>Enviada</div><div class="ghost"></div></div>
+</div>
+<div class="flow"><span>Cliente configura</span><em>→</em><span>Sistema calcula y guarda</span><em>→</em><span>BM revisa y ajusta</span><em>→</em><span>BM aprueba</span><em>→</em><span>Asesor envía por WhatsApp</span></div>
+</div>
+<p style="font-size:12px;color:var(--muted)">La mensualidad contempla mantenimiento operativo de la base de datos, supervisión, respaldos según el plan contratado y atención a incidencias relacionadas con ella. Antes de contratar se especificará si el servicio del proveedor está incluido o se paga aparte. Nuevas funciones se presupuestan por separado.</p>
+
+<h3 class="sub">¿Cuál le conviene a BM?</h3>
+<div class="dec">
+<div class="dc"><h4>Opción 1 si…</h4><ul><li>El volumen de solicitudes es manejable por WhatsApp.</li><li>El equipo ya prepara sus cotizaciones en Excel y quiere seguir así.</li><li>Se busca empezar con la menor inversión y crecer después.</li></ul></div>
+<div class="dc b"><h4>Opción 2 si…</h4><ul><li>Varias personas atienden y aprueban cotizaciones.</li><li>Se necesita saber qué está pendiente, quién lo revisa y qué se envió.</li><li>Se quiere un historial por cliente para dar seguimiento y recotizar.</li></ul></div>
+</div>
+
+<h2 class="sec"><span class="no">5</span>Comparativo de inversión</h2>
+<p class="lead">Precios publicados por otro proveedor del mercado, como referencia de rango.</p>
+<div class="cmp">
+<div class="cr"><div class="ttl">Web y cotizador con administración básica<small>escala $0 – $70,000</small></div>
+<div class="track"><div class="us" style="width:34.3%"></div><span class="lb" style="left:35.5%;top:4px;color:var(--red)">$24,000 ProcesaLab</span><div class="them" style="left:35.7%;width:64.3%"></div><span class="lb" style="left:37%;top:24px;color:var(--wine)">$25,000 – $70,000</span></div></div>
+<div class="cr"><div class="ttl">Web y gestión de cotizaciones con base de datos<small>escala $0 – $70,000</small></div>
+<div class="track"><div class="us" style="width:48.6%"></div><span class="lb" style="left:49.8%;top:4px;color:var(--red)">$34,000 ProcesaLab</span><div class="them open" style="left:64.3%;width:35.7%"></div><span class="lb" style="left:65.5%;top:24px;color:var(--wine)">desde $45,000</span></div></div>
+<div class="cr" style="margin-bottom:6px"><div class="ttl">Mantenimiento mensual de base de datos<small>escala $0 – $7,000</small></div>
+<div class="track"><div class="us" style="width:20%"></div><span class="lb" style="left:21.2%;top:4px;color:var(--red)">$1,400 ProcesaLab</span><div class="them open" style="left:64.3%;width:35.7%"></div><span class="lb" style="left:65.5%;top:24px;color:var(--wine)">desde $4,500</span></div></div>
+<div class="legend"><span><i style="background:var(--red)"></i>ProcesaLab para BM (+ IVA)</span><span><i style="background:repeating-linear-gradient(45deg,var(--pink) 0 3px,var(--pinkl) 3px 6px);border:1px solid var(--wine)"></i>Referencia pública de otro proveedor (sin IVA)</span></div>
+<div class="src">Fuente: precios publicados por Keting Media, consultados el 14 de octubre de 2026. Son servicios con alcances distintos; no son cotizaciones del mismo proyecto ni una comparación directa de prestaciones.</div>
+</div>
+
+<h2 class="sec"><span class="no">6</span>Entregas y forma de pago</h2>
+<p class="lead">Trabajamos por etapas para que BM revise y pruebe cada avance antes de continuar. El primer pago es anticipo; los siguientes corresponden a la presentación y validación de cada entrega.</p>
+<div class="pay">
+<div class="stack"><div>30%</div><div>20%</div><div>20%</div><div>30%</div></div>
+<table class="ptab">
+<tr><th>Etapa</th><th>Entrega</th><th class="r">Opción 1<br><span style="font-weight:500;letter-spacing:.04em;text-transform:none;color:var(--muted)">Sin base de datos</span></th><th class="r">Opción 2<br><span style="font-weight:500;letter-spacing:.04em;text-transform:none;color:var(--bm)">Con base de datos</span></th></tr>
+<tr><td><i style="background:var(--red)"></i>Inicio · 30%</td><td>Alcance y calendario acordados; revisión del Excel, catálogo y referencias.</td><td class="r">$7,200</td><td class="r">$10,200</td></tr>
+<tr><td><i style="background:var(--rose)"></i>Primera demo · 20%</td><td>Un producto con referencias reales, configuración y cálculo comprobado contra el Excel.</td><td class="r">$4,800</td><td class="r">$6,800</td></tr>
+<tr><td><i style="background:var(--wine)"></i>Desarrollo · 20%</td><td>Categorías y modelos incluidos; administración básica o gestión con base de datos, según la opción.</td><td class="r">$4,800</td><td class="r">$6,800</td></tr>
+<tr><td><i style="background:var(--ink)"></i>Entrega final · 30%</td><td>Validación, publicación, capacitación y entrega de accesos.</td><td class="r">$7,200</td><td class="r">$10,200</td></tr>
+<tr class="tot"><td>Total</td><td>Importes más IVA</td><td class="r">$24,000</td><td class="r">$34,000</td></tr><tr><td><i style="background:var(--pink)"></i>Mensual</td><td>Mantenimiento de base de datos, a partir de la publicación.</td><td class="r">$0</td><td class="r">$1,400 / mes</td></tr>
+</table>
+</div>
+<p style="font-size:12px;color:var(--muted)">El calendario se definirá después de revisar el Excel y recibir la información necesaria. Cada etapa tendrá criterios de aceptación y rondas de ajustes acordadas por escrito.</p>
+
+<h2 class="sec"><span class="no">7</span>Lo que necesitamos de BM</h2>
+<div class="need">
+<div class="nd"><b>01</b>Excel de precios y ejemplos de cotizaciones.</div>
+<div class="nd"><b>02</b>Catálogo de productos y herrajes con medidas y acabados.</div>
+<div class="nd"><b>03</b>Fotografías y referencias técnicas de los modelos incluidos.</div>
+<div class="nd"><b>04</b>Reglas de compatibilidad y límites de medidas.</div>
+<div class="nd"><b>05</b>Definición de instalación, traslados, impuestos y vigencia.</div>
+<div class="nd"><b>06</b>Responsable de validar entregas y aprobar cotizaciones.</div>
+</div>
+
+<h3 class="sub">Se cotiza por separado</h3>
+<div class="sep">
+<div>Google Ads: palabras clave, configuración y gestión de campañas.</div>
+<div>Presupuesto publicitario pagado a Google.</div>
+<div>Envío automático mediante WhatsApp Business.</div>
+<div>Sincronización continua con Excel u otros sistemas.</div>
+<div>Nuevas categorías, modelos 3D o herrajes fuera del listado acordado.</div>
+<div>Dominio, alojamiento y servicios externos no incluidos expresamente.</div>
+</div>
+
+<h2 class="sec"><span class="no">8</span>Acompañamiento</h2>
+<div class="sup">
+<div class="ring"><svg viewBox="0 0 140 140"><circle class="bg" cx="70" cy="70" r="60"></circle><circle class="fg" cx="70" cy="70" r="60"></circle></svg><div class="c"><b>30</b><span>días</span></div></div>
+<div>
+<h4>Capacitación + 30 días de corrección de errores</h4>
+<p>Después de la entrega atendemos los errores relacionados con el alcance contratado, y el equipo de BM sale capacitado para actualizar precios y contenido.</p>
+<p>Sabemos que BM ha tenido experiencias que dificultan confiar en un nuevo proveedor. Por eso proponemos entregas concretas, demostraciones funcionales y pagos por avance: queremos una relación duradera y demostrarlo cumpliendo cada etapa.</p>
+</div>
+</div>
+
+<div class="collab"><span class="pllogo"><img src="assets/logo-horizontal-white.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span><span class="x">×</span><span class="bm"><img src="assets/bmcubica-logo.png" alt="BM Cúbica"></span></div>
+<div class="closing">Que el cliente llegue con su proyecto ya armado<br><span>y BM decida el precio.</span></div>
+</doc-page>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#141310"></rect><path d="M24 44 60 26 96 44 96 86 60 104 24 86Z" fill="none" stroke="#E10E33" stroke-width="4"></path></svg></template>
+<script defer src="/_vercel/insights/script.js"></script>
+</body>
+</html>
