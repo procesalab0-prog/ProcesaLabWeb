@@ -100,17 +100,29 @@ svg{fill:currentColor}
 .ll-2{font-size:clamp(64px,17.8vw,225px);font-size:min(19.5cqw,225px);display:flex;align-items:center}
 .ll-tm{font-size:.16em;font-weight:600;align-self:flex-start;margin-top:.18em;margin-left:.03em;letter-spacing:0}
 .ll-gear{width:.82em;height:.82em;display:inline-block;flex:none;margin-left:.16em}
-.ll-gear.gear-spin{animation:spin 9s linear infinite}
 .hero-kicker{font-family:"Space Grotesk";font-weight:700;font-size:12px;letter-spacing:.13em;text-transform:uppercase;display:flex;align-items:center;gap:10px;margin-bottom:18px;opacity:0;animation:heroFade .65s .12s ease forwards}
 .hero-kicker::before{content:"";width:36px;height:2px;background:var(--ink)}
 .logo-line{display:block;overflow:hidden;padding:.08em 0}
-.logo-line>span{display:flex;align-items:center;transform:translateY(115%) rotate(2deg);animation:logoRise .9s cubic-bezier(.16,1,.3,1) forwards}
-.ll-2.logo-line>span{animation-delay:.12s}
+.logo-line>span{display:flex;align-items:center}
+/* Each letter flips up into place, then the word does a slow wave every
+   few seconds and the letters near the pointer lift. Entry uses transform,
+   the wave uses translate and the pointer uses scale, so the three never
+   fight over the same property. */
+.logo-line{perspective:900px}
+.ch{display:inline-block;transform-origin:50% 100%;transform:translateY(105%) rotateX(-75deg);opacity:0;animation:chIn 1s cubic-bezier(.16,1,.3,1) calc(.1s + var(--i)*60ms) forwards,chWave 7s ease-in-out calc(2.2s + var(--i)*90ms) infinite;transition:scale .35s cubic-bezier(.34,1.56,.64,1),color .3s}
+.ch.lift{scale:1.06 1.1;color:var(--red)}
+@keyframes chIn{60%{opacity:1}to{transform:none;opacity:1}}
+@keyframes chWave{0%,8%,100%{translate:0 0}3%{translate:0 -7%}}
+.hero-gl{position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;opacity:0;animation:heroFade 1s .15s ease forwards}
+.hero.gl-on .hero-bg-gear{display:none}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.ll-tm{animation:gearPop .7s .55s cubic-bezier(.34,1.56,.64,1) both}
+.ll-gear.gear-spin{animation:spin 9s linear infinite,gearPop .9s .6s cubic-bezier(.34,1.56,.64,1) both}
+@keyframes gearPop{from{scale:0;opacity:0}to{scale:1;opacity:1}}
 .hero-tag,.hero-cta{opacity:0;transform:translateY(18px);animation:heroFade .65s .72s ease forwards}
 .hero-cta{animation-delay:.86s}
 .hero-bg-gear{position:absolute;right:-13vw;top:-16vw;width:min(62vw,760px);height:min(62vw,760px);z-index:1;color:rgba(111,76,132,.18);animation-duration:28s;animation-direction:reverse;pointer-events:none}
 .hero-bg-gear svg{width:100%;height:100%}
-@keyframes logoRise{to{transform:none}}
 @keyframes heroFade{to{opacity:1;transform:none}}
 @keyframes spin{to{transform:rotate(360deg)}}
 .hero-foot{display:flex;align-items:flex-end;justify-content:space-between;gap:30px;flex-wrap:wrap;margin-top:clamp(28px,4vw,52px);max-width:1180px}
@@ -255,6 +267,31 @@ svg{fill:currentColor}
 .story-label{position:absolute;left:4%;bottom:4%;z-index:4;background:var(--ink);color:var(--cream);padding:13px 18px;border-radius:999px;font:700 12px "Space Grotesk";letter-spacing:.07em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red)}
 @keyframes systemFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
+/* RENTA CARGA — --p goes 0→1 while the section crosses the viewport */
+.rc-story{position:relative;overflow:hidden;background:var(--paper);padding:clamp(86px,10vw,150px) 0}
+.rc-story::before{content:"";position:absolute;width:560px;height:560px;left:-220px;bottom:-260px;border-radius:50%;background:var(--pink);opacity:.8}
+.rc-in{position:relative;display:grid;grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);align-items:center;gap:clamp(24px,5vw,72px)}
+.rc-copy h2{font-size:clamp(44px,5.6vw,84px);line-height:.94;letter-spacing:-.055em;margin:18px 0 24px}
+.rc-copy>p{font-size:clamp(16px,1.45vw,20px);line-height:1.55;max-width:540px}
+.rc-facts{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-wrap:wrap;gap:8px}
+.rc-facts li{font:600 13px "Space Grotesk";border:1.5px solid var(--ink);border-radius:999px;padding:7px 13px;background:var(--cream)}
+.rc-link{color:var(--ink)}
+.rc-stage{--p:0;position:relative;display:block;aspect-ratio:16/12;margin-right:-4%;perspective:1600px;color:inherit}
+.rc-browser{position:absolute;left:4%;top:6%;width:92%;margin:0;background:var(--cream);border:1.5px solid var(--ink);border-radius:16px;overflow:hidden;box-shadow:10px 10px 0 var(--ink);transform-origin:70% 50%;transform:rotateY(calc(-24deg + var(--p)*24deg)) rotateX(calc(10deg - var(--p)*10deg)) translateY(calc(40px - var(--p)*40px));transition:box-shadow .3s}
+.rc-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1.5px solid var(--ink);background:var(--cream)}
+.rc-bar i{width:9px;height:9px;border-radius:50%;background:var(--ink);opacity:.2}.rc-bar i:first-child{background:var(--red);opacity:1}
+.rc-bar b{margin-left:10px;font:600 11px "Space Grotesk";letter-spacing:.02em;background:var(--lav);border-radius:999px;padding:3px 12px;opacity:.85}
+.rc-browser img{display:block;width:100%;height:auto}
+.rc-phone{position:absolute;left:-3%;bottom:-6%;width:29%;margin:0;aspect-ratio:600/1298;padding:2.2%;background:#141414;border-radius:17%/8%;box-shadow:0 0 0 2px #3a3a3a inset,8px 8px 0 var(--red),0 30px 50px rgba(17,17,17,.25);transform:translateY(calc(70px - var(--p)*90px)) rotate(calc(-7deg + var(--p)*5deg));z-index:2}
+.rc-phone::before{content:"";position:absolute;top:3.6%;left:50%;width:30%;height:3%;border-radius:99px;background:#000;transform:translateX(-50%);z-index:2}
+.rc-screen{position:relative;display:block;width:100%;height:100%;border-radius:12.5%/5.8%;overflow:hidden;background:#222}
+.rc-screen img,.rc-screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.rc-screen video{opacity:0}
+.rc-screen.motion-ready video{opacity:1}
+.rc-chip{position:absolute;right:2%;bottom:3%;display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);border-radius:999px;padding:10px 16px;font:700 12px "Space Grotesk";letter-spacing:.06em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red);transform:translateY(calc(40px - var(--p)*40px));z-index:3}
+.rc-stage:hover .rc-browser{box-shadow:14px 14px 0 var(--ink)}
+@media(max-width:760px){.rc-story{padding:76px 0 90px}.rc-in{grid-template-columns:1fr;gap:40px}.rc-copy h2{font-size:clamp(43px,13vw,62px);max-width:360px}.rc-copy>p{font-size:16px}.rc-stage{aspect-ratio:4/4.3}.rc-browser{top:2%;left:10%;width:94%;box-shadow:6px 6px 0 var(--ink)}.rc-bar b{display:none}.rc-phone{width:40%;left:-1%;bottom:2%}.rc-chip{font-size:10px;padding:8px 12px;right:0;bottom:-2%}}
+@media(prefers-reduced-motion:reduce){.rc-stage{--p:1!important}}
 .studio-story{background:#1d1815;color:var(--cream);padding-bottom:clamp(70px,8vw,120px)}
 .studio-story .wrap{position:relative;z-index:2}.studio-story .sec-tag{color:#d6b9a3}.studio-story h2{color:var(--cream);max-width:980px}.studio-story-copy>p{color:#d1c7bf}
 .studio-stage{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(420px,1.18fr);align-items:center;gap:clamp(0px,2vw,30px);margin-top:30px;min-height:0}
@@ -400,7 +437,7 @@ svg{fill:currentColor}
   .cta-actions{margin-top:4px}
   .cta-actions .btn{width:100%;justify-content:center}.finale{height:150vh}.sticky{height:100svh}
 }
-@media (prefers-reduced-motion:reduce){.logo-line>span,.hero-kicker,.hero-tag,.hero-cta{animation:none;opacity:1;transform:none}.hero-bg-gear{animation:none}.reveal-up{opacity:1;transform:none;transition:none}.mobile-menu{transition:none}.swipe-hint .arrow{animation:none}.store-device,.studio-device{translate:none;scale:1}}
+@media (prefers-reduced-motion:reduce){.logo-line>span,.ch,.ll-tm,.ll-gear,.hero-kicker,.hero-tag,.hero-cta{animation:none;opacity:1;transform:none}.hero-bg-gear{animation:none}.reveal-up{opacity:1;transform:none;transition:none}.mobile-menu{transition:none}.swipe-hint .arrow{animation:none}.store-device,.studio-device{translate:none;scale:1}}
 </style>
 </head>
 <body>
@@ -453,8 +490,8 @@ svg{fill:currentColor}
   <div class="wrap hero-in">
     <div class="hero-kicker" data-es="IA · procesos · experiencias digitales" data-en="AI · processes · digital experiences">IA · procesos · experiencias digitales</div>
     <div class="logo-lockup">
-      <div class="ll-1 logo-line"><span>PROCESA</span></div>
-      <div class="ll-2 logo-line"><span>LAB<span class="ll-tm">™</span><span class="ll-gear gear-spin gslot" data-s="100%" style="color:var(--red)"></span></span></div>
+      <div class="ll-1 logo-line"><span><span class="sr-only">PROCESA</span><span class="ch" style="--i:0" aria-hidden="true">P</span><span class="ch" style="--i:1" aria-hidden="true">R</span><span class="ch" style="--i:2" aria-hidden="true">O</span><span class="ch" style="--i:3" aria-hidden="true">C</span><span class="ch" style="--i:4" aria-hidden="true">E</span><span class="ch" style="--i:5" aria-hidden="true">S</span><span class="ch" style="--i:6" aria-hidden="true">A</span></span></div>
+      <div class="ll-2 logo-line"><span><span class="ch" style="--i:3" aria-hidden="true">L</span><span class="ch" style="--i:4" aria-hidden="true">A</span><span class="ch" style="--i:5" aria-hidden="true">B</span><span class="sr-only">LAB</span><span class="ll-tm">™</span><span class="ll-gear gear-spin gslot" data-s="100%" style="color:var(--red)"></span></span></div>
     </div>
     <div class="hero-foot">
       <p class="hero-tag" data-es="Procesos inteligentes. Empresas imparables." data-en="Smart processes. Unstoppable businesses.">Procesos inteligentes. Empresas imparables.</p>
@@ -601,6 +638,37 @@ svg{fill:currentColor}
   </div>
 </section>
 
+<!-- FEATURED SITE: Renta Carga — desktop and phone; scroll straightens the
+     composition and scrubs a recording of the mobile site inside the phone -->
+<section class="rc-story" aria-labelledby="rcTitle">
+  <div class="wrap rc-in">
+    <div class="rc-copy reveal-up">
+      <div class="sec-tag" data-es="Logística y fletes" data-en="Logistics &amp; freight">Logística y fletes</div>
+      <h2 id="rcTitle" data-es="Una flota entera, a un clic de distancia." data-en="A whole fleet, one click away.">Una flota entera, a un clic de distancia.</h2>
+      <p data-es="Para Renta Carga diseñamos un sitio con escenas 3D y video que recorre su flota, su cobertura desde León a toda la República y un camino directo a cotizar el traslado." data-en="For Renta Carga we designed a site with 3D scenes and video that tours their fleet, their coverage from León to all of Mexico and a direct path to quoting a move.">Para Renta Carga diseñamos un sitio con escenas 3D y video que recorre su flota, su cobertura desde León a toda la República y un camino directo a cotizar el traslado.</p>
+      <ul class="rc-facts">
+        <li data-es="Flota en 3D" data-en="3D fleet">Flota en 3D</li>
+        <li data-es="Cotización en línea" data-en="Online quotes">Cotización en línea</li>
+        <li data-es="Instalable como app" data-en="Installable as an app">Instalable como app</li>
+      </ul>
+      <a class="mobile-story-link rc-link" href="https://rentacargaleon.com" target="_blank" rel="noopener"><span data-es="Explorar Renta Carga" data-en="Explore Renta Carga">Explorar Renta Carga</span><svg aria-hidden="true" viewBox="0 0 18 18" fill="none"><path d="M4 14 14 4M7 4h7v7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    </div>
+    <a class="rc-stage" href="https://rentacargaleon.com" target="_blank" rel="noopener" aria-label="Visitar el sitio de Renta Carga">
+      <figure class="rc-browser">
+        <span class="rc-bar" aria-hidden="true"><i></i><i></i><i></i><b>rentacargaleon.com</b></span>
+        <img src="assets/renta-carga-desktop.webp" alt="Inicio del sitio de Renta Carga en computadora: un camión de la flota frente a un andén y el titular Tu carga" width="1600" height="1000" loading="lazy">
+      </figure>
+      <figure class="rc-phone">
+        <span class="rc-screen">
+          <img src="assets/renta-carga-mobile.webp" alt="Sitio de Renta Carga en un teléfono" width="600" height="1298" loading="lazy">
+          <video id="rcMotion" muted playsinline preload="none" aria-hidden="true" data-src="assets/renta-carga-motion.mp4"></video>
+        </span>
+      </figure>
+      <span class="rc-chip" aria-hidden="true"><span class="gslot" data-s="16" style="color:var(--red)"></span>León → México</span>
+    </a>
+  </div>
+</section>
+
 <!-- PROJECTS: real grid, normal page flow so it scrolls natively on iOS -->
 <section class="sec proj-reveal" id="reveal">
   <div class="wrap">
@@ -679,6 +747,7 @@ document.querySelectorAll('.gslot').forEach(el => {
 const WM = { 't-ink': '#F7B6C9', 't-pink': '#111111', 't-red': '#FFFBF6', 't-lav': '#111111', 't-cream': '#FF4E3A' };
 
 const PROJECTS = [
+  { n: "Renta Carga", mono: "RL", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio para una empresa de fletes en León: flota y escenas en 3D, video que acompaña el scroll, cobertura nacional y cotización de traslados en línea. Instalable como app.", d_en: "Site for a freight company in León: 3D fleet and scenes, scroll-driven video, nationwide coverage and online quotes for moves. Installable as an app.", url: "https://rentacargaleon.com", cls: "t-ink" },
   { n: "Tacos Don Luis", mono: "TL", tag_es: "App web", tag_en: "Web app", d_es: "Plataforma integral para una taquería: pedidos en línea para recoger o a domicilio, y gestión de órdenes, cocina, caja, inventario, clientes, lealtad y repartidores. PWA para celular, tablet y computadora, con Supabase y Vercel.", d_en: "Full platform for a taco shop: online ordering for pickup or delivery, plus order, kitchen, cashier, inventory, customer, loyalty and delivery-driver management. A PWA for phone, tablet and desktop, built with Supabase and Vercel.", url: "https://tacos-don-luis.vercel.app/pedir/", cls: "t-red" },
   { n: "Muromío", mono: "MU", tag_es: "App web", tag_en: "Web app", d_es: "Sistema web para un estudio de interiorismo: landing comercial + panel de gestión de proyectos, clientes y presupuestos, con un Render Lab de IA que convierte bocetos, plantas o fotos en renders fotorrealistas. Soporte PWA.", d_en: "Web system for an interior design studio: a commercial landing page plus a project, client and budget management dashboard, with an AI Render Lab that turns sketches, floor plans or photos into photorealistic renders. PWA-ready.", url: "https://muromio.vercel.app", cls: "t-pink" },
   { n: "Rivera Connect", mono: "RC", tag_es: "App web", tag_en: "Web app", d_es: "Plataforma a la medida para talleres automotrices: los clientes siguen el avance de su vehículo en tiempo real (etapa, fotos, cotización, entrega) y el taller gestiona todo desde un panel, con avisos por WhatsApp y QR por vehículo.", d_en: "Custom platform for auto repair shops: customers track their vehicle's progress in real time (stage, photos, quote, delivery) while the shop manages everything from a dashboard, with WhatsApp alerts and a per-vehicle QR code.", url: "https://rivera-connect.vercel.app/dashboard", cls: "t-lav" },
@@ -811,6 +880,29 @@ setLang(LANG);
 window.scrollTo(0, 0);
 window.addEventListener('load', () => window.scrollTo(0, 0));
 
+// Hero letters lift and turn red under the pointer.
+(() => {
+  if (matchMedia('(prefers-reduced-motion: reduce)').matches || !matchMedia('(hover: hover)').matches) return;
+  const chars = [...document.querySelectorAll('.logo-lockup .ch')];
+  let raf = 0, px = -1e4, py = -1e4;
+  function update() {
+    raf = 0;
+    chars.forEach(c => {
+      const r = c.getBoundingClientRect();
+      const near = Math.hypot(px - (r.left + r.width / 2), py - (r.top + r.height / 2)) < r.width * .75;
+      c.classList.toggle('lift', near);
+    });
+  }
+  document.querySelector('.logo-lockup').addEventListener('pointermove', e => {
+    px = e.clientX; py = e.clientY;
+    if (!raf) raf = requestAnimationFrame(update);
+  });
+  document.querySelector('.logo-lockup').addEventListener('pointerleave', () => {
+    px = py = -1e4;
+    if (!raf) raf = requestAnimationFrame(update);
+  });
+})();
+
 // Nav becomes opaque after scrolling 62% of hero
 const navEl = document.querySelector('.nav');
 function onScroll() {
@@ -830,7 +922,8 @@ if ('serviceWorker' in navigator) {
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const scenes = [
     {element: document.querySelector('.mobile-story'), videos: [document.getElementById('donLuisMotion')]},
-    {element: document.querySelector('.store-stage'), videos: [...document.querySelectorAll('.store-device video')]}
+    {element: document.querySelector('.store-stage'), videos: [...document.querySelectorAll('.store-device video')]},
+    {element: document.querySelector('.rc-stage'), videos: [document.getElementById('rcMotion')]}
   ];
   let pending = false;
   function progress(element) {
@@ -847,6 +940,7 @@ if ('serviceWorker' in navigator) {
     if (reducedMotion.matches) return;
     scenes.forEach(scene => {
       const p = progress(scene.element);
+      if (scene.element.matches('.rc-stage')) scene.element.style.setProperty('--p', Math.min(1, p * 1.6).toFixed(3));
       scene.videos.forEach((video, index) => {
         video.dataset.progress = p;
         seek(video);
@@ -913,6 +1007,8 @@ if ('serviceWorker' in navigator) {
   } catch (e) {}
 })();
 </script>
+<script type="importmap">{"imports":{"three":"/assets/vendor/three/three.module.min.js"}}</script>
+<script type="module" src="/assets/hero-gears.js"></script>
 <script defer src="/_vercel/insights/script.js"></script>
 </body>
 </html>
