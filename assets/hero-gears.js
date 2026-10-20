@@ -110,6 +110,26 @@ function start() {
   gears.forEach(g => rig.add(g));
   scene.add(rig);
 
+  // The gear in the wordmark becomes a 3D piece too. It lives outside the
+  // rig so it stays glued to the text, and every frame it is placed over
+  // the (now invisible) SVG slot it replaces.
+  const titleEl = document.querySelector('.ll-gear');
+  const title = new THREE.Mesh(geo, mat(0xFF4E3A));
+  title.castShadow = true;
+  scene.add(title);
+  const TITLE_Z = 2;
+  function placeTitle() {
+    const hr = canvas.getBoundingClientRect(), r = titleEl.getBoundingClientRect();
+    const vh = 2 * (camera.position.z - TITLE_Z) * Math.tan(THREE.MathUtils.degToRad(camera.fov / 2));
+    const vw = vh * camera.aspect;
+    title.position.set(
+      ((r.left + r.width / 2 - hr.left) / hr.width - .5) * vw,
+      -((r.top + r.height / 2 - hr.top) / hr.height - .5) * vh,
+      TITLE_Z
+    );
+    return titleEl.offsetWidth / 2 / hr.width * vw;
+  }
+
   // Positions are worked out from the visible frustum, so the composition
   // keeps hugging the right edge from a phone to a wide monitor.
   function layout() {
@@ -155,7 +175,7 @@ function start() {
     const r = canvas.getBoundingClientRect();
     ndc.set((e.clientX - r.left) / r.width * 2 - 1, -(e.clientY - r.top) / r.height * 2 + 1);
     ray.setFromCamera(ndc, camera);
-    const hit = ray.intersectObjects(gears)[0];
+    const hit = ray.intersectObjects([...gears, title])[0];
     if (hit) { hit.object.userData.pop = 1; boost = Math.max(boost, 6); }
   });
 
@@ -197,6 +217,14 @@ function start() {
       g.position.y += Math.sin(t * .9 + i * 1.3) * .18;
       g.position.x += pointer.x * (u.z + 2) * .12;
     });
+    // one turn every 9 s, like the SVG it replaces, and it leans toward the pointer
+    const tu = title.userData;
+    tu.spin = (tu.spin || 0) - dt * (Math.PI * 2 / 9) * (1 + boost * .35);
+    tu.pop = (tu.pop || 0) * Math.pow(.02, dt);
+    const ti = reduce ? 1 : Math.min(1, Math.max(0, (t - .6) / .9));
+    const ts = placeTitle() * (reduce ? 1 : back(ti)) * (1 + tu.pop * .2);
+    title.scale.set(ts, ts, ts * 1.4);
+    title.rotation.set(pointer.y * .45, pointer.x * .55, tu.spin);
     renderer.render(scene, camera);
     if (running) requestAnimationFrame(frame);
   }
