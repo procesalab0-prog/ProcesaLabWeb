@@ -268,7 +268,8 @@ svg{fill:currentColor}
 .story-label{position:absolute;left:4%;bottom:4%;z-index:4;background:var(--ink);color:var(--cream);padding:13px 18px;border-radius:999px;font:700 12px "Space Grotesk";letter-spacing:.07em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red)}
 @keyframes systemFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-9px)}}
 
-/* RENTA CARGA — --p goes 0→1 while the section crosses the viewport */
+/* RENTA CARGA — the devices float on their own and the phone plays a slow
+   loop of the mobile site; nothing here depends on scroll */
 .rc-story{position:relative;overflow:hidden;background:var(--paper);padding:clamp(86px,10vw,150px) 0}
 .rc-story::before{content:"";position:absolute;width:560px;height:560px;left:-220px;bottom:-260px;border-radius:50%;background:var(--pink);opacity:.8}
 .rc-in{position:relative;display:grid;grid-template-columns:minmax(300px,.72fr) minmax(0,1.28fr);align-items:center;gap:clamp(24px,5vw,72px)}
@@ -277,24 +278,26 @@ svg{fill:currentColor}
 .rc-facts{list-style:none;padding:0;margin:26px 0 0;display:flex;flex-wrap:wrap;gap:8px}
 .rc-facts li{font:600 13px "Space Grotesk";border:1.5px solid var(--ink);border-radius:999px;padding:7px 13px;background:var(--cream)}
 .rc-link{color:var(--ink)}
-.rc-stage{--p:0;position:relative;display:block;container-type:inline-size;aspect-ratio:16/12;margin-right:-4%;perspective:1600px;color:inherit}
-.rc-browser{position:absolute;left:4%;top:6%;width:92%;margin:0;background:var(--cream);border:1.5px solid var(--ink);border-radius:16px;overflow:hidden;box-shadow:10px 10px 0 var(--ink);transform-origin:70% 50%;transform:rotateY(calc(-24deg + var(--p)*24deg)) rotateX(calc(10deg - var(--p)*10deg)) translateY(calc(40px - var(--p)*40px));transition:box-shadow .3s}
+.rc-stage{position:relative;display:block;container-type:inline-size;aspect-ratio:16/12;margin-right:-4%;perspective:1600px;color:inherit}
+.rc-browser{position:absolute;left:4%;top:6%;width:92%;margin:0;background:var(--cream);border:1.5px solid var(--ink);border-radius:16px;overflow:hidden;box-shadow:10px 10px 0 var(--ink);transform-origin:70% 50%;transform:rotateY(-10deg) rotateX(4deg);animation:rcSway 10s ease-in-out infinite;transition:box-shadow .3s}
+@keyframes rcSway{0%,100%{transform:rotateY(-10deg) rotateX(4deg)}50%{transform:rotateY(-4deg) rotateX(1.5deg) translateY(-8px)}}
 .rc-bar{display:flex;align-items:center;gap:6px;padding:9px 12px;border-bottom:1.5px solid var(--ink);background:var(--cream)}
 .rc-bar i{width:9px;height:9px;border-radius:50%;background:var(--ink);opacity:.2}.rc-bar i:first-child{background:var(--red);opacity:1}
 .rc-bar b{margin-left:10px;font:600 11px "Space Grotesk";letter-spacing:.02em;background:var(--lav);border-radius:999px;padding:3px 12px;opacity:.85}
 .rc-browser img{display:block;width:100%;height:auto}
 /* The screen keeps the recording's exact aspect ratio, so nothing of the
    site is cropped; the camera sits in the top bezel, not over the page. */
-.rc-phone{position:absolute;left:-3%;bottom:-6%;width:29cqw;margin:0;padding:3.6cqw 1.2cqw 2.6cqw;background:#141414;border-radius:4.6cqw;box-shadow:0 0 0 2px #3a3a3a inset,8px 8px 0 var(--red),0 30px 50px rgba(17,17,17,.25);transform:translateY(calc(70px - var(--p)*90px)) rotate(calc(-7deg + var(--p)*5deg));z-index:2}
+.rc-phone{position:absolute;left:-3%;bottom:-6%;width:29cqw;margin:0;padding:3.6cqw 1.2cqw 2.6cqw;background:#141414;border-radius:4.6cqw;box-shadow:0 0 0 2px #3a3a3a inset,8px 8px 0 var(--red),0 30px 50px rgba(17,17,17,.25);transform:rotate(-4deg);animation:rcFloat 7s ease-in-out infinite;z-index:2}
+@keyframes rcFloat{0%,100%{transform:translateY(0) rotate(-4deg)}50%{transform:translateY(-14px) rotate(-2deg)}}
 .rc-phone::before{content:"";position:absolute;top:1.45cqw;left:50%;width:6cqw;height:.75cqw;border-radius:99px;background:#2e2e2e;transform:translateX(-50%)}
 .rc-screen{position:relative;display:block;width:100%;aspect-ratio:600/1298;border-radius:1.6cqw;overflow:hidden;background:#222}
 .rc-screen img,.rc-screen video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .rc-screen video{opacity:0}
 .rc-screen.motion-ready video{opacity:1}
-.rc-chip{position:absolute;right:2%;bottom:3%;display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);border-radius:999px;padding:10px 16px;font:700 12px "Space Grotesk";letter-spacing:.06em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red);transform:translateY(calc(40px - var(--p)*40px));z-index:3}
+.rc-chip{position:absolute;right:2%;bottom:3%;display:flex;align-items:center;gap:8px;background:var(--ink);color:var(--cream);border-radius:999px;padding:10px 16px;font:700 12px "Space Grotesk";letter-spacing:.06em;text-transform:uppercase;box-shadow:5px 5px 0 var(--red);z-index:3}
 .rc-stage:hover .rc-browser{box-shadow:14px 14px 0 var(--ink)}
 @media(max-width:760px){.rc-story{padding:76px 0 90px}.rc-in{grid-template-columns:1fr;gap:40px}.rc-copy h2{font-size:clamp(43px,13vw,62px);max-width:360px}.rc-copy>p{font-size:16px}.rc-stage{aspect-ratio:4/4.3}.rc-browser{top:2%;left:10%;width:94%;box-shadow:6px 6px 0 var(--ink)}.rc-bar b{display:none}.rc-phone{width:40cqw;left:-1%;bottom:2%;padding:5cqw 1.6cqw 3.6cqw;border-radius:6.4cqw}.rc-phone::before{top:2cqw;width:8.5cqw;height:1cqw}.rc-screen{border-radius:2.2cqw}.rc-chip{font-size:10px;padding:8px 12px;right:0;bottom:-2%}}
-@media(prefers-reduced-motion:reduce){.rc-stage{--p:1!important}}
+@media(prefers-reduced-motion:reduce){.rc-browser,.rc-phone{animation:none}}
 .studio-story{background:#1d1815;color:var(--cream);padding-bottom:clamp(70px,8vw,120px)}
 .studio-story .wrap{position:relative;z-index:2}.studio-story .sec-tag{color:#d6b9a3}.studio-story h2{color:var(--cream);max-width:980px}.studio-story-copy>p{color:#d1c7bf}
 .studio-stage{display:grid;grid-template-columns:minmax(300px,.82fr) minmax(420px,1.18fr);align-items:center;gap:clamp(0px,2vw,30px);margin-top:30px;min-height:0}
@@ -560,7 +563,7 @@ html.intro .hero,html.intro .hero *{animation-play-state:paused!important}
 <header class="nav">
   <div class="wrap nav-in">
     <a href="#top" class="brand">PROCESA<br>LAB<span class="tm">™</span>
-      <span class="gear gslot" data-s="30" style="color:var(--accent)"></span>
+      <span class="gear gslot gear-spin" data-s="30" style="color:var(--accent);animation-duration:9s"></span>
     </a>
     <nav class="nav-links">
       <a class="nl" href="#servicios" data-es="Servicios" data-en="Services">Servicios</a>
@@ -770,7 +773,7 @@ html.intro .hero,html.intro .hero *{animation-play-state:paused!important}
       <figure class="rc-phone">
         <span class="rc-screen">
           <img src="assets/renta-carga-mobile.webp" alt="Sitio de Renta Carga en un teléfono" width="600" height="1298" loading="lazy">
-          <video id="rcMotion" muted playsinline preload="none" aria-hidden="true" data-src="assets/renta-carga-motion.mp4"></video>
+          <video id="rcMotion" muted loop playsinline preload="none" aria-hidden="true" data-src="assets/renta-carga-motion.mp4"></video>
         </span>
       </figure>
       <span class="rc-chip" aria-hidden="true"><span class="gslot" data-s="16" style="color:var(--red)"></span>León → México</span>
@@ -1031,8 +1034,7 @@ if ('serviceWorker' in navigator) {
   const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)');
   const scenes = [
     {element: document.querySelector('.mobile-story'), videos: [document.getElementById('donLuisMotion')]},
-    {element: document.querySelector('.store-stage'), videos: [...document.querySelectorAll('.store-device video')]},
-    {element: document.querySelector('.rc-stage'), videos: [document.getElementById('rcMotion')]}
+    {element: document.querySelector('.store-stage'), videos: [...document.querySelectorAll('.store-device video')]}
   ];
   let pending = false;
   function progress(element) {
@@ -1049,7 +1051,6 @@ if ('serviceWorker' in navigator) {
     if (reducedMotion.matches) return;
     scenes.forEach(scene => {
       const p = progress(scene.element);
-      if (scene.element.matches('.rc-stage')) scene.element.style.setProperty('--p', Math.min(1, p * 1.6).toFixed(3));
       scene.videos.forEach((video, index) => {
         video.dataset.progress = p;
         seek(video);
@@ -1102,6 +1103,24 @@ if ('serviceWorker' in navigator) {
   addEventListener('scroll', schedule, {passive:true});
   addEventListener('resize', schedule, {passive:true});
   schedule();
+})();
+
+// Renta Carga: the phone plays its recording on its own, in a slow loop,
+// only while the section is on screen.
+(() => {
+  const video = document.getElementById('rcMotion');
+  if (!video || matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+  video.addEventListener('loadeddata', () => video.parentElement.classList.add('motion-ready'));
+  video.addEventListener('error', () => video.parentElement.classList.remove('motion-ready'));
+  new IntersectionObserver(([e]) => {
+    if (e.isIntersecting) {
+      if (!video.getAttribute('src')) { video.src = video.dataset.src; video.load(); }
+      video.defaultPlaybackRate = video.playbackRate = .7;
+      video.play().catch(() => {});
+    } else {
+      video.pause();
+    }
+  }, {rootMargin: '30% 0px'}).observe(document.querySelector('.rc-stage'));
 })();
 
 // Simple visit counter, shown in the owner's private dashboard.
