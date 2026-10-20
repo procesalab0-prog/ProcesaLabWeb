@@ -316,6 +316,61 @@ svg{fill:currentColor}
 .studio-link{color:var(--cream);border-color:#d6b9a3}
 @keyframes studioFloat{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
 
+/* PROJECTS LIVE */
+.live{background:var(--lav);padding-top:clamp(80px,9vw,130px)}
+.live-head{text-align:center;display:flex;flex-direction:column;align-items:center}
+.live-head .sec-tag{justify-content:center}
+.live-head h2{font-size:clamp(46px,6.4vw,96px);letter-spacing:-.055em;margin:16px 0 18px}
+.live-head p{font-size:clamp(16px,1.4vw,19px);line-height:1.55;max-width:520px;color:#4a4146}
+.live-track{position:relative;height:calc(var(--n,9) * 46vh + 100vh)}
+.live-sticky{position:sticky;top:0;height:100vh;height:100svh;overflow:hidden}
+.live-cols{position:absolute;inset:0}
+.live-col{position:absolute;top:0;width:var(--cw);display:flex;flex-direction:column;gap:var(--gap);will-change:transform}
+.live-col img{display:block;width:100%;height:auto;aspect-ratio:480/1039;object-fit:cover;object-position:top;border-radius:calc(var(--cw)*.09);border:1.5px solid var(--ink);box-shadow:6px 6px 0 rgba(17,17,17,.9);background:var(--cream)}
+.live-center{position:absolute;inset:0;pointer-events:none}
+/* the hand image is 1024x1536; its transparent screen is x 167-686, y 107-1154 */
+.live-phone{--hh:min(88svh,128vw);position:absolute;left:50%;bottom:-6svh;height:var(--hh);aspect-ratio:1024/1536;transform:translateX(-41.7%);pointer-events:auto;filter:drop-shadow(0 30px 40px rgba(17,17,17,.28));z-index:2}
+.live-hand{position:absolute;inset:0;width:100%;height:100%;display:block}
+.live-screen{position:absolute;left:16%;top:6.8%;width:51.4%;height:68.6%;border-radius:11%/5.4%;overflow:hidden;background:#111}
+.live-screen img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:top;opacity:0;transform:translateY(6%) scale(1.03);transition:opacity .45s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+.live-screen img.on{opacity:1;transform:none}
+.live-screen img.out{opacity:0;transform:translateY(-5%) scale(.98)}
+.live-info{position:absolute;left:50%;top:clamp(84px,12svh,120px);transform:translateX(-50%);display:flex;align-items:center;gap:14px;background:var(--cream);border:1.5px solid var(--ink);border-radius:999px;padding:8px 8px 8px 18px;box-shadow:5px 5px 0 var(--ink);pointer-events:auto;z-index:3;white-space:nowrap}
+.live-num{font:700 13px "Space Grotesk";color:var(--red)}
+.live-tag{display:block;font:600 10px "Space Grotesk";letter-spacing:.12em;text-transform:uppercase;opacity:.6}
+.live-info h3{font-size:17px;line-height:1.1}
+.live-open{display:flex;align-items:center;gap:8px;background:var(--red);color:#fff;border-radius:999px;padding:10px 14px;font:700 12px "Space Grotesk";letter-spacing:.06em;text-transform:uppercase}
+.live-open svg{width:14px;height:14px}
+.live-dots{position:absolute;right:clamp(14px,2.4vw,34px);top:50%;transform:translateY(-50%);display:flex;flex-direction:column;gap:8px;z-index:3}
+.live-dots i{width:7px;height:7px;border-radius:50%;background:var(--ink);opacity:.2;transition:opacity .3s,transform .3s}
+.live-dots i.on{opacity:1;transform:scale(1.5);background:var(--red)}
+/* SMART BRIEF */
+.brief{display:grid;grid-template-columns:minmax(0,.9fr) minmax(0,1.1fr);gap:clamp(24px,4vw,64px);align-items:center;background:var(--cream);border:1.5px solid var(--ink);border-radius:28px;box-shadow:10px 10px 0 var(--ink);padding:clamp(26px,4vw,52px);margin:clamp(40px,6vw,90px) 0 clamp(80px,9vw,130px)}
+.brief-copy h3{font-size:clamp(32px,3.8vw,54px);letter-spacing:-.045em;line-height:.98;margin:16px 0 16px}
+.brief-copy p{font-size:16px;line-height:1.55;color:#4a4146;max-width:420px}
+.brief-top{display:flex;justify-content:space-between;align-items:center;font:700 13px "Space Grotesk";letter-spacing:.08em}
+.brief-back{background:none;border:0;font:600 13px "Space Grotesk";cursor:pointer;color:var(--ink);opacity:.6;padding:4px 0}
+.brief-back[hidden]{display:none}
+.brief-bar{height:4px;border-radius:9px;background:rgba(17,17,17,.1);margin:12px 0 22px;overflow:hidden}
+.brief-bar i{display:block;height:100%;width:25%;background:var(--red);border-radius:9px;transition:width .4s cubic-bezier(.16,1,.3,1)}
+.brief-q{font:700 clamp(21px,2vw,26px)/1.15 "Space Grotesk";letter-spacing:-.02em;margin:0 0 16px;animation:briefIn .45s cubic-bezier(.16,1,.3,1)}
+.brief-opts{display:flex;flex-wrap:wrap;gap:10px;animation:briefIn .5s .05s cubic-bezier(.16,1,.3,1) both}
+.brief-opts button{font:600 15px "Instrument Sans";background:#fff;color:var(--ink);border:1.5px solid var(--ink);border-radius:999px;padding:11px 18px;cursor:pointer;transition:transform .15s,box-shadow .15s,background .15s}
+.brief-opts button:hover{transform:translate(-2px,-2px);box-shadow:3px 3px 0 var(--ink)}
+.brief-opts button.sel{background:var(--ink);color:var(--cream)}
+.brief-msg{background:#E7F8EC;border:1.5px solid #1c8c46;border-radius:18px 18px 18px 4px;padding:14px 16px;font-size:15px;line-height:1.5;margin:0 0 18px;animation:briefIn .45s cubic-bezier(.16,1,.3,1)}
+.brief-send{display:inline-flex;align-items:center;gap:10px;background:#25D366;color:#0b2914;border:1.5px solid var(--ink);border-radius:999px;padding:14px 22px;font:700 15px "Space Grotesk";box-shadow:4px 4px 0 var(--ink)}
+.brief-send:hover{transform:translate(-2px,-2px);box-shadow:6px 6px 0 var(--ink)}
+.brief-redo{margin-left:14px;background:none;border:0;font:600 14px "Space Grotesk";text-decoration:underline;cursor:pointer;color:var(--ink)}
+@keyframes briefIn{from{opacity:0;transform:translateY(10px)}}
+@media(max-width:760px){
+  .live-phone{--hh:min(74svh,150vw);bottom:-4svh}
+  .live-info{top:auto;bottom:clamp(14px,3svh,26px);padding:6px 6px 6px 14px;gap:10px}.live-info h3{font-size:15px}.live-open{padding:9px 12px}
+  .live-dots{right:8px}
+  .brief{grid-template-columns:1fr;border-radius:22px;box-shadow:6px 6px 0 var(--ink)}
+  .brief-opts button{font-size:14px;padding:10px 15px}
+}
+@media(prefers-reduced-motion:reduce){.live-screen img,.brief-q,.brief-opts,.brief-msg{transition:none;animation:none}}
 /* PROJECTS grid — normal page flow below the scene, so it scrolls
    like the rest of the site (no nested-scroll traps on iOS) */
 .proj-reveal{background:var(--lav)}
@@ -781,18 +836,51 @@ html.intro .hero,html.intro .hero *{animation-play-state:paused!important}
   </div>
 </section>
 
-<!-- PROJECTS: real grid, normal page flow so it scrolls natively on iOS -->
-<section class="sec proj-reveal" id="reveal">
-  <div class="wrap">
-    <div class="sec-head">
-      <div>
-        <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
-        <h2 data-es="Proyectos en vivo" data-en="Live projects">Proyectos en vivo</h2>
+<!-- PROJECTS LIVE: a hand holds a phone in the middle while columns of
+     real screens drift past on both sides; the phone shows the project that
+     is passing and opens it. Tiles and the phone are filled from PROJECTS. -->
+<section class="live" id="reveal">
+  <div class="wrap live-head">
+    <div class="sec-tag" data-es="Portafolio" data-en="Portfolio">Portafolio</div>
+    <h2 data-es="Proyectos en vivo" data-en="Live projects">Proyectos en vivo</h2>
+    <p data-es="Desliza y mira pasar lo que hemos construido. Toca el teléfono para abrir cada proyecto." data-en="Scroll and watch what we've built go by. Tap the phone to open each project.">Desliza y mira pasar lo que hemos construido. Toca el teléfono para abrir cada proyecto.</p>
+  </div>
+  <div class="live-track" id="liveTrack">
+    <div class="live-sticky">
+      <div class="live-cols" id="liveCols" aria-hidden="true"></div>
+      <div class="live-center">
+        <a class="live-phone" id="livePhone" href="#" target="_blank" rel="noopener">
+          <span class="live-screen" id="liveScreen"></span>
+          <img class="live-hand" src="assets/live/mano-telefono.webp" alt="" width="1024" height="1536" loading="lazy">
+        </a>
+        <div class="live-info">
+          <span class="live-num" id="liveNum">01</span>
+          <div>
+            <span class="live-tag" id="liveTag"></span>
+            <h3 id="liveName"></h3>
+          </div>
+          <a class="live-open" id="liveOpen" href="#" target="_blank" rel="noopener"><span data-es="Abrir" data-en="Open">Abrir</span><svg aria-hidden="true" viewBox="0 0 16 16" fill="none"><path d="M3.5 12.5 12.5 3.5M6 3.5h6.5V10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+        </div>
+        <div class="live-dots" id="liveDots" aria-hidden="true"></div>
       </div>
-      <p data-es="Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos." data-en="A selection of sites and experiences we've designed and built. Click to visit them.">Una selección de sitios y experiencias que hemos diseñado y construido. Haz clic para visitarlos.</p>
     </div>
-    <div class="swipe-hint" aria-hidden="true"><span data-es="Desliza para explorar" data-en="Swipe to explore">Desliza para explorar</span><span class="arrow"><svg viewBox="0 0 24 14" fill="none"><path d="M1 7h21M16 1l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></div>
-    <div class="proj-grid" id="projGrid"></div>
+  </div>
+  <ul class="sr-only" id="liveList"></ul>
+
+  <!-- SMART BRIEF: four one-tap questions that write the WhatsApp message -->
+  <div class="wrap">
+    <div class="brief reveal-up" id="brief">
+      <div class="brief-copy">
+        <div class="sec-tag" data-es="Cotiza en 30 segundos" data-en="Quote in 30 seconds">Cotiza en 30 segundos</div>
+        <h3 data-es="¿Tienes un proyecto en mente?" data-en="Got a project in mind?">¿Tienes un proyecto en mente?</h3>
+        <p data-es="Contesta cuatro preguntas y te dejamos el mensaje listo para enviarlo por WhatsApp." data-en="Answer four questions and we'll leave the message ready to send on WhatsApp.">Contesta cuatro preguntas y te dejamos el mensaje listo para enviarlo por WhatsApp.</p>
+      </div>
+      <div class="brief-box">
+        <div class="brief-top"><span id="briefStep">1 / 4</span><button type="button" class="brief-back" id="briefBack" data-es="← Atrás" data-en="← Back">← Atrás</button></div>
+        <div class="brief-bar"><i id="briefBar"></i></div>
+        <div id="briefBody" aria-live="polite"></div>
+      </div>
+    </div>
   </div>
 </section>
 
@@ -859,37 +947,168 @@ document.querySelectorAll('.gslot').forEach(el => {
 const WM = { 't-ink': '#F7B6C9', 't-pink': '#111111', 't-red': '#FFFBF6', 't-lav': '#111111', 't-cream': '#FF4E3A' };
 
 const PROJECTS = [
-  { n: "Renta Carga", mono: "RL", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio para una empresa de fletes en León: flota y escenas en 3D, video que acompaña el scroll, cobertura nacional y cotización de traslados en línea. Instalable como app.", d_en: "Site for a freight company in León: 3D fleet and scenes, scroll-driven video, nationwide coverage and online quotes for moves. Installable as an app.", url: "https://rentacargaleon.com", cls: "t-ink" },
-  { n: "Tacos Don Luis", mono: "TL", tag_es: "App web", tag_en: "Web app", d_es: "Plataforma integral para una taquería: pedidos en línea para recoger o a domicilio, y gestión de órdenes, cocina, caja, inventario, clientes, lealtad y repartidores. PWA para celular, tablet y computadora, con Supabase y Vercel.", d_en: "Full platform for a taco shop: online ordering for pickup or delivery, plus order, kitchen, cashier, inventory, customer, loyalty and delivery-driver management. A PWA for phone, tablet and desktop, built with Supabase and Vercel.", url: "https://tacos-don-luis.vercel.app/pedir/", cls: "t-red" },
-  { n: "Muromío", mono: "MU", tag_es: "App web", tag_en: "Web app", d_es: "Sistema web para un estudio de interiorismo: landing comercial + panel de gestión de proyectos, clientes y presupuestos, con un Render Lab de IA que convierte bocetos, plantas o fotos en renders fotorrealistas. Soporte PWA.", d_en: "Web system for an interior design studio: a commercial landing page plus a project, client and budget management dashboard, with an AI Render Lab that turns sketches, floor plans or photos into photorealistic renders. PWA-ready.", url: "https://muromio.vercel.app", cls: "t-pink" },
-  { n: "Rivera Connect", mono: "RC", tag_es: "App web", tag_en: "Web app", d_es: "Plataforma a la medida para talleres automotrices: los clientes siguen el avance de su vehículo en tiempo real (etapa, fotos, cotización, entrega) y el taller gestiona todo desde un panel, con avisos por WhatsApp y QR por vehículo.", d_en: "Custom platform for auto repair shops: customers track their vehicle's progress in real time (stage, photos, quote, delivery) while the shop manages everything from a dashboard, with WhatsApp alerts and a per-vehicle QR code.", url: "https://rivera-connect.vercel.app/dashboard", cls: "t-lav" },
-  { n: "Inventario OPmobility", mono: "IO", tag_es: "App web", tag_en: "Web app", d_es: "Inventario de almacén en tiempo real: stock de tanques, bombas y fixtures, entradas/salidas, respaldado en Supabase y Google Sheets.", d_en: "Real-time warehouse inventory: tanks, pumps and fixtures stock, entries/exits, backed by Supabase and Google Sheets.", url: "https://procesalab0-prog.github.io/Inventario-Laboratorio-Regional-/", cls: "t-red" },
-  { n: "Padel Park", mono: "PP", tag_es: "Landing page", tag_en: "Landing page", d_es: "Landing para un programa de tarjeta de lealtad — diseñada para captar y retener clientes.", d_en: "Landing for a loyalty card program — built to capture and retain customers.", url: "https://padelparkgj.github.io/Tarjeta-de-Lealtad-PP/Landing%20Page.html", cls: "t-pink" },
-  { n: "Origin Café", mono: "OC", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio web cálido y apetitoso para una cafetería, con menú y carácter de marca.", d_en: "A warm, appetizing website for a café, with menu and brand character.", url: "https://origincafe-tfto.github.io/OriginCaf-TFTOWeb/#", cls: "t-red" },
-  { n: "Tracking App", mono: "TK", tag_es: "Aplicación", tag_en: "App", d_es: "Aplicación web de seguimiento y rastreo — panel de control moderno con acceso por login.", d_en: "Web tracking application — modern dashboard with login access.", url: "https://tracking-fawn-iota.vercel.app/login", cls: "t-ink" },
-  { n: "Mecanismos de Infancia", mono: "MI", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio web con propósito social y narrativo — diseño con alma y mensaje.", d_en: "A website with social and narrative purpose — design with soul and message.", url: "https://procesalab0-prog.github.io/Mecanismos-de-Infancia/", cls: "t-cream" }
+  { n: "Herraidea", k: "herraidea", shots: 3, mono: "HE", tag_es: "Sitio web", tag_en: "Website", d_es: "", d_en: "", url: "https://herraidea-landing.vercel.app", cls: "t-red" },
+  { n: "Renta Carga", k: "rentacarga", shots: 3, mono: "RL", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio para una empresa de fletes en León: flota y escenas en 3D, video que acompaña el scroll, cobertura nacional y cotización de traslados en línea. Instalable como app.", d_en: "Site for a freight company in León: 3D fleet and scenes, scroll-driven video, nationwide coverage and online quotes for moves. Installable as an app.", url: "https://rentacargaleon.com", cls: "t-ink" },
+  { n: "Tacos Don Luis", k: "donluis", shots: 2, mono: "TL", tag_es: "App web", tag_en: "Web app", d_es: "Plataforma integral para una taquería: pedidos en línea para recoger o a domicilio, y gestión de órdenes, cocina, caja, inventario, clientes, lealtad y repartidores. PWA para celular, tablet y computadora, con Supabase y Vercel.", d_en: "Full platform for a taco shop: online ordering for pickup or delivery, plus order, kitchen, cashier, inventory, customer, loyalty and delivery-driver management. A PWA for phone, tablet and desktop, built with Supabase and Vercel.", url: "https://tacos-don-luis.vercel.app/pedir/", cls: "t-red" },
+  { n: "Muromío", k: "muromio", shots: 3, mono: "MU", tag_es: "App web", tag_en: "Web app", d_es: "Sistema web para un estudio de interiorismo: landing comercial + panel de gestión de proyectos, clientes y presupuestos, con un Render Lab de IA que convierte bocetos, plantas o fotos en renders fotorrealistas. Soporte PWA.", d_en: "Web system for an interior design studio: a commercial landing page plus a project, client and budget management dashboard, with an AI Render Lab that turns sketches, floor plans or photos into photorealistic renders. PWA-ready.", url: "https://muromio.vercel.app", cls: "t-pink" },
+  { n: "Rivera Connect", k: "rivera", shots: 2, mono: "RC", tag_es: "App web", tag_en: "Web app", d_es: "Plataforma a la medida para talleres automotrices: los clientes siguen el avance de su vehículo en tiempo real (etapa, fotos, cotización, entrega) y el taller gestiona todo desde un panel, con avisos por WhatsApp y QR por vehículo.", d_en: "Custom platform for auto repair shops: customers track their vehicle's progress in real time (stage, photos, quote, delivery) while the shop manages everything from a dashboard, with WhatsApp alerts and a per-vehicle QR code.", url: "https://rivera-connect.vercel.app/dashboard", cls: "t-lav" },
+  { n: "Inventario OPmobility", k: "opmobility", shots: 1, mono: "IO", tag_es: "App web", tag_en: "Web app", d_es: "Inventario de almacén en tiempo real: stock de tanques, bombas y fixtures, entradas/salidas, respaldado en Supabase y Google Sheets.", d_en: "Real-time warehouse inventory: tanks, pumps and fixtures stock, entries/exits, backed by Supabase and Google Sheets.", url: "https://procesalab0-prog.github.io/Inventario-Laboratorio-Regional-/", cls: "t-red" },
+  { n: "Padel Park", k: "padel", shots: 1, mono: "PP", tag_es: "Landing page", tag_en: "Landing page", d_es: "Landing para un programa de tarjeta de lealtad — diseñada para captar y retener clientes.", d_en: "Landing for a loyalty card program — built to capture and retain customers.", url: "https://padelparkgj.github.io/Tarjeta-de-Lealtad-PP/Landing%20Page.html", cls: "t-pink" },
+  { n: "Origin Café", k: "origin", shots: 3, mono: "OC", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio web cálido y apetitoso para una cafetería, con menú y carácter de marca.", d_en: "A warm, appetizing website for a café, with menu and brand character.", url: "https://origincafe-tfto.github.io/OriginCaf-TFTOWeb/#", cls: "t-red" },
+  { n: "Tracking App", k: "tracking", shots: 1, mono: "TK", tag_es: "Aplicación", tag_en: "App", d_es: "Aplicación web de seguimiento y rastreo — panel de control moderno con acceso por login.", d_en: "Web tracking application — modern dashboard with login access.", url: "https://tracking-fawn-iota.vercel.app/login", cls: "t-ink" },
+  { n: "Mecanismos de Infancia", k: "mecanismos", shots: 2, mono: "MI", tag_es: "Sitio web", tag_en: "Website", d_es: "Sitio web con propósito social y narrativo — diseño con alma y mensaje.", d_en: "A website with social and narrative purpose — design with soul and message.", url: "https://procesalab0-prog.github.io/Mecanismos-de-Infancia/", cls: "t-cream" }
 ];
 
-function projCard(p, i) {
-  const num = String(i + 1).padStart(2, '0');
-  return `<a class="card" href="${p.url}" target="_blank" rel="noopener">
-    <div class="thumb ${p.cls}">
-      <span class="num">${num}</span>
-      <span class="mono">${p.mono}</span>
-      <span class="bgear">${gsvg(120, WM[p.cls] || '#111111')}</span>
-    </div>
-    <div class="card-body">
-      <span class="card-tag" data-es="${p.tag_es}" data-en="${p.tag_en}">${p.tag_es}</span>
-      <h3>${p.n}</h3>
-      <p data-es="${p.d_es}" data-en="${p.d_en}">${p.d_es}</p>
-      <span class="visit"><span data-es="Visitar sitio" data-en="Visit site">Visitar sitio</span>
-        <span class="arr"><svg width="15" height="15" viewBox="0 0 16 16" fill="none"><path d="M3 13L13 3M13 3H5M13 3V11" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
-      </span>
-    </div>
-  </a>`;
-}
+// PROJECTS LIVE ------------------------------------------------------------
+(() => {
+  const track = document.getElementById('liveTrack');
+  const colsEl = document.getElementById('liveCols');
+  const screen = document.getElementById('liveScreen');
+  const phone = document.getElementById('livePhone');
+  const open = document.getElementById('liveOpen');
+  const N = PROJECTS.length;
+  track.style.setProperty('--n', N);
+  const shot = (p, i) => `assets/live/${p.k}-${i}.webp`;
 
-document.getElementById('projGrid').innerHTML = PROJECTS.map(projCard).join('');
+  // phone screen: one image per project, shown as the project passes
+  screen.innerHTML = PROJECTS.map((p, i) => `<img src="${shot(p, 1)}" alt="" ${i ? 'loading="lazy"' : ''}>`).join('');
+  const screens = [...screen.children];
+  document.getElementById('liveDots').innerHTML = PROJECTS.map(() => '<i></i>').join('');
+  const dots = [...document.getElementById('liveDots').children];
+  document.getElementById('liveList').innerHTML = PROJECTS.map(p =>
+    `<li><a href="${p.url}" target="_blank" rel="noopener">${p.n}</a></li>`).join('');
+
+  // side columns: every screenshot, dealt round-robin and repeated so each
+  // column is always taller than its travel
+  const tiles = PROJECTS.flatMap(p => Array.from({ length: p.shots }, (_, i) => shot(p, i + 1)));
+  let cols = [];
+  function buildCols() {
+    const mobile = innerWidth < 760;
+    const count = mobile ? 2 : 4;
+    const cw = mobile ? innerWidth * .3 : Math.min(240, innerWidth * .14);
+    const gap = Math.round(cw * .12);
+    const xs = mobile ? [-cw * .42, innerWidth - cw * .58]
+      : [innerWidth * .03, innerWidth * .03 + cw + gap * 1.6, innerWidth * .97 - cw * 2 - gap * 1.6, innerWidth * .97 - cw];
+    const tileH = cw * 1039 / 480 + gap, per = Math.ceil(innerHeight * 2.6 / tileH) + 1;
+    colsEl.style.setProperty('--cw', cw + 'px');
+    colsEl.style.setProperty('--gap', gap + 'px');
+    colsEl.innerHTML = xs.map((x, c) => {
+      const list = Array.from({ length: per }, (_, i) => tiles[(c * 5 + i * 3) % tiles.length]);
+      return `<div class="live-col" style="left:${x}px">${list.map(src => `<img src="${src}" alt="" loading="lazy">`).join('')}</div>`;
+    }).join('');
+    cols = [...colsEl.children].map((el, c) => ({ el, dir: c % 2 ? 1 : -1, speed: [1, .7, .85, 1.15][c] || 1, h: per * tileH }));
+  }
+
+  let active = -1;
+  function show(i) {
+    if (i === active) return;
+    screens.forEach((img, k) => {
+      img.classList.toggle('on', k === i);
+      img.classList.toggle('out', k === active && k !== i);
+    });
+    dots.forEach((d, k) => d.classList.toggle('on', k === i));
+    const p = PROJECTS[i];
+    phone.href = open.href = p.url;
+    phone.setAttribute('aria-label', 'Abrir ' + p.n);
+    document.getElementById('liveName').textContent = p.n;
+    const tag = document.getElementById('liveTag');
+    tag.dataset.es = p.tag_es; tag.dataset.en = p.tag_en;
+    tag.textContent = document.documentElement.lang === 'en' ? p.tag_en : p.tag_es;
+    document.getElementById('liveNum').textContent = String(i + 1).padStart(2, '0');
+    active = i;
+  }
+
+  const still = matchMedia('(prefers-reduced-motion: reduce)');
+  let queued = false;
+  function update() {
+    queued = false;
+    const r = track.getBoundingClientRect();
+    const travel = Math.max(1, r.height - innerHeight);
+    const p = Math.min(1, Math.max(0, -r.top / travel));
+    show(Math.min(N - 1, Math.floor(p * N)));
+    if (r.bottom < 0 || r.top > innerHeight || still.matches) return;
+    cols.forEach(c => {
+      // up-columns start low and rise, down-columns the opposite
+      const span = c.h - innerHeight * 1.05;
+      const y = c.dir < 0 ? -span * Math.min(1, p * c.speed) : -span * (1 - Math.min(1, p * c.speed));
+      c.el.style.transform = `translate3d(0,${y.toFixed(1)}px,0)`;
+    });
+  }
+  const queue = () => { if (!queued) { queued = true; requestAnimationFrame(update); } };
+  buildCols();
+  addEventListener('scroll', queue, { passive: true });
+  let lastW = innerWidth;
+  addEventListener('resize', () => { if (innerWidth !== lastW) { lastW = innerWidth; buildCols(); } queue(); });
+  update();
+})();
+
+// SMART BRIEF -------------------------------------------------------------
+(() => {
+  const WA = '524773191563';
+  const Q = [
+    { es: '¿Qué necesitas?', en: 'What do you need?', o: [
+      ['Sitio web', 'Website', 'un sitio web', 'a website'],
+      ['Tienda en línea', 'Online store', 'una tienda en línea', 'an online store'],
+      ['Sistema o app', 'System or app', 'un sistema o app a la medida', 'a custom system or app'],
+      ['Automatizar con IA', 'Automate with AI', 'automatizar procesos con IA', 'to automate processes with AI']] },
+    { es: '¿A qué se dedica tu negocio?', en: 'What does your business do?', o: [
+      ['Restaurante o comida', 'Restaurant or food', 'mi negocio de restaurante o comida', 'my restaurant or food business'],
+      ['Comercio', 'Retail', 'mi negocio de comercio', 'my retail business'],
+      ['Servicios', 'Services', 'mi negocio de servicios', 'my services business'],
+      ['Industria o logística', 'Industry or logistics', 'mi negocio de industria o logística', 'my industrial or logistics business'],
+      ['Otro', 'Other', 'mi negocio', 'my business']] },
+    { es: '¿Para cuándo lo necesitas?', en: 'When do you need it?', o: [
+      ['Lo antes posible', 'As soon as possible', 'Lo necesito lo antes posible', 'I need it as soon as possible'],
+      ['En 1 o 2 meses', 'In 1–2 months', 'Lo quiero en 1 o 2 meses', "I'd like it in 1–2 months"],
+      ['Solo estoy explorando', 'Just exploring', 'Por ahora estoy explorando opciones', "For now I'm exploring options"]] },
+    { es: '¿Ya tienes algo hoy?', en: 'Do you have something today?', o: [
+      ['Nada todavía', 'Nothing yet', 'aún no tengo nada', "I don't have anything yet"],
+      ['Redes sociales', 'Social media', 'hoy solo tengo redes sociales', 'today I only have social media'],
+      ['Un sitio que quiero mejorar', 'A site I want to improve', 'ya tengo un sitio que quiero mejorar', 'I already have a site I want to improve']] }
+  ];
+  const body = document.getElementById('briefBody'), back = document.getElementById('briefBack');
+  const stepEl = document.getElementById('briefStep'), bar = document.getElementById('briefBar');
+  const ans = [];
+  let step = 0;
+  const en = () => document.documentElement.lang === 'en';
+  function message() {
+    const f = i => Q[i].o[ans[i]][en() ? 3 : 2];
+    return en()
+      ? `Hi ProcesaLab 👋 I need ${f(0)} for ${f(1)}. ${f(2)} and ${f(3)}. Can we talk?`
+      : `Hola ProcesaLab 👋 Necesito ${f(0)} para ${f(1)}. ${f(2)} y ${f(3)}. ¿Platicamos?`;
+  }
+  function render() {
+    back.hidden = step === 0;
+    bar.style.width = (Math.min(step + 1, 4) / 4 * 100) + '%';
+    if (step < Q.length) {
+      const q = Q[step];
+      stepEl.textContent = (step + 1) + ' / 4';
+      body.innerHTML = `<p class="brief-q">${en() ? q.en : q.es}</p><div class="brief-opts">${
+        q.o.map((o, i) => `<button type="button" data-i="${i}" class="${ans[step] === i ? 'sel' : ''}">${en() ? o[1] : o[0]}</button>`).join('')}</div>`;
+    } else {
+      const msg = message();
+      stepEl.textContent = en() ? 'Ready' : 'Listo';
+      body.innerHTML = `<p class="brief-msg">${msg}</p>
+        <a class="brief-send" href="https://wa.me/${WA}?text=${encodeURIComponent(msg)}" target="_blank" rel="noopener">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15.1L2 22l5-1.3A10 10 0 1 0 12 2Zm0 18.2a8.2 8.2 0 0 1-4.2-1.2l-.3-.2-3 .8.8-2.9-.2-.3A8.2 8.2 0 1 1 12 20.2Zm4.5-6.1c-.2-.1-1.5-.7-1.7-.8s-.4-.1-.6.1-.7.8-.8 1-.3.2-.5.1a6.7 6.7 0 0 1-3.3-2.9c-.3-.4.3-.4.7-1.3a.5.5 0 0 0 0-.5l-.8-1.8c-.2-.5-.4-.4-.6-.4h-.5a1 1 0 0 0-.7.3 3 3 0 0 0-.9 2.2 5.2 5.2 0 0 0 1.1 2.7 11.8 11.8 0 0 0 4.5 4c1.7.7 2.3.8 3.2.6a2.7 2.7 0 0 0 1.8-1.3 2.2 2.2 0 0 0 .1-1.3c0-.1-.2-.2-.5-.3Z"/></svg>
+          ${en() ? 'Send on WhatsApp' : 'Enviar por WhatsApp'}</a>
+        <button type="button" class="brief-redo">${en() ? 'Start over' : 'Empezar de nuevo'}</button>`;
+    }
+  }
+  body.addEventListener('click', e => {
+    const b = e.target.closest('.brief-opts button');
+    if (b) {
+      ans[step] = +b.dataset.i;
+      b.classList.add('sel');
+      setTimeout(() => { step++; render(); }, 220);
+    } else if (e.target.closest('.brief-redo')) {
+      ans.length = 0; step = 0; render();
+    }
+  });
+  back.addEventListener('click', () => { if (step > 0) { step--; render(); } });
+  render();
+  document.addEventListener('pl:lang', render);
+})();
 
 const clamp = (v, a, b) => Math.max(a, Math.min(b, v));
 const cmpRig = document.getElementById('cmpRig');
@@ -937,7 +1156,6 @@ const cardObserver = new IntersectionObserver((entries) => {
     }
   });
 }, { threshold: 0.15 });
-document.querySelectorAll('#projGrid .card').forEach(c => cardObserver.observe(c));
 
 const revealObserver = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
@@ -984,6 +1202,7 @@ function setLang(l) {
   document.getElementById('en').classList.toggle('on', l === 'en');
   document.getElementById('esMobile').classList.toggle('on', l === 'es');
   document.getElementById('enMobile').classList.toggle('on', l === 'en');
+  document.dispatchEvent(new Event('pl:lang'));
 }
 
 setLang(LANG);
