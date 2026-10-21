@@ -1,0 +1,12 @@
+(()=>{
+document.querySelectorAll('[data-word]').forEach(row=>{[...row.dataset.word].forEach((letter,i)=>{const el=document.createElement('span');el.className='brand-letter';el.setAttribute('aria-hidden','true');el.style.setProperty('--i',i);for(let z=0;z<14;z++){const layer=document.createElement('span');layer.className='slice';layer.textContent=letter;layer.style.setProperty('--z',z+'px');el.appendChild(layer);}const face=document.createElement('span');face.className='face';face.textContent=letter;el.appendChild(face);row.appendChild(el);});});
+document.querySelectorAll('.flow .node').forEach(node=>{node.tabIndex=0;node.setAttribute('role','button');node.setAttribute('aria-expanded','false');node.addEventListener('click',()=>node.setAttribute('aria-expanded',String(node.classList.contains('open'))));node.addEventListener('keydown',e=>{if(e.key==='Enter'||e.key===' '){e.preventDefault();node.click();}});});
+const scene=document.getElementById('logo-scene'),logo=document.getElementById('logo-object'),reduced=matchMedia('(prefers-reduced-motion: reduce)');
+scene.addEventListener('pointermove',e=>{if(reduced.matches)return;const b=scene.getBoundingClientRect();scene.classList.add('interacting');logo.style.setProperty('--rx',((.5-(e.clientY-b.top)/b.height)*22)+'deg');logo.style.setProperty('--ry',(((e.clientX-b.left)/b.width-.5)*36)+'deg');});
+function reset(){scene.classList.remove('interacting');logo.style.removeProperty('--rx');logo.style.removeProperty('--ry');}
+scene.addEventListener('pointerleave',reset);scene.addEventListener('pointercancel',reset);scene.addEventListener('pointerup',e=>{if(e.pointerType==='touch')reset();});
+document.getElementById('rotate-logo').addEventListener('click',()=>{if(reduced.matches)return;logo.animate([{transform:'rotateY(-16deg) rotateX(-8deg)'},{transform:'rotateY(344deg) rotateX(-8deg)'}],{duration:1600,easing:'cubic-bezier(.2,.8,.2,1)'});});
+document.getElementById('projection').addEventListener('click',e=>{const on=document.body.classList.toggle('projection');e.currentTarget.setAttribute('aria-pressed',String(on));e.currentTarget.textContent=on?'Salir de proyección':'Modo proyección';document.getElementById('amef').scrollIntoView({behavior:reduced.matches?'instant':'smooth'});});
+addEventListener('keydown',e=>{if(e.key==='Escape'&&document.body.classList.contains('projection')){document.body.classList.remove('projection');const b=document.getElementById('projection');b.setAttribute('aria-pressed','false');b.textContent='Modo proyección';}});
+})();
+

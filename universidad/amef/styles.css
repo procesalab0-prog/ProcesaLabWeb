@@ -1,0 +1,108 @@
+/* Web framing only: original AMEF styles and interactions remain in index.html. */
+
+/* Live, layered typography instead of a raster logo. */
+.brand-3d{font-family:"Space Grotesk",sans-serif;font-weight:700;font-size:clamp(45px,6.2vw,95px);line-height:.98;letter-spacing:-.06em;text-align:left;transform-style:preserve-3d;padding:20px 0 30px}
+.brand-row,.brand-bottom>span{display:flex;transform-style:preserve-3d}.brand-row{gap:0}.brand-bottom{align-items:center;margin-top:12px;gap:20px}
+.brand-letter{display:inline-block;position:relative;transform-style:preserve-3d;white-space:pre;animation:letter-wave 6s ease-in-out calc(var(--i)*100ms) infinite}
+.brand-letter .face{display:block;color:#141310;text-shadow:0 1px #7f7774,1px 2px #514a47;transform:translateZ(14px)}
+.brand-letter .slice{position:absolute;inset:0;color:#625c58;transform:translateZ(var(--z));pointer-events:none;text-shadow:1px 1px #a9a09a}
+.brand-bottom .brand-gear{display:block;position:relative;width:1.15em;height:1.15em;font-size:inherit;line-height:1.15;color:#ff4e3a;flex:none;transform:translateZ(18px);text-align:center}
+.brand-gear canvas{position:absolute;inset:-25%;width:150%;height:150%}
+@keyframes letter-wave{0%,12%,100%{translate:0 0}5%{translate:0 -6px}}
+.amef-content .hero{display:block}.amef-content .hero p{max-width:900px}
+.amef-content .flow{margin:28px 0 64px}.amef-content .node{max-width:1080px;padding:22px 26px;grid-template-columns:44px 1fr auto;gap:18px}
+.amef-content .node h4{font-size:22px}.amef-content .node p{font-size:16px}.amef-content .node .tool{font-size:11px}
+.amef-content .node .more{font-size:16px}.amef-content .node.open .more{max-height:none}
+.amef-content .node.open .ff{max-height:none;overflow:visible}
+.amef-content .ff .fh{font-size:12px;margin:14px 0}.amef-content .fb{font-size:15px;padding:14px}.amef-content .fb small{font-size:10px}.amef-content .fb .rp{font-size:12px;margin-top:10px}.amef-content .ff .fn{font-size:12px}
+.amef-content .decwrap{max-width:1080px}.amef-content .dec{width:125px;height:125px}.amef-content .dec span{font-size:14px;max-width:90px}.amef-content .loop{font-size:14px}.amef-content .loop b{font-size:14px}.amef-content .arrow{height:34px}.amef-content .yes{font-size:12px}
+.amef-content .amef .formula{margin:28px 0}.amef-content .amef .formula div{padding:18px;min-width:100px}.amef-content .amef .formula div b{font-size:32px}.amef-content .amef .formula div small{font-size:10px}
+.amef-content .amef>h3{font-size:24px;margin:32px 0 18px}
+.amef-content table:not(.amef table){min-width:800px}
+.amef-content .amef th{font-size:11px;padding:16px 10px}.amef-content .amef td{font-size:14px;padding:16px 10px}.amef-content .amef td b{font-size:14px}.amef-content .amef td .sub{font-size:13px}.amef-content .amef td .sub em{font-size:10px}
+.amef-content .amef .bars .row{grid-template-columns:minmax(170px,1fr) 2fr 90px;font-size:15px;margin:16px 0}
+.amef-content .amef .bars .row span:first-child{white-space:normal;overflow:visible}.amef-content .amef .bars .row b{font-size:14px}
+.amef-content .amef .cols{height:250px}.amef-content .amef .cols .c b{font-size:14px}.amef-content .amef .cols-l span{font-size:12px}
+.amef-content .pk{padding:28px;margin:50px 0}.amef-content .pk-h h3{font-size:26px}.amef-content .pk p{font-size:16px}.amef-content .pk-g{grid-template-columns:minmax(0,1fr) 280px}.amef-content .pk-i{font-size:16px;padding:16px}.amef-content .pk-i small{font-size:10px}.amef-content .pk-m{font-size:14px}.amef-content .pk-b{font-size:16px;padding:16px}.amef-content .pk-n{font-size:44px}
+.amef-content .count{font-size:16px;margin:20px 0}.amef-content .glos{gap:16px}.amef-content .gi{grid-template-columns:140px 1fr;padding:18px;font-size:16px}.amef-content .gi b{font-size:16px}.amef-content>p{font-size:16px}
+@media(max-width:950px){.amef-content .amef .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.amef-content .amef .scales{grid-template-columns:1fr}.amef-content .glos{grid-template-columns:1fr}}
+@media(max-width:650px){.brand-3d{font-size:10.5vw}.logo-scene{padding:30px 0}.amef-content .node{padding:18px 14px;gap:10px;grid-template-columns:30px 1fr}.amef-content .node .tool{grid-column:2;justify-self:start;font-size:9px;white-space:normal}.amef-content .node .n{width:28px;height:28px}.amef-content .node h4{font-size:18px}.amef-content .node p{font-size:14px}.amef-content .fr{grid-template-columns:1fr}.amef-content .fx{padding:6px;rotate:90deg}.amef-content .fb{font-size:14px}.amef-content .amef .formula{gap:4px;padding:10px 6px}.amef-content .amef .formula div{min-width:0;flex:1;padding:10px 2px}.amef-content .amef .formula div b{font-size:24px}.amef-content .amef .formula div small{font-size:6px;letter-spacing:0}.amef-content .amef .bars .row{grid-template-columns:minmax(90px,1fr) minmax(50px,1fr) 66px;font-size:11px;gap:8px}.amef-content .amef .bars .row b{font-size:10px}.amef-content .amef .cols{height:180px;gap:4px}.amef-content .amef .cols-l{gap:4px}.amef-content .amef .cols-l span{font-size:8px}.amef-content .amef .cols .c b{font-size:10px}.amef-content .pk{padding:20px 14px}.amef-content .pk-g{grid-template-columns:1fr}.amef-content .pk-i{font-size:14px;grid-template-columns:22px 1fr}.amef-content .pk-i small{grid-column:2}.amef-content .gi{grid-template-columns:1fr;gap:10px;font-size:15px}.amef-content .count{flex-wrap:wrap;font-size:13px}.amef-content .loop{font-size:11px}.amef-content .loop b{font-size:11px}}
+@media(prefers-reduced-motion:reduce){.brand-letter{animation:none!important}}
+html{scroll-behavior:smooth;scroll-padding-top:88px}
+body{margin:0;background:#fffbf6}
+.web-nav{position:sticky;top:0;z-index:20;display:flex;align-items:center;gap:24px;padding:18px 4vw;background:rgba(255,251,246,.96);border-bottom:1px solid #e7ded8;font-family:"Space Grotesk",sans-serif;font-size:14px}
+.web-nav>a{font-size:22px;font-weight:700;letter-spacing:-.05em;text-decoration:none;color:#141310}
+.web-nav>a span{color:#ff4e3a;margin-left:5px}.web-nav>span{margin-left:auto}
+.web-nav button,.logo-scene button{border:1.5px solid #141310;background:#fffbf6;color:#141310;padding:11px 18px;border-radius:100px;font-family:"Space Grotesk",sans-serif;cursor:pointer;font-weight:600}
+.web-nav button:hover,.logo-scene button:hover{background:#f7b6c9}
+.web-hero{min-height:calc(88svh - 75px);display:grid;grid-template-columns:1fr 1fr;align-items:center;gap:5vw;padding:80px 5vw 100px;border-bottom:1px solid #e7ded8;overflow:hidden}
+.web-eyebrow{text-transform:uppercase;letter-spacing:.15em;font-family:"Space Grotesk",sans-serif;font-size:12px;color:#5f565a;margin-bottom:24px}
+.web-hero h1{font-size:clamp(48px,5.4vw,84px);line-height:1.04;letter-spacing:-.055em}
+.web-hero h1 em{font-style:normal;color:#ff4e3a}
+.web-intro>p:not(.web-eyebrow){font-size:clamp(17px,1.5vw,22px);color:#5f565a;margin:26px 0;max-width:540px}
+.web-start{display:inline-flex;align-items:center;gap:26px;font-size:16px;color:#141310;background:#ff4e3a;border:2px solid #141310;border-radius:100px;padding:16px 24px;box-shadow:5px 5px 0 #141310;text-decoration:none;font-weight:600}
+.logo-scene{perspective:1100px;min-width:0;padding:50px 0;text-align:center;touch-action:pan-y}
+.logo-object{position:relative;transform-style:preserve-3d;transform:rotateX(var(--rx,-8deg)) rotateY(var(--ry,-16deg));transition:transform .3s ease;animation:logo-float 7s ease-in-out infinite;will-change:transform;margin:0 8px 70px;filter:drop-shadow(0 20px 10px rgba(20,19,16,.12))}
+.logo-object img{display:block;width:100%;height:auto;position:relative;transform:translateZ(18px)}
+.logo-depth{position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-start;font-family:Arial,sans-serif;font-weight:900;font-size:clamp(18px,3.3vw,53px);letter-spacing:-.04em;color:#f7b6c9;transform:translate3d(0,10px,-12px);white-space:nowrap}
+.logo-gear{position:absolute;right:0;top:0;height:100%;width:14%;transform:translateZ(20px);animation:spin 12s linear infinite}
+.logo-object img{clip-path:inset(0 14% 0 0);mix-blend-mode:multiply}
+.logo-depth{display:none}
+.logo-scene p{font-size:12px;color:#5f565a;margin-bottom:14px}
+.logo-scene button{font-size:12px;padding:8px 14px}
+.logo-scene.interacting .logo-object{animation:none}
+@keyframes logo-float{0%,100%{transform:rotateX(var(--rx,-8deg)) rotateY(var(--ry,-16deg)) translateY(0)}50%{transform:rotateX(var(--rx,-8deg)) rotateY(var(--ry,-16deg)) translateY(-16px)}}
+.amef-content{padding:50px 4vw 70px;max-width:2000px;margin:auto}
+.amef-content .hero{padding:32px;margin:24px 0 16px}
+.amef-content .hero h1{font-size:clamp(28px,3vw,44px)}
+.amef-content .hero p{font-size:16px}
+.amef-content .top .tag{font-size:12px}
+.amef-content h2.sec{font-size:clamp(24px,2.4vw,34px);margin:42px 0 22px}
+.amef-content h2.sec .no{font-size:36px}
+.amef-content .kpis{gap:16px}
+.amef-content .kpi{padding:22px}
+.amef-content .kpi small{font-size:11px}
+.amef-content .kpi b{font-size:44px}
+.amef-content .sc{padding:20px}
+.amef-content .sc h4{font-size:17px;margin-bottom:14px}
+.amef-content .sc ul{font-size:14px}
+.amef-content .sc li{grid-template-columns:42px 1fr;padding:8px 0}
+.amef-content .lvls{font-size:14px;gap:22px;margin-top:18px}
+.amef-content .filt button{font-size:14px;padding:10px 18px}
+.amef-content .filt .hint{font-size:12px;font-style:normal}
+.web-table{overflow:auto;max-height:80vh;border-radius:14px}
+.amef-content table{min-width:1550px}
+.amef-content th{font-size:11px;padding:14px 10px;position:sticky;top:0;z-index:1}
+.amef-content td{font-size:14px;padding:14px 10px}
+.amef-content td.st,.amef-content td.ac{font-size:13px}
+.amef-content td.ac small{font-size:11px;margin-top:8px}
+.amef-content .rpn{font-size:15px}
+.amef-content .charts{gap:24px}
+.amef-content .card{padding:24px}
+.amef-content .card h4{font-size:20px;margin-bottom:20px}
+.amef-content .card h4 small{font-size:13px;line-height:1.4;margin-top:8px}
+.amef-content .bars .row{grid-template-columns:minmax(120px,1fr) minmax(80px,1fr) 80px;gap:14px;font-size:14px;margin:18px 0}
+.amef-content .bars .row span:first-child{white-space:normal;overflow:visible}
+.amef-content .bars .row b{font-size:13px}
+.amef-content .leg2{font-size:12px}
+.amef-content .cols{height:240px;gap:10px}
+.amef-content .cols .c{padding:0;border:0;background:none;min-width:0}
+.amef-content .cols .c b{font-size:13px}
+.amef-content .cols-l span{font-size:11px;overflow-wrap:anywhere}
+.amef-content .foot{font-size:12px;margin-top:40px;gap:20px;flex-wrap:wrap}
+.projection .amef-content{max-width:none}
+.projection .amef-content .sc ul,.projection .amef-content .bars .row{font-size:17px}
+.projection .amef-content .hero p{font-size:19px}
+.projection .amef-content th{font-size:12px}
+.projection .amef-content td{font-size:16px}
+.projection .amef-content table{min-width:1900px}
+.projection .amef-content .card h4{font-size:24px}
+.projection .amef-content .charts{grid-template-columns:1fr}
+.projection .amef-content .cols{height:300px}
+.projection .amef-content .bars .row{grid-template-columns:minmax(240px,1fr) 2fr 110px}
+button:focus-visible,a:focus-visible,[tabindex]:focus-visible{outline:3px solid #ff4e3a;outline-offset:4px}
+@media(max-width:950px){.amef-content .hero{grid-template-columns:1fr}.amef-content .scales{grid-template-columns:1fr}.amef-content .charts{grid-template-columns:1fr}.amef-content .kpis{grid-template-columns:repeat(2,minmax(0,1fr))}.web-nav>span{font-size:12px;max-width:220px}}
+@media(max-width:650px){.web-nav{padding:14px 20px;gap:10px}.web-nav>span{display:none}.web-nav button{margin-left:auto;font-size:11px;padding:10px 12px}.web-nav>a{font-size:19px}.web-hero{grid-template-columns:1fr;padding:60px 24px 35px;gap:15px;min-height:0}.web-hero h1{font-size:48px}.web-eyebrow{font-size:10px}.logo-scene{padding:65px 0 20px}.logo-object{margin-bottom:50px}.logo-depth{font-size:6.2vw}.amef-content{padding:36px 20px 50px}.amef-content .top{gap:16px;align-items:center}.amef-content .top .pllogo{height:22px}.amef-content .top .tag{font-size:8px}.amef-content .hero{padding:24px 20px;gap:24px}.amef-content .hero h1{font-size:29px}.amef-content .hero p{font-size:15px}.formula{gap:4px}.formula div{min-width:0;flex:1;padding:10px 3px;border-radius:8px}.formula div b{font-size:21px}.formula div small{font-size:6.5px;letter-spacing:0}.formula i{font-size:13px}.amef-content .kpi{padding:16px 12px}.amef-content .kpi small{font-size:9px}.amef-content .kpi b{font-size:36px}.amef-content .sc{padding:18px}.amef-content .filt .hint{margin:8px 0}.amef-content .card{padding:20px 16px}.amef-content .bars .row{grid-template-columns:minmax(88px,1fr) minmax(50px,1fr) 63px;gap:8px;font-size:11px}.amef-content .bars .row b{font-size:10px}.amef-content .cols{height:180px;gap:4px}.amef-content .cols .c b{font-size:10px}.amef-content .cols-l{gap:4px}.amef-content .cols-l span{font-size:8px}.amef-content .card h4{font-size:18px}.projection .amef-content .bars .row{grid-template-columns:minmax(88px,1fr) minmax(50px,1fr) 63px;font-size:12px}.amef-content .lvls{font-size:12px}.amef-content .foot{font-size:10px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.logo-object,.logo-gear{animation:none!important;transition:none!important}}
+@media print{.web-nav,.web-hero{display:none}.amef-content{padding:0}.web-table{max-height:none;overflow:visible}.amef-content table,.projection .amef-content table{min-width:0}.amef-content th,.projection .amef-content th{position:static;font-size:8px;padding:5px}.amef-content td,.projection .amef-content td{font-size:9px;padding:5px}.amef-content .charts{grid-template-columns:1fr 1fr}}
+
