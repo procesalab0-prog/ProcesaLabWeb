@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cómo construimos una web — ProcesaLab</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Instrument+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+
+<style>
+doc-page:not(:defined){visibility:hidden}
+:root{--red:#FF4E3A;--pink:#F7B6C9;--pinkl:#FBE3EA;--ink:#141310;--cream:#FFFBF6;--lav:#EDE6F2;--lavl:#F5F0F8;--muted:#5f565a;--line:#E7DED8}
+*{box-sizing:border-box}
+body{font-family:"Instrument Sans",system-ui,sans-serif;color:var(--ink);line-height:1.5;font-size:13px}
+h1,h2,h3,h4{font-family:"Space Grotesk",sans-serif;letter-spacing:-.02em;line-height:1.05;margin:0}
+p{margin:0 0 10px;text-wrap:pretty}
+a{color:var(--red)}a:hover{color:var(--ink)}
+.pllogo{position:relative;display:inline-block;line-height:0}
+.pllogo img{display:block;height:100%;width:auto}
+.pllogo .plpatch{position:absolute;left:85.1%;top:9.6%;width:14%;height:81%;background:var(--patch,#fff)}
+.pllogo .plgear{position:absolute;left:85.79%;top:10.74%;width:12.5%;height:78.53%;animation:spin 9s linear infinite}
+.gt{fill:var(--red)}.gh{fill:var(--patch,#fff)}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+.top{display:flex;align-items:flex-end;justify-content:space-between;gap:20px;padding-bottom:12px;border-bottom:2.5px solid var(--ink)}
+.top .pllogo{height:36px}
+.top .tag{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--muted);text-align:right}
+.hero{background:var(--ink);color:#fff;border-radius:16px;padding:26px 28px;margin:16px 0 8px}
+.hero .ey{font-family:"Space Grotesk";font-weight:700;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:var(--pink)}
+.hero h1{font-size:34px;margin-top:8px}
+.hero h1 span{color:var(--red)}
+.hero p{color:#cfc7ca;margin:10px 0 0;max-width:480px;font-size:13px}
+
+h2.sec{font-size:22px;margin:26px 0 12px;display:flex;align-items:center;gap:12px;break-after:avoid}
+h2.sec .no{font-size:26px;color:transparent;-webkit-text-stroke:1.5px var(--red)}
+h2.sec::after{content:"";flex:1;height:2px;background:var(--pink)}
+
+/* flowchart */
+.flow{display:flex;flex-direction:column;align-items:center}
+.node{width:100%;max-width:520px;display:grid;grid-template-columns:44px 1fr auto;gap:12px;align-items:center;border:2px solid var(--ink);border-radius:14px;padding:10px 14px;background:#fff;break-inside:avoid}
+.node .n{width:34px;height:34px;border-radius:50%;background:var(--red);color:#fff;font-family:"Space Grotesk";font-weight:700;font-size:14px;display:flex;align-items:center;justify-content:center}
+.node h4{font-size:14.5px;margin-bottom:2px}
+.node p{font-size:11.5px;color:var(--muted);margin:0;line-height:1.4}
+.node .tool{font-family:"Space Grotesk";font-weight:700;font-size:8.5px;letter-spacing:.08em;text-transform:uppercase;background:var(--lavl);border:1.5px solid var(--line);border-radius:20px;padding:3px 9px;white-space:nowrap}
+.node.start,.node.end{background:var(--ink);color:#fff;border-color:var(--ink)}
+.node.start p,.node.end p{color:#cfc7ca}
+.node.start .tool,.node.end .tool{background:#2a2527;border-color:#3a3436;color:var(--pink)}
+.node.alt{background:var(--pinkl)}
+.arrow{width:2px;height:20px;background:var(--ink);position:relative;flex:none}
+.arrow::after{content:"";position:absolute;left:-4px;bottom:-1px;border:5px solid transparent;border-top:6px solid var(--ink);border-bottom:0}
+.decwrap{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:10px;width:100%;max-width:520px;break-inside:avoid}
+.dec{width:96px;height:96px;display:flex;align-items:center;justify-content:center;position:relative;grid-column:2}
+.dec::before{content:"";position:absolute;inset:14px;background:var(--pink);border:2px solid var(--ink);transform:rotate(45deg);border-radius:8px}
+.dec span{position:relative;font-family:"Space Grotesk";font-weight:700;font-size:11px;text-align:center;line-height:1.15;max-width:70px}
+.loop{grid-column:3;font-size:10.5px;color:var(--muted);display:flex;align-items:center;gap:6px;line-height:1.3}
+.loop b{font-family:"Space Grotesk";color:var(--red);font-size:11px;white-space:nowrap}
+.loop::before{content:"↺";font-size:18px;color:var(--red);line-height:1}
+.yes{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;letter-spacing:.1em;color:var(--red);margin:3px 0 -2px}
+
+/* BOM */
+table{width:100%;border-collapse:separate;border-spacing:0;border:1.5px solid var(--ink);border-radius:14px;overflow:hidden}
+th{font-family:"Space Grotesk";font-weight:700;font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;text-align:left;padding:9px 11px;background:var(--ink);color:#fff}
+td{padding:9px 11px;border-top:1.5px solid var(--line);vertical-align:top;font-size:12px}
+tr{break-inside:avoid}
+tbody tr:nth-child(even) td{background:var(--lavl)}
+td.i{font-family:"Space Grotesk";font-weight:700;color:var(--red);width:34px}
+td.c{font-family:"Space Grotesk";font-weight:700;width:128px}
+td .ex{display:flex;flex-wrap:wrap;gap:4px;margin-top:5px}
+td .ex span{font-family:"Space Grotesk";font-weight:600;font-size:9.5px;border:1.5px solid var(--ink);border-radius:20px;padding:2px 8px;background:#fff}
+td .ex span.on{background:var(--red);color:#fff;border-color:var(--red)}
+td.f{font-size:11px;color:var(--muted);width:120px}
+.legend{display:flex;gap:16px;font-size:10.5px;color:var(--muted);margin:9px 0 0}
+.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;background:var(--red);vertical-align:-1px;margin-right:5px}
+.legend i.o{background:#fff;border:1.5px solid var(--ink)}
+.foot{margin-top:22px;padding-top:9px;border-top:1.5px solid var(--line);display:flex;justify-content:space-between;font-size:10px;color:var(--muted)}
+.foot b{color:var(--red);font-family:"Space Grotesk"}
+@media print{.pllogo .plgear{animation:none}}
+/* interacción */
+.node{cursor:pointer;transition:transform .18s,box-shadow .18s;opacity:0;transform:translateY(10px);animation:rise .5s ease forwards}
+.node:hover{transform:translateY(-2px);box-shadow:4px 4px 0 var(--ink)}
+.node.open{box-shadow:4px 4px 0 var(--red);border-color:var(--red)}
+.node .more{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .3s ease,margin .3s;font-size:11.5px;line-height:1.45;margin:0}
+.node.open .more{max-height:90px;margin-top:6px}
+.node .more b{font-family:"Space Grotesk";color:var(--red);font-size:9px;letter-spacing:.12em;text-transform:uppercase;display:block;margin-bottom:2px}
+.node.start .more,.node.end .more{color:#e6dfe1}
+.node .n{transition:transform .3s}
+.node.open .n{transform:rotate(360deg)}
+@keyframes rise{to{opacity:1;transform:none}}
+.arrow{background:repeating-linear-gradient(180deg,var(--ink) 0 4px,transparent 4px 7px);background-size:2px 7px;animation:flowdash .6s linear infinite}
+@keyframes flowdash{to{background-position:0 7px}}
+.dec::before{animation:pulse 2.4s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:rotate(45deg) scale(1)}50%{transform:rotate(45deg) scale(1.07)}}
+.hint{font-size:10.5px;color:var(--muted);text-align:center;margin:-4px 0 12px;font-style:italic}
+tbody tr{cursor:pointer;transition:background .2s}
+tbody tr td{transition:background .2s}
+tbody tr:hover td{background:var(--pinkl)!important}
+tbody tr.ok td{background:#FFE9E4!important}
+tbody tr.ok td.i{color:#fff;background:var(--red)!important}
+tbody tr.ok td.c{text-decoration:line-through;text-decoration-color:var(--red);text-decoration-thickness:2px}
+.count{display:flex;align-items:center;gap:10px;margin:0 0 10px;font-family:"Space Grotesk";font-weight:700;font-size:11px}
+.count .bar{flex:1;height:7px;background:var(--line);border-radius:20px;overflow:hidden}
+.count .bar i{display:block;height:100%;width:0;background:var(--red);border-radius:20px;transition:width .35s ease}
+@media print{.node{opacity:1!important;transform:none!important;animation:none!important;box-shadow:none!important}.arrow,.dec::before{animation:none!important}.hint,.count{display:none}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important}.node{opacity:1;transform:none}}
+
+/* AMEF */
+.amef .formula{display:flex;align-items:center;gap:8px;justify-content:center;font-family:"Space Grotesk";font-weight:700;background:var(--ink);border-radius:14px;padding:14px;margin:4px 0 10px}
+.amef .formula div{text-align:center;background:#231f20;border:1.5px solid #3a3436;border-radius:12px;padding:8px 12px;min-width:82px;color:#fff}
+.amef .formula div b{display:block;font-size:22px}
+.amef .formula div small{font-size:8.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--pink)}
+.amef .formula div.r{background:var(--red);border-color:var(--red)}.amef .formula div.r small{color:#fff}
+.amef .formula i{font-style:normal;color:var(--pink);font-size:18px}
+.amef .kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:0 0 14px}
+.amef .kpi{border:2px solid var(--ink);border-radius:14px;padding:10px 12px;background:#fff}
+.amef .kpi small{font-family:"Space Grotesk";font-weight:700;font-size:8px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);line-height:1.2;display:block}
+.amef .kpi b{display:block;font-family:"Space Grotesk";font-size:26px;line-height:1.1;margin-top:4px}
+.amef .kpi.hi{background:var(--red);border-color:var(--red);color:#fff}.amef .kpi.hi small{color:#fff}
+.amef .kpi.dk{background:var(--ink);color:#fff}.amef .kpi.dk small{color:var(--pink)}
+.amef h3{font-size:15px;margin:16px 0 8px;break-after:avoid}
+.amef .scales{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;break-inside:avoid}
+.amef .sc{border:1.5px solid var(--line);border-radius:12px;padding:9px 10px;background:var(--lavl)}
+.amef .sc h4{font-size:12px;display:flex;align-items:center;gap:7px;margin-bottom:6px}
+.amef .sc h4 span{width:20px;height:20px;border-radius:50%;background:var(--ink);color:#fff;font-size:10px;display:flex;align-items:center;justify-content:center;flex:none}
+.amef .sc ul{margin:0;padding:0;list-style:none;font-size:10px;line-height:1.3}
+.amef .sc li{display:grid;grid-template-columns:30px 1fr;gap:5px;padding:3px 0;border-top:1px dashed var(--line)}
+.amef .sc li:first-child{border-top:0}
+.amef .sc li b{font-family:"Space Grotesk";color:var(--red)}
+.amef .lvls{display:flex;gap:14px;font-size:10px;color:var(--muted);margin:8px 0 0;flex-wrap:wrap}
+.amef .lvls span{display:flex;align-items:center;gap:6px}
+.amef .lvls i{width:11px;height:11px;border-radius:4px;display:inline-block}
+.amef .filt{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 8px;align-items:center}
+.amef .filt button{font-family:"Space Grotesk";font-weight:700;font-size:10px;border:1.5px solid var(--ink);background:#fff;border-radius:20px;padding:4px 11px;cursor:pointer;transition:background .2s,color .2s;color:var(--ink)}
+.amef .filt button.on{background:var(--ink);color:#fff}
+.amef .filt .fh{margin-left:auto;font-size:10px;color:var(--muted);font-style:italic}
+.amef table{table-layout:fixed}
+.amef th{font-size:7.5px;padding:8px 5px;vertical-align:bottom}
+.amef td{padding:7px 5px;font-size:10px;line-height:1.33}
+.amef th.n,.amef td.n{text-align:center;padding-left:1px;padding-right:1px}
+.amef td.n{font-family:"Space Grotesk";font-weight:700;font-size:11.5px}
+.amef td.st{font-family:"Space Grotesk";font-weight:700;font-size:9.5px;line-height:1.2}
+.amef td.st i{font-style:normal;display:inline-flex;width:20px;height:20px;border-radius:50%;background:var(--red);color:#fff;align-items:center;justify-content:center;font-size:10px;margin-bottom:3px}
+.amef td b{font-family:"Space Grotesk";font-size:10.5px}
+.amef td .sub{display:block;color:var(--muted);margin-top:3px}
+.amef td .sub em{font-style:normal;font-family:"Space Grotesk";font-weight:700;font-size:7.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);margin-right:3px}
+.amef .rpn{display:inline-block;min-width:32px;padding:3px 4px;border-radius:7px;font-family:"Space Grotesk";font-weight:700;font-size:11px;text-align:center}
+.amef .rpn.h{background:var(--red);color:#fff}.amef .rpn.m{background:var(--pink)}.amef .rpn.l{background:var(--lav)}
+.amef td.ac small{display:block;font-family:"Space Grotesk";font-weight:700;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--red);margin-top:3px}
+.amef tbody tr.dim{display:none}
+.amef tbody tr.done td{background:#EAF6EE!important}
+.amef tbody tr.done td.ac::before{content:"✓ Implementada";display:block;font-family:"Space Grotesk";font-weight:700;font-size:9px;color:#1c7a45;margin-bottom:2px}
+.amef .card{border:2px solid var(--ink);border-radius:14px;padding:14px 16px;background:#fff;margin-top:12px;break-inside:avoid}
+.amef .card h4{font-size:13px;margin-bottom:10px}
+.amef .card h4 small{font-family:"Instrument Sans";font-weight:400;font-size:10.5px;color:var(--muted);letter-spacing:0;display:block;margin-top:3px}
+.amef .bars .row{display:grid;grid-template-columns:190px 1fr 72px;gap:8px;align-items:center;font-size:10.5px;margin:5px 0}
+.amef .bars .row span:first-child{white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.amef .bars .track{position:relative;height:16px;background:var(--lavl);border-radius:6px}
+.amef .bars .bf{position:absolute;left:0;top:0;height:100%;border-radius:6px;background:var(--pink);width:0;transition:width 1s cubic-bezier(.2,.8,.2,1)}
+.amef .bars .af{position:absolute;left:0;top:4px;height:8px;border-radius:4px;background:var(--red);width:0;transition:width 1s .4s cubic-bezier(.2,.8,.2,1)}
+.amef .bars .row b{font-family:"Space Grotesk";font-size:10.5px;text-align:right}
+.amef .bars .row b em{font-style:normal;color:var(--red)}
+.amef .leg2{display:flex;gap:14px;font-size:10px;color:var(--muted);margin-top:8px}
+.amef .leg2 i{display:inline-block;width:14px;height:8px;border-radius:3px;margin-right:5px}
+.amef .cols{display:flex;align-items:flex-end;gap:8px;height:140px;padding-top:10px;border-bottom:1.5px solid var(--ink)}
+.amef .cols .c{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;height:100%;gap:4px}
+.amef .cols .c b{font-family:"Space Grotesk";font-size:10px}
+.amef .cols .c div{width:100%;background:var(--ink);border-radius:6px 6px 0 0;height:0;transition:height .9s cubic-bezier(.2,.8,.2,1)}
+.amef .cols .c.top div{background:var(--red)}
+.amef .cols-l{display:flex;gap:8px;margin-top:5px}
+.amef .cols-l span{flex:1;text-align:center;font-family:"Space Grotesk";font-weight:700;font-size:8.5px;color:var(--muted);line-height:1.15}
+@media print{.amef .filt{display:none}.amef tbody tr.dim{display:table-row}.amef .bars .bf,.amef .bars .af,.amef .cols .c div{transition:none}}
+
+.ff{grid-column:1/-1;max-height:0;overflow:hidden;transition:max-height .45s ease,margin .3s;margin:0;cursor:default}
+.node.open .ff{max-height:900px;margin-top:10px}
+.ff .fh{font-family:"Space Grotesk";font-weight:700;font-size:9px;letter-spacing:.12em;text-transform:uppercase;color:var(--red);display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.ff .fh::after{content:"";flex:1;height:1.5px;background:var(--pink)}
+.fr{display:grid;grid-template-columns:1fr 14px 1fr 14px 1fr;align-items:stretch;margin:0 0 8px;opacity:0;transform:translateX(-8px);transition:opacity .35s,transform .35s}
+.node.open .fr{opacity:1;transform:none}
+.node.open .fr:nth-of-type(2){transition-delay:.12s}.node.open .fr:nth-of-type(3){transition-delay:.24s}.node.open .fr:nth-of-type(4){transition-delay:.36s}
+.fb{border:1.5px solid var(--ink);border-radius:10px;padding:6px 8px;font-size:10px;line-height:1.3;background:#fff;color:var(--ink)}
+.fb small{display:block;font-family:"Space Grotesk";font-weight:700;font-size:7.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.fb.fm{border-color:var(--red);background:#FFF1EE}.fb.fm small{color:var(--red)}
+.fb.fa{background:var(--ink);color:#fff;border-color:var(--ink)}.fb.fa small{color:var(--pink)}
+.fb .rp{display:inline-block;margin-top:4px;font-family:"Space Grotesk";font-weight:700;font-size:9px;padding:1px 6px;border-radius:6px}
+.rp.h{background:var(--red);color:#fff}.rp.m{background:var(--pink);color:var(--ink)}.rp.l{background:var(--lav);color:var(--ink)}
+.fx{display:flex;align-items:center;justify-content:center;color:var(--red);font-weight:700;font-size:12px}
+.ff .fn{font-size:9.5px;color:var(--muted);margin:2px 0 0}
+.node.start .ff .fn,.node.end .ff .fn{color:#cfc7ca}
+@media print{.ff,.node.open .ff{max-height:none;margin-top:10px}.fr{opacity:1;transform:none}}
+.glos{display:grid;grid-template-columns:1fr 1fr;gap:6px 14px}
+.gi{display:grid;grid-template-columns:118px 1fr;gap:10px;padding:7px 10px;border:1.5px solid var(--line);border-radius:10px;background:#fff;font-size:10.5px;line-height:1.35;break-inside:avoid}
+.gi:nth-child(4n+1),.gi:nth-child(4n+2){background:var(--lavl)}
+.gi b{font-family:"Space Grotesk";font-size:11px;color:var(--red)}
+.pk{border:2px solid var(--ink);border-radius:16px;padding:16px 18px;margin:18px 0 26px;background:#fff;break-inside:avoid}
+.pk-h{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.pk-tag{font-family:"Space Grotesk";font-weight:700;font-size:9px;letter-spacing:.12em;text-transform:uppercase;background:var(--red);color:#fff;padding:3px 8px;border-radius:6px}
+.pk-h h3{margin:0;font-family:"Space Grotesk";font-size:16px;color:var(--ink)}
+.pk p{font-size:11px;color:var(--muted);margin:0 0 12px}
+.pk-g{display:grid;grid-template-columns:minmax(0,1fr) 210px;gap:16px;align-items:start}
+.pk-l{display:grid;gap:6px}
+.pk-i{display:grid;grid-template-columns:22px 1fr auto;gap:10px;align-items:center;padding:8px 10px;border:1.5px solid var(--line);border-radius:10px;cursor:pointer;font-size:11px;line-height:1.3;transition:background .2s,border-color .2s}
+.pk-i:hover{border-color:var(--pink)}
+.pk-i input{appearance:none;width:18px;height:18px;border:2px solid var(--ink);border-radius:5px;margin:0;display:grid;place-items:center;cursor:pointer}
+.pk-i input:checked{background:var(--ink)}.pk-i input:checked::after{content:"✓";color:#fff;font-size:11px;font-weight:700}
+.pk-i.ok{background:var(--lavl);border-color:var(--lav)}
+.pk-i small{font-family:"Space Grotesk";font-weight:700;font-size:8px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pk-s{border-radius:14px;padding:14px;background:var(--ink);color:#fff;text-align:center;display:grid;gap:10px}
+.pk-bar{height:8px;border-radius:8px;background:rgba(255,255,255,.18);overflow:hidden}.pk-bar i{display:block;height:100%;width:0;background:var(--pink);transition:width .35s}
+.pk-n{font-family:"Space Grotesk";font-weight:700;font-size:26px}
+.pk-b{font-family:"Space Grotesk";font-weight:700;font-size:12px;border:0;border-radius:10px;padding:10px;background:#5a5157;color:#bdb3b8;cursor:not-allowed;transition:background .25s,transform .2s}
+.pk-b.go{background:var(--red);color:#fff;cursor:pointer}.pk-b.go:hover{transform:translateY(-1px)}
+.pk-m{font-size:10px;color:#cfc7ca;min-height:26px}
+.pk-s.done{animation:pkp .5s}@keyframes pkp{50%{transform:scale(1.03)}}
+@media(max-width:640px){.pk-g{grid-template-columns:1fr}}
+</style>
+<link rel="canonical" href="https://procesalab.app/universidad/amef/">
+<link rel="stylesheet" href="styles.css">
+<script type="importmap">{"imports":{"three":"/assets/vendor/three/three.module.min.js"}}</script>
+</head>
+<body>
+<header class="web-nav"><a href="/" aria-label="ProcesaLab, inicio">ProcesaLab<span aria-hidden="true">✳</span></a><span>Planeación Avanzada de la Calidad</span><button type="button" id="projection" aria-pressed="false">Modo proyección</button></header>
+<section class="web-hero" aria-labelledby="web-title">
+<div class="web-intro"><p class="web-eyebrow">Planeación Avanzada de la Calidad</p><h1 id="web-title">La calidad se<br>construye <em>desde el proceso.</em></h1><p>AMEF de proceso · Cómo construimos una web o un programa.</p><a class="web-start" href="#amef">Explorar el AMEF <span aria-hidden="true">↓</span></a></div>
+<div class="logo-scene" id="logo-scene"><div class="logo-object" id="logo-object"><div class="brand-3d" role="img" aria-label="ProcesaLab, logo tridimensional"><div class="brand-row" data-word="PROCESA"></div><div class="brand-row brand-bottom"><span data-word="LAB"></span><span class="brand-gear" id="brand-gear" aria-hidden="true">✳</span></div></div></div><p>Mueve el cursor o desliza el dedo sobre el logo</p><button type="button" id="rotate-logo">Girar logo</button></div>
+</section><main id="amef" class="amef-content">
+
+<div class="top">
+  <span class="pllogo"><img src="/clientes/renta-carga/assets/logo-horizontal.png" alt="ProcesaLab"><span class="plpatch"></span><svg class="plgear" viewBox="0 0 100 100"><g class="gt"><circle cx="50" cy="50" r="25"></circle><rect x="42.5" y="6" width="15" height="30" rx="7.5"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(45 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(90 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(135 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(180 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(225 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(270 50 50)"></rect><rect x="42.5" y="6" width="15" height="30" rx="7.5" transform="rotate(315 50 50)"></rect></g><circle class="gh" cx="50" cy="50" r="10.5"></circle></svg></span>
+  <div class="tag">Proceso interno<br>León, Gto.</div>
+</div>
+
+<div class="hero">
+  <div class="ey">Planeación Avanzada de la Calidad · Metodología ProcesaLab</div>
+  <h1>Cómo construimos una <span>web o un programa</span></h1>
+  <p>El recorrido de un proyecto, desde la primera conversación hasta que está en línea, las herramientas que usamos en cada paso y cómo prevenimos fallas.</p>
+</div>
+
+<h2 class="sec"><span class="no">1</span>Diagrama de flujo</h2>
+<p class="hint">Toca cada paso para ver qué entregamos y el flujo de lo que puede fallar.</p>
+<div class="flow">
+  <div class="node start"><div class="n">▶</div><div><h4>Inicio: el cliente nos contacta</h4><p>Llega con una idea, un problema o un proceso que quiere mejorar.</p></div><span class="tool">Correo · WhatsApp</span></div>
+  <div class="arrow"></div>
+  <div class="node"><div class="n">1</div><div><h4>Diagnóstico</h4><p>Entendemos el negocio, sus clientes y qué proceso vamos a resolver.</p></div><span class="tool">Reunión</span></div>
+  <div class="arrow"></div>
+  <div class="node"><div class="n">2</div><div><h4>Propuesta y cotización</h4><p>Alcance, fases, tiempos y precio en un documento con su marca.</p></div><span class="tool">IA + Docs</span></div>
+  <div class="arrow"></div>
+  <div class="decwrap"><div class="dec"><span>¿Acepta la propuesta?</span></div><div class="loop"><span><b>No →</b> ajustamos alcance y precio (paso 2)</span></div></div>
+  <div class="yes">SÍ · ANTICIPO</div>
+  <div class="arrow"></div>
+  <div class="node"><div class="n">3</div><div><h4>Diseño y prototipo</h4><p>Dirección visual, pantallas clave y recorrido navegable.</p></div><span class="tool">IA de diseño</span></div>
+  <div class="arrow"></div>
+  <div class="decwrap"><div class="dec"><span>¿Aprueba el diseño?</span></div><div class="loop"><span><b>No →</b> cambios al prototipo (paso 3)</span></div></div>
+  <div class="yes">SÍ</div>
+  <div class="arrow"></div>
+  <div class="node"><div class="n">4</div><div><h4>Desarrollo</h4><p>Escribimos el código de la web o programa, apoyados en IA.</p></div><span class="tool">Editor + IA · GitHub</span></div>
+  <div class="arrow"></div>
+  <div class="node alt"><div class="n">5</div><div><h4>Base de datos e integraciones</h4><p>Solo si el proyecto guarda información: usuarios, pedidos, inventario, formularios.</p></div><span class="tool">Si aplica</span></div>
+  <div class="arrow"></div>
+  <div class="node"><div class="n">6</div><div><h4>Pruebas</h4><p>Revisamos en celular y computadora: textos, enlaces, formularios y velocidad.</p></div><span class="tool">Navegadores</span></div>
+  <div class="arrow"></div>
+  <div class="decwrap"><div class="dec"><span>¿Todo funciona?</span></div><div class="loop"><span><b>No →</b> corregimos (paso 4)</span></div></div>
+  <div class="yes">SÍ</div>
+  <div class="arrow"></div>
+  <div class="node"><div class="n">7</div><div><h4>Despliegue</h4><p>Publicamos en internet y conectamos el dominio del cliente.</p></div><span class="tool">Vercel · Dominio</span></div>
+  <div class="arrow"></div>
+  <div class="node end"><div class="n">■</div><div><h4>Entrega y mantenimiento</h4><p>Accesos, capacitación, pago final y seguimiento mensual si se contrata.</p></div><span class="tool">Soporte</span></div>
+</div>
+
+<div class="amef">
+<h2 class="sec"><span class="no">2</span>AMEF del proceso</h2>
+<p>Análisis de Modo y Efecto de Falla: qué puede fallar en cada paso del diagrama, qué tan grave es y qué haremos para prevenirlo.</p>
+<div class="formula"><div><b>S</b><small>Severidad</small></div><i>×</i><div><b>O</b><small>Ocurrencia</small></div><i>×</i><div><b>D</b><small>Detección</small></div><i>=</i><div class="r"><b>NPR</b><small>Riesgo</small></div></div>
+<div class="kpis"><div class="kpi"><small>Modos de falla analizados</small><b id="k1">0</b></div><div class="kpi hi"><small>Riesgo alto · NPR ≥ 150</small><b id="k2">0</b></div><div class="kpi"><small>NPR promedio actual</small><b id="k3">0</b></div><div class="kpi dk"><small>NPR promedio con acciones</small><b id="k4">0</b></div></div>
+<h3>Escalas de evaluación</h3>
+<div class="scales">
+<div class="sc"><h4><span>S</span>Severidad: qué tan grave es</h4><ul><li><b>9–10</b>Pérdida de datos, dinero o problema legal</li><li><b>7–8</b>El cliente no puede usar la web o se retrasa la entrega</li><li><b>4–6</b>Retrabajo o molestia del cliente</li><li><b>1–3</b>Detalle menor, casi imperceptible</li></ul></div>
+<div class="sc"><h4><span>O</span>Ocurrencia: qué tan seguido pasa</h4><ul><li><b>9–10</b>Pasa en casi todos los proyectos</li><li><b>7–8</b>Pasa con frecuencia</li><li><b>4–6</b>Pasa de vez en cuando</li><li><b>1–3</b>Rara vez o nunca ha pasado</li></ul></div>
+<div class="sc"><h4><span>D</span>Detección: qué tan fácil lo vemos</h4><ul><li><b>9–10</b>Lo descubre el cliente ya en línea</li><li><b>7–8</b>Solo lo vemos por casualidad</li><li><b>4–6</b>Una revisión manual lo detecta</li><li><b>1–3</b>Un control o checklist lo detecta siempre</li></ul></div>
+</div>
+<div class="lvls"><span><i style="background:var(--red)"></i>Alto: NPR ≥ 150, acción inmediata</span><span><i style="background:var(--pink)"></i>Medio: 80–149, acción planeada</span><span><i style="background:var(--lav)"></i>Bajo: menos de 80, monitorear</span></div>
+<h3>Hoja AMEF</h3>
+<div class="filt" id="filt"><button class="on" data-f="all">Todos</button><button data-f="h">Alto</button><button data-f="m">Medio</button><button data-f="l">Bajo</button><span class="fh">Toca una fila para marcarla visualmente · demostración, no se guarda</span></div>
+<div class="web-table" tabindex="0" role="region" aria-label="Tabla, desplaza horizontalmente para ver todas las columnas"><table><colgroup><col style="width:62px"><col style="width:21%"><col style="width:19%"><col style="width:22px"><col style="width:22px"><col style="width:22px"><col style="width:44px"><col><col style="width:48px"></colgroup>
+<thead><tr><th>Paso</th><th>Modo de falla · efecto</th><th>Causa · control actual</th><th class="n">S</th><th class="n">O</th><th class="n">D</th><th class="n">NPR</th><th>Acción recomendada · responsable</th><th class="n">Con acción</th></tr></thead>
+<tbody id="tb"></tbody></table></div>
+
+<div>
+<div class="card"><h4>Top 6 riesgos: antes y después de las acciones<small>NPR actual y NPR esperado al implementar la acción recomendada</small></h4><div class="bars" id="bars"></div><div class="leg2"><span><i style="background:var(--pink)"></i>NPR actual</span><span><i style="background:var(--red)"></i>NPR con acción</span></div></div>
+<div class="card"><h4>Riesgo acumulado por paso del flujo<small>Suma de NPR actual; en rojo el paso con más riesgo</small></h4><div class="cols" id="cols"></div><div class="cols-l" id="colsl"></div></div>
+</div>
+</div>
+<div class="pk"><div class="pk-h"><span class="pk-tag">Poka-yoke</span><h3>Candado de publicación · Paso Despliegue</h3></div>
+<p><strong>Demostración interactiva:</strong> el botón simula una publicación; no cambia ningún sitio real.</p><p>Dispositivo a prueba de errores: el botón para publicar en Vercel se bloquea hasta que se cumplen las 6 condiciones. Así evitamos las fallas de mayor NPR en la entrega: dominio a otro nombre, formularios sin probar o publicar sin pago.</p>
+<div class="pk-g"><div class="pk-l"><label class="pk-i"><input type="checkbox"><span>Pruebas aprobadas en celular, tableta y computadora</span><small>Emmanuel</small></label><label class="pk-i"><input type="checkbox"><span>Formularios envían y llegan al correo del cliente</span><small>Emmanuel</small></label><label class="pk-i"><input type="checkbox"><span>Dominio comprado a nombre del cliente</span><small>Diego</small></label><label class="pk-i"><input type="checkbox"><span>DNS apuntando a Vercel y candado HTTPS activo</span><small>Emmanuel</small></label><label class="pk-i"><input type="checkbox"><span>Visto bueno por escrito del cliente</span><small>Diego</small></label><label class="pk-i"><input type="checkbox"><span>Pago final recibido</span><small>Diego</small></label></div>
+<div class="pk-s"><div class="pk-n"><span id="pkc">0</span>/6</div><div class="pk-bar"><i id="pkbar"></i></div><button class="pk-b" id="pkb" disabled>Publicar en Vercel</button><div class="pk-m" id="pkm">Bloqueado: faltan condiciones.</div></div></div></div>
+<script>(()=>{const c=[...document.querySelectorAll('.pk-i input')],b=document.getElementById('pkb'),m=document.getElementById('pkm'),s=b.parentElement;
+const u=()=>{const n=c.filter(x=>x.checked).length;c.forEach(x=>x.parentElement.classList.toggle('ok',x.checked));document.getElementById('pkc').textContent=n;document.getElementById('pkbar').style.width=n/6*100+'%';const ok=n===6;b.disabled=!ok;b.classList.toggle('go',ok);m.textContent=ok?'Listo para publicar.':'Bloqueado: falta'+(6-n>1?'n ':' ')+(6-n)+' condici'+(6-n>1?'ones':'ón')+'.';if(ok){s.classList.remove('done');void s.offsetWidth;s.classList.add('done')}};
+c.forEach(x=>x.addEventListener('change',u));b.addEventListener('click',()=>{m.textContent='Publicado. Web en línea ✓';b.textContent='Publicado';});})();</script>
+<h2 class="sec"><span class="no">3</span>Lista de materiales</h2>
+<div class="count"><span id="cnt">0 / 10 listos</span><div class="bar"><i id="cbar"></i></div><span style="color:var(--muted);font-weight:500;font-size:10.5px">Toca un material para marcarlo</span></div>
+<div class="web-table" tabindex="0" role="region" aria-label="Tabla, desplaza horizontalmente para ver todas las columnas"><table>
+  <thead><tr><th>#</th><th>Material</th><th>Para qué lo usamos</th><th>Fase</th></tr></thead>
+  <tbody>
+    <tr><td class="i">01</td><td class="c">Computadora</td><td>Equipo de trabajo para diseñar, programar y probar. Con conexión a internet estable.<div class="ex"><span class="on">Laptop / PC</span><span>Internet</span></div></td><td class="f">Todas</td></tr>
+    <tr><td class="i">02</td><td class="c">Base de datos</td><td>Guarda la información del proyecto: usuarios, pedidos, inventario, registros.<div class="ex"><span>Supabase</span><span>Firebase</span><span>PostgreSQL</span></div></td><td class="f">5 · Si aplica</td></tr>
+    <tr><td class="i">03</td><td class="c">IAs usadas</td><td>Diseño de pantallas, generación y revisión de código, redacción de propuestas y contenidos.<div class="ex"><span class="on">Claude</span><span>ChatGPT</span><span>MiniMax</span></div></td><td class="f">2 · 3 · 4</td></tr>
+    <tr><td class="i">04</td><td class="c">Vercel</td><td>Despliegue: publica la web en internet, con HTTPS y actualizaciones automáticas.<div class="ex"><span class="on">Vercel</span><span>GitHub Pages</span></div></td><td class="f">7</td></tr>
+    <tr><td class="i">05</td><td class="c">Control de versiones</td><td>Guarda el código y cada cambio; permite regresar a una versión anterior.<div class="ex"><span class="on">GitHub</span></div></td><td class="f">4 · 7</td></tr>
+    <tr><td class="i">06</td><td class="c">Editor de código</td><td>Donde se escribe y edita el programa.<div class="ex"><span>VS Code</span><span>Cursor</span></div></td><td class="f">4</td></tr>
+    <tr><td class="i">07</td><td class="c">Dominio</td><td>La dirección de la web (ej. negocio.com), comprada a nombre del cliente.<div class="ex"><span>GoDaddy</span><span>Namecheap</span></div></td><td class="f">7</td></tr>
+    <tr><td class="i">08</td><td class="c">Diseño y recursos</td><td>Logos, fotografías, tipografías y paleta de colores de la marca.<div class="ex"><span>Google Fonts</span><span>Fotos del cliente</span></div></td><td class="f">3</td></tr>
+    <tr><td class="i">09</td><td class="c">Navegadores y celular</td><td>Pruebas reales de cómo se ve y funciona en cada dispositivo.<div class="ex"><span>Chrome</span><span>Safari</span><span>iPhone / Android</span></div></td><td class="f">6</td></tr>
+    <tr><td class="i">10</td><td class="c">Comunicación</td><td>Contacto con el cliente, envío de avances y aprobaciones.<div class="ex"><span>Gmail</span><span>WhatsApp</span><span>Meet</span></div></td><td class="f">Todas</td></tr>
+  </tbody>
+</table></div>
+<div class="legend"><span><i></i>Herramienta que usamos siempre</span><span><i class="o"></i>Alternativa según proyecto</span></div>
+
+<h2 class="sec"><span class="no">4</span>Glosario</h2>
+<p>Términos técnicos usados en este documento, explicados en palabras simples.</p>
+<div class="glos"><div class="gi"><b>AMEF</b><span>Análisis de Modo y Efecto de Falla. Método para anticipar qué puede salir mal en un proceso y cómo prevenirlo.</span></div><div class="gi"><b>NPR</b><span>Número de Prioridad de Riesgo. Severidad × Ocurrencia × Detección; entre más alto, más urgente atenderlo.</span></div><div class="gi"><b>Severidad · Ocurrencia · Detección</b><span>Qué tan grave es una falla, qué tan seguido pasa y qué tan fácil la descubrimos antes que el cliente.</span></div><div class="gi"><b>KPI</b><span>Indicador clave. Un número que mide si el proyecto cumple su objetivo, por ejemplo solicitudes por mes.</span></div><div class="gi"><b>Alcance</b><span>Lista de lo que sí incluye y lo que no incluye un proyecto.</span></div><div class="gi"><b>Prototipo</b><span>Versión visual navegable de la web, antes de programarla, para aprobar el diseño.</span></div><div class="gi"><b>Kit de marca</b><span>Logos, colores, tipografías y fotos del cliente.</span></div><div class="gi"><b>Código</b><span>Instrucciones escritas que hacen funcionar la web o el programa.</span></div><div class="gi"><b>IA</b><span>Inteligencia artificial. Herramientas que nos ayudan a escribir código, textos y diseños más rápido.</span></div><div class="gi"><b>GitHub</b><span>Plataforma donde guardamos el código y su historial de cambios.</span></div><div class="gi"><b>Commit</b><span>Guardar una versión del código en GitHub con la descripción del cambio.</span></div><div class="gi"><b>Rama principal</b><span>Versión oficial del código; se protege para que nadie la modifique por error.</span></div><div class="gi"><b>Base de datos</b><span>Lugar donde se guarda la información del sistema: usuarios, pedidos, cotizaciones.</span></div><div class="gi"><b>Integración</b><span>Conexión de la web con otro servicio, como WhatsApp, correo o pagos.</span></div><div class="gi"><b>Reglas de acceso</b><span>Permisos que definen quién puede ver o modificar cada dato.</span></div><div class="gi"><b>Respaldo</b><span>Copia de seguridad de la información para recuperarla si algo falla.</span></div><div class="gi"><b>Despliegue</b><span>Publicar la web en internet para que cualquiera pueda visitarla.</span></div><div class="gi"><b>Vercel</b><span>Servicio donde publicamos las webs; las mantiene en línea y rápidas.</span></div><div class="gi"><b>Dominio</b><span>La dirección de la web, por ejemplo procesalab.com.</span></div><div class="gi"><b>Subdominio</b><span>Dirección que cuelga de un dominio, por ejemplo app.procesalab.com.</span></div><div class="gi"><b>DNS</b><span>Configuración que conecta el dominio con el servidor donde vive la web.</span></div><div class="gi"><b>HTTPS</b><span>Conexión segura; muestra el candado en el navegador.</span></div><div class="gi"><b>Landing page</b><span>Página web de una sola sección enfocada en presentar y convertir clientes.</span></div><div class="gi"><b>Poka-yoke</b><span>Mecanismo a prueba de errores: impide avanzar si algo no está bien hecho.</span></div><div class="gi"><b>Anticipo</b><span>Pago inicial para arrancar el proyecto.</span></div></div>
+<div class="foot"><span>ProcesaLab · procesalab0@gmail.com · procesalab.app</span><b>Procesos inteligentes. Empresas imparables.</b></div>
+
+</main>
+<script>
+(()=>{
+const D=[
+['Qué recibimos','Datos de contacto y una idea general del proyecto.'],
+['Qué entregamos','Resumen del negocio, problema a resolver y objetivos medibles.'],
+['Qué entregamos','Propuesta con alcance, fases, tiempos y precio.'],
+['Qué entregamos','Prototipo navegable y dirección visual para aprobar.'],
+['Qué entregamos','Código funcional guardado en GitHub con cada cambio.'],
+['Qué entregamos','Base de datos configurada y conectada a la web.'],
+['Qué entregamos','Lista de pruebas en celular y computadora, sin errores.'],
+['Qué entregamos','Web publicada en Vercel con dominio y HTTPS.'],
+['Qué entregamos','Accesos, guía de uso y plan de mantenimiento.']];
+document.querySelectorAll('.node').forEach((n,i)=>{
+ n.style.animationDelay=(i*0.08)+'s';
+ const d=D[i];if(d){const m=document.createElement('p');m.className='more';m.innerHTML='<b>'+d[0]+'</b>'+d[1];n.appendChild(m);}
+ n.addEventListener('click',()=>n.classList.toggle('open'));
+});
+const rows=[...document.querySelectorAll('tbody tr')].filter(r=>!r.closest('.amef'));
+const cnt=document.getElementById('cnt'),bar=document.getElementById('cbar');
+function upd(){const k=rows.filter(r=>r.classList.contains('ok')).length;cnt.textContent=k+' / '+rows.length+' listos';bar.style.width=(k/rows.length*100)+'%';}
+rows.forEach(r=>r.addEventListener('click',()=>{r.classList.toggle('ok');upd();}));
+})();
+</script>
+<script>
+(()=>{
+const P=['▶','1','2','◆','3','4','5','6','7','■'];
+const PN=['Contacto','Diagnóstico','Propuesta','Aceptación','Diseño','Desarrollo','Base de datos','Pruebas','Despliegue','Entrega'];
+const E='Emmanuel',G='Diego',A='Ambos';
+// paso, modo, efecto, S, causa, O, control, D, acción, resp, O2, D2
+const R=[
+[0,'Solicitud sin respuesta a tiempo','El cliente se va con otro proveedor',6,'No hay registro central de contactos',5,'Revisión manual de WhatsApp y correo',6,'Registrar cada contacto en un tablero y responder en menos de 24 h',G,2,3],
+[1,'Requisitos incompletos o mal entendidos','Retrabajo y cambios de alcance',8,'Reunión sin guía de preguntas',6,'Notas libres de la reunión',5,'Cuestionario estándar de diagnóstico y minuta validada por el cliente',E,3,3],
+[1,'Objetivos no medibles','No se puede demostrar el valor del proyecto',5,'No se definen indicadores',5,'Ninguno',6,'Definir 2–3 indicadores (KPIs) por proyecto',G,2,3],
+[2,'Subestimar tiempo o costo','Pérdida de margen y retrasos',8,'Sin histórico de horas por proyecto',6,'Experiencia del equipo',5,'Registrar horas reales y usar tabla de precios base',G,3,3],
+[2,'Alcance ambiguo','Desacuerdos con el cliente',7,'Redacción general del alcance',5,'Revisión interna',4,'Lista de “incluye / no incluye” y rondas de ajuste definidas',A,2,3],
+[3,'Se inicia sin anticipo','Trabajo sin respaldo económico',9,'Arrancar por confianza',3,'Acuerdo verbal',4,'No iniciar diseño sin anticipo, contrato y recibo',G,1,2],
+[4,'El diseño no refleja la marca','Rechazos repetidos del prototipo',6,'Faltan logos, colores o fotos',5,'Checklist de recursos',4,'Pedir kit de marca completo antes del prototipo',G,2,3],
+[4,'Cambios ilimitados al diseño','Retrasos y horas no cobradas',6,'Sin límite de rondas',6,'Ninguno',7,'Dos rondas incluidas; cambios extra se cotizan',G,3,3],
+[5,'Código generado por IA con errores o inseguro','Fallas en producción',8,'Aceptar sugerencias sin revisar',5,'Revisión manual',5,'Revisar cada cambio y probarlo antes de subirlo',E,2,3],
+[5,'Pérdida de código o versiones','Retrabajo',9,'No subir cambios a GitHub',2,'GitHub',2,'Commit diario y rama principal protegida',E,1,2],
+[6,'Fuga de datos o permisos abiertos','Daño legal y a la reputación',10,'Reglas de acceso mal configuradas',3,'Revisión manual',6,'Reglas de acceso por usuario, contraseñas seguras y respaldo semanal',E,2,3],
+[6,'El formulario no guarda la información','Se pierden solicitudes de clientes',8,'Claves o conexión mal configuradas',4,'Prueba manual',4,'Prueba con envío real y aviso por correo de cada registro',E,2,2],
+[7,'No se prueba en celular','La web se ve mal en iPhone o Android',7,'Probar solo en computadora',5,'Navegador de escritorio',5,'Checklist de pruebas en 3 dispositivos',E,2,2],
+[7,'Enlaces o botones rotos','El cliente pierde ventas',7,'No hay lista de pruebas',4,'Revisión visual',5,'Revisar cada enlace, botón y WhatsApp antes de publicar',E,2,2],
+[8,'Dominio mal conectado','Sitio caído o sin HTTPS',8,'Registros DNS incorrectos',3,'Panel de Vercel',3,'Guía de conexión DNS y verificación de HTTPS',E,2,2],
+[8,'Dominio vence o no es del cliente','El cliente pierde su dirección web',7,'Compra sin acuerdo de titularidad',3,'Ninguno',6,'Comprar a nombre del cliente con renovación automática',G,1,3],
+[9,'El cliente no sabe usar el sistema','Exceso de soporte y mala experiencia',5,'Capacitación corta',5,'Explicación verbal',5,'Guía de uso y video corto por proyecto',E,2,3],
+[9,'Pago final no cobrado','Pérdida de ingreso',9,'Entregar accesos antes del pago',4,'Seguimiento por WhatsApp',5,'Entregar accesos contra pago final y recibo',G,1,2]];
+window.AMEF_R=R;const lv=v=>v>=150?'h':v>=80?'m':'l';
+const tb=document.getElementById('tb');
+let s1=0,s2=0,hi=0;const byStep=Array(10).fill(0);
+R.forEach((r,i)=>{const[p,m,e,S,c,O,ct,D,a,rs,O2,D2]=r,n=S*O*D,n2=S*O2*D2;s1+=n;s2+=n2;if(n>=150)hi++;byStep[p]+=n;r.n=n;r.n2=n2;
+ const tr=document.createElement('tr');tr.dataset.l=lv(n);
+ tr.innerHTML=`<td class="st"><i>${P[p]}</i><br>${PN[p]}</td><td><b>${m}</b><span class="sub"><em>Efecto</em>${e}</span></td><td>${c}<span class="sub"><em>Control</em>${ct}</span></td><td class="n">${S}</td><td class="n">${O}</td><td class="n">${D}</td><td class="n"><span class="rpn ${lv(n)}">${n}</span></td><td class="ac">${a}<small>${rs}</small></td><td class="n"><span class="rpn ${lv(n2)}">${n2}</span></td>`;
+ tr.onclick=()=>tr.classList.toggle('done');tb.appendChild(tr);});
+const cnt=(id,t)=>{const el=document.getElementById(id),s0=performance.now();const f=k=>{const q=Math.min((k-s0)/1100,1);el.textContent=Math.round(t*(1-Math.pow(1-q,3)));if(q<1)requestAnimationFrame(f)};requestAnimationFrame(f)};
+cnt('k1',R.length);cnt('k2',hi);cnt('k3',Math.round(s1/R.length));cnt('k4',Math.round(s2/R.length));
+const top=[...R].sort((a,b)=>b.n-a.n).slice(0,6),mx=top[0].n;
+document.getElementById('bars').innerHTML=top.map(r=>`<div class="row"><span>${r[1]}</span><div class="track"><div class="bf" data-w="${r.n/mx*100}"></div><div class="af" data-w="${r.n2/mx*100}"></div></div><b>${r.n} → <em>${r.n2}</em></b></div>`).join('');
+const cm=Math.max(...byStep);
+document.getElementById('cols').innerHTML=byStep.map(v=>`<div class="c${v===cm?' top':''}"><b>${v}</b><div data-h="${v/cm*100}"></div></div>`).join('');
+document.getElementById('colsl').innerHTML=PN.map(n=>`<span>${n}</span>`).join('');
+const grow=()=>{document.querySelectorAll('[data-w]').forEach(e=>e.style.width=e.dataset.w+'%');document.querySelectorAll('[data-h]').forEach(e=>e.style.height=e.dataset.h+'%')};
+if(matchMedia('print').matches)grow();else{const o=new IntersectionObserver(es=>{if(es.some(e=>e.isIntersecting)){grow();o.disconnect()}});setTimeout(()=>o.observe(document.getElementById('bars')),300)}
+addEventListener('beforeprint',grow);
+document.getElementById('filt').addEventListener('click',e=>{const b=e.target.closest('button');if(!b)return;document.querySelectorAll('#filt button').forEach(x=>x.classList.toggle('on',x===b));const f=b.dataset.f;tb.querySelectorAll('tr').forEach(t=>t.classList.toggle('dim',f!=='all'&&t.dataset.l!==f))});
+})();
+</script>
+<script>
+(()=>{const R=window.AMEF_R||[];const map=[[0],[1],[2,3],[4],[5],[6],[7],[8],[9]];
+const lv=v=>v>=150?'h':v>=80?'m':'l';
+document.querySelectorAll('.flow .node').forEach((n,i)=>{const st=map[i];if(!st)return;const rs=R.filter(r=>st.includes(r[0]));if(!rs.length)return;
+const d=document.createElement('div');d.className='ff';
+d.innerHTML='<div class="fh">Qué puede fallar · '+rs.length+(rs.length>1?' riesgos':' riesgo')+'</div>'+rs.map(r=>{const np=r[3]*r[5]*r[7],n2=r[3]*r[10]*r[11];return '<div class="fr"><div class="fb fm"><small>Falla'+(r[0]===3?' · aceptación':'')+'</small>'+r[1]+'<br><span class="rp '+lv(np)+'">NPR '+np+'</span></div><div class="fx">→</div><div class="fb"><small>Efecto</small>'+r[2]+'</div><div class="fx">→</div><div class="fb fa"><small>Prevención · '+r[9]+'</small>'+r[8]+'<br><span class="rp '+lv(n2)+'">NPR '+n2+'</span></div></div>'}).join('')+'<p class="fn">Detalle completo en la sección 2 · AMEF.</p>';
+d.addEventListener('click',e=>e.stopPropagation());n.appendChild(d);});
+})();
+</script>
+<template id="__bundler_thumbnail"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120"><rect width="120" height="120" fill="#F7B6C9"></rect><rect x="40" y="18" width="40" height="18" rx="6" fill="#141310"></rect><path d="M60 36v12" stroke="#141310" stroke-width="3"></path><rect x="44" y="48" width="32" height="32" transform="rotate(45 60 64)" fill="#FF4E3A"></rect><path d="M60 86v10" stroke="#141310" stroke-width="3"></path></svg></template>
+<script src="app.js"></script><script type="module" src="logo3d.js"></script>
+</body>
+</html>
